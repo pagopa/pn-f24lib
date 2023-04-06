@@ -28,4 +28,36 @@ public class F24Form {
         this.paymentDetails = paymentDetails;
     }
 
+    public Header getHeader() {
+        return header;
+    }
+
+    public void setHeader(Header header) {
+        this.header = header;
+    }
+
+    public Contributor getContributor() {
+        return contributor;
+    }
+
+    public void setContributor(Contributor contributor) {
+        this.contributor = contributor;
+    }
+
+    public BufferedImage getSignature() {
+        return signature;
+    }
+
+    public void setSignature(BufferedImage signature) {
+        this.signature = signature;
+    }
+
+    public PaymentDetails getPaymentDetails() {
+        return paymentDetails;
+    }
+
+    public void setPaymentDetails(PaymentDetails paymentDetails) {
+        this.paymentDetails = paymentDetails;
+    }
+
 }

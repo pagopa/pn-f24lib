@@ -26,4 +26,12 @@ public class F24Simplified extends F24Form {
         this.treasurySection = treasurySection;
     }
 
+    public TreasuryAndOtherSection getTreasurySection() {
+        return treasurySection;
+    }
+
+    public void setTreasurySection(TreasuryAndOtherSection treasurySection) {
+        this.treasurySection = treasurySection;
+    }
+
 }

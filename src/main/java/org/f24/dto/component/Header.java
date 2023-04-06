@@ -19,4 +19,28 @@ public class Header {
         this.province = province;
     }
 
+    public String getAttorneyTo() {
+        return attorneyTo;
+    }
+
+    public void setAttorneyTo(String attorneyTo) {
+        this.attorneyTo = attorneyTo;
+    }
+
+    public String getAgency() {
+        return agency;
+    }
+
+    public void setAgency(String agency) {
+        this.agency = agency;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
 }
