@@ -52,4 +52,108 @@ public class PaymentMotiveRecord {
         this.creditAmount = creditAmount;
     }
 
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    public String getTributeCode() {
+        return tributeCode;
+    }
+
+    public void setTributeCode(String tributeCode) {
+        this.tributeCode = tributeCode;
+    }
+
+    public String getInstitutionCode() {
+        return institutionCode;
+    }
+
+    public void setInstitutionCode(String institutionCode) {
+        this.institutionCode = institutionCode;
+    }
+
+    public String getRavv() {
+        return ravv;
+    }
+
+    public void setRavv(String ravv) {
+        this.ravv = ravv;
+    }
+
+    public String getAcc() {
+        return acc;
+    }
+
+    public void setAcc(String acc) {
+        this.acc = acc;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(String building) {
+        this.building = building;
+    }
+
+    public String getNumberOfBuildings() {
+        return numberOfBuildings;
+    }
+
+    public void setNumberOfBuildings(String numberOfBuildings) {
+        this.numberOfBuildings = numberOfBuildings;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getDeduction() {
+        return deduction;
+    }
+
+    public void setDeduction(String deduction) {
+        this.deduction = deduction;
+    }
+
+    public String getReportingYear() {
+        return reportingYear;
+    }
+
+    public void setReportingYear(String reportingYear) {
+        this.reportingYear = reportingYear;
+    }
+
+    public String getDebitAmount() {
+        return debitAmount;
+    }
+
+    public void setDebitAmount(String debitAmount) {
+        this.debitAmount = debitAmount;
+    }
+
+    public String getCreditAmount() {
+        return creditAmount;
+    }
+
+    public void setCreditAmount(String creditAmount) {
+        this.creditAmount = creditAmount;
+    }
+
 }

@@ -18,4 +18,20 @@ public class PaymentMotiveSection {
         this.motiveRecordList = motiveRecordList;
     }
 
+    public String getOperationId() {
+        return operationId;
+    }
+
+    public void setOperationId(String operationId) {
+        this.operationId = operationId;
+    }
+
+    public List<PaymentMotiveRecord> getMotiveRecordList() {
+        return motiveRecordList;
+    }
+
+    public void setMotiveRecordList(List<PaymentMotiveRecord> motiveRecordList) {
+        this.motiveRecordList = motiveRecordList;
+    }
+
 }

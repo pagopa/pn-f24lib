@@ -23,7 +23,7 @@ public class ElidPDFCreator implements PDFCreator {
      * @return PDFDocument object with filled fields.
      */
     @Override
-    public PDDocument createPDF() {
+    public byte[] createPDF() {
         return null;
     }
 

@@ -1,6 +1,5 @@
 package org.f24.pdf.creator.impl;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.f24.dto.form.F24Imu;
 import org.f24.pdf.creator.PDFCreator;
 
@@ -23,7 +22,7 @@ public class ImuPDFCreator implements PDFCreator {
      * @return PDFDocument object with filled fields.
      */
     @Override
-    public PDDocument createPDF() {
+    public byte[] createPDF() {
         return null;
     }
 

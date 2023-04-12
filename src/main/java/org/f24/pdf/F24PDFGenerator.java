@@ -12,7 +12,7 @@ public class F24PDFGenerator {
      * @param form F24Form component (DTO for F24 Forms).
      * @return generated PDF Document.
      */
-    public PDDocument generatePDF(F24Form form) {
+    public byte[] generatePDF(F24Form form) {
         PDFCreator pdfCreator = PDFCreatorFactory.createPDFCreator(form);
         return pdfCreator.createPDF();
     }
