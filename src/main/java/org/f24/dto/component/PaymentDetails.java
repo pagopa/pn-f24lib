@@ -1,16 +1,27 @@
 package org.f24.dto.component;
 
-import java.util.Date;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+@Schema(description = "Payment Details object")
 public class PaymentDetails {
 
-    private Date dateOfPayment;
+    @NotBlank
+    @Pattern(regexp = "^\\d{2}-\\d{2}-\\d{4}$", message = "Invalid date of birth. (data di nascita)")
+    private String dateOfPayment;
+
     private String company;
-    private String bankID;
+
+    private String cabCode;
+
     private String checkNumber;
-    private String bank;
-    private String circular;
+
+    private boolean isBank;
+
     private String abiCode;
+
     private String ibanCode;
 
     /**
@@ -18,21 +29,75 @@ public class PaymentDetails {
      *
      * @param dateOfPayment date of payment (data)
      * @param company       company (azienda)
-     * @param bankID        bank ID (CAB/Sportello)
+     * @param cabCode       bank CAB code (CAB/Sportello)
      * @param checkNumber   check number of payment (pagamento effettuato con assegno n.ro)
-     * @param bank          bank (bancario/postale)
-     * @param circular      circular (circolare/vaglia postale)
+     * @param isBank        verify type of payment check (bancario/postale – circolare/vaglia postale)
      * @param abiCode       ABI code (Cod. ABI)
      * @param ibanCode      IBAN code (autorizzo addebito su conto corrente codice IBAN )
      */
-    public PaymentDetails(Date dateOfPayment, String company, String bankID, String checkNumber, String bank, String circular, String abiCode, String ibanCode) {
+    public PaymentDetails(String dateOfPayment, String company, String cabCode, String checkNumber, boolean isBank, String abiCode, String ibanCode) {
         this.dateOfPayment = dateOfPayment;
         this.company = company;
-        this.bankID = bankID;
+        this.cabCode = cabCode;
         this.checkNumber = checkNumber;
-        this.bank = bank;
-        this.circular = circular;
+        this.isBank = isBank;
         this.abiCode = abiCode;
+        this.ibanCode = ibanCode;
+    }
+
+    public String getDateOfPayment() {
+        return dateOfPayment;
+    }
+
+    public void setDateOfPayment(String dateOfPayment) {
+        this.dateOfPayment = dateOfPayment;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getCabCode() {
+        return cabCode;
+    }
+
+    public void setCabCode(String cabCode) {
+        this.cabCode = cabCode;
+    }
+
+    public String getCheckNumber() {
+        return checkNumber;
+    }
+
+    public void setCheckNumber(String checkNumber) {
+        this.checkNumber = checkNumber;
+    }
+
+    public boolean isBank() {
+        return isBank;
+    }
+
+    public void setBank(boolean bank) {
+        isBank = bank;
+    }
+
+    public String getAbiCode() {
+        return abiCode;
+    }
+
+    public void setAbiCode(String abiCode) {
+        this.abiCode = abiCode;
+    }
+
+    public String getIbanCode() {
+        return ibanCode;
+    }
+
+    public void setIbanCode(String ibanCode) {
         this.ibanCode = ibanCode;
     }
 

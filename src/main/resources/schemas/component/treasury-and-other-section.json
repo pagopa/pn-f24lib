@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "officeCode": {
+      "pattern": "^[A-Z0-9]{3}$",
+      "type": "string"
+    },
+    "actCode": {
+      "pattern": "^\\d{11}$",
+      "type": "string"
+    },
+    "treasuryRecords": {
+      "maxItems": 28,
+      "minItems": 0,
+      "type": "array",
+      "items": {
+        "$ref": ""
+      }
+    }
+  },
+  "description": "Treasury ans Other Section (Sezione Erario e Altro) object"
+}

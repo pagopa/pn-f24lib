@@ -5,11 +5,14 @@ import org.f24.dto.component.Header;
 import org.f24.dto.component.PaymentDetails;
 import org.f24.dto.component.TreasuryAndOtherSection;
 
+import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 
 public class F24Elid extends F24Form {
 
+    @Valid
     private TreasuryAndOtherSection treasurySection;
+
     private String bankAccountNumber;
     private String abiCode;
     private String bankId;
@@ -34,4 +37,35 @@ public class F24Elid extends F24Form {
         this.bankId = bankId;
     }
 
+    public TreasuryAndOtherSection getTreasurySection() {
+        return treasurySection;
+    }
+
+    public void setTreasurySection(TreasuryAndOtherSection treasurySection) {
+        this.treasurySection = treasurySection;
+    }
+
+    public String getBankAccountNumber() {
+        return bankAccountNumber;
+    }
+
+    public void setBankAccountNumber(String bankAccountNumber) {
+        this.bankAccountNumber = bankAccountNumber;
+    }
+
+    public String getAbiCode() {
+        return abiCode;
+    }
+
+    public void setAbiCode(String abiCode) {
+        this.abiCode = abiCode;
+    }
+
+    public String getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(String bankId) {
+        this.bankId = bankId;
+    }
 }

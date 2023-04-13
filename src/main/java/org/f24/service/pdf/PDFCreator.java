@@ -1,6 +1,4 @@
-package org.f24.pdf.creator;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
+package org.f24.service.pdf;
 
 public interface PDFCreator {
 
@@ -9,6 +7,6 @@ public interface PDFCreator {
      *
      * @return PDFDocument object which represents generated PDF
      */
-    PDDocument createPDF();
+    byte[] createPDF();
 
 }

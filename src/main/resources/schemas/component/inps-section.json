@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "inpsRecordList": {
+      "maxItems": 4,
+      "minItems": 0,
+      "type": "array",
+      "items": {
+        "$ref": ""
+      }
+    }
+  },
+  "description": "INPS Section (Sezione INPS) object"
+}

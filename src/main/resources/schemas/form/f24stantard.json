@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "header": {
+      "$ref": "#"
+    },
+    "contributor": {
+      "$ref": "#"
+    },
+    "paymentDetails": {
+      "$ref": "#"
+    },
+    "treasurySection": {
+      "$ref": "#"
+    },
+    "inpsSection": {
+      "$ref": "#"
+    },
+    "regionSection": {
+      "$ref": "#"
+    },
+    "imuSection": {
+      "$ref": "#"
+    },
+    "securitySection": {
+      "$ref": "#"
+    },
+    "ibanCode": {
+      "type": "string"
+    }
+  }
+}

@@ -1,29 +1,34 @@
 package org.f24.dto.form;
 
-import org.f24.dto.component.Contributor;
-import org.f24.dto.component.Header;
-import org.f24.dto.component.PaymentDetails;
-import org.f24.dto.component.TreasuryAndOtherSection;
+import org.f24.dto.component.*;
 
+import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 
 public class F24Simplified extends F24Form {
 
-    private TreasuryAndOtherSection treasurySection;
+    @Valid
+    private PaymentMotiveSection paymentMotiveSection;
 
     /**
      * Constructs F24 Simplified dto.
      *
-     * @param header          Header component
-     * @param contributor     Contributor component
-     * @param signature       signature (firma)
-     * @param paymentDetails  PaymentDetails component
-     * @param treasurySection TreasuryAndOtherSection component
-
+     * @param header               Header component
+     * @param contributor          Contributor component
+     * @param signature            signature (firma)
+     * @param paymentDetails       PaymentDetails component
+     * @param paymentMotiveSection PaymentMotiveSection component
      */
-    public F24Simplified(Header header, Contributor contributor, BufferedImage signature, PaymentDetails paymentDetails, TreasuryAndOtherSection treasurySection) {
+    public F24Simplified(Header header, Contributor contributor, BufferedImage signature, PaymentDetails paymentDetails, PaymentMotiveSection paymentMotiveSection) {
         super(header, contributor, signature, paymentDetails);
-        this.treasurySection = treasurySection;
+        this.paymentMotiveSection = paymentMotiveSection;
     }
 
+    public PaymentMotiveSection getPaymentMotiveSection() {
+        return paymentMotiveSection;
+    }
+
+    public void setPaymentMotiveSection(PaymentMotiveSection paymentMotiveSection) {
+        this.paymentMotiveSection = paymentMotiveSection;
+    }
 }
