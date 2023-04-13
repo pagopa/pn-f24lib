@@ -1,22 +1,41 @@
 package org.f24.dto.component;
 
-import java.util.Date;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+@Schema(description = "Personal Data (Dati Anagrafici) object")
 public class PersonalData {
 
-    private String corporateName;
-    private String name;
-    private Date dateOfBirth;
-    private int sex;
-    private String municipalityOfBirth;
-    private String province;
+    @NotBlank
+    @Pattern(regexp = "^[A-Z]{1,24}$", message = "Invalid surname. (cognome)")
+    private String surname;
 
-    //ToDo check province field translation
+    @NotBlank
+    @Pattern(regexp = "^[A-Z]{1,20}$,", message = "Invalid name. (nome)")
+    private String name;
+
+    @NotBlank
+    @Pattern(regexp = "^\\d{2}-\\d{2}-\\d{4}$", message = "Invalid date of birth. (data di nascita)")
+    private String dateOfBirth;
+
+    @NotBlank
+    @Pattern(regexp = "^[FM]$",message = "Invalid sex. (sesso)")
+    private String sex;
+
+    @NotBlank
+    @Pattern(regexp = "^[A-Z]{1,40}$", message = "Invalid municipality of birth. (comune o stato estero di nascita)")
+    private String municipalityOfBirth;
+
+    @NotBlank
+    @Pattern(regexp = "^[A-Z]{2}$", message = "Invalid province. (provincia)")
+    private String province;
 
     /**
      * Constructs personal data section of contributor (dati anagrafici)
      *
-     * @param corporateName       surname/name or corporate name (cognome/denominazione o ragione sociale )
+     * @param surname             surname/name or corporate name (cognome/denominazione o ragione sociale )
      * @param name                name (nome)
      * @param dateOfBirth         date of birth (data di nascita)
      * @param sex                 sex (sesso)
@@ -24,8 +43,8 @@ public class PersonalData {
      * @param province            province (prov.)
      */
 
-    public PersonalData(String corporateName, String name, Date dateOfBirth, int sex, String municipalityOfBirth, String province) {
-        this.corporateName = corporateName;
+    public PersonalData(String surname, String name, String dateOfBirth, String sex, String municipalityOfBirth, String province) {
+        this.surname = surname;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.sex = sex;
@@ -33,12 +52,12 @@ public class PersonalData {
         this.province = province;
     }
 
-    public String getCorporateName() {
-        return corporateName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setCorporateName(String corporateName) {
-        this.corporateName = corporateName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getName() {
@@ -49,19 +68,19 @@ public class PersonalData {
         this.name = name;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

@@ -1,8 +1,7 @@
-package org.f24.pdf.creator.impl;
+package org.f24.service.pdf.impl;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.f24.dto.form.F24Elid;
-import org.f24.pdf.creator.PDFCreator;
+import org.f24.service.pdf.PDFCreator;
 
 public class ElidPDFCreator implements PDFCreator {
 
@@ -23,7 +22,7 @@ public class ElidPDFCreator implements PDFCreator {
      * @return PDFDocument object with filled fields.
      */
     @Override
-    public PDDocument createPDF() {
+    public byte[] createPDF() {
         return null;
     }
 

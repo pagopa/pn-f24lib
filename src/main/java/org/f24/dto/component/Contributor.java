@@ -1,18 +1,35 @@
 package org.f24.dto.component;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+
 public class Contributor {
 
+    @Pattern(regexp = "^[A-Z]{6}[0-9]{2}[ABCDEHLMPRST]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$", message = "Invalid tax code. (codice fiscale)")
     private String taxCode;
+
     private boolean ifCalendarYear;
-    private String deedCode;
+
+    @Pattern(regexp = "^\\d{11}$", message = "Invalid act code. (codice atto)")
+    private String actCode;
+
+    @Pattern(regexp = "^[A-Z0-9]{3}$", message = "Invalid office code. (codice ufficio)")
     private String officeCode;
+
+    @Valid
     private PersonalData personalData;
+
+    @Valid
     private TaxResidence taxResidence;
+
+    @Pattern(regexp = "^[A-Z]{6}[0-9]{2}[ABCDEHLMPRST]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$", message = "Invalid tax code of receiver.")
     private String receiverTaxCode;
+
+    @Pattern(regexp = "^[A-Z0-9]{2}$", message = "Id code. (codice identificativo)")
     private String idCode;
 
     /**
-     * Constructs contributor section (Contribuente) for Excise, IMU forms
+     * Constructs contributor section (Contribuente) for Excise, Standard forms
      *
      * @param taxCode         tax code (codice fiscale)
      * @param ifCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
@@ -51,15 +68,15 @@ public class Contributor {
      * Constructs contributor section (Contribuente) for Simplified form
      *
      * @param taxCode         tax code (codice fiscale)
-     * @param deedCode        deed code (codice atto)
+     * @param actCode         act code (codice atto)
      * @param officeCode      office code (codice ufficio)
      * @param personalData    personal data (dati anagrafici)
      * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public Contributor(String taxCode, String deedCode, String officeCode, PersonalData personalData, String receiverTaxCode, String idCode) {
+    public Contributor(String taxCode, String actCode, String officeCode, PersonalData personalData, String receiverTaxCode, String idCode) {
         this.taxCode = taxCode;
-        this.deedCode = deedCode;
+        this.actCode = actCode;
         this.officeCode = officeCode;
         this.personalData = personalData;
         this.receiverTaxCode = receiverTaxCode;
@@ -82,12 +99,12 @@ public class Contributor {
         this.ifCalendarYear = ifCalendarYear;
     }
 
-    public String getDeedCode() {
-        return deedCode;
+    public String getActCode() {
+        return actCode;
     }
 
-    public void setDeedCode(String deedCode) {
-        this.deedCode = deedCode;
+    public void setActCode(String actCode) {
+        this.actCode = actCode;
     }
 
     public String getOfficeCode() {

@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "exciseTaxList": {
+      "maxItems": 4,
+      "minItems": 0,
+      "type": "array",
+      "items": {
+        "$ref": ""
+      }
+    },
+    "officeCode": {
+      "pattern": "^[A-Z0-9]{3}$",
+      "type": "string"
+    },
+    "actCode": {
+      "pattern": "^\\d{11}$",
+      "type": "string"
+    }
+  },
+  "description": "Excise Section (Accise) object"
+}

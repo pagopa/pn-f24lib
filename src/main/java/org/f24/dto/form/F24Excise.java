@@ -1,15 +1,26 @@
 package org.f24.dto.form;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.f24.dto.component.*;
 
+import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 
+@Schema( description = "F24 Excise (Accise) object")
 public class F24Excise extends F24Form {
 
+    @Valid
+    @Schema(implementation = TreasurySection.class)
     private TreasurySection treasurySection;
+
+    @Valid
+    @Schema(implementation = InpsSection.class)
     private InpsSection inpsSection;
+
     private RegionSection regionSection;
     private ImuSection imuSection;
+
+    @Valid
     private ExciseSection exciseSection;
     private String ibanCode;
 
@@ -34,6 +45,54 @@ public class F24Excise extends F24Form {
         this.regionSection = regionSection;
         this.imuSection = imuSection;
         this.exciseSection = exciseSection;
+        this.ibanCode = ibanCode;
+    }
+
+    public TreasurySection getTreasurySection() {
+        return treasurySection;
+    }
+
+    public void setTreasurySection(TreasurySection treasurySection) {
+        this.treasurySection = treasurySection;
+    }
+
+    public InpsSection getInpsSection() {
+        return inpsSection;
+    }
+
+    public void setInpsSection(InpsSection inpsSection) {
+        this.inpsSection = inpsSection;
+    }
+
+    public RegionSection getRegionSection() {
+        return regionSection;
+    }
+
+    public void setRegionSection(RegionSection regionSection) {
+        this.regionSection = regionSection;
+    }
+
+    public ImuSection getImuSection() {
+        return imuSection;
+    }
+
+    public void setImuSection(ImuSection imuSection) {
+        this.imuSection = imuSection;
+    }
+
+    public ExciseSection getExciseSection() {
+        return exciseSection;
+    }
+
+    public void setExciseSection(ExciseSection exciseSection) {
+        this.exciseSection = exciseSection;
+    }
+
+    public String getIbanCode() {
+        return ibanCode;
+    }
+
+    public void setIbanCode(String ibanCode) {
         this.ibanCode = ibanCode;
     }
 

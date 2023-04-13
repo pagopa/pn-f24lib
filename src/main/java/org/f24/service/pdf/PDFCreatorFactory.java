@@ -1,11 +1,10 @@
-package org.f24.pdf;
+package org.f24.service.pdf;
 
 import org.f24.dto.form.*;
-import org.f24.pdf.creator.impl.ExcisePDFCreator;
-import org.f24.pdf.creator.PDFCreator;
-import org.f24.pdf.creator.impl.ElidPDFCreator;
-import org.f24.pdf.creator.impl.ImuPDFCreator;
-import org.f24.pdf.creator.impl.SimplifiedPDFCreator;
+import org.f24.service.pdf.impl.ExcisePDFCreator;
+import org.f24.service.pdf.impl.ElidPDFCreator;
+import org.f24.service.pdf.impl.StandardPDFCreator;
+import org.f24.service.pdf.impl.SimplifiedPDFCreator;
 
 public class PDFCreatorFactory {
 
@@ -20,8 +19,8 @@ public class PDFCreatorFactory {
             return new ExcisePDFCreator((F24Excise) form);
         else if (form instanceof F24Elid)
             return new ElidPDFCreator((F24Elid) form);
-        else if (form instanceof F24Imu)
-            return new ImuPDFCreator((F24Imu) form);
+        else if (form instanceof F24Standard)
+            return new StandardPDFCreator((F24Standard) form);
         else if (form instanceof F24Simplified)
             return new SimplifiedPDFCreator((F24Simplified) form);
         //ToDo throw exception
