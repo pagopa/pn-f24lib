@@ -100,8 +100,6 @@ public class SimplifiedPDFCreator implements PDFCreator {
         PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\GianlucaScatena\\Desktop\\PROGETTI\\F24\\signature.png", doc);
         // TODO PDImageXObject image = PDImageXObject.createFromByteArray()
 
-        float x = widget.getRectangle().getLowerLeftX();
-        float y = widget.getRectangle().getLowerLeftY();
         float width = widget.getRectangle().getWidth();
         float height = widget.getRectangle().getHeight();
 
