@@ -13,6 +13,9 @@ public class RegionSection {
     @Size(max = 4, message = "Maximum amount of records in Region section (sezione Regioni) is 4.")
     private List<RegionRecord> regionRecordList;
 
+    public RegionSection() {
+    }
+
     /**
      * Constructs Region Section (Sezione Regioni)
      *

@@ -1,14 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "required": [
-    "surname",
-    "name",
-    "dateOfBirth",
-    "sex",
-    "municipalityOfBirth",
-    "province"
-  ],
+  "type": ["object", "null"],
+  "required": ["name","surname","dateOfBirth","sex","municipalityOfBirth","province"],
   "properties": {
     "surname": {
       "pattern": "^[A-Z]{1,24}$",
@@ -35,15 +28,5 @@
       "type": "string"
     }
   },
-  "description": "Personal Data (Dati Anagrafici) object",
-  "examples": [
-    {
-      "surname": "ROSSI",
-      "name": "MARIO",
-      "dateOfBirth": "2000-11-11",
-      "sex": "M",
-      "municipalityOfBirth": "MILANO",
-      "province": "MI"
-    }
-  ]
+  "description": "Personal Data (Dati Anagrafici) object"
 }

@@ -14,9 +14,6 @@ public class F24Form {
     @Valid
     private Contributor contributor;
 
-    //ToDo remove signature
-   // private BufferedImage signature;
-
     @Valid
     private PaymentDetails paymentDetails;
 
@@ -25,13 +22,11 @@ public class F24Form {
      *
      * @param header         Header component
      * @param contributor    Contributor component
-     * @param signature      signature (firma)
      * @param paymentDetails PaymentDetails component
      */
-    public F24Form(Header header, Contributor contributor, BufferedImage signature, PaymentDetails paymentDetails) {
+    public F24Form(Header header, Contributor contributor, PaymentDetails paymentDetails) {
         this.header = header;
         this.contributor = contributor;
-        //this.signature = signature;
         this.paymentDetails = paymentDetails;
     }
 
@@ -51,14 +46,6 @@ public class F24Form {
         this.contributor = contributor;
     }
 
-//    public BufferedImage getSignature() {
-//        return signature;
-//    }
-//
-//    public void setSignature(BufferedImage signature) {
-//        this.signature = signature;
-//    }
-
     public PaymentDetails getPaymentDetails() {
         return paymentDetails;
     }
@@ -66,4 +53,5 @@ public class F24Form {
     public void setPaymentDetails(PaymentDetails paymentDetails) {
         this.paymentDetails = paymentDetails;
     }
+
 }

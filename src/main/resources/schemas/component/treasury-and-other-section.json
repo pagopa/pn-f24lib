@@ -15,7 +15,7 @@
       "minItems": 0,
       "type": "array",
       "items": {
-        "$ref": ""
+        "$ref": "resource:/schemas/component/treasury-record.json"
       }
     }
   },

@@ -1,5 +1,6 @@
 package org.f24.controller;
 
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/f24/standard")
 public class F24StandardController {
@@ -29,7 +32,7 @@ public class F24StandardController {
     @ApiResponse(responseCode = "200", description = "Standard form fields validation successfully passed.")
     @ApiResponse(responseCode = "400", description = "Form fields validation failed.")
     @PostMapping("/validate")
-    public ResponseEntity<Void> validate(@Schema(implementation = F24Standard.class) @RequestBody F24Standard f24Standard) {
+    public ResponseEntity<Void> validate(@Schema(implementation = F24Standard.class) @RequestBody F24Standard f24Standard) throws IOException, ProcessingException {
         validatorService.validatePDF(f24Standard);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -11,7 +11,7 @@
       "minItems": 0,
       "type": "array",
       "items": {
-        "$ref": ""
+        "$ref": "resource:/schemas/component/payment-motive-record.json"
       }
     }
   },

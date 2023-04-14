@@ -24,7 +24,7 @@
       "type": "string"
     },
     "period": {
-      "$ref": ""
+      "$ref": "resource:/schemas/component/reporting-period.json"
     },
     "debitAmount": {
       "pattern": "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$",

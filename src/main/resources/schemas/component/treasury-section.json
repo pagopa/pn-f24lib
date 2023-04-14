@@ -10,9 +10,9 @@
       "maxItems": 6,
       "minItems": 0,
       "type": "array",
-      "items": {
-        "$ref": ""
-      }
+          "items": {
+            "$ref": "resource:/schemas/component/tax.json"
+          }
     },
     "officeCode": {
       "pattern": "^[A-Z0-9]{3}$",

@@ -13,6 +13,9 @@ public class InpsSection {
     @Size(max = 4, message = "Maximum amount of records in INPS section (sezione INPS) is 4.")
     private List<InpsRecord> inpsRecordList;
 
+    public InpsSection() {
+    }
+
     /**
      * Constructs INPS Section (Sezione INPS)
      *

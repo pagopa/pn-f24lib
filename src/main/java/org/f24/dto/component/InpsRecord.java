@@ -29,6 +29,9 @@ public class InpsRecord {
     @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid credit amount offset. (importo a credito)")
     private String creditAmount;
 
+    public InpsRecord() {
+    }
+
     /**
      * Constructs INPS record for INPS Section (Sezione INPS)
      *

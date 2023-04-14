@@ -10,13 +10,13 @@ public class ValidatorFactory {
 
     public static Validator createValidator(F24Form form) {
         if (form instanceof F24Excise)
-            return new ExciseValidator((F24Excise) form);
+            return new ExciseValidator("schemas/form/f24excise.json", (F24Excise) form);
         else if (form instanceof F24Elid)
-            return new ElidValidator((F24Elid) form);
+            return new ElidValidator("schemas/form/f24elid.json",(F24Elid) form);
         else if (form instanceof F24Standard)
-            return new StandardValidator((F24Standard) form);
+            return new StandardValidator("schemas/form/f24standard.json",(F24Standard) form);
         else if (form instanceof F24Simplified)
-            return new SimplifiedValidator((F24Simplified) form);
+            return new SimplifiedValidator("schemas/form/f24simplified.json",(F24Simplified) form );
             //ToDo throw exception
         else return null;
     }

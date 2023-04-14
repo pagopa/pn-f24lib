@@ -2,33 +2,26 @@ package org.f24.dto.component;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Schema(description = "Personal Data (Dati Anagrafici) object")
 public class PersonalData {
 
-    @NotBlank
     @Pattern(regexp = "^[A-Z]{1,24}$", message = "Invalid surname. (cognome)")
     private String surname;
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Z]{1,20}$,", message = "Invalid name. (nome)")
+    @Pattern(regexp = "^[A-Z]{1,20}$", message = "Invalid name. (nome)")
     private String name;
 
-    @NotBlank
     @Pattern(regexp = "^\\d{2}-\\d{2}-\\d{4}$", message = "Invalid date of birth. (data di nascita)")
     private String dateOfBirth;
 
-    @NotBlank
     @Pattern(regexp = "^[FM]$",message = "Invalid sex. (sesso)")
     private String sex;
 
-    @NotBlank
     @Pattern(regexp = "^[A-Z]{1,40}$", message = "Invalid municipality of birth. (comune o stato estero di nascita)")
     private String municipalityOfBirth;
 
-    @NotBlank
     @Pattern(regexp = "^[A-Z]{2}$", message = "Invalid province. (provincia)")
     private String province;
 
@@ -42,7 +35,6 @@ public class PersonalData {
      * @param municipalityOfBirth municipality (or foreign state) of birth (comune (o Stato estero) di nascita)
      * @param province            province (prov.)
      */
-
     public PersonalData(String surname, String name, String dateOfBirth, String sex, String municipalityOfBirth, String province) {
         this.surname = surname;
         this.name = name;
