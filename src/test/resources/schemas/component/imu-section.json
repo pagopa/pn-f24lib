@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "operationId": {
+      "pattern": "^[A-Z0-9]{18}$",
+      "type": "string"
+    },
+    "imuRecordList": {
+      "maxItems": 4,
+      "minItems": 0,
+      "type": "array",
+      "items": {
+        "$ref": "resource:/schemas/component/imu-record.json"
+      }
+    },
+    "deduction": {
+      "pattern": "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$",
+      "type": "string"
+    }
+  },
+  "description": "IMU Section (Sezione IMU e Altri Tributi Locali) object"
+}
