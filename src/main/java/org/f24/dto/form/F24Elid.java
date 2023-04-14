@@ -5,11 +5,8 @@ import org.f24.dto.component.Header;
 import org.f24.dto.component.PaymentDetails;
 import org.f24.dto.component.TreasuryAndOtherSection;
 
-import javax.validation.Valid;
-
 public class F24Elid extends F24Form {
 
-    @Valid
     private TreasuryAndOtherSection treasurySection;
 
     private String bankAccountNumber;

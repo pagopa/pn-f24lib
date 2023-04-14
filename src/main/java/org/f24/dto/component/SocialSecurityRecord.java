@@ -1,36 +1,19 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "Social Security Record object")
 public class SocialSecurityRecord {
 
-    @Pattern(regexp = "^[0-9]{4}$", message = "Invalid institution code. (codice ente)")
     private String institutionCode;
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9A-Z]{5}$", message = "Invalid location code. (codice sede)")
     private String locationCode;
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9A-Z]{3,4}$", message = "Invalid contribution reason. (causale contributo)")
     private String contributionReason;
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9]{9}$", message = "Invalid position code. (codice posizione)")
     private String positionCode;
 
-    @Valid
     private ReportingPeriod period;
 
-    @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid debit amount paid. (importo a debito)")
     private String debitAmount;
 
-    @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid credit amount offset. (importo a credito)")
     private String creditAmount;
 
     /**

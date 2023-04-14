@@ -2,12 +2,13 @@ package org.f24.dto.form;
 
 import org.f24.dto.component.*;
 
-import javax.validation.Valid;
-
 public class F24Simplified extends F24Form {
 
-    @Valid
     private PaymentMotiveSection paymentMotiveSection;
+
+    public F24Simplified() {
+        super();
+    }
 
     /**
      * Constructs F24 Simplified dto.

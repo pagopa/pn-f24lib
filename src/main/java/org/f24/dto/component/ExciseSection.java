@@ -1,23 +1,13 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.List;
 
-@Schema(description = "Excise Section (Accise) object")
 public class ExciseSection {
 
-    @Valid
-    @Size(max = 4, message = "Maximum amount of records in Excise section (Accise) is 7.")
     private List<ExciseTax> exciseTaxList;
 
-    @Pattern(regexp = "^[A-Z0-9]{3}$", message = "Invalid office code. (codice ufficio)")
     private String officeCode;
 
-    @Pattern(regexp = "^\\d{11}$", message = "Invalid act code. (codice atto)")
     private String actCode;
 
     /**

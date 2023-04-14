@@ -1,34 +1,21 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "Excise Tax object")
 public class ExciseTax {
 
-    @Pattern(regexp = "^[A-Z]{2}$", message = "Invalid institution. (ente)")
     private String institution;
 
-    @Pattern(regexp = "^[A-Z]{2}$", message = "Invalid province. (provincia)")
     private String province;
 
-    @Pattern(regexp = "^[A-Z0-9]{17}$", message = "Invalid id elements. (elementi identificativi)")
     private String idCode;
 
-    @Pattern(regexp = "^[0-9A-Z]{4}$", message = "Invalid tribute code. (codice tributo)")
     private String tributeCode;
 
-    @Pattern(regexp = "^[A-Z0-9]{0,4}$", message = "Invalid installment. (rateazione)")
     private String installment;
 
-    @Pattern(regexp = "^[0-1][0-9]$", message = "Invalid month. (mese)")
     private String month;
 
-    @Pattern(regexp = "^[1-2][0-9]{3}$", message = "Invalid reporting year. (anno di riferimento)")
     private String reportingYear;
 
-    @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid debit amount paid. (importo a debito)")
     private String debitAmount;
 
     /**

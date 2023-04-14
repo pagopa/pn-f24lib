@@ -1,17 +1,13 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "Header object")
 public class Header {
 
     private String delegationTo;
     private String agency;
 
-    @Pattern(regexp = "^[A-Z]{2}$", message = "Invalid province. (provincia)")
     private String province;
+
+    public Header() {}
 
     /**
      * Constructs header section of F24 form

@@ -1,18 +1,12 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "Company Data (Dati Anagrafici PNF) object")
 public class CompanyData {
 
-    @Pattern(regexp = "^[A-Z]{1,60}$", message = "Invalid name. (denominazione)")
     private String name;
 
-    @Valid
     private TaxResidence taxResidence;
+
+    public CompanyData() {}
 
     /**
      * Constructs personal data section of contributor (dati anagrafici PF)

@@ -1,17 +1,12 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-
-@Schema(description = "Person Data (Dati Anagrafici PF) object")
 public class PersonData {
 
-    @Valid
     private PersonalData personalData;
 
-    @Valid
     private TaxResidence taxResidence;
+
+    public PersonData() {}
 
     /**
      * Constructs personal data section of contributor (dati anagrafici PF)

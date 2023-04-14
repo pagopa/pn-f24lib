@@ -1,16 +1,9 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "Reporting Period (Sezione INPS) object")
 public class ReportingPeriod {
 
-    @Pattern(regexp = "^[0-9]{6}$", message = "Invalid start of reporting period. (periodo di riferimento da)")
     private String startDate;
 
-    @Pattern(regexp = "^[0-9]{6}$", message = "Invalid end of reporting period. (periodo di riferimento a)")
     private String endDate;
 
     /**

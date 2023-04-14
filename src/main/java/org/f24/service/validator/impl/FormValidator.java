@@ -7,11 +7,19 @@ import com.github.fge.jsonschema.core.report.ProcessingMessage;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import org.f24.dto.component.PersonData;
+import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
+import org.f24.service.validator.ErrorEnum;
+import org.f24.service.validator.TaxCodeCalculator;
 import org.f24.service.validator.Validator;
 import org.f24.exception.ResourceException;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class FormValidator implements Validator {
 
@@ -24,9 +32,8 @@ public class FormValidator implements Validator {
         this.form = form;
     }
 
-    //ToDo delete try-catch
     @Override
-    public void validate() throws ProcessingException, IOException {
+    public void validate() throws ProcessingException, IOException, ResourceException {
         JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().freeze();
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -37,17 +44,26 @@ public class FormValidator implements Validator {
         ProcessingReport processingReport = jsonSchema.validate(jsonForm);
         if (!processingReport.isSuccess()) {
             for (ProcessingMessage message : processingReport) {
-                try {
-                    manageError(message);
-                } catch (ResourceException e) {
-                    System.out.println(e.getMessage());
+                manageError(message);
+            }
+        }
+
+        // TODO move from here
+        PersonData personData = this.form.getContributor().getPersonData();
+        if(personData != null) {
+            try {
+                PersonalData personalData = personData.getPersonalData();
+                String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getDateOfBirth()), "A515");
+                if(!this.form.getContributor().getTaxCode().equals(calculatedTaxCode)) {
+                    System.out.println("TAX CODE ERROR");
                 }
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
     private void manageError(ProcessingMessage message) throws ResourceException {
-
         JsonNode errorDetails = message.asJson();
         JsonNode instance = errorDetails.findValue("instance");
 
@@ -60,14 +76,9 @@ public class FormValidator implements Validator {
 
     private String getErrorMessage(JsonNode errorDetails, String field) {
         String keyword = errorDetails.findValue("keyword").asText();
-        return switch (keyword) {
-            case "pattern" -> "Invalid " + field + " : " + errorDetails.findValue("string") + ".";
-            case "maxItems" ->
-                    "Too much records for " + field + ". Max amount of items: " + errorDetails.findValue("maxItems.");
-            case "minItems" -> "Minimum amount of records required: " + errorDetails.findValue("minItems") + ".";
-            case "type" -> "Field " + field + " is required.";
-            default -> "Error occurred during validation.";
-        };
+        Optional<ErrorEnum> error = Arrays.stream(ErrorEnum.values()).filter(e -> e.getCode().equals(keyword)).findFirst();
+        JsonNode details = errorDetails.findValue("message");
+        return error.map(e -> e.getMessage(field, details != null ? details.toString() : "")).orElse(ErrorEnum.DEFAULT.getMessage());
     }
 
 }

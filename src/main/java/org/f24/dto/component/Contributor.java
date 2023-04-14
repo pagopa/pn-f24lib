@@ -1,39 +1,24 @@
 package org.f24.dto.component;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-
 public class Contributor {
 
-    @Min(value = 11)
-    @Max(value = 16)
-    @Pattern(regexp = "^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})|([0-9]{11})$", message = "Invalid tax code. (codice fiscale)")
     private String taxCode;
 
     private boolean ifCalendarYear;
 
-    @Valid
     private PersonData personData;
 
-    @Valid
     private CompanyData companyData;
 
-    @Pattern(regexp = "^[A-Z]{6}[0-9]{2}[ABCDEHLMPRST]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$", message = "Invalid tax code of receiver.")
     private String receiverTaxCode;
 
-    @Pattern(regexp = "^[A-Z0-9]{2}$", message = "Id code. (codice identificativo)")
     private String idCode;
 
-    @Pattern(regexp = "^\\d{11}$", message = "Invalid act code. (codice atto)")
     private String actCode;
 
-    @Pattern(regexp = "^[A-Z0-9]{3}$", message = "Invalid office code. (codice ufficio)")
     private String officeCode;
 
-    public Contributor() {
-    }
+    public Contributor() {}
 
     /**
      * Constructs contributor section (Contribuente) for Excise, Standard forms

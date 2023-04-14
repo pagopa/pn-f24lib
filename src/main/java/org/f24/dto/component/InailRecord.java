@@ -1,35 +1,19 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "INAIL Record object")
 public class InailRecord {
 
-    @Pattern(regexp = "^[0-9]{5}$", message = "Invalid location code. (codice sede)")
     private String locationCode;
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9]{8}$", message = "Invalid company code. (codice ditta)")
     private String companyCode;
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9]{2}$", message = "Invalid bank account code. (codice controllo (c.c.) del Codice Ditta)")
     private String bankAccount;
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9]{6}$", message = "Invalid reference number. (numero di riferimento)")
     private String referenceNumber;
 
-    @Pattern(regexp = "^[A-Z0-9]$", message = "Invalid reason. (causale contributo)")
     private String reason;
 
-    @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid debit amount paid. (importo a debito)")
     private String debitAmount;
 
-    @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid credit amount offset. (importo a credito)")
     private String creditAmount;
 
     /**
