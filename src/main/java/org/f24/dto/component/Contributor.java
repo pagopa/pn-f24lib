@@ -10,17 +10,11 @@ public class Contributor {
 
     private boolean ifCalendarYear;
 
-    @Pattern(regexp = "^\\d{11}$", message = "Invalid act code. (codice atto)")
-    private String actCode;
-
-    @Pattern(regexp = "^[A-Z0-9]{3}$", message = "Invalid office code. (codice ufficio)")
-    private String officeCode;
+    @Valid
+    private PersonData personData;
 
     @Valid
-    private PersonalData personalData;
-
-    @Valid
-    private TaxResidence taxResidence;
+    private CompanyData companyData;
 
     @Pattern(regexp = "^[A-Z]{6}[0-9]{2}[ABCDEHLMPRST]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$", message = "Invalid tax code of receiver.")
     private String receiverTaxCode;
@@ -28,57 +22,49 @@ public class Contributor {
     @Pattern(regexp = "^[A-Z0-9]{2}$", message = "Id code. (codice identificativo)")
     private String idCode;
 
+    @Pattern(regexp = "^\\d{11}$", message = "Invalid act code. (codice atto)")
+    private String actCode;
+
+    @Pattern(regexp = "^[A-Z0-9]{3}$", message = "Invalid office code. (codice ufficio)")
+    private String officeCode;
+
+    public Contributor() {
+    }
+
     /**
      * Constructs contributor section (Contribuente) for Excise, Standard forms
      *
      * @param taxCode         tax code (codice fiscale)
      * @param ifCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
-     * @param personalData    PersonalData component (dati anagrafici)
-     * @param taxResidence    TaxResidence component (domicilio fiscale)
+     * @param personData      PersonData component (dati anagrafici PF)
      * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public Contributor(String taxCode, boolean ifCalendarYear, PersonalData personalData, TaxResidence taxResidence, String receiverTaxCode, String idCode) {
+    public Contributor(String taxCode, boolean ifCalendarYear, String actCode, String officeCode, PersonData personData, String receiverTaxCode, String idCode) {
         this.taxCode = taxCode;
         this.ifCalendarYear = ifCalendarYear;
-        this.personalData = personalData;
-        this.taxResidence = taxResidence;
-        this.receiverTaxCode = receiverTaxCode;
-        this.idCode = idCode;
-    }
-
-    /**
-     * Constructs contributor section (Contribuente) for ELID form
-     *
-     * @param taxCode         tax code (codice fiscale)
-     * @param personalData    personal data (dati anagrafici)
-     * @param taxResidence    tax residence (domicilio fiscale)
-     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
-     * @param idCode          ID code (codice identificativo)
-     */
-    public Contributor(String taxCode, PersonalData personalData, TaxResidence taxResidence, String receiverTaxCode, String idCode) {
-        this.taxCode = taxCode;
-        this.personalData = personalData;
-        this.taxResidence = taxResidence;
-        this.receiverTaxCode = receiverTaxCode;
-        this.idCode = idCode;
-    }
-
-    /**
-     * Constructs contributor section (Contribuente) for Simplified form
-     *
-     * @param taxCode         tax code (codice fiscale)
-     * @param actCode         act code (codice atto)
-     * @param officeCode      office code (codice ufficio)
-     * @param personalData    personal data (dati anagrafici)
-     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
-     * @param idCode          ID code (codice identificativo)
-     */
-    public Contributor(String taxCode, String actCode, String officeCode, PersonalData personalData, String receiverTaxCode, String idCode) {
-        this.taxCode = taxCode;
         this.actCode = actCode;
         this.officeCode = officeCode;
-        this.personalData = personalData;
+        this.personData = personData;
+        this.receiverTaxCode = receiverTaxCode;
+        this.idCode = idCode;
+    }
+
+    /**
+     * Constructs contributor section (Contribuente) for Excise, Standard forms
+     *
+     * @param taxCode         tax code (codice fiscale)
+     * @param ifCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
+     * @param companyData     CompanyData component (dati anagrafici PNF)
+     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param idCode          ID code (codice identificativo)
+     */
+    public Contributor(String taxCode, boolean ifCalendarYear, String actCode, String officeCode, CompanyData companyData, String receiverTaxCode, String idCode) {
+        this.taxCode = taxCode;
+        this.ifCalendarYear = ifCalendarYear;
+        this.actCode = actCode;
+        this.officeCode = officeCode;
+        this.companyData = companyData;
         this.receiverTaxCode = receiverTaxCode;
         this.idCode = idCode;
     }
@@ -115,20 +101,20 @@ public class Contributor {
         this.officeCode = officeCode;
     }
 
-    public PersonalData getPersonalData() {
-        return personalData;
+    public PersonData getPersonData() {
+        return personData;
     }
 
-    public void setPersonalData(PersonalData personalData) {
-        this.personalData = personalData;
+    public void setPersonData(PersonData personData) {
+        this.personData = personData;
     }
 
-    public TaxResidence getTaxResidence() {
-        return taxResidence;
+    public CompanyData getCompanyData() {
+        return companyData;
     }
 
-    public void setTaxResidence(TaxResidence taxResidence) {
-        this.taxResidence = taxResidence;
+    public void setCompanyData(CompanyData companyData) {
+        this.companyData = companyData;
     }
 
     public String getReceiverTaxCode() {

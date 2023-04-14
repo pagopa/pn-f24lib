@@ -1,5 +1,6 @@
 package org.f24.controller;
 
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/f24/elid")
@@ -26,7 +29,7 @@ public class F24ElidController {
     @ApiResponse(responseCode = "200", description = "ELID form fields validation successfully passed.")
     @ApiResponse(responseCode = "400", description = "Form fields validation failed.")
     @PostMapping("/validate")
-    public ResponseEntity<Void> validate(@Schema(implementation = F24Elid.class) @RequestBody F24Elid f24Elid) {
+    public ResponseEntity<Void> validate(@Schema(implementation = F24Elid.class) @RequestBody F24Elid f24Elid) throws IOException, ProcessingException {
         validatorService.validatePDF(f24Elid);
         return new ResponseEntity<>(HttpStatus.OK);
     }

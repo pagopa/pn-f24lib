@@ -23,12 +23,11 @@
     "imuSection": {
       "$ref": "resource:/schemas/component/imu-section.json"
     },
-    "exciseSection": {
-      "$ref": "resource:/schemas/component/excise-section.json"
+    "securitySection": {
+      "$ref": "resource:/schemas/component/social-security-section.json"
     },
     "ibanCode": {
       "type": "string"
     }
-  },
-  "description": "F24 Excise (Accise) object"
+  }
 }

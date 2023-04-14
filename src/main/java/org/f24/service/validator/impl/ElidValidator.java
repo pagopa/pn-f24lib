@@ -1,19 +1,13 @@
 package org.f24.service.validator.impl;
 
 import org.f24.dto.form.F24Elid;
-import org.f24.service.validator.Validator;
 
-public class ElidValidator implements Validator {
+public class ElidValidator extends FormValidator {
 
     private F24Elid form;
 
-    public ElidValidator(F24Elid form) {
-        this.form = form;
-    }
-
-    @Override
-    public void validate() {
-
+    public ElidValidator(String schemaPath,  F24Elid form) {
+        super(schemaPath, form);
     }
 
 }

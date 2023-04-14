@@ -1,18 +1,13 @@
 package org.f24.service.validator.impl;
 
 import org.f24.dto.form.F24Standard;
-import org.f24.service.validator.Validator;
 
-public class StandardValidator implements Validator {
+public class StandardValidator extends FormValidator {
 
     private F24Standard form;
 
-    public StandardValidator(F24Standard form) {
-        this.form = form;
+    public StandardValidator(String schemaPath, F24Standard form ) {
+        super(schemaPath, form);
     }
 
-    @Override
-    public void validate() {
-
-    }
 }

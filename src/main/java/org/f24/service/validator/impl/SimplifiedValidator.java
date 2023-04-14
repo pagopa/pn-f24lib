@@ -1,18 +1,13 @@
 package org.f24.service.validator.impl;
 
 import org.f24.dto.form.F24Simplified;
-import org.f24.service.validator.Validator;
 
-public class SimplifiedValidator implements Validator {
+public class SimplifiedValidator extends FormValidator {
 
     private F24Simplified form;
 
-    public SimplifiedValidator(F24Simplified form) {
-        this.form = form;
+    public SimplifiedValidator(String schemaPath, F24Simplified form) {
+        super(schemaPath, form);
     }
 
-    @Override
-    public void validate() {
-
-    }
 }

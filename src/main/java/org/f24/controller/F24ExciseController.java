@@ -1,5 +1,6 @@
 package org.f24.controller;
 
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,6 +11,8 @@ import org.f24.service.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/f24/excise")
@@ -25,7 +28,7 @@ public class F24ExciseController {
     @ApiResponse(responseCode = "200", description = "Excise (Accise) form fields validation successfully passed.")
     @ApiResponse(responseCode = "400", description = "Form fields validation failed.")
     @PostMapping("/validate")
-    public ResponseEntity<Void> validate(@Schema(implementation = F24Excise.class) @RequestBody F24Excise f24Excise) {
+    public ResponseEntity<Void> validate(@Schema(implementation = F24Excise.class) @RequestBody F24Excise f24Excise) throws IOException, ProcessingException {
         validatorService.validatePDF(f24Excise);
         return new ResponseEntity<>(HttpStatus.OK);
     }

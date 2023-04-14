@@ -3,16 +3,16 @@
   "type": "object",
   "properties": {
     "header": {
-      "$ref": "#"
+      "$ref": "resource:/schemas/component/header.json"
     },
     "contributor": {
-      "$ref": "#"
+      "$ref": "resource:/schemas/component/contributor.json"
     },
     "paymentDetails": {
-      "$ref": "#"
+      "$ref": "resource:/schemas/component/payment-details.json"
     },
     "treasurySection": {
-      "$ref": "#"
+      "$ref": "resource:/schemas/component/treasury-section.json"
     },
     "bankAccountNumber": {
       "type": "string"
