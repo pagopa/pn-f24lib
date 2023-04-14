@@ -44,7 +44,6 @@ public class FormValidator implements Validator {
                 }
             }
         }
-
     }
 
     private void manageError(ProcessingMessage message) throws ResourceException {
@@ -53,25 +52,22 @@ public class FormValidator implements Validator {
         JsonNode instance = errorDetails.findValue("instance");
 
         if (instance != null) {
-            String keyword = errorDetails.findValue("keyword").asText();
             String field = instance.get("pointer").asText().replace("/", ":").substring(1);
-            String errorMessage = getErrorMessage(keyword, field, errorDetails);
+            String errorMessage = getErrorMessage(errorDetails, field);
             throw new ResourceException(errorMessage);
         }
     }
 
-    private String getErrorMessage(String keyword, String field, JsonNode errorDetails) {
-        switch (keyword) {
-            case "pattern":
-                return "Invalid " + field + " : " + errorDetails.findValue("string") + ".";
-            case "maxItems":
-                return "Too much records for " + field + ". Max amount of items: " + errorDetails.findValue("maxItems.");
-            case "minItems":
-                return "Minimum amount of records required: " + errorDetails.findValue("minItems") + ".";
-            case "type":
-                return "Field " + field + " is required.";
-            default: return "Error occurred during validation.";
-        }
+    private String getErrorMessage(JsonNode errorDetails, String field) {
+        String keyword = errorDetails.findValue("keyword").asText();
+        return switch (keyword) {
+            case "pattern" -> "Invalid " + field + " : " + errorDetails.findValue("string") + ".";
+            case "maxItems" ->
+                    "Too much records for " + field + ". Max amount of items: " + errorDetails.findValue("maxItems.");
+            case "minItems" -> "Minimum amount of records required: " + errorDetails.findValue("minItems") + ".";
+            case "type" -> "Field " + field + " is required.";
+            default -> "Error occurred during validation.";
+        };
     }
 
 }
