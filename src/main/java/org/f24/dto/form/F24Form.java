@@ -4,18 +4,15 @@ import org.f24.dto.component.Contributor;
 import org.f24.dto.component.Header;
 import org.f24.dto.component.PaymentDetails;
 
-import javax.validation.Valid;
-import java.awt.image.BufferedImage;
-
 public class F24Form {
 
     private Header header;
 
-    @Valid
     private Contributor contributor;
 
-    @Valid
     private PaymentDetails paymentDetails;
+
+    public F24Form() {}
 
     /**
      * Constructs basic components of F24 forms

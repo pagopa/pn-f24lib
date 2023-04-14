@@ -1,24 +1,14 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "Tax Residence (Domicilio Fiscale) object")
 public class TaxResidence {
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Z]{1,40}$", message = "Invalid municipality. (comune)")
     private String municipality;
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Z]{2}$", message = "Invalid province. (provincia)")
     private String province;
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Z0-9\\s.]{1,35}$", message = "Invalid address. (frazione, via e numero civico) ")
     private String address;
+
+    public TaxResidence() {}
 
     /**
      * Constructs tax residence section of contributor (domicilio fiscale)

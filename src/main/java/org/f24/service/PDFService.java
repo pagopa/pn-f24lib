@@ -3,15 +3,7 @@ package org.f24.service;
 import org.f24.dto.form.F24Form;
 import org.f24.service.pdf.PDFCreator;
 import org.f24.service.pdf.PDFCreatorFactory;
-import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import java.util.Set;
-
-@Service
 public class PDFService {
 
     /**

@@ -1,26 +1,16 @@
 package org.f24.dto.form;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import org.f24.dto.component.*;
 
-import javax.validation.Valid;
-import java.awt.image.BufferedImage;
-
-@Schema( description = "F24 Excise (Accise) object")
 public class F24Excise extends F24Form {
 
-    @Valid
-    @Schema(implementation = TreasurySection.class)
     private TreasurySection treasurySection;
 
-    @Valid
-    @Schema(implementation = InpsSection.class)
     private InpsSection inpsSection;
 
     private RegionSection regionSection;
     private ImuSection imuSection;
 
-    @Valid
     private ExciseSection exciseSection;
     private String ibanCode;
 
@@ -29,7 +19,6 @@ public class F24Excise extends F24Form {
      *
      * @param header          Header component
      * @param contributor     Contributor component
-     * @param signature       signature (firma)
      * @param paymentDetails  PaymentDetails component
      * @param treasurySection TreasurySection component
      * @param inpsSection     InpsSection component

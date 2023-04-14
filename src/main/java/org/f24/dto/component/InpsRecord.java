@@ -1,32 +1,17 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "INPS Record object")
 public class InpsRecord {
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9]{3,4}$", message = "Invalid location code. (codice sede)")
     private String locationCode;
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Z-]{3,4}$", message = "Invalid contribution reason. (causale contributo)")
     private String contributionReason;
 
-    @Pattern(regexp = "^[A-Za-z0-9\\s]{0,17}$",message = "Invalid INPS code. (matricola INPS)")
     private String inpsCode;
 
-    @Valid
     private ReportingPeriod reportingPeriod;
 
-    @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid debit amount paid. (importo a debito)")
     private String debitAmount;
 
-    @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid credit amount offset. (importo a credito)")
     private String creditAmount;
 
     public InpsRecord() {

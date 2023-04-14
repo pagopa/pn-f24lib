@@ -1,15 +1,7 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "Payment Details object")
 public class PaymentDetails {
 
-    @NotBlank
-    @Pattern(regexp = "^\\d{2}-\\d{2}-\\d{4}$", message = "Invalid date of birth. (data di nascita)")
     private String dateOfPayment;
 
     private String company;
@@ -23,6 +15,8 @@ public class PaymentDetails {
     private String abiCode;
 
     private String ibanCode;
+
+    public PaymentDetails() {}
 
     /**
      * Constructs payment details section of F24 form

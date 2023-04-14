@@ -2,15 +2,10 @@ package org.f24.dto.form;
 
 import org.f24.dto.component.*;
 
-import javax.validation.Valid;
-import java.awt.image.BufferedImage;
-
 public class F24Standard extends F24Form {
 
-    @Valid
     private TreasurySection treasurySection;
 
-    @Valid
     private InpsSection inpsSection;
 
     private RegionSection regionSection;

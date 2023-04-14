@@ -1,21 +1,14 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.List;
 
-@Schema(description = "Payment Motive Section (Motivo del Pagamento) object")
 public class PaymentMotiveSection {
 
-    @Pattern(regexp = "^[A-Z0-9]{18}$", message = "Invalid operation Id code. (identificativo operazione)")
     private String operationId;
 
-    @Valid
-    @Size(max = 10, message = "Maximum amount of records in payment motive section (Motivo del Pagamento) is 10.")
     private List<PaymentMotiveRecord> motiveRecordList;
+
+    public PaymentMotiveSection() {}
 
     /**
      * Constructs Motive for Payment Section (Motivo del Pagamento)

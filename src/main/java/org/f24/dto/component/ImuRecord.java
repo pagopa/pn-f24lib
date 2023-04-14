@@ -1,13 +1,7 @@
 package org.f24.dto.component;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.Pattern;
-
-@Schema(description = "IMU Record object")
 public class ImuRecord {
 
-    @Pattern(regexp = "^[0-9A-Z]{4}$", message = "Invalid municipality code. (codice ente/prov/comune)")
     private String municipalityCode;
 
     private Boolean activeRepentance;
@@ -15,22 +9,16 @@ public class ImuRecord {
     private Boolean advancePayment;
     private Boolean balance;
 
-    @Pattern(regexp = "^[0-9]{3}$", message = "Invalid number of buildings. (numero immobili)")
     private String numberOfBuildings;
 
-    @Pattern(regexp = "^[0-9]{4}$", message = "Invalid tribute code. (codice tributo)")
     private String tributeCode;
 
-    @Pattern(regexp = "^[A-Z0-9]{0,4}$", message = "Invalid installment. (rateazione)")
     private String installment;
 
-    @Pattern(regexp = "^[1-2][0-9]{3}$", message = "Invalid reporting year. (anno di riferimento)")
     private String reportingYear;
 
-    @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid debit amount paid. (importo a debito)")
     private String debitAmount;
 
-    @Pattern(regexp = "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$", message = "Invalid credit amount offset. (importo a credito)")
     private String creditAmount;
 
     /**
