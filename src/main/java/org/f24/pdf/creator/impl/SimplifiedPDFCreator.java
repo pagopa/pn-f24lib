@@ -13,6 +13,7 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.f24.dto.component.PaymentMotiveRecord;
 import org.f24.dto.form.F24Simplified;
 import org.f24.pdf.creator.PDFCreator;
+import org.f24.pdf.creator.PDFFormManager;
 
 import java.awt.geom.AffineTransform;
 import java.io.ByteArrayOutputStream;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class SimplifiedPDFCreator implements PDFCreator {
+public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24Semplificato.pdf";
 
@@ -35,28 +36,28 @@ public class SimplifiedPDFCreator implements PDFCreator {
         this.form = form;
     }
 
-    private void setHeader(PDAcroForm form) throws IOException {
-        getField("attorney", form).setValue(this.form.getHeader().getAttorneyTo());
-        getField("agency", form).setValue(this.form.getHeader().getAgency());
-        getField("province", form).setValue(this.form.getHeader().getProvince());
+    private void setHeader() throws IOException {
+        setField("attorney", this.form.getHeader().getAttorneyTo());
+        setField("agency", this.form.getHeader().getAgency());
+        setField("province", this.form.getHeader().getProvince());
     }
 
-    private void setPersonalData(PDAcroForm form) throws IOException {
-        getField("corporateName", form).setValue(this.form.getContributor().getPersonalData().getCorporateName());
-        getField("name", form).setValue(this.form.getContributor().getPersonalData().getName());
-        getField("dateOfBirth", form).setValue(new SimpleDateFormat("ddMMyyyy").format(this.form.getContributor().getPersonalData().getDateOfBirth()));
-        getField("sex", form).setValue(this.form.getContributor().getPersonalData().getSex() == 1 ? "M" : "F");
-        getField("municipalityOfBirth", form).setValue(this.form.getContributor().getPersonalData().getMunicipalityOfBirth());
-        getField("province", form).setValue(this.form.getContributor().getPersonalData().getProvince());
+    private void setPersonalData() throws IOException {
+        setField("corporateName", this.form.getContributor().getPersonalData().getCorporateName());
+        setField("name", this.form.getContributor().getPersonalData().getName());
+        setField("dateOfBirth", new SimpleDateFormat("ddMMyyyy").format(this.form.getContributor().getPersonalData().getDateOfBirth()));
+        setField("sex", this.form.getContributor().getPersonalData().getSex() == 1 ? "M" : "F");
+        setField("municipalityOfBirth", this.form.getContributor().getPersonalData().getMunicipalityOfBirth());
+        setField("province", this.form.getContributor().getPersonalData().getProvince());
     }
 
-    private void setContributor(PDAcroForm form) throws IOException {
-        getField("taxCode", form).setValue(this.form.getContributor().getTaxCode());
-        getField("officeCode", form).setValue(this.form.getContributor().getOfficeCode());
-        getField("deedCode", form).setValue(this.form.getContributor().getDeedCode());
-        getField("receiverTaxCode", form).setValue(this.form.getContributor().getReceiverTaxCode());
-        getField("idCode", form).setValue(this.form.getContributor().getIdCode());
-        setPersonalData(form);
+    private void setContributor() throws IOException {
+        setField("taxCode", this.form.getContributor().getTaxCode());
+        setField("officeCode", this.form.getContributor().getOfficeCode());
+        setField("deedCode", this.form.getContributor().getDeedCode());
+        setField("receiverTaxCode", this.form.getContributor().getReceiverTaxCode());
+        setField("idCode", this.form.getContributor().getIdCode());
+        setPersonalData();
     }
 
     private String[] splitMoney(double input) {
@@ -65,50 +66,50 @@ public class SimplifiedPDFCreator implements PDFCreator {
         return new String[] { Integer.toString(integerPart), String.format("%.2f", decimalPart).split(",")[1] };
     }
 
-    private void setPaymentMotiveSection(PDAcroForm form) throws IOException {
-        getField("operationId", form).setValue(this.form.getPaymentMotiveSection().getOperationId());
+    private void setPaymentMotiveSection() throws IOException {
+        setField("operationId", this.form.getPaymentMotiveSection().getOperationId());
         List<PaymentMotiveRecord> paymentMotiveRecordList = this.form.getPaymentMotiveSection().getMotiveRecordList();
         for(int index = 1; index <= paymentMotiveRecordList.size(); index++) {
             PaymentMotiveRecord record = paymentMotiveRecordList.get(index-1);
-            getField("section"+index, form).setValue(record.getSection());
-            getField("tributeCode"+index, form).setValue(record.getTributeCode());
-            getField("institutionCode"+index, form).setValue(record.getInstitutionCode());
-            if(record.getRavv() != null) getField("ravv"+index, form).setValue("X");
-            if(record.getBuilding() != null) getField("building"+index, form).setValue(record.getBuilding());
-            if(record.getAcc() != null) getField("acc"+index, form).setValue("X");
-            if(record.getBalance() != null) getField("balance"+index, form).setValue("X");
-            if(record.getNumberOfBuildings() != null) getField("numberOfBuildings"+index, form).setValue(record.getNumberOfBuildings());
-            getField("month"+index, form).setValue(record.getMonth());
-            getField("reportingYear"+index, form).setValue(record.getReportingYear());
+            setField("section"+index, record.getSection());
+            setField("tributeCode"+index, record.getTributeCode());
+            setField("institutionCode"+index, record.getInstitutionCode());
+            if(record.getRavv() != null) setField("ravv"+index, "X");
+            if(record.getBuilding() != null) setField("building"+index, record.getBuilding());
+            if(record.getAcc() != null) setField("acc"+index, "X");
+            if(record.getBalance() != null) setField("balance"+index, "X");
+            if(record.getNumberOfBuildings() != null) setField("numberOfBuildings"+index, record.getNumberOfBuildings());
+            setField("month"+index, record.getMonth());
+            setField("reportingYear"+index, record.getReportingYear());
             String[] splittedDeduction = splitMoney(Double.parseDouble(record.getDeduction()));
-            getField("deductionInt"+index, form).setValue(splittedDeduction[0]);
-            getField("deductionDec"+index, form).setValue(splittedDeduction[1]);
+            setField("deductionInt"+index, splittedDeduction[0]);
+            setField("deductionDec"+index, splittedDeduction[1]);
             String[] splittedDebitAmount = splitMoney(Double.parseDouble(record.getDebitAmount()));
-            getField("debitAmountInt"+index, form).setValue(splittedDebitAmount[0]);
-            getField("debitAmountDec"+index, form).setValue(splittedDebitAmount[1]);
+            setField("debitAmountInt"+index, splittedDebitAmount[0]);
+            setField("debitAmountDec"+index, splittedDebitAmount[1]);
             String[] splittedCreditAmount = splitMoney(Double.parseDouble(record.getCreditAmount()));
-            getField("creditAmountInt"+index, form).setValue(splittedCreditAmount[0]);
-            getField("creditAmountDec"+index, form).setValue(splittedCreditAmount[1]);
+            setField("creditAmountInt"+index, splittedCreditAmount[0]);
+            setField("creditAmountDec"+index, splittedCreditAmount[1]);
         }
         // TODO check if rows are more than 10
         // TODO totalAmount calculation
     }
 
-    private void setSignature(PDDocument doc, PDAcroForm form) throws IOException {
-        PDField field = getField("signature", form);
+    private void setSignature() throws IOException {
+        PDField field = getField("signature");
         PDAnnotationWidget widget = field.getWidgets().get(0);
-        PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\GianlucaScatena\\Desktop\\PROGETTI\\F24\\signature.png", doc);
+        PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\GianlucaScatena\\Desktop\\PROGETTI\\F24\\signature.png", getDoc());
         // TODO PDImageXObject image = PDImageXObject.createFromByteArray()
 
         float width = widget.getRectangle().getWidth();
         float height = widget.getRectangle().getHeight();
 
-        PDAppearanceStream appearanceStream = new PDAppearanceStream(doc);
+        PDAppearanceStream appearanceStream = new PDAppearanceStream(getDoc());
         appearanceStream.setResources(new PDResources());
         appearanceStream.setBBox(new PDRectangle(width, height));
         appearanceStream.setMatrix(new AffineTransform());
 
-        PDPageContentStream contentStream = new PDPageContentStream(doc, appearanceStream);
+        PDPageContentStream contentStream = new PDPageContentStream(getDoc(), appearanceStream);
         contentStream.drawImage(image, 0, 0, width, height);
         contentStream.close();
 
@@ -126,19 +127,18 @@ public class SimplifiedPDFCreator implements PDFCreator {
     @Override
     public byte[] createPDF() {
         try {
-            PDDocument doc = PDDocument.load(getClass().getClassLoader().getResourceAsStream(MODEL_NAME));
-            PDAcroForm form = getForm(doc);
+            loadDoc(MODEL_NAME);
 
-            setHeader(form);
-            setContributor(form);
-            setPaymentMotiveSection(form);
-            setSignature(doc, form);
+            setHeader();
+            setContributor();
+            setPaymentMotiveSection();
+            setSignature();
 
             // TODO remove
-            doc.save("C:\\Users\\GianlucaScatena\\Desktop\\PROGETTI\\F24\\output.pdf");
+            getDoc().save("C:\\Users\\GianlucaScatena\\Desktop\\PROGETTI\\F24\\output.pdf");
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            doc.save(byteArrayOutputStream);
+            getDoc().save(byteArrayOutputStream);
 
             return byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
