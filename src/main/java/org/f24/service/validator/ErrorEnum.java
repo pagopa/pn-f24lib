@@ -6,6 +6,7 @@ public enum ErrorEnum {
     MAX_ITEMS("maxItems", "Too much records for {field}. Max amount of items: {details}."),
     MIN_ITEMS("minItems", "Minimum amount of records required: {details}."),
     TYPE("type", "Field {field} is required."),
+    TAX_CODE("taxCode", "Invalid tax code: it not corresponds to other personal data."),
     DEFAULT("default", "Error occurred during validation.");
 
     private String code;
