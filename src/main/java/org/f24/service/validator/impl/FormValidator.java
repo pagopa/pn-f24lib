@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Optional;
 
 public class FormValidator implements Validator {
@@ -48,17 +49,23 @@ public class FormValidator implements Validator {
             }
         }
 
-        // TODO move from here
+        validateTaxCode();
+    }
+
+    private void validateTaxCode() throws ResourceException {
         PersonData personData = this.form.getContributor().getPersonData();
         if(personData != null) {
+            PersonalData personalData = personData.getPersonalData();
+            Date dateOfBirth = null;
             try {
-                PersonalData personalData = personData.getPersonalData();
-                String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getDateOfBirth()), "A515");
-                if(!this.form.getContributor().getTaxCode().equals(calculatedTaxCode)) {
-                    System.out.println("TAX CODE ERROR");
-                }
+                dateOfBirth = new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getDateOfBirth());
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                dateOfBirth = new Date();
+            }
+            // TODO get municipality code from official list
+            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, "");
+            if(!this.form.getContributor().getTaxCode().equals(calculatedTaxCode)) {
+                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
             }
         }
     }
