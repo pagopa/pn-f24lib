@@ -20,6 +20,15 @@ public class F24Generator {
         List<PaymentMotiveRecord> records = new ArrayList<>();
         records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
         records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
+        records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
+        records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
+        records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
+        records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
+        records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
+        records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
+        records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
+        records.add(new PaymentMotiveRecord("AAA", "CCC", "AAA", null, "1", "true", null, "1", "01", "202.22", "2022", "10.01", "110.02"));
+
         PaymentMotiveSection paymentMotiveSection = new PaymentMotiveSection("ASDFGHJKLERTYUIOPL", records);
 
         F24Simplified form = new F24Simplified(header, contributor, null, null, paymentMotiveSection);
