@@ -34,4 +34,11 @@ public class PaymentMotiveSection {
         this.motiveRecordList = motiveRecordList;
     }
 
+    public Double getTotalAmount() {
+        return getMotiveRecordList()
+                .stream()
+                .mapToDouble(mr -> Double.parseDouble(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0") - Double.parseDouble(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
+                .sum();
+    }
+
 }

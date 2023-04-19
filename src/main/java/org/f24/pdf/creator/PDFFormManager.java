@@ -53,7 +53,7 @@ public class PDFFormManager {
     }
 
     protected void setField(String fieldName, String fieldValue) throws Exception {
-        getField(fieldName).setValue(fieldValue);
+        if(fieldValue != null) getField(fieldName).setValue(fieldValue);
     }
 
     protected void copy(int numberOfCopies) throws IOException {
@@ -67,7 +67,7 @@ public class PDFFormManager {
         return this.copies;
     }
 
-    protected void merge() throws IOException {
+    protected void mergeCopies() throws IOException {
         PDFMergerUtility merger = new PDFMergerUtility();
         int numberOfCopies = this.copies.size();
         for(int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) {

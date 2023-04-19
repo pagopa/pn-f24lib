@@ -36,4 +36,68 @@ public class PaymentDetails {
         this.ibanCode = ibanCode;
     }
 
+    public Date getDateOfPayment() {
+        return dateOfPayment;
+    }
+
+    public void setDateOfPayment(Date dateOfPayment) {
+        this.dateOfPayment = dateOfPayment;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getBankID() {
+        return bankID;
+    }
+
+    public void setBankID(String bankID) {
+        this.bankID = bankID;
+    }
+
+    public String getCheckNumber() {
+        return checkNumber;
+    }
+
+    public void setCheckNumber(String checkNumber) {
+        this.checkNumber = checkNumber;
+    }
+
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
+
+    public String getCircular() {
+        return circular;
+    }
+
+    public void setCircular(String circular) {
+        this.circular = circular;
+    }
+
+    public String getAbiCode() {
+        return abiCode;
+    }
+
+    public void setAbiCode(String abiCode) {
+        this.abiCode = abiCode;
+    }
+
+    public String getIbanCode() {
+        return ibanCode;
+    }
+
+    public void setIbanCode(String ibanCode) {
+        this.ibanCode = ibanCode;
+    }
+
 }
