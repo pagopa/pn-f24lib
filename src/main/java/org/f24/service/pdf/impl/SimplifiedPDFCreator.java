@@ -34,9 +34,10 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setPersonalData() throws Exception {
-        PersonalData personalData = this.form.getContributor().getPersonData().getPersonalData();
-        if(personalData != null) {
+    private void setPersonData() throws Exception {
+        PersonData personData = this.form.getContributor().getPersonData();
+        if(personData != null && personData.getPersonalData() != null) {
+            PersonalData personalData = personData.getPersonalData();
             setField("corporateName", personalData.getSurname());
             setField("name", personalData.getName());
             setField("dateOfBirth", personalData.getDateOfBirth());
@@ -44,6 +45,18 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             setField("municipalityOfBirth", personalData.getMunicipalityOfBirth());
             setField("province", personalData.getProvince());
         }
+    }
+
+    private void setCompanyData() throws Exception {
+        CompanyData companyData = this.form.getContributor().getCompanyData();
+        if(companyData != null) {
+            setField("corporateName", companyData.getName());
+        }
+    }
+
+    private void setRegistryData() throws Exception {
+        setPersonData();
+        setCompanyData();
     }
 
     private void setContributor() throws Exception {
@@ -54,7 +67,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             setField("deedCode", contributor.getActCode());
             setField("receiverTaxCode", contributor.getReceiverTaxCode());
             setField("idCode", contributor.getIdCode());
-            setPersonalData();
+            setRegistryData();
         }
     }
 
