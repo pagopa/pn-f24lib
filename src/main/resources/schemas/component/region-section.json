@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "regionRecordList": {
+      "maxItems": 4,
+      "minItems": 0,
+      "type": "array",
+      "items": {
+        "$ref": "resource:/schemas/component/region-record.json"
+      }
+    }
+  },
+  "description": "Region Section (Sezione Regioni) object"
+}

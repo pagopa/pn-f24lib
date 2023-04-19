@@ -2,29 +2,32 @@ package org.f24.dto.component;
 
 public class Header {
 
-    private String attorneyTo;
+    private String delegationTo;
     private String agency;
+
     private String province;
+
+    public Header() {}
 
     /**
      * Constructs header section of F24 form
      *
-     * @param attorneyTo irrevocable attorney to (delega irrevocabile a)
-     * @param agency     agency (agenza)
-     * @param province   province (prov.)
+     * @param delegationTo irrevocable delegation to (delega irrevocabile a)
+     * @param agency       agency (agenza)
+     * @param province     province (prov.)
      */
-    public Header(String attorneyTo, String agency, String province) {
-        this.attorneyTo = attorneyTo;
+    public Header(String delegationTo, String agency, String province) {
+        this.delegationTo = delegationTo;
         this.agency = agency;
         this.province = province;
     }
 
-    public String getAttorneyTo() {
-        return attorneyTo;
+    public String getDelegationTo() {
+        return delegationTo;
     }
 
-    public void setAttorneyTo(String attorneyTo) {
-        this.attorneyTo = attorneyTo;
+    public void setDelegationTo(String delegationTo) {
+        this.delegationTo = delegationTo;
     }
 
     public String getAgency() {

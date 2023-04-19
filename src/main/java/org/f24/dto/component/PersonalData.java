@@ -1,31 +1,33 @@
 package org.f24.dto.component;
 
-import java.util.Date;
-
 public class PersonalData {
 
-    private String corporateName;
+    private String surname;
+
     private String name;
-    private Date dateOfBirth;
-    private int sex;
+
+    private String dateOfBirth;
+
+    private String sex;
+
     private String municipalityOfBirth;
+
     private String province;
 
-    //ToDo check province field translation
+    public PersonalData() {}
 
     /**
      * Constructs personal data section of contributor (dati anagrafici)
      *
-     * @param corporateName       surname/name or corporate name (cognome/denominazione o ragione sociale )
+     * @param surname             surname/name or corporate name (cognome/denominazione o ragione sociale )
      * @param name                name (nome)
      * @param dateOfBirth         date of birth (data di nascita)
      * @param sex                 sex (sesso)
      * @param municipalityOfBirth municipality (or foreign state) of birth (comune (o Stato estero) di nascita)
      * @param province            province (prov.)
      */
-
-    public PersonalData(String corporateName, String name, Date dateOfBirth, int sex, String municipalityOfBirth, String province) {
-        this.corporateName = corporateName;
+    public PersonalData(String surname, String name, String dateOfBirth, String sex, String municipalityOfBirth, String province) {
+        this.surname = surname;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.sex = sex;
@@ -33,12 +35,12 @@ public class PersonalData {
         this.province = province;
     }
 
-    public String getCorporateName() {
-        return corporateName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setCorporateName(String corporateName) {
-        this.corporateName = corporateName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getName() {
@@ -49,19 +51,19 @@ public class PersonalData {
         this.name = name;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

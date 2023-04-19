@@ -1,0 +1,137 @@
+{
+  "header": {
+    "delegationTo": "string",
+    "agency": "string",
+    "province": "JU"
+  },
+  "contributor": {
+    "taxCode": "DQXBVU59H46Q210H",
+    "ifCalendarYear": true,
+    "personData": {
+      "personalData": {
+        "surname": "ROSSI",
+        "name": "MARIO",
+        "dateOfBirth": "11-12-1997",
+        "sex": "M",
+        "municipalityOfBirth": "MILANO",
+        "province": "PM"
+      },
+      "taxResidence": {
+        "municipality": "MILANO",
+        "province": "CK",
+        "address": "VIA S. MARCO 23"
+      }
+    },
+    "receiverTaxCode": "NHGEVG02M57C364Z",
+    "idCode": "VO",
+    "actCode": "23627757735",
+    "officeCode": "EEW"
+  },
+  "paymentDetails": {
+    "dateOfPayment": "03-02-1927",
+    "company": "string",
+    "cabCode": "string",
+    "checkNumber": "string",
+    "abiCode": "string",
+    "ibanCode": "string",
+    "bank": true
+  },
+  "treasurySection": {
+    "taxList": [
+      {
+        "tributeCode": "ZUB6",
+        "installment": "K",
+        "reportingYear": "2023",
+        "debitAmount": "15.02",
+        "creditAmount": "0.00"
+      }
+    ],
+    "officeCode": "24Q",
+    "actCode": "56462249586"
+  },
+  "inpsSection": {
+    "inpsRecordList": [
+      {
+        "locationCode": "4373",
+        "contributionReason": "EJY",
+        "inpsCode": "89iPOQApWOfJ1Cpha",
+        "reportingPeriod": {
+          "startDate": "121987",
+          "endDate": "011988"
+        },
+        "debitAmount": "0.52",
+        "creditAmount": "258.15"
+      },
+      {
+        "locationCode": "4373",
+        "contributionReason": "EJY",
+        "inpsCode": "89iPOQApWOfJ1Cpha",
+        "reportingPeriod": {
+          "startDate": "121987",
+          "endDate": "011988"
+        },
+        "debitAmount": "0.52",
+        "creditAmount": "258.15"
+      },
+      {
+        "locationCode": "4373",
+        "contributionReason": "EJY",
+        "inpsCode": "89iPOQApWOfJ1Cpha",
+        "reportingPeriod": {
+          "startDate": "121987",
+          "endDate": "011988"
+        },
+        "debitAmount": "0.52",
+        "creditAmount": "258.15"
+      }
+    ]
+  },
+  "regionSection": {
+    "regionRecordList": [
+      {
+        "regionCode": "64",
+        "tributeCode": "EAEI",
+        "installment": "Z",
+        "reportingYear": "2276",
+        "debitAmount": "755946744236.32",
+        "creditAmount": "15990304.92"
+      }
+    ]
+  },
+  "imuSection": {
+    "operationId": "MBDR5C36UAIWU40DWH",
+    "imuRecordList": [
+      {
+        "municipalityCode": "W452",
+        "activeRepentance": true,
+        "variedBuildings": true,
+        "advancePayment": false,
+        "balance": true,
+        "numberOfBuildings": "225",
+        "tributeCode": "6035",
+        "installment": "45P",
+        "reportingYear": "2023",
+        "debitAmount": "873095822258.44",
+        "creditAmount": "0.61"
+      }
+    ],
+    "deduction": "0.02"
+  },
+  "exciseSection": {
+    "exciseTaxList": [
+      {
+        "institution": "KT",
+        "province": "CE",
+        "idCode": "RFFK6REMRS8FP23XC",
+        "tributeCode": "JA46",
+        "installment": "820H",
+        "month": "11",
+        "reportingYear": "2023",
+        "debitAmount": "0.39"
+      }
+    ],
+    "officeCode": "BRH",
+    "actCode": "71775334458"
+  },
+  "ibanCode": "string"
+}

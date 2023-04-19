@@ -5,6 +5,7 @@ import java.util.List;
 public class SocialSecuritySection {
 
     private List<InailRecord> inailRecords;
+
     private List<SocialSecurityRecord> socialSecurityRecordList;
 
     /**
@@ -18,4 +19,19 @@ public class SocialSecuritySection {
         this.socialSecurityRecordList = socialSecurityRecordList;
     }
 
+    public List<InailRecord> getInailRecords() {
+        return inailRecords;
+    }
+
+    public void setInailRecords(List<InailRecord> inailRecords) {
+        this.inailRecords = inailRecords;
+    }
+
+    public List<SocialSecurityRecord> getSocialSecurityRecordList() {
+        return socialSecurityRecordList;
+    }
+
+    public void setSocialSecurityRecordList(List<SocialSecurityRecord> socialSecurityRecordList) {
+        this.socialSecurityRecordList = socialSecurityRecordList;
+    }
 }

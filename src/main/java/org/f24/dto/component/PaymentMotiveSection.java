@@ -5,10 +5,13 @@ import java.util.List;
 public class PaymentMotiveSection {
 
     private String operationId;
+
     private List<PaymentMotiveRecord> motiveRecordList;
 
+    public PaymentMotiveSection() {}
+
     /**
-     * Constructs Motive for Payment Section (Motivo del Pergamento)
+     * Constructs Motive for Payment Section (Motivo del Pagamento)
      *
      * @param operationId      operation ID (identificativo operazione)
      * @param motiveRecordList list of PaymentMotiveRecord components

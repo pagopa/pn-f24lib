@@ -1,11 +1,10 @@
 package org.f24.dto.component;
 
-import java.util.Date;
-
 public class ReportingPeriod {
 
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+
+    private String endDate;
 
     /**
      * Construct reporting period for INPS, Social Security records components
@@ -13,8 +12,24 @@ public class ReportingPeriod {
      * @param startDate start date
      * @param endDate   end date
      */
-    public ReportingPeriod(Date startDate, Date endDate) {
+    public ReportingPeriod(String startDate, String endDate) {
         this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

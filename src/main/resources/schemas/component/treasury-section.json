@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "officeCode",
+    "actCode"
+  ],
+  "properties": {
+    "taxList": {
+      "maxItems": 6,
+      "minItems": 0,
+      "type": "array",
+          "items": {
+            "$ref": "resource:/schemas/component/tax.json"
+          }
+    },
+    "officeCode": {
+      "pattern": "^[A-Z0-9]{3}$",
+      "type": "string"
+    },
+    "actCode": {
+      "pattern": "^\\d{11}$",
+      "type": "string"
+    }
+  },
+  "description": "Treasury Section (Sezione Erario) object"
+}

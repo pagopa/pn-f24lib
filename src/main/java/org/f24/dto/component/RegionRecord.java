@@ -3,10 +3,15 @@ package org.f24.dto.component;
 public class RegionRecord {
 
     private String regionCode;
+
     private String tributeCode;
+
     private String installment;
+
     private String reportingYear;
+
     private String debitAmount;
+
     private String creditAmount;
 
     /**
@@ -25,6 +30,54 @@ public class RegionRecord {
         this.installment = installment;
         this.reportingYear = reportingYear;
         this.debitAmount = debitAmount;
+        this.creditAmount = creditAmount;
+    }
+
+    public String getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public String getTributeCode() {
+        return tributeCode;
+    }
+
+    public void setTributeCode(String tributeCode) {
+        this.tributeCode = tributeCode;
+    }
+
+    public String getInstallment() {
+        return installment;
+    }
+
+    public void setInstallment(String installment) {
+        this.installment = installment;
+    }
+
+    public String getReportingYear() {
+        return reportingYear;
+    }
+
+    public void setReportingYear(String reportingYear) {
+        this.reportingYear = reportingYear;
+    }
+
+    public String getDebitAmount() {
+        return debitAmount;
+    }
+
+    public void setDebitAmount(String debitAmount) {
+        this.debitAmount = debitAmount;
+    }
+
+    public String getCreditAmount() {
+        return creditAmount;
+    }
+
+    public void setCreditAmount(String creditAmount) {
         this.creditAmount = creditAmount;
     }
 

@@ -6,6 +6,9 @@ public class InpsSection {
 
     private List<InpsRecord> inpsRecordList;
 
+    public InpsSection() {
+    }
+
     /**
      * Constructs INPS Section (Sezione INPS)
      *
@@ -15,4 +18,11 @@ public class InpsSection {
         this.inpsRecordList = inpsRecordList;
     }
 
+    public List<InpsRecord> getInpsRecordList() {
+        return inpsRecordList;
+    }
+
+    public void setInpsRecordList(List<InpsRecord> inpsRecordList) {
+        this.inpsRecordList = inpsRecordList;
+    }
 }
