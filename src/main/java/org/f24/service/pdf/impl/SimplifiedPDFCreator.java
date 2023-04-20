@@ -6,7 +6,6 @@ import org.f24.service.pdf.PDFCreator;
 import org.f24.service.pdf.PDFFormManager;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
