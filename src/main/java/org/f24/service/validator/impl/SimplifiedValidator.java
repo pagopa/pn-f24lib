@@ -26,7 +26,7 @@ public class SimplifiedValidator extends FormValidator {
         List<PaymentMotiveRecord> paymentItemsList = this.form.getPaymentMotiveSection().getMotiveRecordList();
 
         for (PaymentMotiveRecord paymentItem : paymentItemsList) {
-            if (!paymentItem.getDebitAmount().equals("0") && !paymentItem.getCreditAmount().equals("0")) {
+            if (paymentItem.getDebitAmount() != "0" && paymentItem.getCreditAmount() != "0") {
                 throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage());
             }
         };
