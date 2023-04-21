@@ -6,7 +6,6 @@ import org.f24.service.pdf.PDFCreator;
 import org.f24.service.pdf.PDFFormManager;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
@@ -124,7 +123,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
     private void setPaymentDetails() throws Exception {
         PaymentDetails paymentDetails = this.form.getPaymentDetails();
         if(paymentDetails != null) {
-            setField("dateOfPayment", paymentDetails.getDateOfPayment());
+            setField("dateOfPayment", paymentDetails.getDateOfPayment().replaceAll("-", ""));
             setField("company", paymentDetails.getCompany());
             setField("cabCode", paymentDetails.getCabCode());
             setField("checkNumber", paymentDetails.getCheckNumber());
