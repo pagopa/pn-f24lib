@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class SocialSecurityRecord {
+public class SocialSecurityRecord extends Record {
 
     private String institutionCode;
 

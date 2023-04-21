@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class TreasuryRecord {
+public class TreasuryRecord extends Record {
 
     private String type;
 

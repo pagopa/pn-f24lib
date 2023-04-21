@@ -2,7 +2,10 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-public class SocialSecuritySection {
+import org.f24.exception.ResourceException;
+import org.f24.service.validator.ErrorEnum;
+
+public class SocialSecuritySection extends Section {
 
     private List<InailRecord> inailRecords;
 
@@ -33,5 +36,10 @@ public class SocialSecuritySection {
 
     public void setSocialSecurityRecordList(List<SocialSecurityRecord> socialSecurityRecordList) {
         this.socialSecurityRecordList = socialSecurityRecordList;
+    }
+
+    @Override
+    public Double getTotalAmount(List<? extends Record> record) throws ResourceException {
+        return super.getTotalAmount(record);
     }
 }

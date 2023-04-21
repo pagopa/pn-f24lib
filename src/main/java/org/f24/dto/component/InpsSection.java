@@ -2,7 +2,9 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-public class InpsSection {
+import org.f24.exception.ResourceException;
+
+public class InpsSection extends Section {
 
     private List<InpsRecord> inpsRecordList;
 
@@ -24,5 +26,10 @@ public class InpsSection {
 
     public void setInpsRecordList(List<InpsRecord> inpsRecordList) {
         this.inpsRecordList = inpsRecordList;
+    }
+
+    @Override
+    public Double getTotalAmount(List<? extends Record> record) throws ResourceException {
+        return super.getTotalAmount(record);
     }
 }

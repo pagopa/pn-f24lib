@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class InailRecord {
+public class InailRecord extends Record {
 
     private String locationCode;
 

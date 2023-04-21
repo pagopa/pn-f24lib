@@ -113,7 +113,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
                     setField("creditAmountDec" + index, splittedCreditAmount[1]);
                 }
             }
-            String[] splittedTotalAmount = splitMoney(Double.parseDouble(this.form.getPaymentMotiveSection().getTotalAmount().toString()));
+            String[] splittedTotalAmount = splitMoney(Double.parseDouble(this.form.getPaymentMotiveSection().getTotalAmount(paymentMotiveRecordList).toString()));
             setField("totalAmountInt", splittedTotalAmount[0]);
             setField("totalAmountDec", splittedTotalAmount[1]);
         } catch (Exception e) {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.f24.exception.ResourceException;
 import org.f24.service.validator.ErrorEnum;
 
-public class PaymentMotiveSection {
+public class PaymentMotiveSection extends Section {
 
     private String operationId;
 
@@ -40,15 +40,9 @@ public class PaymentMotiveSection {
         this.motiveRecordList = motiveRecordList;
     }
 
-    public Double getTotalAmount() throws ResourceException {
-        Double totalAmount =  getMotiveRecordList()
-                .stream()
-                .mapToDouble(mr -> Double.parseDouble(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0") - Double.parseDouble(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
-                .sum();
-        if(totalAmount < 0) {
-            throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());
-        }
-        return totalAmount;
+    @Override
+    public Double getTotalAmount(List<? extends Record> recordList) throws ResourceException {
+        // TODO Auto-generated method stub
+        return super.getTotalAmount(recordList);
     }
-
 }

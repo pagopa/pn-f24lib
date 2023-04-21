@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class Tax {
+public class Tax extends Record{
 
     private String tributeCode;
 

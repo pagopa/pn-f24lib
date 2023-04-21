@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class InpsRecord {
+public class InpsRecord extends Record {
 
     private String locationCode;
 

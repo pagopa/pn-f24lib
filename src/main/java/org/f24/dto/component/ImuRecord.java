@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class ImuRecord {
+public class ImuRecord extends Record {
 
     private String municipalityCode;
 

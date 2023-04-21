@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class RegionRecord {
+public class RegionRecord extends Record {
 
     private String regionCode;
 
