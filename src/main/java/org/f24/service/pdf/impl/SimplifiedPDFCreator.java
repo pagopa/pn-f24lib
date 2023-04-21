@@ -39,7 +39,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             PersonalData personalData = personData.getPersonalData();
             setField("corporateName", personalData.getSurname());
             setField("name", personalData.getName());
-            setField("dateOfBirth", personalData.getDateOfBirth());
+            setField("dateOfBirth", personalData.getDateOfBirth().replaceAll("-", ""));
             setField("sex", personalData.getSex());
             setField("municipalityOfBirth", personalData.getMunicipalityOfBirth());
             setField("province", personalData.getProvince());
@@ -89,10 +89,10 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
                 setField("section" + index, record.getSection());
                 setField("tributeCode" + index, record.getTributeCode());
                 setField("institutionCode" + index, record.getInstitutionCode());
-                if (record.getActiveRepentance() != null) setField("ravv" + index, "X");
-                if (record.getVariedBuildings() != null) setField("building" + index, "X");
-                if (record.getAdvancePayment() != null) setField("acc" + index, "X");
-                if (record.getBalance() != null) setField("balance" + index, "X");
+                if (record.getActiveRepentance()) setField("ravv" + index, "X");
+                if (record.getVariedBuildings()) setField("building" + index, "X");
+                if (record.getAdvancePayment()) setField("acc" + index, "X");
+                if (record.getBalance()) setField("balance" + index, "X");
                 if (record.getNumberOfBuildings() != null) setField("numberOfBuildings" + index, record.getNumberOfBuildings());
                 setField("month" + index, record.getMonth());
                 setField("reportingYear" + index, record.getReportingYear());

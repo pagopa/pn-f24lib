@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.f24.dto.form.F24Simplified;
+import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
-import org.f24.service.validator.ErrorEnum;
 
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 

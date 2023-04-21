@@ -63,7 +63,7 @@ public class FormValidator implements Validator {
                 dateOfBirth = new Date();
             }
             // TODO get municipality code from official list
-            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, "M624");
+            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, "");
             if(!this.form.getContributor().getTaxCode().equals(calculatedTaxCode)) {
                 throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
             }
