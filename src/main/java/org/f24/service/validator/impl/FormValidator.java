@@ -10,7 +10,7 @@ import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
-import org.f24.service.validator.ErrorEnum;
+import org.f24.exception.ErrorEnum;
 import org.f24.service.validator.TaxCodeCalculator;
 import org.f24.service.validator.Validator;
 import org.f24.exception.ResourceException;
@@ -63,7 +63,7 @@ public class FormValidator implements Validator {
                 dateOfBirth = new Date();
             }
             // TODO get municipality code from official list
-            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, "M624");
+            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, "");
             if(!this.form.getContributor().getTaxCode().equals(calculatedTaxCode)) {
                 throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
             }

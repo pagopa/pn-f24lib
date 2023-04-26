@@ -1,4 +1,4 @@
-package org.f24.service.validator;
+package org.f24.exception;
 
 public enum ErrorEnum {
 

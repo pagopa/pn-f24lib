@@ -5,6 +5,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
+import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class PDFFormManager {
         return this.copies.get(this.currentIndex);
     }
 
-    private PDAcroForm getForm() throws Exception {
+    protected PDAcroForm getForm() throws Exception {
         PDDocumentCatalog documentCatalog = getCurrentCopy().getDocumentCatalog();
         PDAcroForm form = documentCatalog.getAcroForm();
         if(form == null) throw new Exception(); // TODO
@@ -53,7 +54,13 @@ public class PDFFormManager {
     }
 
     protected void setField(String fieldName, String fieldValue) throws Exception {
-        if(fieldValue != null) getField(fieldName).setValue(fieldValue);
+        if(fieldValue != null) {
+            PDField field = getField(fieldName);
+            if (field instanceof PDTextField textField) {
+                textField.setActions(null);
+            }
+            field.setValue(fieldValue);
+        }
     }
 
     protected void copy(int numberOfCopies) throws IOException {
@@ -67,10 +74,17 @@ public class PDFFormManager {
         return this.copies;
     }
 
-    protected void mergeCopies() throws IOException {
+    private void flat(int copyIndex) throws Exception {
+        setIndex(0);
+        getForm().flatten();
+    }
+
+    protected void mergeCopies() throws Exception {
         PDFMergerUtility merger = new PDFMergerUtility();
         int numberOfCopies = this.copies.size();
+        flat(0);
         for(int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) {
+            flat(copyIndex);
             merger.appendDocument(doc, this.copies.get(copyIndex));
         }
     }
