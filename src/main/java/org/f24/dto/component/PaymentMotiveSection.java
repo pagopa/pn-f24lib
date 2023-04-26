@@ -2,7 +2,6 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
 
 public class PaymentMotiveSection extends Section {
@@ -42,7 +41,6 @@ public class PaymentMotiveSection extends Section {
 
     @Override
     public Double getTotalAmount(List<? extends Record> recordList) throws ResourceException {
-        // TODO Auto-generated method stub
         return super.getTotalAmount(recordList);
     }
 }

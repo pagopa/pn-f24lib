@@ -23,6 +23,7 @@ import org.f24.dto.component.TreasurySection;
 import org.f24.dto.form.F24Standard;
 import org.f24.service.pdf.PDFCreator;
 import org.f24.service.pdf.PDFFormManager;
+import org.f24.service.pdf.FieldEnum;
 
 public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
@@ -31,18 +32,6 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
     private static final int UNIV_RECORDS_NUMBER = 4;
     private static final int INAIL_RECORDS_NUMBER = 3;
     private static final int SOC_RECORDS_NUMBER = 2;
-
-    private static final String REGION_SECTION = "region";
-    private static final String INPS_SECTION = "inps";
-    private static final String HEADER_SECTION = "header";
-    private static final String PERSONAL_SECTION = "personalData";
-    private static final String CONTRIBUTOR_SECTION = "contributor";
-    private static final String TAX_SECTION = "taxResidence";
-    private static final String IMU_SECTION = "taxResidence";
-    private static final String TREASURY_SECTION = "treasury";
-    private static final String SOCIAL_SECURITY = "socSecurity";
-    private static final String INAIL_SECTION = "imuSection";
-    private static final String PAYMENT_SECTION = "paymentDetails";
 
     private F24Standard form;
 
@@ -56,65 +45,65 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
     }
 
     private void setHeader() throws Exception {
-        String sectionName = HEADER_SECTION;
+        String sectionName = FieldEnum.HEADER.name();
 
         Header header = this.form.getHeader();
         if (header == null)
             return;
 
-        setField(sectionName + "delegation", header.getDelegationTo());
-        setField(sectionName + "agency", header.getAgency());
-        setField(sectionName + "province", header.getProvince());
+        setField(sectionName + FieldEnum.DELEGATION.name(), header.getDelegationTo());
+        setField(sectionName + FieldEnum.AGENCY.name(), header.getAgency());
+        setField(sectionName + FieldEnum.PROVINCE.name(), header.getProvince());
     }
 
     private void setPersonData() throws Exception {
-        String sectionName = PERSONAL_SECTION;
+        String sectionName = FieldEnum.PERSONAL_DATA.name();
         PersonalData personalData = this.form.getContributor().getPersonData().getPersonalData();
 
         if (personalData == null)
             return;
 
-        setField(sectionName + "surname", personalData.getSurname());
-        setField(sectionName + "name", personalData.getName());
-        setField(sectionName + "dateOfBirth", personalData.getDateOfBirth());
-        setField(sectionName + "sex", personalData.getSex());
-        setField(sectionName + "municipalityOfBirth", personalData.getMunicipalityOfBirth());
-        setField(sectionName + "province", personalData.getProvince());
+        setField(sectionName + FieldEnum.SURNAME.name(), personalData.getSurname());
+        setField(sectionName + FieldEnum.NAME.name(), personalData.getName());
+        setField(sectionName + FieldEnum.DATE_OF_BIRTH.name(), personalData.getDateOfBirth());
+        setField(sectionName + FieldEnum.SEX.name(), personalData.getSex());
+        setField(sectionName + FieldEnum.MUNICIPALITY_OF_BIRTH.name(), personalData.getMunicipalityOfBirth());
+        setField(sectionName + FieldEnum.PROVINCE.name(), personalData.getProvince());
     }
 
     private void setTaxResidenceData() throws Exception {
-        String sectionName = TAX_SECTION;
+        String sectionName = FieldEnum.TAX_RESIDENCE.name();
         TaxResidence taxResidenceData = this.form.getContributor().getPersonData().getTaxResidence();
 
         if (taxResidenceData == null)
             return;
 
-        setField(sectionName + "address", taxResidenceData.getAddress());
-        setField(sectionName + "municipality", taxResidenceData.getMunicipality());
-        setField(sectionName + "province", taxResidenceData.getProvince());
+        setField(sectionName + FieldEnum.ADDRESS.name(), taxResidenceData.getAddress());
+        setField(sectionName + FieldEnum.MUNICIPALITY.name(), taxResidenceData.getMunicipality());
+        setField(sectionName + FieldEnum.PROVINCE.name(), taxResidenceData.getProvince());
     }
 
     private void setContributor() throws Exception {
-        String sectionName = CONTRIBUTOR_SECTION;
+        String sectionName = FieldEnum.CONTRIBUTOR.name();
         Contributor contributor = this.form.getContributor();
         String currentYear = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
 
         if (contributor == null)
             return;
 
-        setField(sectionName + "taxCode", contributor.getTaxCode());
-        setField(sectionName + "receiverTaxCode", contributor.getReceiverTaxCode());
-        setField(sectionName + "idCode", contributor.getIdCode());
+        setField(sectionName + FieldEnum.TAX_CODE.name(), contributor.getTaxCode());
+        setField(sectionName + FieldEnum.RECEIVER_TAX_CODE.name(), contributor.getReceiverTaxCode());
+        setField(sectionName + FieldEnum.ID_CODE.name(), contributor.getIdCode());
 
         if (contributor.isIfCalendarYear())
-            setField(sectionName + "calendarYear", currentYear);
+            setField(sectionName + FieldEnum.CALENDAR_YEAR.name(), currentYear);
 
         setPersonData();
         setTaxResidenceData();
     }
 
     private void setInpsSection(int copyIndex) throws Exception {
-        String sectionName = INPS_SECTION;
+        String sectionName = FieldEnum.INPS.name();
         InpsSection inpsSection = this.form.getInpsSection();
         List<InpsRecord> inpsRecordList = inpsSection.getInpsRecordList();
 
@@ -125,33 +114,33 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (InpsRecord record : inpsRecordList) {
-            setField(sectionName + "locationCode" + index, record.getLocationCode());
-            setField(sectionName + "contributionReason" + index, record.getContributionReason());
-            setField(sectionName + "inpsCode" + index, record.getInpsCode());
-            setField(sectionName + "startDate" + index, record.getReportingPeriod().getStartDate());
-            setField(sectionName + "endDate" + index, record.getReportingPeriod().getEndDate());
+            setField(sectionName + FieldEnum.LOCATION_CODE.name() + index, record.getLocationCode());
+            setField(sectionName + FieldEnum.CONTRIBUTION_REASON.name() + index, record.getContributionReason());
+            setField(sectionName + FieldEnum.INPS_CODE.name() + index, record.getInpsCode());
+            setField(sectionName + FieldEnum.START_DATE.name() + index, record.getReportingPeriod().getStartDate());
+            setField(sectionName + FieldEnum.END_DATE.name() + index, record.getReportingPeriod().getEndDate());
 
             if (record.getCreditAmount() != null)
-                setMultiField(sectionName, "creditAmount", index, Double.parseDouble(record.getCreditAmount()));
+                setMultiField(sectionName, FieldEnum.CREDIT_AMOUNT.name(), index, Double.parseDouble(record.getCreditAmount()));
 
             if (record.getDebitAmount() != null)
-                setMultiField(sectionName, "debitAmount", index, Double.parseDouble(record.getDebitAmount()));
+                setMultiField(sectionName, FieldEnum.DEBIT_AMOUNT.name(), index, Double.parseDouble(record.getDebitAmount()));
 
             index++;
         }
 
         Double parsedRecord = Double.parseDouble(inpsSection.getTotalAmount(inpsRecordList).toString());
-        setMultiField(sectionName, "balance", parsedRecord);
+        setMultiField(sectionName, FieldEnum.BALANCE.name(), parsedRecord);
 
         Double parsedDebit = Double.parseDouble(inpsSection.getDebitTotal(inpsRecordList).toString());
-        setMultiField(sectionName, "totalDebit", parsedDebit);
+        setMultiField(sectionName, FieldEnum.TOTAL_DEBIT.name(), parsedDebit);
 
         Double parsedCredit = Double.parseDouble(inpsSection.getCreditTotal(inpsRecordList).toString());
-        setMultiField(sectionName, "totalCredit", parsedCredit);
+        setMultiField(sectionName, FieldEnum.TOTAL_CREDIT.name(), parsedCredit);
     }
 
     private void setImuSection(int copyIndex) throws Exception {
-        String sectionName = IMU_SECTION;
+        String sectionName = FieldEnum.IMU.name();
         ImuSection imuSection = this.form.getImuSection();
         List<ImuRecord> imuRecordList = imuSection.getImuRecordList();
 
@@ -162,43 +151,43 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (ImuRecord record : imuRecordList) {
-            setField(sectionName + "reportingYear" + index, record.getReportingYear());
-            setField(sectionName + "installment" + index, record.getInstallment());
-            setField(sectionName + "tributeCode" + index, record.getTributeCode());
-            setField(sectionName + "municipalityCode" + index, record.getMunicipalityCode());
+            setField(sectionName + FieldEnum.REPORTING_YEAR.name() + index, record.getReportingYear());
+            setField(sectionName + FieldEnum.INSTALLMENT.name() + index, record.getInstallment());
+            setField(sectionName + FieldEnum.TRIBUTE_CODE.name() + index, record.getTributeCode());
+            setField(sectionName + FieldEnum.MUNICIPALITY_CODE.name() + index, record.getMunicipalityCode());
 
             if (record.getActiveRepentance() != null)
-                setField(sectionName + "ravv" + index, "X");
+                setField(sectionName + FieldEnum.ACTIVE_REPENTANCE.name() + index, "X");
             if (record.getVariedBuildings() != null)
-                setField(sectionName + "building" + index, "X");
+                setField(sectionName + FieldEnum.VARIED_BUILDINGS.name() + index, "X");
             if (record.getAdvancePayment() != null)
-                setField(sectionName + "acc" + index, "X");
+                setField(sectionName + FieldEnum.ADVANCE_PAYMENT.name() + index, "X");
             if (record.getBalance() != null)
-                setField(sectionName + "balance" + index, "X");
+                setField(sectionName + FieldEnum.BALANCE.name() + index, "X");
             if (record.getNumberOfBuildings() != null)
-                setField(sectionName + "numberOfBuildings" + index, record.getNumberOfBuildings());
+                setField(sectionName + FieldEnum.NUMBER_OF_BUILDINGS.name() + index, record.getNumberOfBuildings());
 
             if (record.getCreditAmount() != null)
-                setMultiField(sectionName, "creditAmount", index, Double.parseDouble(record.getCreditAmount()));
+                setMultiField(sectionName, FieldEnum.CREDIT_AMOUNT.name(), index, Double.parseDouble(record.getCreditAmount()));
 
             if (record.getDebitAmount() != null)
-                setMultiField(sectionName, "debitAmount", index, Double.parseDouble(record.getDebitAmount()));
+                setMultiField(sectionName, FieldEnum.DEBIT_AMOUNT.name(), index, Double.parseDouble(record.getDebitAmount()));
 
             index++;
         }
 
         Double parsedRecord = Double.parseDouble(imuSection.getTotalAmount(imuRecordList).toString());
-        setMultiField(sectionName, "balance", parsedRecord);
+        setMultiField(sectionName, FieldEnum.BALANCE.name(), parsedRecord);
 
         Double parsedDebit = Double.parseDouble(imuSection.getDebitTotal(imuRecordList).toString());
-        setMultiField(sectionName, "totalDebit", parsedDebit);
+        setMultiField(sectionName, FieldEnum.TOTAL_DEBIT.name(), parsedDebit);
 
         Double parsedCredit = Double.parseDouble(imuSection.getCreditTotal(imuRecordList).toString());
-        setMultiField(sectionName, "totalCredit", parsedCredit);
+        setMultiField(sectionName, FieldEnum.TOTAL_CREDIT.name(), parsedCredit);
     }
 
     private void setTreasurySection(int copyIndex) throws Exception {
-        String sectionName = TREASURY_SECTION;
+        String sectionName = FieldEnum.TREASURY.name();
         TreasurySection treasurySection = this.form.getTreasurySection();
         List<Tax> taxList = treasurySection.getTaxList();
 
@@ -209,31 +198,31 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (Tax record : taxList) {
-            setField(sectionName + "tributeCode" + index, record.getTributeCode());
-            setField(sectionName + "installment" + index, record.getInstallment());
-            setField(sectionName + "reportingYear" + index, record.getReportingYear());
+            setField(sectionName + FieldEnum.TRIBUTE_CODE.name() + index, record.getTributeCode());
+            setField(sectionName + FieldEnum.INSTALLMENT.name() + index, record.getInstallment());
+            setField(sectionName + FieldEnum.REPORTING_YEAR.name() + index, record.getReportingYear());
 
             if (record.getCreditAmount() != null)
-                setMultiField(sectionName, "creditAmount", index, Double.parseDouble(record.getCreditAmount()));
+                setMultiField(sectionName, FieldEnum.CREDIT_AMOUNT.name(), index, Double.parseDouble(record.getCreditAmount()));
 
             if (record.getDebitAmount() != null)
-                setMultiField(sectionName, "debitAmount", index, Double.parseDouble(record.getDebitAmount()));
+                setMultiField(sectionName, FieldEnum.DEBIT_AMOUNT.name(), index, Double.parseDouble(record.getDebitAmount()));
 
             index++;
         }
 
         Double parsedRecord = Double.parseDouble(treasurySection.getTotalAmount(taxList).toString());
-        setMultiField(sectionName, "balance", parsedRecord);
+        setMultiField(sectionName, FieldEnum.BALANCE.name(), parsedRecord);
 
         Double parsedDebit = Double.parseDouble(treasurySection.getDebitTotal(taxList).toString());
-        setMultiField(sectionName, "totalDebit", parsedDebit);
+        setMultiField(sectionName, FieldEnum.TOTAL_DEBIT.name(), parsedDebit);
 
         Double parsedCredit = Double.parseDouble(treasurySection.getCreditTotal(taxList).toString());
-        setMultiField(sectionName, "totalCredit", parsedCredit);
+        setMultiField(sectionName, FieldEnum.TOTAL_CREDIT.name(), parsedCredit);
     }
 
     private void setSocialSecurity(int copyIndex) throws Exception {
-        String sectionName = SOCIAL_SECURITY;
+        String sectionName = FieldEnum.SOCIAL_SECURITY.name();
         SocialSecuritySection socSecurity = this.form.getSecuritySection();
         List<SocialSecurityRecord> socSecurityList = socSecurity.getSocialSecurityRecordList();
 
@@ -244,34 +233,34 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (SocialSecurityRecord record : socSecurityList) {
-            setField(sectionName + "contributionReason" + index, record.getContributionReason());
-            setField(sectionName + "positionCode" + index, record.getPositionCode());
-            setField(sectionName + "locationCode" + index, record.getLocationCode());
-            setField(sectionName + "institutionCode" + index, record.getInstitutionCode());
-            setField(sectionName + "startDate" + index, record.getPeriod().getStartDate());
-            setField(sectionName + "endDate" + index, record.getPeriod().getEndDate());
+            setField(sectionName + FieldEnum.CONTRIBUTION_REASON.name() + index, record.getContributionReason());
+            setField(sectionName + FieldEnum.POSITION_CODE.name() + index, record.getPositionCode());
+            setField(sectionName + FieldEnum.LOCATION_CODE.name() + index, record.getLocationCode());
+            setField(sectionName + FieldEnum.INSTITUTION_CODE.name() + index, record.getInstitutionCode());
+            setField(sectionName + FieldEnum.START_DATE.name() + index, record.getPeriod().getStartDate());
+            setField(sectionName + FieldEnum.END_DATE.name() + index, record.getPeriod().getEndDate());
 
             if (record.getCreditAmount() != null)
-                setMultiField(sectionName, "creditAmount", index, Double.parseDouble(record.getCreditAmount()));
+                setMultiField(sectionName, FieldEnum.CREDIT_AMOUNT.name(), index, Double.parseDouble(record.getCreditAmount()));
 
             if (record.getDebitAmount() != null)
-                setMultiField(sectionName, "debitAmount", index, Double.parseDouble(record.getDebitAmount()));
+                setMultiField(sectionName, FieldEnum.DEBIT_AMOUNT.name(), index, Double.parseDouble(record.getDebitAmount()));
 
             index++;
         }
 
         Double parsedRecord = Double.parseDouble(socSecurity.getTotalAmount(socSecurityList).toString());
-        setMultiField(sectionName, "balance", parsedRecord);
+        setMultiField(sectionName, FieldEnum.BALANCE.name(), parsedRecord);
 
         Double parsedDebit = Double.parseDouble(socSecurity.getDebitTotal(socSecurityList).toString());
-        setMultiField(sectionName, "totalDebit", parsedDebit);
+        setMultiField(sectionName, FieldEnum.TOTAL_DEBIT.name(), parsedDebit);
 
         Double parsedCredit = Double.parseDouble(socSecurity.getCreditTotal(socSecurityList).toString());
-        setMultiField(sectionName, "totalCredit", parsedCredit);
+        setMultiField(sectionName, FieldEnum.TOTAL_CREDIT.name(), parsedCredit);
     }
 
     private void setInail(int copyIndex) throws Exception {
-        String sectionName = INAIL_SECTION;
+        String sectionName = FieldEnum.INAIL.name();
         SocialSecuritySection socSecurity = this.form.getSecuritySection();
         List<InailRecord> inailRecordList = socSecurity.getInailRecords();
 
@@ -282,50 +271,50 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (InailRecord record : inailRecordList) {
-            setField(sectionName + "locationCode" + index, record.getLocationCode());
-            setField(sectionName + "companyCode" + index, record.getCompanyCode());
-            setField(sectionName + "bankAccount" + index, record.getBankAccount());
-            setField(sectionName + "referenceNumber" + index, record.getReferenceNumber());
-            setField(sectionName + "reason" + index, record.getReason());
+            setField(sectionName + FieldEnum.LOCATION_CODE.name() + index, record.getLocationCode());
+            setField(sectionName + FieldEnum.COMPANY_CODE.name() + index, record.getCompanyCode());
+            setField(sectionName + FieldEnum.BANK_ACCOUNT.name() + index, record.getBankAccount());
+            setField(sectionName + FieldEnum.REFERENCE_NUMBER.name() + index, record.getReferenceNumber());
+            setField(sectionName + FieldEnum.REASON.name() + index, record.getReason());
 
             if (record.getCreditAmount() != null)
-                setMultiField(sectionName, "creditAmount", index, Double.parseDouble(record.getCreditAmount()));
+                setMultiField(sectionName, FieldEnum.CREDIT_AMOUNT.name(), index, Double.parseDouble(record.getCreditAmount()));
 
             if (record.getDebitAmount() != null)
-                setMultiField(sectionName, "debitAmount", index, Double.parseDouble(record.getDebitAmount()));
+                setMultiField(sectionName, FieldEnum.DEBIT_AMOUNT.name(), index, Double.parseDouble(record.getDebitAmount()));
 
             index++;
         }
 
         Double parsedRecord = Double.parseDouble(socSecurity.getTotalAmount(inailRecordList).toString());
-        setMultiField(sectionName, "balance", parsedRecord);
+        setMultiField(sectionName, FieldEnum.BALANCE.name(), parsedRecord);
 
         Double parsedDebit = Double.parseDouble(socSecurity.getDebitTotal(inailRecordList).toString());
-        setMultiField(sectionName, "totalDebit", parsedDebit);
+        setMultiField(sectionName, FieldEnum.TOTAL_DEBIT.name(), parsedDebit);
 
         Double parsedCredit = Double.parseDouble(socSecurity.getCreditTotal(inailRecordList).toString());
-        setMultiField(sectionName, "totalCredit", parsedCredit);
+        setMultiField(sectionName, FieldEnum.TOTAL_CREDIT.name(), parsedCredit);
     }
 
     private void setPaymentDetails() throws Exception {
-        String sectionName = PAYMENT_SECTION;
+        String sectionName = FieldEnum.PAYMENT_DETAILS.name();
         PaymentDetails paymentDetails = this.form.getPaymentDetails();
 
-        setField(sectionName + "dateOfPayment", paymentDetails.getDateOfPayment().replaceAll("-", ""));
-        setField(sectionName + "company", paymentDetails.getCompany());
-        setField(sectionName + "cabCode", paymentDetails.getCabCode());
-        setField(sectionName + "checkNumber", paymentDetails.getCheckNumber());
-        setField(sectionName + "abiCode", paymentDetails.getAbiCode());
+        setField(sectionName + FieldEnum.DATE_OF_PAYMENT.name(), paymentDetails.getDateOfPayment().replaceAll("-", ""));
+        setField(sectionName + FieldEnum.COMPANY.name(), paymentDetails.getCompany());
+        setField(sectionName + FieldEnum.CAB_CODE.name(), paymentDetails.getCabCode());
+        setField(sectionName + FieldEnum.CHECK_NUMBER.name(), paymentDetails.getCheckNumber());
+        setField(sectionName + FieldEnum.ABI_CODE.name(), paymentDetails.getAbiCode());
 
         if (paymentDetails.isBank()) {
-            setField(sectionName + "bank1", "X");
+            setField(sectionName + FieldEnum.BANK.name() + "1", "X");
         } else {
-            setField(sectionName + "bank2", "X");
+            setField(sectionName + FieldEnum.BANK.name() + "2", "X");
         }
     }
 
     private void setRegionSection(int copyIndex) throws Exception {
-        String sectionName = REGION_SECTION;
+        String sectionName = FieldEnum.REGION_CODE.name();
         RegionSection regionSection = this.form.getRegionSection();
         List<RegionRecord> regionRecordsList = regionSection.getRegionRecordList();
 
@@ -336,28 +325,28 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (RegionRecord record : regionRecordsList) {
-            setField(sectionName + "reportingYear" + index, record.getReportingYear());
-            setField(sectionName + "installment" + index, record.getInstallment());
-            setField(sectionName + "tributeCode" + index, record.getTributeCode());
-            setField(sectionName + "regionCode" + index, record.getRegionCode());
+            setField(sectionName + FieldEnum.REPORTING_YEAR.name() + index, record.getReportingYear());
+            setField(sectionName + FieldEnum.INSTALLMENT.name() + index, record.getInstallment());
+            setField(sectionName + FieldEnum.TRIBUTE_CODE.name() + index, record.getTributeCode());
+            setField(sectionName + FieldEnum.REGION_CODE.name() + index, record.getRegionCode());
 
             if (record.getCreditAmount() != null)
-                setMultiField(sectionName, "creditAmount", index, Double.parseDouble(record.getCreditAmount()));
+                setMultiField(sectionName, FieldEnum.CREDIT_AMOUNT.name(), index, Double.parseDouble(record.getCreditAmount()));
 
             if (record.getDebitAmount() != null)
-                setMultiField(sectionName, "debitAmount", index, Double.parseDouble(record.getDebitAmount()));
+                setMultiField(sectionName, FieldEnum.DEBIT_AMOUNT.name(), index, Double.parseDouble(record.getDebitAmount()));
 
             index++;
         }
 
         Double parsedRecord = Double.parseDouble(regionSection.getTotalAmount(regionRecordsList).toString());
-        setMultiField(sectionName, "balance", parsedRecord);
+        setMultiField(sectionName, FieldEnum.BALANCE.name(), parsedRecord);
 
         Double parsedDebit = Double.parseDouble(regionSection.getDebitTotal(regionRecordsList).toString());
-        setMultiField(sectionName, "totalDebit", parsedDebit);
+        setMultiField(sectionName, FieldEnum.TOTAL_DEBIT.name(), parsedDebit);
 
         Double parsedCredit = Double.parseDouble(regionSection.getCreditTotal(regionRecordsList).toString());
-        setMultiField(sectionName, "totalCredit", parsedCredit);
+        setMultiField(sectionName, FieldEnum.TOTAL_CREDIT.name(), parsedCredit);
 
     }
 

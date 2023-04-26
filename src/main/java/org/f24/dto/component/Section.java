@@ -3,7 +3,7 @@ package org.f24.dto.component;
 import java.util.List;
 
 import org.f24.exception.ResourceException;
-import org.f24.service.validator.ErrorEnum;
+import org.f24.exception.ErrorEnum;
 
 public class Section {
   private List<? extends Record> recordList;

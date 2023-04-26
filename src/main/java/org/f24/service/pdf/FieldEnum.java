@@ -54,7 +54,8 @@ public enum FieldEnum {
     BANK_ACCOUNT_NUMBER("bankAccountNumber"),
     BANK_ID("bankId"),
     SECTION("section"),
-
+    CALENDAR_YEAR("calendarYear"),
+    
     HEADER("header"),
     CONTRIBUTOR("contributor"),
     PERSONAL_DATA("personalData"),
@@ -70,10 +71,15 @@ public enum FieldEnum {
 
     DEDUCTION_INT("deductionInt"),
     DEDUCTION_DEC("deductionDec"),
+    DEBIT_AMOUNT("debitAmount"),
     DEBIT_AMOUNT_INT("debitAmountInt"),
     DEBIT_AMOUNT_DEC("debitAmountDec"),
+    CREDIT_AMOUNT("creditAmount"),
     CREDIT_AMOUNT_INT("creditAmountInt"),
     CREDIT_AMOUNT_DEC("creditAmountDec"),
+
+    TOTAL_DEBIT("totalDebit"),
+    TOTAL_CREDIT("totalCredit"),
 
     SIGNATURE("signature");
     private String name;
