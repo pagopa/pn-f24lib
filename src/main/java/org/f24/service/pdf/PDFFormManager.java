@@ -75,7 +75,7 @@ public class PDFFormManager {
     }
 
     private void flat(int copyIndex) throws Exception {
-        setIndex(0);
+        setIndex(copyIndex);
         getForm().flatten();
     }
 

@@ -30,7 +30,7 @@ public class SimplifiedValidator extends FormValidator {
             if (paymentItem.getDebitAmount() != null && !Objects.equals(paymentItem.getDebitAmount(), "0") && paymentItem.getCreditAmount() != null && !Objects.equals(paymentItem.getCreditAmount(), "0")) {
                 throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage());
             }
-        };
+        }
     }
     
     @Override
