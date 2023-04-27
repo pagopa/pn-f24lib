@@ -64,9 +64,9 @@ public class FormValidator implements Validator {
             } catch (ParseException e) {
                 dateOfBirth = new Date();
             }
-            // TODO get municipality code from official list
-            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, "");
-            if(!this.form.getContributor().getTaxCode().equals(calculatedTaxCode)) {
+            String municipality = this.form.getContributor().getTaxCode().substring(11, 15);
+            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, municipality);
+            if(!this.form.getContributor().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
                 throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
             }
         }
