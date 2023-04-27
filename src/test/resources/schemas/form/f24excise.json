@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "header": {
+      "$ref": "resource:/schemas/component/header.json"
+    },
+    "contributor": {
+      "$ref": "resource:/schemas/component/contributor.json"
+    },
+    "paymentDetails": {
+      "$ref": "resource:/schemas/component/payment-details.json"
+    },
+    "treasurySection": {
+      "$ref": "resource:/schemas/component/treasury-section.json"
+    },
+    "inpsSection": {
+      "$ref": "resource:/schemas/component/inps-section.json"
+    },
+    "regionSection": {
+      "$ref": "resource:/schemas/component/region-section.json"
+    },
+    "imuSection": {
+      "$ref": "resource:/schemas/component/imu-section.json"
+    },
+    "exciseSection": {
+      "$ref": "resource:/schemas/component/excise-section.json"
+    },
+    "ibanCode": {
+      "type": "string"
+    }
+  },
+  "description": "F24 Excise (Accise) object"
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "header": {
+      "$ref": "resource:/schemas/component/header.json"
+    },
+    "contributor": {
+      "$ref": "resource:/schemas/component/contributor.json"
+    },
+    "paymentDetails": {
+      "$ref": "resource:/schemas/component/payment-details.json"
+    },
+    "treasurySection": {
+      "$ref": "resource:/schemas/component/treasury-section.json"
+    },
+    "bankAccountNumber": {
+      "type": "string"
+    },
+    "abiCode": {
+      "type": "string"
+    },
+    "bankId": {
+      "type": "string"
+    }
+  }
+}

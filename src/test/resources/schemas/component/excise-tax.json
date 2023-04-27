@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "institution": {
+      "pattern": "^[A-Z]{2}$",
+      "type": "string"
+    },
+    "province": {
+      "pattern": "^[A-Z]{2}$",
+      "type": "string"
+    },
+    "idCode": {
+      "pattern": "^[A-Z0-9]{17}$",
+      "type": "string"
+    },
+    "tributeCode": {
+      "pattern": "^[0-9A-Z]{4}$",
+      "type": "string"
+    },
+    "installment": {
+      "pattern": "^[A-Z0-9]{0,4}$",
+      "type": "string"
+    },
+    "month": {
+      "pattern": "^[0-1][0-9]$",
+      "type": "string"
+    },
+    "reportingYear": {
+      "pattern": "^[1-2][0-9]{3}$",
+      "type": "string"
+    },
+    "debitAmount": {
+      "pattern": "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$",
+      "type": "string"
+    }
+  },
+  "description": "Excise Tax object"
+}
