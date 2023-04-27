@@ -1,5 +1,6 @@
 package org.f24.service.pdf.impl;
 
+import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Simplified;
 import org.f24.service.pdf.PDFCreator;
@@ -29,7 +30,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         if(header != null) {
             setField("attorney", header.getDelegationTo());
             setField("agency", header.getAgency());
-            setField("province", header.getProvince());
+            setField("agencyProvince", header.getProvince());
         }
     }
 
@@ -39,7 +40,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             PersonalData personalData = personData.getPersonalData();
             setField("corporateName", personalData.getSurname());
             setField("name", personalData.getName());
-            setField("dateOfBirth", personalData.getDateOfBirth().replaceAll("-", ""));
+            setField("dateOfBirth", personalData.getDateOfBirth().replace("-", ""));
             setField("sex", personalData.getSex());
             setField("municipalityOfBirth", personalData.getMunicipalityOfBirth());
             setField("province", personalData.getProvince());
@@ -85,29 +86,29 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             limit = Math.min(limit, paymentMotiveRecordList.size());
             paymentMotiveRecordList = paymentMotiveRecordList.subList(copyIndex * MOTIVE_RECORDS_NUMBER, limit);
             for (int index = 1; index <= paymentMotiveRecordList.size(); index++) {
-                PaymentMotiveRecord record = paymentMotiveRecordList.get(index - 1);
-                setField("section" + index, record.getSection());
-                setField("tributeCode" + index, record.getTributeCode());
-                setField("institutionCode" + index, record.getInstitutionCode());
-                if (record.getActiveRepentance()) setField("ravv" + index, "X");
-                if (record.getVariedBuildings()) setField("building" + index, "X");
-                if (record.getAdvancePayment()) setField("acc" + index, "X");
-                if (record.getBalance()) setField("balance" + index, "X");
-                if (record.getNumberOfBuildings() != null) setField("numberOfBuildings" + index, record.getNumberOfBuildings());
-                setField("month" + index, record.getMonth());
-                setField("reportingYear" + index, record.getReportingYear());
-                if(record.getDeduction() != null) {
-                    String[] splittedDeduction = splitMoney(Double.parseDouble(record.getDeduction()));
+                PaymentMotiveRecord paymentMotiveRecord = paymentMotiveRecordList.get(index - 1);
+                setField("section" + index, paymentMotiveRecord.getSection());
+                setField("tributeCode" + index, paymentMotiveRecord.getTributeCode());
+                setField("institutionCode" + index, paymentMotiveRecord.getInstitutionCode());
+                if (paymentMotiveRecord.getActiveRepentance() == Boolean.TRUE) setField("ravv" + index, "X");
+                if (paymentMotiveRecord.getVariedBuildings() == Boolean.TRUE) setField("building" + index, "X");
+                if (paymentMotiveRecord.getAdvancePayment() == Boolean.TRUE) setField("acc" + index, "X");
+                if (paymentMotiveRecord.getBalance() == Boolean.TRUE) setField("balance" + index, "X");
+                if (paymentMotiveRecord.getNumberOfBuildings() != null) setField("numberOfBuildings" + index, paymentMotiveRecord.getNumberOfBuildings());
+                setField("month" + index, paymentMotiveRecord.getMonth());
+                setField("reportingYear" + index, paymentMotiveRecord.getReportingYear());
+                if(paymentMotiveRecord.getDeduction() != null) {
+                    String[] splittedDeduction = splitMoney(Double.parseDouble(paymentMotiveRecord.getDeduction()));
                     setField("deductionInt" + index, splittedDeduction[0]);
                     setField("deductionDec" + index, splittedDeduction[1]);
                 }
-                if(record.getDebitAmount() != null) {
-                    String[] splittedDebitAmount = splitMoney(Double.parseDouble(record.getDebitAmount()));
+                if(paymentMotiveRecord.getDebitAmount() != null) {
+                    String[] splittedDebitAmount = splitMoney(Double.parseDouble(paymentMotiveRecord.getDebitAmount()));
                     setField("debitAmountInt" + index, splittedDebitAmount[0]);
                     setField("debitAmountDec" + index, splittedDebitAmount[1]);
                 }
-                if(record.getCreditAmount() != null) {
-                    String[] splittedCreditAmount = splitMoney(Double.parseDouble(record.getCreditAmount()));
+                if(paymentMotiveRecord.getCreditAmount() != null) {
+                    String[] splittedCreditAmount = splitMoney(Double.parseDouble(paymentMotiveRecord.getCreditAmount()));
                     setField("creditAmountInt" + index, splittedCreditAmount[0]);
                     setField("creditAmountDec" + index, splittedCreditAmount[1]);
                 }
@@ -116,14 +117,14 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             setField("totalAmountInt", splittedTotalAmount[0]);
             setField("totalAmountDec", splittedTotalAmount[1]);
         } catch (Exception e) {
-            e.printStackTrace();
+            //
         }
     }
 
     private void setPaymentDetails() throws Exception {
         PaymentDetails paymentDetails = this.form.getPaymentDetails();
         if(paymentDetails != null) {
-            setField("dateOfPayment", paymentDetails.getDateOfPayment().replaceAll("-", ""));
+            setField("dateOfPayment", paymentDetails.getDateOfPayment().replace("-", ""));
             setField("company", paymentDetails.getCompany());
             setField("cabCode", paymentDetails.getCabCode());
             setField("checkNumber", paymentDetails.getCheckNumber());
@@ -133,30 +134,6 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             setField("ibanCode", paymentDetails.getIbanCode());
         }
     }
-
-    /*private void setSignature() throws Exception {
-        PDField field = getField("signature");
-        PDAnnotationWidget widget = field.getWidgets().get(0);
-        PDImageXObject image = PDImageXObject.createFromFile("", getDoc());
-        // TODO PDImageXObject image = PDImageXObject.createFromByteArray()
-
-        float width = widget.getRectangle().getWidth();
-        float height = widget.getRectangle().getHeight();
-
-        PDAppearanceStream appearanceStream = new PDAppearanceStream(getDoc());
-        appearanceStream.setResources(new PDResources());
-        appearanceStream.setBBox(new PDRectangle(width, height));
-        appearanceStream.setMatrix(new AffineTransform());
-
-        PDPageContentStream contentStream = new PDPageContentStream(getDoc(), appearanceStream);
-        contentStream.drawImage(image, 0, 0, width, height);
-        contentStream.close();
-
-        PDAppearanceDictionary appearanceDictionary = new PDAppearanceDictionary();
-        appearanceDictionary.setNormalAppearance(appearanceStream);
-
-        widget.setAppearance(appearanceDictionary);
-    }*/
 
     /**
      * Method which creates PDF Document for F24 Simplified Form.
@@ -178,7 +155,6 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
                 setHeader();
                 setContributor();
                 setPaymentDetails();
-                //setSignature();
                 setPaymentMotiveSection(copyIndex);
             }
 
@@ -189,8 +165,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
 
             return byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            return ByteArrayBuilder.NO_BYTES;
         }
     }
 

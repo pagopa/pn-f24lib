@@ -76,7 +76,7 @@ public class FormValidator implements Validator {
         Contributor contributor = this.form.getContributor();
 
         if (contributor != null) {
-            String taxCode = contributor.getTaxCode();
+            String taxCode = contributor.getReceiverTaxCode();
             String idCode = contributor.getIdCode();
 
             if (taxCode != null && idCode == null)
