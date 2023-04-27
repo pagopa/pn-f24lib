@@ -4,7 +4,7 @@
   "properties": {
     "operationId": {
       "pattern": "^[A-Z0-9]{18}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "motiveRecordList": {
       "type": "array",

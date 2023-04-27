@@ -4,11 +4,11 @@
   "required": ["name","surname","dateOfBirth","sex","municipalityOfBirth","province"],
   "properties": {
     "surname": {
-      "pattern": "^[A-Z]{1,24}$",
+      "pattern": "[A-Z ]{1,24}+",
       "type": "string"
     },
     "name": {
-      "pattern": "^[A-Z]{1,20}$",
+      "pattern": "^[A-Z ]{1,20}+$",
       "type": "string"
     },
     "dateOfBirth": {
@@ -20,7 +20,7 @@
       "type": "string"
     },
     "municipalityOfBirth": {
-      "pattern": "^[A-Z]{1,40}$",
+      "pattern": "^[A-Z ]{1,40}+$",
       "type": "string"
     },
     "province": {
