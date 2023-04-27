@@ -7,8 +7,6 @@
       "type": "string"
     },
     "motiveRecordList": {
-      "maxItems": 10,
-      "minItems": 0,
       "type": "array",
       "items": {
         "$ref": "resource:/schemas/component/payment-motive-record.json"

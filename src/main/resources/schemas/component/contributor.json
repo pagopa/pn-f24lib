@@ -7,7 +7,7 @@
       "type": "string"
     },
     "ifCalendarYear": {
-      "type": "boolean"
+      "type": ["boolean", "null"]
     },
     "personData": {
       "$ref": "resource:/schemas/component/person-data.json"
@@ -25,11 +25,11 @@
     },
     "actCode": {
       "pattern": "^\\d{11}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "officeCode": {
       "pattern": "^[A-Z0-9]{3}$",
-      "type": "string"
+      "type": ["string", "null"]
     }
   }
 }

@@ -7,8 +7,6 @@
   ],
   "properties": {
     "taxList": {
-      "maxItems": 6,
-      "minItems": 0,
       "type": "array",
           "items": {
             "$ref": "resource:/schemas/component/tax.json"
