@@ -3,14 +3,14 @@
   "type": "object",
   "properties": {
     "delegationTo": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "agency": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "province": {
       "pattern": "^[A-Z]{2}$",
-      "type": "string"
+      "type": ["string", "null"]
     }
   },
   "description": "Header object"

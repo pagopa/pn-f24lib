@@ -4,11 +4,9 @@
   "properties": {
     "operationId": {
       "pattern": "^[A-Z0-9]{18}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "motiveRecordList": {
-      "maxItems": 10,
-      "minItems": 0,
       "type": "array",
       "items": {
         "$ref": "resource:/schemas/component/payment-motive-record.json"

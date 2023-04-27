@@ -6,7 +6,8 @@ public class PersonData {
 
     private TaxResidence taxResidence;
 
-    public PersonData() {}
+    public PersonData() {
+    }
 
     /**
      * Constructs personal data section of contributor (dati anagrafici PF)
@@ -17,6 +18,15 @@ public class PersonData {
     public PersonData(PersonalData personalData, TaxResidence taxResidence) {
         this.personalData = personalData;
         this.taxResidence = taxResidence;
+    }
+
+    /**
+     * Constructs personal data section of contributor (dati anagrafici PF) without tax residence
+     *
+     * @param personalData PersonalData component (dati anagrafici)
+     */
+    public PersonData(PersonalData personalData) {
+        this.personalData = personalData;
     }
 
     public PersonalData getPersonalData() {

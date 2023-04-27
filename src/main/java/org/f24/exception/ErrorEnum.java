@@ -7,9 +7,10 @@ public enum ErrorEnum {
     MIN_ITEMS("minItems", "Minimum amount of records required: {details}."),
     TYPE("type", "Field {field} is required."),
     TAX_CODE("taxCode", "Invalid tax code: it not corresponds to other personal data."),
-    DEFAULT("default", "Error occurred during validation."),
     MOTIVE_RECORD("motiveRecord", "The credit and debit fields cannot be filled with a value at the same time"),
-    NEGATIVE_NUM("negativeNum", "This value can`t be less than zero");
+    NEGATIVE_NUM("negativeNum", "This value can`t be less than zero"),
+    ID_CODE("taxCode", "ID code can`t be empty if the tax code is present"),
+    DEFAULT("default", "Error occurred during validation.");
 
     private String code;
     private String message;

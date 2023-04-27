@@ -7,15 +7,13 @@
       "type": "string"
     },
     "imuRecordList": {
-      "maxItems": 4,
-      "minItems": 0,
       "type": "array",
       "items": {
         "$ref": "resource:/schemas/component/imu-record.json"
       }
     },
     "deduction": {
-      "pattern": "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$",
+      "pattern": "^0|[1-9][0-9]{0,14}$",
       "type": "string"
     }
   },

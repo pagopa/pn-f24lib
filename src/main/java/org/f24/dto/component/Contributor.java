@@ -18,10 +18,11 @@ public class Contributor {
 
     private String officeCode;
 
-    public Contributor() {}
+    public Contributor() {
+    }
 
     /**
-     * Constructs contributor section (Contribuente) for Excise, Standard forms
+     * Constructs contributor section (Contribuente) for Excise, Standard forms with Person Data
      *
      * @param taxCode         tax code (codice fiscale)
      * @param ifCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
@@ -29,9 +30,43 @@ public class Contributor {
      * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public Contributor(String taxCode, boolean ifCalendarYear, String actCode, String officeCode, PersonData personData, String receiverTaxCode, String idCode) {
+    public Contributor(String taxCode, boolean ifCalendarYear, PersonData personData, String receiverTaxCode, String idCode) {
         this.taxCode = taxCode;
         this.ifCalendarYear = ifCalendarYear;
+        this.personData = personData;
+        this.receiverTaxCode = receiverTaxCode;
+        this.idCode = idCode;
+    }
+
+    /**
+     * Constructs contributor section (Contribuente) for Excise, Standard forms with Company Data
+     *
+     * @param taxCode         tax code (codice fiscale)
+     * @param ifCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
+     * @param companyData     CompanyData component (dati anagrafici PNF)
+     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param idCode          ID code (codice identificativo)
+     */
+    public Contributor(String taxCode, boolean ifCalendarYear, CompanyData companyData, String receiverTaxCode, String idCode) {
+        this.taxCode = taxCode;
+        this.ifCalendarYear = ifCalendarYear;
+        this.companyData = companyData;
+        this.receiverTaxCode = receiverTaxCode;
+        this.idCode = idCode;
+    }
+
+    /**
+     * Constructs contributor section (Contribuente) for Simplified (Semplificato) Form
+     *
+     * @param taxCode         tax code (codice fiscale)
+     * @param actCode         act code
+     * @param officeCode      office code
+     * @param personData      PersonData component (dati anagrafici PF)
+     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param idCode          ID code (codice identificativo)
+     */
+    public Contributor(String taxCode, String actCode, String officeCode, PersonData personData, String receiverTaxCode, String idCode) {
+        this.taxCode = taxCode;
         this.actCode = actCode;
         this.officeCode = officeCode;
         this.personData = personData;
@@ -40,19 +75,30 @@ public class Contributor {
     }
 
     /**
-     * Constructs contributor section (Contribuente) for Excise, Standard forms
+     * Constructs contributor section (Contribuente) for Elid Form with Person data
      *
      * @param taxCode         tax code (codice fiscale)
-     * @param ifCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
-     * @param companyData     CompanyData component (dati anagrafici PNF)
+     * @param personData      PersonData component (dati anagrafici PF)
      * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public Contributor(String taxCode, boolean ifCalendarYear, String actCode, String officeCode, CompanyData companyData, String receiverTaxCode, String idCode) {
+    public Contributor(String taxCode, PersonData personData, String receiverTaxCode, String idCode) {
         this.taxCode = taxCode;
-        this.ifCalendarYear = ifCalendarYear;
-        this.actCode = actCode;
-        this.officeCode = officeCode;
+        this.personData = personData;
+        this.receiverTaxCode = receiverTaxCode;
+        this.idCode = idCode;
+    }
+
+    /**
+     * Constructs contributor section (Contribuente) for Elid Form with Company data
+     *
+     * @param taxCode         tax code (codice fiscale)
+     * @param companyData     CompanyData component
+     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param idCode          ID code (codice identificativo)
+     */
+    public Contributor(String taxCode, CompanyData companyData, String receiverTaxCode, String idCode) {
+        this.taxCode = taxCode;
         this.companyData = companyData;
         this.receiverTaxCode = receiverTaxCode;
         this.idCode = idCode;

@@ -7,6 +7,7 @@ import com.github.fge.jsonschema.core.report.ProcessingMessage;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import org.f24.dto.component.Contributor;
 import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
@@ -50,6 +51,7 @@ public class FormValidator implements Validator {
         }
 
         validateTaxCode();
+        validateIdCode();
     }
 
     private void validateTaxCode() throws ResourceException {
@@ -67,6 +69,18 @@ public class FormValidator implements Validator {
             if(!this.form.getContributor().getTaxCode().equals(calculatedTaxCode)) {
                 throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
             }
+        }
+    }
+
+    private void validateIdCode() throws ResourceException {
+        Contributor contributor = this.form.getContributor();
+
+        if (contributor != null) {
+            String taxCode = contributor.getTaxCode();
+            String idCode = contributor.getIdCode();
+
+            if (taxCode != null && idCode == null)
+                throw new ResourceException(ErrorEnum.ID_CODE.getMessage());
         }
     }
 
