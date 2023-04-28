@@ -7,6 +7,7 @@ import com.github.fge.jsonschema.core.report.ProcessingMessage;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import org.f24.dto.component.Contributor;
 import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
@@ -50,6 +51,7 @@ public class FormValidator implements Validator {
         }
 
         validateTaxCode();
+        validateIdCode();
     }
 
     private void validateTaxCode() throws ResourceException {
@@ -62,11 +64,23 @@ public class FormValidator implements Validator {
             } catch (ParseException e) {
                 dateOfBirth = new Date();
             }
-            // TODO get municipality code from official list
-            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, "M624");
-            if(!this.form.getContributor().getTaxCode().equals(calculatedTaxCode)) {
-                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage()); //TODO Remove for gen testing
+            String municipality = this.form.getContributor().getTaxCode().substring(11, 15);
+            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, municipality);
+            if(!this.form.getContributor().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
+                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage()); //TODO Remvoe for gen test
             }
+        }
+    }
+
+    private void validateIdCode() throws ResourceException {
+        Contributor contributor = this.form.getContributor();
+
+        if (contributor != null) {
+            String taxCode = contributor.getReceiverTaxCode();
+            String idCode = contributor.getIdCode();
+
+            if (taxCode != null && idCode == null)
+                throw new ResourceException(ErrorEnum.ID_CODE.getMessage());
         }
     }
 

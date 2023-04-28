@@ -3,8 +3,6 @@
   "type": "object",
   "properties": {
     "exciseTaxList": {
-      "maxItems": 4,
-      "minItems": 0,
       "type": "array",
       "items": {
         "$ref": "resource:/schemas/component/excise-tax.json"

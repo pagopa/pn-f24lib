@@ -4,10 +4,10 @@
   "properties": {
     "taxCode": {
       "pattern": "^[A-Z]{6}[0-9]{2}[ABCDEHLMPRST]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "ifCalendarYear": {
-      "type": "boolean"
+      "type": ["boolean", "null"]
     },
     "personData": {
       "$ref": "resource:/schemas/component/person-data.json"
@@ -17,19 +17,19 @@
     },
     "receiverTaxCode": {
       "pattern": "^[A-Z]{6}[0-9]{2}[ABCDEHLMPRST]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "idCode": {
       "pattern": "^[A-Z0-9]{2}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "actCode": {
       "pattern": "^\\d{11}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "officeCode": {
       "pattern": "^[A-Z0-9]{3}$",
-      "type": "string"
+      "type": ["string", "null"]
     }
   }
 }
