@@ -60,7 +60,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         setCompanyData();
     }
 
-    private void setContributor() throws Exception {
+    private void setTaxPayer() throws Exception {
         TaxPayer taxPayer = this.form.getTaxPayer();
         if(taxPayer != null) {
             setField(FieldEnum.TAX_CODE.getName(), taxPayer.getTaxCode());
@@ -72,7 +72,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setPaymentMotiveRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
+    private void setPaymentReasonRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
         if (paymentReasonRecord.getRepentance() == Boolean.TRUE) setField(FieldEnum.REPENTANCE.getName() + index, "X");
         if (paymentReasonRecord.getChangedBuildings() == Boolean.TRUE) setField(FieldEnum.CHANGED_BUILDINGS.getName() + index, "X");
         if (paymentReasonRecord.getAdvancePayment() == Boolean.TRUE) setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
@@ -80,7 +80,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         if (paymentReasonRecord.getNumberOfBuildings() != null) setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, paymentReasonRecord.getNumberOfBuildings());
     }
 
-    private void setPaymentMotiveRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
+    private void setPaymentReasonRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
         if(paymentReasonRecord.getDeduction() != null) {
             setField(FieldEnum.DEDUCTION.getName() + index, getMoney(Integer.parseInt(paymentReasonRecord.getDeduction())));
         }
@@ -92,7 +92,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setPaymentMotiveSection(int copyIndex) {
+    private void setPaymentReasonSection(int copyIndex) {
         try {
             setField(FieldEnum.OPERATION_ID.getName(), this.form.getPaymentReasonSection().getOperationId());
             List<PaymentReasonRecord> paymentReasonRecordList = this.form.getPaymentReasonSection().getReasonRecordList();
@@ -104,10 +104,10 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
                 setField(FieldEnum.SECTION.getName() + index, paymentReasonRecord.getSection());
                 setField(FieldEnum.TRIBUTE_CODE.getName() + index, paymentReasonRecord.getTributeCode());
                 setField(FieldEnum.INSTITUTION_CODE.getName() + index, paymentReasonRecord.getInstitutionCode());
-                setPaymentMotiveRecordCheckboxes(paymentReasonRecord, index);
+                setPaymentReasonRecordCheckboxes(paymentReasonRecord, index);
                 setField(FieldEnum.MONTH.getName() + index, paymentReasonRecord.getMonth());
                 setField(FieldEnum.YEAR.getName() + index, paymentReasonRecord.getYear());
-                setPaymentMotiveRecordAmounts(paymentReasonRecord, index);
+                setPaymentReasonRecordAmounts(paymentReasonRecord, index);
             }
             setField(FieldEnum.TOTAL_AMOUNT.getName(), getMoney(Integer.parseInt(this.form.getPaymentReasonSection().getTotalAmount().toString())));
         } catch (Exception e) {
@@ -147,9 +147,9 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             for(int copyIndex = 0; copyIndex < getCopies().size(); copyIndex++) {
                 setIndex(copyIndex);
                 setHeader();
-                setContributor();
+                setTaxPayer();
                 setPaymentDetails();
-                setPaymentMotiveSection(copyIndex);
+                setPaymentReasonSection(copyIndex);
             }
 
             mergeCopies();
