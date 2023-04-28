@@ -2,8 +2,6 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-import org.f24.exception.ResourceException;
-
 public class TreasurySection extends Section {
 
     private List<Tax> taxList;
@@ -49,11 +47,6 @@ public class TreasurySection extends Section {
 
     public void setActCode(String actCode) {
         this.actCode = actCode;
-    }
-
-    @Override
-    public Double getTotalAmount(List<? extends Record> record) throws ResourceException {
-        return super.getTotalAmount(record);
     }
 
 }

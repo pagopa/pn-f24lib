@@ -15,6 +15,7 @@ import org.f24.dto.component.PaymentDetails;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.component.RegionRecord;
 import org.f24.dto.component.RegionSection;
+import org.f24.dto.component.Section;
 import org.f24.dto.component.SocialSecurityRecord;
 import org.f24.dto.component.SocialSecuritySection;
 import org.f24.dto.component.Tax;
@@ -24,7 +25,9 @@ import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
 import org.f24.service.pdf.PDFFormManager;
+import org.f24.service.pdf.CreatorHelper;
 import org.f24.service.pdf.FieldEnum;
+import org.f24.dto.component.Record;
 
 public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
@@ -34,6 +37,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
     private static final int INAIL_RECORDS_NUMBER = 3;
     private static final int SOC_RECORDS_NUMBER = 2;
 
+    private CreatorHelper helper = new CreatorHelper();
     private F24Standard form;
 
     /**
@@ -92,7 +96,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         setField(FieldEnum.ID_CODE.getName(), contributor.getIdCode());
 
         if (contributor.isIfCalendarYear())
-            setField(FieldEnum.CALENDAR_YEAR.getName(), currentYear);
+            setField(FieldEnum.CALENDAR_YEAR.getName(), currentYear.substring(2, 4));
 
         setPersonData();
         setTaxResidenceData();
@@ -105,7 +109,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (inpsRecordList == null)
             return;
 
-        inpsRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsRecordList);
+        inpsRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsRecordList);
 
         int index = 1;
         for (InpsRecord record : inpsRecordList) {
@@ -116,25 +120,12 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             setMultiDate(FieldEnum.START_DATE.getName(), sectionId, index, record.getReportingPeriod().getStartDate());
             setMultiDate(FieldEnum.END_DATE.getName(), sectionId, index, record.getReportingPeriod().getEndDate());
 
-            if (record.getCreditAmount() != null)
-                setMultiField(sectionId, FieldEnum.CREDIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getCreditAmount()));
-
-            if (record.getDebitAmount() != null)
-                setMultiField(sectionId, FieldEnum.DEBIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getDebitAmount()));
+            setSectionRecordAmounts(sectionId, index, record);
 
             index++;
         }
 
-        Double parsedRecord = Double.parseDouble(inpsSection.getTotalAmount(inpsRecordList).toString());
-        setMultiField(sectionId, FieldEnum.BALANCE.getName(), parsedRecord);
-
-        Double parsedDebit = Double.parseDouble(inpsSection.getDebitTotal(inpsRecordList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_DEBIT.getName(), parsedDebit);
-
-        Double parsedCredit = Double.parseDouble(inpsSection.getCreditTotal(inpsRecordList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_CREDIT.getName(), parsedCredit);
+        setSectionTotals(sectionId, index, inpsRecordList);
     }
 
     private void setImuSection(String sectionId, int copyIndex) throws Exception {
@@ -144,7 +135,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (imuRecordList == null)
             return;
 
-        imuRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, imuRecordList);
+        imuRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, imuRecordList);
 
         int index = 1;
         for (ImuRecord record : imuRecordList) {
@@ -154,7 +145,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             setField(FieldEnum.MUNICIPALITY_CODE.getName() + sectionId + index, record.getMunicipalityCode());
 
             if (record.getActiveRepentance() != null)
-                setField(FieldEnum.ACTIVE_REPETANCE.getName() + index, "X");
+                setField(FieldEnum.ACTIVE_REPENTANCE.getName() + index, "X");
             if (record.getVariedBuildings() != null)
                 setField(FieldEnum.VARIED_BUILDINGS.getName() + index, "X");
             if (record.getAdvancePayment() != null)
@@ -164,28 +155,15 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             if (record.getNumberOfBuildings() != null)
                 setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, record.getNumberOfBuildings());
 
-            if (record.getCreditAmount() != null)
-                setMultiField(sectionId, FieldEnum.CREDIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getCreditAmount()));
-
-            if (record.getDebitAmount() != null)
-                setMultiField(sectionId, FieldEnum.DEBIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getDebitAmount()));
+            setSectionRecordAmounts(sectionId, index, record);
 
             index++;
         }
 
-        Double parsedRecord = Double.parseDouble(imuSection.getTotalAmount(imuRecordList).toString());
-        setMultiField(sectionId, FieldEnum.BALANCE.getName(), parsedRecord);
+        setSectionTotals(sectionId, index, imuRecordList);
 
         Double parsedDeduction = Double.parseDouble(imuSection.getDeduction().toString());
         setMultiField(FieldEnum.DEDUCTION.getName(), parsedDeduction);
-
-        Double parsedDebit = Double.parseDouble(imuSection.getDebitTotal(imuRecordList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_DEBIT.getName(), parsedDebit);
-
-        Double parsedCredit = Double.parseDouble(imuSection.getCreditTotal(imuRecordList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_CREDIT.getName(), parsedCredit);
     }
 
     private void setTreasurySection(String sectionId, int copyIndex) throws Exception {
@@ -195,7 +173,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (taxList == null)
             return;
 
-        taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER, taxList);
+        taxList = helper.paginateList(copyIndex, TAX_RECORDS_NUMBER, taxList);
 
         int index = 1;
         for (Tax record : taxList) {
@@ -203,28 +181,15 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
             setField(FieldEnum.REPORTING_YEAR.getName() + sectionId + index, record.getReportingYear());
 
-            if (record.getCreditAmount() != null)
-                setMultiField(sectionId, FieldEnum.CREDIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getCreditAmount()));
-
-            if (record.getDebitAmount() != null)
-                setMultiField(sectionId, FieldEnum.DEBIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getDebitAmount()));
-
+            setSectionRecordAmounts(sectionId, index, record);
+    
             index++;
         }
 
         setField(FieldEnum.OFFICE_CODE.getName(), treasurySection.getOfficeCode());
-        setField(FieldEnum.DEED_CODE.getName(), treasurySection.getActCode());
+        setField(FieldEnum.ACT_CODE.getName(), treasurySection.getActCode());
 
-        Double parsedRecord = Double.parseDouble(treasurySection.getTotalAmount(taxList).toString());
-        setMultiField(sectionId, FieldEnum.BALANCE.getName(), parsedRecord);
-
-        Double parsedDebit = Double.parseDouble(treasurySection.getDebitTotal(taxList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_DEBIT.getName(), parsedDebit);
-
-        Double parsedCredit = Double.parseDouble(treasurySection.getCreditTotal(taxList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_CREDIT.getName(), parsedCredit);
+        setSectionTotals(sectionId, index, taxList);
     }
 
     private void setSocialSecurity(String sectionId, int copyIndex) throws Exception {
@@ -234,7 +199,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (socSecurityList == null)
             return;
 
-        socSecurityList = paginateList(copyIndex, SOC_RECORDS_NUMBER, socSecurityList);
+        socSecurityList = helper.paginateList(copyIndex, SOC_RECORDS_NUMBER, socSecurityList);
 
         int index = 1;
         for (SocialSecurityRecord record : socSecurityList) {
@@ -246,25 +211,12 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             setMultiDate(FieldEnum.START_DATE.getName(), sectionId, index, record.getPeriod().getStartDate());
             setMultiDate(FieldEnum.END_DATE.getName(), sectionId, index, record.getPeriod().getEndDate());
 
-            if (record.getCreditAmount() != null)
-                setMultiField(sectionId, FieldEnum.CREDIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getCreditAmount()));
-
-            if (record.getDebitAmount() != null)
-                setMultiField(sectionId, FieldEnum.DEBIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getDebitAmount()));
+            setSectionRecordAmounts(sectionId, index, record);
 
             index++;
         }
 
-        Double parsedRecord = Double.parseDouble(socSecurity.getTotalAmount(socSecurityList).toString());
-        setMultiField(sectionId, FieldEnum.BALANCE.getName(), parsedRecord);
-
-        Double parsedDebit = Double.parseDouble(socSecurity.getDebitTotal(socSecurityList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_DEBIT.getName(), parsedDebit);
-
-        Double parsedCredit = Double.parseDouble(socSecurity.getCreditTotal(socSecurityList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_CREDIT.getName(), parsedCredit);
+        setSectionTotals(sectionId, index, socSecurityList);
     }
 
     private void setInail(String sectionId, int copyIndex) throws Exception {
@@ -274,7 +226,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (inailRecordList == null)
             return;
 
-        inailRecordList = paginateList(copyIndex, INAIL_RECORDS_NUMBER, inailRecordList);
+        inailRecordList = helper.paginateList(copyIndex, INAIL_RECORDS_NUMBER, inailRecordList);
 
         int index = 1;
         for (InailRecord record : inailRecordList) {
@@ -284,25 +236,12 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             setField(FieldEnum.REFERENCE_NUMBER.getName() + sectionId + index, record.getReferenceNumber());
             setField(FieldEnum.REASON.getName() + sectionId + index, record.getReason());
 
-            if (record.getCreditAmount() != null)
-                setMultiField(sectionId, FieldEnum.CREDIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getCreditAmount()));
-
-            if (record.getDebitAmount() != null)
-                setMultiField(sectionId, FieldEnum.DEBIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getDebitAmount()));
+            setSectionRecordAmounts(sectionId, index, record);
 
             index++;
         }
 
-        Double parsedRecord = Double.parseDouble(socSecurity.getTotalAmount(inailRecordList).toString());
-        setMultiField(sectionId, FieldEnum.BALANCE.getName(), parsedRecord);
-
-        Double parsedDebit = Double.parseDouble(socSecurity.getDebitTotal(inailRecordList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_DEBIT.getName(), parsedDebit);
-
-        Double parsedCredit = Double.parseDouble(socSecurity.getCreditTotal(inailRecordList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_CREDIT.getName(), parsedCredit);
+        setSectionTotals(sectionId, index, inailRecordList);
     }
 
     private void setPaymentDetails() throws Exception {
@@ -315,9 +254,9 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         setField(FieldEnum.ABI_CODE.getName(), paymentDetails.getAbiCode());
 
         if (paymentDetails.isBank()) {
-            setField(FieldEnum.IS_BANK.getName(), "X");
+            setField(FieldEnum.BANK.getName(), "X");
         } else {
-            setField(FieldEnum.IS_CIRCULAR.getName(), "X");
+            setField(FieldEnum.CIRCULAR.getName(), "X");
         }
     }
 
@@ -328,7 +267,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (regionRecordsList == null)
             return;
 
-        regionRecordsList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionRecordsList);
+        regionRecordsList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionRecordsList);
 
         int index = 1;
         for (RegionRecord record : regionRecordsList) {
@@ -337,38 +276,55 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
             setField(FieldEnum.REGION_CODE.getName() + sectionId + index, record.getRegionCode());
 
-            if (record.getCreditAmount() != null)
-                setMultiField(sectionId, FieldEnum.CREDIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getCreditAmount()));
-
-            if (record.getDebitAmount() != null)
-                setMultiField(sectionId, FieldEnum.DEBIT_AMOUNT.getName(), index,
-                        Double.parseDouble(record.getDebitAmount()));
-
+            setSectionRecordAmounts(sectionId, index, record);
+    
             index++;
         }
 
-        Double parsedRecord = Double.parseDouble(regionSection.getTotalAmount(regionRecordsList).toString());
-        setMultiField(sectionId, FieldEnum.BALANCE.getName(), parsedRecord);
-
-        Double parsedDebit = Double.parseDouble(regionSection.getDebitTotal(regionRecordsList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_DEBIT.getName(), parsedDebit);
-
-        Double parsedCredit = Double.parseDouble(regionSection.getCreditTotal(regionRecordsList).toString());
-        setMultiField(sectionId, FieldEnum.TOTAL_CREDIT.getName(), parsedCredit);
-
+        setSectionTotals(sectionId, index, regionRecordsList);
     }
 
-    private void setMultiField(String sectionId, String fieldName, int index, Double record) throws Exception {
-        String[] splittedCreditAmount = splitField(record);
-        setField(fieldName + "Int" + sectionId + index, splittedCreditAmount[0]);
-        setField(fieldName + "Dec" + sectionId + index, splittedCreditAmount[1]);
+    private <S extends Section> void setSectionTotals(String sectionId, int index,
+            List<? extends Record> recordList) throws NumberFormatException, ResourceException {
+
+        if (helper.getTotalAmount(recordList) != null) {
+            Integer total = helper.getTotalAmount(recordList);
+            String parsedTotal = helper.getMoney(total);
+            setField(FieldEnum.BALANCE.getName() + sectionId, parsedTotal);
+        }
+
+        if (helper.getCreditTotal(recordList) != null) {
+            Integer creditTotal = helper.getCreditTotal(recordList);
+            String parsedTotal = helper.getMoney(creditTotal);
+            setField(FieldEnum.TOTAL_CREDIT.getName() + sectionId, parsedTotal);
+        }
+
+        if (helper.getDebitTotal(recordList) != null) {
+            Integer debitTotal = helper.getDebitTotal(recordList);
+            String parsedTotal = helper.getMoney(debitTotal);
+            setField(FieldEnum.TOTAL_DEBIT.getName() + sectionId, parsedTotal);
+        }
     }
 
-    private void setMultiField(String sectionId, String fieldName, Double record) throws Exception {
-        String[] splittedCreditAmount = splitField(record);
-        setField(fieldName + "Int" + sectionId, splittedCreditAmount[0]);
-        setField(fieldName + "Dec" + sectionId, splittedCreditAmount[1]);
+    private <R extends Record> void setSectionRecordAmounts(String sectionId, int index, R record)
+            throws ResourceException {
+        if (record.getCreditAmount() != null) {
+            String recordTest = record.getCreditAmount();
+            String parsedCredit = helper.getMoney(Integer.parseInt(recordTest));
+            setField(FieldEnum.CREDIT_AMOUNT.getName() + sectionId + index, parsedCredit);
+        }
+
+        if (record.getDebitAmount() != null) {
+            String recordTest = record.getDebitAmount();
+            String parsedDebit = helper.getMoney(Integer.parseInt(recordTest));
+            setField(FieldEnum.DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
+        }
+
+        if (record.getDeuctionAmount() != null) {
+            String parseDeduction = helper.getMoney(Integer.parseInt(record.getDeuctionAmount()));
+            setField(FieldEnum.DEDUCTION.getName() + sectionId + index, parseDeduction);
+        }
+
     }
 
     private void setMultiField(String fieldName, Double record) throws Exception {
@@ -383,13 +339,6 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         setField(fieldName + "Month" + sectionId + index, monthPart);
         setField(fieldName + "Year" + sectionId + index, yearPart);
-    }
-
-    private <T> List<T> paginateList(int copyIndex, int maxRecordsNumber, List<T> targetList) {
-        int limit = copyIndex * maxRecordsNumber + maxRecordsNumber;
-        limit = Math.min(limit, targetList.size());
-
-        return targetList = targetList.subList(copyIndex * maxRecordsNumber, limit);
     }
 
     private String[] splitField(double input) {
@@ -417,7 +366,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             int inailRecordsCount = this.form.getSecuritySection().getInailRecords().size();
             int socSecurityRecordsCount = this.form.getSecuritySection().getSocialSecurityRecordList().size();
 
-            //TODO Test with multiple records count
+            // TODO Test with multiple records count
             if (treasutyRecordsCount > TAX_RECORDS_NUMBER) {
                 int pagesCount = ((treasutyRecordsCount + TAX_RECORDS_NUMBER - 1) / TAX_RECORDS_NUMBER) - 1;
                 totalPages = totalPages < pagesCount ? pagesCount : totalPages;

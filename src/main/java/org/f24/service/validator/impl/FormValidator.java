@@ -67,7 +67,7 @@ public class FormValidator implements Validator {
             String municipality = this.form.getContributor().getTaxCode().substring(11, 15);
             String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, municipality);
             if(!this.form.getContributor().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
-                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage()); //TODO Remvoe for gen test
+                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage()); //TODO Comment for gen test
             }
         }
     }

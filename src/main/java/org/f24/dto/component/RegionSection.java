@@ -1,9 +1,6 @@
 package org.f24.dto.component;
 
 import java.util.List;
-
-import org.f24.exception.ResourceException;
-
 public class RegionSection extends Section {
 
     private List<RegionRecord> regionRecordList;
@@ -27,10 +24,4 @@ public class RegionSection extends Section {
     public void setRegionRecordList(List<RegionRecord> regionRecordList) {
         this.regionRecordList = regionRecordList;
     }
-
-    @Override
-    public Double getTotalAmount(List<? extends Record> record) throws ResourceException {
-        return super.getTotalAmount(record);
-    }
-
 }

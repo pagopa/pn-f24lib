@@ -2,8 +2,6 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-import org.f24.exception.ResourceException;
-
 public class ImuSection extends Section {
 
     private String operationId;
@@ -49,10 +47,5 @@ public class ImuSection extends Section {
 
     public void setDeduction(String deduction) {
         this.deduction = deduction;
-    }
-
-    @Override
-    public Double getTotalAmount(List<? extends Record> record) throws ResourceException {
-        return super.getTotalAmount(record);
     }
 }
