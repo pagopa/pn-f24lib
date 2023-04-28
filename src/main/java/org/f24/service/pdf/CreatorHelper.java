@@ -1,5 +1,6 @@
 package org.f24.service.pdf;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.f24.exception.ErrorEnum;
@@ -64,11 +65,14 @@ public class CreatorHelper {
     return totalAmount;
   }
 
-  public <T> List<T> paginateList(int copyIndex, int maxRecordsNumber, List<T> targetList) {
-    int limit = copyIndex * maxRecordsNumber + maxRecordsNumber;
-    limit = Math.min(limit, targetList.size());
-
-    return targetList = targetList.subList(copyIndex * maxRecordsNumber, limit);
+  public <T> List<T> paginateList(int copyIndex, int maxRecordsNumber,
+      List<T> targetList) {
+    int startIndex = copyIndex * maxRecordsNumber;
+    int endIndex = Math.min(startIndex + maxRecordsNumber, targetList.size());
+    if (startIndex > endIndex) {
+      return Collections.emptyList();
+    }
+    return targetList.subList(startIndex, endIndex);
   }
 
 }

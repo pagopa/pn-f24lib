@@ -309,14 +309,14 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
     private <R extends Record> void setSectionRecordAmounts(String sectionId, int index, R record)
             throws ResourceException {
         if (record.getCreditAmount() != null) {
-            String recordTest = record.getCreditAmount();
-            String parsedCredit = helper.getMoney(Integer.parseInt(recordTest));
+            String recordCredit = record.getCreditAmount();
+            String parsedCredit = helper.getMoney(Integer.parseInt(recordCredit)); //TODO rename recordTest
             setField(FieldEnum.CREDIT_AMOUNT.getName() + sectionId + index, parsedCredit);
         }
 
         if (record.getDebitAmount() != null) {
-            String recordTest = record.getDebitAmount();
-            String parsedDebit = helper.getMoney(Integer.parseInt(recordTest));
+            String recordDebit = record.getDebitAmount();
+            String parsedDebit = helper.getMoney(Integer.parseInt(recordDebit));
             setField(FieldEnum.DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
         }
 
