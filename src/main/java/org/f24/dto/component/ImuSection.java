@@ -25,6 +25,8 @@ public class ImuSection extends Section {
         this.deduction = deduction;
     }
 
+    public ImuSection() {}
+
     public String getOperationId() {
         return operationId;
     }

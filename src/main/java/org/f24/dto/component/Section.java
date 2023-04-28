@@ -30,7 +30,7 @@ public class Section {
             - Double.parseDouble(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
         .sum();
     if (totalAmount < 0) {
-      throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());
+      throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());//TODO remove for gen testing
     }
     return totalAmount;
   }

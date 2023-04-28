@@ -12,6 +12,8 @@ public class TreasuryRecord extends Record {
 
     private String debitAmount;
 
+    public TreasuryRecord() {}
+
     /**
      * Constructs Treasury record for Treasury and other section (Sezione erario ed altro)
      *

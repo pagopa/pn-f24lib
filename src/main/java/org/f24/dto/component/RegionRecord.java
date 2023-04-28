@@ -14,6 +14,8 @@ public class RegionRecord extends Record {
 
     private String creditAmount;
 
+    public RegionRecord() {}
+
     /**
      * Constructs region record for region section (sezione regioni)
      *

@@ -13,6 +13,10 @@ public class F24Standard extends F24Form {
     private SocialSecuritySection securitySection;
     private String ibanCode;
 
+    public F24Standard() {
+        super();
+    }
+
     /**
      * Constructs F24 Standard dto.
      *

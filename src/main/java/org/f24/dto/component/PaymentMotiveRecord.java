@@ -25,7 +25,8 @@ public class PaymentMotiveRecord extends Record {
 
     private String creditAmount;
 
-    public PaymentMotiveRecord() {}
+    public PaymentMotiveRecord() {
+    }
 
     /**
      * Constructs record for Motive for Payment Section (Motivo del Pergamento)

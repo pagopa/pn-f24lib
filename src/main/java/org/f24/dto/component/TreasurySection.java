@@ -12,6 +12,8 @@ public class TreasurySection extends Section {
 
     private String actCode;
 
+    public TreasurySection() {}
+
     /**
      * Constructs Treasury and other section (Sezione erario ed altro)
      *

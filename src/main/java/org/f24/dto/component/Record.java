@@ -13,9 +13,7 @@ public class Record {
    * @param creditAmount credit amounts offset (importi a credito compensati)
    */
 
-  public Record() {
-
-  }
+  public Record() {}
 
   public Record(String debitAmount, String creditAmount) {
     this.debitAmount = debitAmount;

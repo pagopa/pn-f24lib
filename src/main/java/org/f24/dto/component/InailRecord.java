@@ -37,6 +37,8 @@ public class InailRecord extends Record {
         this.creditAmount = creditAmount;
     }
 
+    public InailRecord() {}
+
     public String getLocationCode() {
         return locationCode;
     }

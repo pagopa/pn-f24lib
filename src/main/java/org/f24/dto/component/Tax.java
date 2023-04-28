@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class Tax extends Record{
+public class Tax extends Record {
 
     private String tributeCode;
 
@@ -11,6 +11,8 @@ public class Tax extends Record{
     private String debitAmount;
 
     private String creditAmount;
+
+    public Tax() { }
 
     /**
      * Constructs  taxes : direct taxes - VAT IMPOSTE (imposte dirette - IVA),

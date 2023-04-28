@@ -9,7 +9,9 @@ public enum ErrorEnum {
     TAX_CODE("taxCode", "Invalid tax code: it not corresponds to other personal data."),
     DEFAULT("default", "Error occurred during validation."),
     MOTIVE_RECORD("motiveRecord", "The credit and debit fields cannot be filled with a value at the same time"),
-    NEGATIVE_NUM("negativeNum", "This value can`t be less than zero");
+    NEGATIVE_NUM("negativeNum", "This value can`t be less than zero"),
+    FIELD_OBSOLETE("emptyField", "Impossible to get field, it`s not present in the acroform: "),
+    ACROFORM_EMPTY("emtyAcro", "Impossible to get acroform, because it is empty");
 
     private String code;
     private String message;

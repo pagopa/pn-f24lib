@@ -50,6 +50,8 @@ public class ImuRecord extends Record {
         this.creditAmount = creditAmount;
     }
 
+    public ImuRecord() {}
+
     public String getMunicipalityCode() {
         return municipalityCode;
     }

@@ -23,6 +23,8 @@ public class ExciseSection {
         this.actCode = actCode;
     }
 
+    public ExciseSection() {}
+
     public List<ExciseTax> getExciseTaxList() {
         return exciseTaxList;
     }

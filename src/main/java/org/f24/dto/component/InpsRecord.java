@@ -14,8 +14,7 @@ public class InpsRecord extends Record {
 
     private String creditAmount;
 
-    public InpsRecord() {
-    }
+    public InpsRecord() {}
 
     /**
      * Constructs INPS record for INPS Section (Sezione INPS)

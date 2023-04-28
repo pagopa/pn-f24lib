@@ -6,6 +6,8 @@ public class ReportingPeriod {
 
     private String endDate;
 
+    public ReportingPeriod() {}
+
     /**
      * Construct reporting period for INPS, Social Security records components
      *

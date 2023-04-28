@@ -41,6 +41,8 @@ public class ExciseTax {
         this.debitAmount = debitAmount;
     }
 
+    public ExciseTax() {}
+
     public String getInstitution() {
         return institution;
     }

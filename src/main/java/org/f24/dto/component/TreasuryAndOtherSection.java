@@ -10,6 +10,8 @@ public class TreasuryAndOtherSection {
 
     private List<TreasuryRecord> treasuryRecords;
 
+    public TreasuryAndOtherSection() {}
+
     /**
      * Constructs treasury and other section
      *

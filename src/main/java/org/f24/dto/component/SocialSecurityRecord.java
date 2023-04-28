@@ -16,6 +16,8 @@ public class SocialSecurityRecord extends Record {
 
     private String creditAmount;
 
+    public SocialSecurityRecord() {}
+
     /**
      * Constructs Social Security Record for Other social security and insurance institutions (sezione altri enri previdenziali e assicuretivi)
      *
