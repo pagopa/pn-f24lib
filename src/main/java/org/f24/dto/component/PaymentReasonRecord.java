@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class PaymentMotiveRecord {
+public class PaymentReasonRecord {
 
     private String section;
 
@@ -8,10 +8,10 @@ public class PaymentMotiveRecord {
 
     private String institutionCode;
 
-    private Boolean activeRepentance;
-    private Boolean variedBuildings;
+    private Boolean repentance;
+    private Boolean changedBuildings;
     private Boolean advancePayment;
-    private Boolean balance;
+    private Boolean payment;
 
     private String numberOfBuildings;
 
@@ -19,13 +19,13 @@ public class PaymentMotiveRecord {
 
     private String deduction;
 
-    private String reportingYear;
+    private String year;
 
     private String debitAmount;
 
     private String creditAmount;
 
-    public PaymentMotiveRecord() {}
+    public PaymentReasonRecord() {}
 
     /**
      * Constructs record for Motive for Payment Section (Motivo del Pergamento)
@@ -33,29 +33,29 @@ public class PaymentMotiveRecord {
      * @param section           section (sezione)
      * @param tributeCode       tribute code (cod. tributo)
      * @param institutionCode   institution code (codice ente )
-     * @param activeRepentance  active repentance (ravvedimento)
-     * @param variedBuildings   buildings (immobiliare variati)
+     * @param repentance  active repentance (ravvedimento)
+     * @param changedBuildings   buildings (immobiliare variati)
      * @param advancePayment    advance payment (acconto)
      * @param numberOfBuildings number of buildings (numero immobili)
-     * @param balance           balance (saldo)
+     * @param payment           payment (saldo)
      * @param month             month (rateazione/mese)
      * @param deduction         deduction (detrazione)
-     * @param reportingYear     reporting year (anno di riferimento)
+     * @param year     reporting year (anno di riferimento)
      * @param debitAmount       debit amounts paid (importi a debito versati)
      * @param creditAmount      credit amounts offset (importi a credito compensati)
      */
-    public PaymentMotiveRecord(String section, String tributeCode, String institutionCode, Boolean activeRepentance, Boolean variedBuildings, Boolean advancePayment, Boolean balance, String numberOfBuildings, String month, String deduction, String reportingYear, String debitAmount, String creditAmount) {
+    public PaymentReasonRecord(String section, String tributeCode, String institutionCode, Boolean repentance, Boolean changedBuildings, Boolean advancePayment, Boolean payment, String numberOfBuildings, String month, String deduction, String year, String debitAmount, String creditAmount) {
         this.section = section;
         this.tributeCode = tributeCode;
         this.institutionCode = institutionCode;
-        this.activeRepentance = activeRepentance;
-        this.variedBuildings = variedBuildings;
+        this.repentance = repentance;
+        this.changedBuildings = changedBuildings;
         this.advancePayment = advancePayment;
-        this.balance = balance;
+        this.payment = payment;
         this.numberOfBuildings = numberOfBuildings;
         this.month = month;
         this.deduction = deduction;
-        this.reportingYear = reportingYear;
+        this.year = year;
         this.debitAmount = debitAmount;
         this.creditAmount = creditAmount;
     }
@@ -84,20 +84,20 @@ public class PaymentMotiveRecord {
         this.institutionCode = institutionCode;
     }
 
-    public Boolean getActiveRepentance() {
-        return activeRepentance;
+    public Boolean getRepentance() {
+        return repentance;
     }
 
-    public void setActiveRepentance(Boolean activeRepentance) {
-        this.activeRepentance = activeRepentance;
+    public void setRepentance(Boolean repentance) {
+        this.repentance = repentance;
     }
 
-    public Boolean getVariedBuildings() {
-        return variedBuildings;
+    public Boolean getChangedBuildings() {
+        return changedBuildings;
     }
 
-    public void setVariedBuildings(Boolean variedBuildings) {
-        this.variedBuildings = variedBuildings;
+    public void setChangedBuildings(Boolean changedBuildings) {
+        this.changedBuildings = changedBuildings;
     }
 
     public Boolean getAdvancePayment() {
@@ -108,12 +108,12 @@ public class PaymentMotiveRecord {
         this.advancePayment = advancePayment;
     }
 
-    public Boolean getBalance() {
-        return balance;
+    public Boolean getPayment() {
+        return payment;
     }
 
-    public void setBalance(Boolean balance) {
-        this.balance = balance;
+    public void setPayment(Boolean payment) {
+        this.payment = payment;
     }
 
     public String getNumberOfBuildings() {
@@ -140,12 +140,12 @@ public class PaymentMotiveRecord {
         this.deduction = deduction;
     }
 
-    public String getReportingYear() {
-        return reportingYear;
+    public String getYear() {
+        return year;
     }
 
-    public void setReportingYear(String reportingYear) {
-        this.reportingYear = reportingYear;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getDebitAmount() {

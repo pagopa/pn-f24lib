@@ -4,13 +4,13 @@ public class SocialSecurityRecord {
 
     private String institutionCode;
 
-    private String locationCode;
+    private String officeCode;
 
     private String contributionReason;
 
     private String positionCode;
 
-    private ReportingPeriod period;
+    private Period period;
 
     private String debitAmount;
 
@@ -20,16 +20,16 @@ public class SocialSecurityRecord {
      * Constructs Social Security Record for Other social security and insurance institutions (sezione altri enri previdenziali e assicuretivi)
      *
      * @param institutionCode    institution code (codice ente)
-     * @param locationCode       location code (codice sede)
+     * @param officeCode       location code (codice sede)
      * @param contributionReason contribution reason (causale contributo)
      * @param positionCode       position code (codice posizione)
      * @param period             ReportingPeriod component (periodo di riferimento)
      * @param debitAmount        debit amounts paid (importi a debito versati)
      * @param creditAmount       credit amounts offset (importi a credito compensati)
      */
-    public SocialSecurityRecord(String institutionCode, String locationCode, String contributionReason, String positionCode, ReportingPeriod period, String debitAmount, String creditAmount) {
+    public SocialSecurityRecord(String institutionCode, String officeCode, String contributionReason, String positionCode, Period period, String debitAmount, String creditAmount) {
         this.institutionCode = institutionCode;
-        this.locationCode = locationCode;
+        this.officeCode = officeCode;
         this.contributionReason = contributionReason;
         this.positionCode = positionCode;
         this.period = period;
@@ -45,12 +45,12 @@ public class SocialSecurityRecord {
         this.institutionCode = institutionCode;
     }
 
-    public String getLocationCode() {
-        return locationCode;
+    public String getOfficeCode() {
+        return officeCode;
     }
 
-    public void setLocationCode(String locationCode) {
-        this.locationCode = locationCode;
+    public void setOfficeCode(String officeCode) {
+        this.officeCode = officeCode;
     }
 
     public String getContributionReason() {
@@ -69,11 +69,11 @@ public class SocialSecurityRecord {
         this.positionCode = positionCode;
     }
 
-    public ReportingPeriod getPeriod() {
+    public Period getPeriod() {
         return period;
     }
 
-    public void setPeriod(ReportingPeriod period) {
+    public void setPeriod(Period period) {
         this.period = period;
     }
 

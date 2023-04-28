@@ -8,7 +8,7 @@ public class TreasuryRecord {
 
     private String tributeCode;
 
-    private String reportingYear;
+    private String year;
 
     private String debitAmount;
 
@@ -18,14 +18,14 @@ public class TreasuryRecord {
      * @param type          type (tipo)
      * @param idElements    identification elements (elementi identificativi)
      * @param tributeCode   tribute code (codice)
-     * @param reportingYear reporting year (anno di riferimento)
+     * @param year reporting year (anno di riferimento)
      * @param debitAmount   debit amounts paid (debit amounts paid)
      */
-    public TreasuryRecord(String type, String idElements, String tributeCode, String reportingYear, String debitAmount) {
+    public TreasuryRecord(String type, String idElements, String tributeCode, String year, String debitAmount) {
         this.type = type;
         this.idElements = idElements;
         this.tributeCode = tributeCode;
-        this.reportingYear = reportingYear;
+        this.year = year;
         this.debitAmount = debitAmount;
     }
 
@@ -53,12 +53,12 @@ public class TreasuryRecord {
         this.tributeCode = tributeCode;
     }
 
-    public String getReportingYear() {
-        return reportingYear;
+    public String getYear() {
+        return year;
     }
 
-    public void setReportingYear(String reportingYear) {
-        this.reportingYear = reportingYear;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getDebitAmount() {

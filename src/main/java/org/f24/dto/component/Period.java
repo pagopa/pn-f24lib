@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class ReportingPeriod {
+public class Period {
 
     private String startDate;
 
@@ -12,7 +12,7 @@ public class ReportingPeriod {
      * @param startDate start date
      * @param endDate   end date
      */
-    public ReportingPeriod(String startDate, String endDate) {
+    public Period(String startDate, String endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }

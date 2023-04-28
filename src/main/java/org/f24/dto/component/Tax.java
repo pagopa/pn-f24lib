@@ -6,7 +6,7 @@ public class Tax {
 
     private String installment;
 
-    private String reportingYear;
+    private String year;
 
     private String debitAmount;
 
@@ -18,14 +18,14 @@ public class Tax {
      *
      * @param tributeCode   tribute code (codice tributo)
      * @param installment   installment/region/ prov./month ref (rateazione/regione/ prov./mese rif.)
-     * @param reportingYear reporting year (anno di riferimento)
+     * @param year reporting year (anno di riferimento)
      * @param debitAmount   debit amounts paid (importi a debito versati)
      * @param creditAmount  credit amounts offset (importi a credito)
      */
-    public Tax(String tributeCode, String installment, String reportingYear, String debitAmount, String creditAmount) {
+    public Tax(String tributeCode, String installment, String year, String debitAmount, String creditAmount) {
         this.tributeCode = tributeCode;
         this.installment = installment;
-        this.reportingYear = reportingYear;
+        this.year = year;
         this.debitAmount = debitAmount;
         this.creditAmount = creditAmount;
     }
@@ -46,12 +46,12 @@ public class Tax {
         this.installment = installment;
     }
 
-    public String getReportingYear() {
-        return reportingYear;
+    public String getYear() {
+        return year;
     }
 
-    public void setReportingYear(String reportingYear) {
-        this.reportingYear = reportingYear;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getDebitAmount() {

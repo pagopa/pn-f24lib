@@ -1,0 +1,32 @@
+{
+  "taxPayer": {
+    "taxCode": "RSSMLB80A01A200D",
+    "personData": {
+      "personalData": {
+        "surname": "ROSSI",
+        "name": "MARIO ALBERTO",
+        "birthdate": "01-01-1980",
+        "sex": "M",
+        "birthMunicipality": "MILANO",
+        "province": "MI"
+      }
+    }
+  },
+  "paymentReasonSection": {
+    "reasonRecordList": [
+      {
+        "section": "ER",
+        "tributeCode": "TSC1",
+        "institutionCode": "1111",
+        "repentance": false,
+        "changedBuildings": false,
+        "advancePayment": false,
+        "payment": false,
+        "month": "0101",
+        "deduction": "604",
+        "year": "2020",
+        "debitAmount": "604"
+      }
+    ]
+  }
+}

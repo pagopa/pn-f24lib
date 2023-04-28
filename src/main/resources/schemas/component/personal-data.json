@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": ["object", "null"],
-  "required": ["name","surname","dateOfBirth","sex","municipalityOfBirth","province"],
+  "required": ["name","surname","birthdate","sex","birthMunicipality","province"],
   "properties": {
     "surname": {
       "pattern": "[A-Z\\s]{1,24}",
@@ -11,7 +11,7 @@
       "pattern": "^[A-Z\\s]{1,20}$",
       "type": "string"
     },
-    "dateOfBirth": {
+    "birthdate": {
       "pattern": "^\\d{2}-\\d{2}-\\d{4}$",
       "type": "string"
     },
@@ -19,7 +19,7 @@
       "pattern": "^[FM]$",
       "type": "string"
     },
-    "municipalityOfBirth": {
+    "birthMunicipality": {
       "pattern": "^[A-Z\\s]{1,40}$",
       "type": "string"
     },

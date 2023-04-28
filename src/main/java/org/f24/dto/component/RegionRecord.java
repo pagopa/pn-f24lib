@@ -8,7 +8,7 @@ public class RegionRecord {
 
     private String installment;
 
-    private String reportingYear;
+    private String year;
 
     private String debitAmount;
 
@@ -20,15 +20,15 @@ public class RegionRecord {
      * @param regionCode    region code (codice regione)
      * @param tributeCode   tribute code (codice tributo)
      * @param installment   installment/month ref. (rateazione/ mese rif.)
-     * @param reportingYear reporting year (anno di riferimento)
+     * @param year reporting year (anno di riferimento)
      * @param debitAmount   debit amounts paid (importi a debito versati)
      * @param creditAmount  credit amounts offset (importi a credito compensati)
      */
-    public RegionRecord(String regionCode, String tributeCode, String installment, String reportingYear, String debitAmount, String creditAmount) {
+    public RegionRecord(String regionCode, String tributeCode, String installment, String year, String debitAmount, String creditAmount) {
         this.regionCode = regionCode;
         this.tributeCode = tributeCode;
         this.installment = installment;
-        this.reportingYear = reportingYear;
+        this.year = year;
         this.debitAmount = debitAmount;
         this.creditAmount = creditAmount;
     }
@@ -57,12 +57,12 @@ public class RegionRecord {
         this.installment = installment;
     }
 
-    public String getReportingYear() {
-        return reportingYear;
+    public String getYear() {
+        return year;
     }
 
-    public void setReportingYear(String reportingYear) {
-        this.reportingYear = reportingYear;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getDebitAmount() {

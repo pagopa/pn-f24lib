@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": ["object", "null"],
   "properties": {
-    "dateOfPayment": {
+    "paymentDate": {
       "pattern": "^\\d{2}-\\d{2}-\\d{4}$",
       "type": ["string", "null"]
     },
@@ -21,7 +21,7 @@
     "ibanCode": {
       "type": ["string", "null"]
     },
-    "bank": {
+    "isBank": {
       "type": ["boolean", "null"]
     }
   },

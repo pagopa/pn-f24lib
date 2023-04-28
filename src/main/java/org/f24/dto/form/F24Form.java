@@ -1,6 +1,6 @@
 package org.f24.dto.form;
 
-import org.f24.dto.component.Contributor;
+import org.f24.dto.component.TaxPayer;
 import org.f24.dto.component.Header;
 import org.f24.dto.component.PaymentDetails;
 
@@ -8,7 +8,7 @@ public class F24Form {
 
     private Header header;
 
-    private Contributor contributor;
+    private TaxPayer taxPayer;
 
     private PaymentDetails paymentDetails;
 
@@ -18,12 +18,12 @@ public class F24Form {
      * Constructs basic components of F24 forms
      *
      * @param header         Header component
-     * @param contributor    Contributor component
+     * @param taxPayer    Contributor component
      * @param paymentDetails PaymentDetails component
      */
-    public F24Form(Header header, Contributor contributor, PaymentDetails paymentDetails) {
+    public F24Form(Header header, TaxPayer taxPayer, PaymentDetails paymentDetails) {
         this.header = header;
-        this.contributor = contributor;
+        this.taxPayer = taxPayer;
         this.paymentDetails = paymentDetails;
     }
 
@@ -35,12 +35,12 @@ public class F24Form {
         this.header = header;
     }
 
-    public Contributor getContributor() {
-        return contributor;
+    public TaxPayer getTaxPayer() {
+        return taxPayer;
     }
 
-    public void setContributor(Contributor contributor) {
-        this.contributor = contributor;
+    public void setTaxPayer(TaxPayer taxPayer) {
+        this.taxPayer = taxPayer;
     }
 
     public PaymentDetails getPaymentDetails() {

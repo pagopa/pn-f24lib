@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class TaxResidence {
+public class TaxAddress {
 
     private String municipality;
 
@@ -8,7 +8,7 @@ public class TaxResidence {
 
     private String address;
 
-    public TaxResidence() {}
+    public TaxAddress() {}
 
     /**
      * Constructs tax residence section of contributor (domicilio fiscale)
@@ -17,7 +17,7 @@ public class TaxResidence {
      * @param province     province (prov.)
      * @param address      street and house number (via e numero civico)
      */
-    public TaxResidence(String municipality, String province, String address) {
+    public TaxAddress(String municipality, String province, String address) {
         this.municipality = municipality;
         this.province = province;
         this.address = address;

@@ -2,13 +2,13 @@ package org.f24.dto.component;
 
 public class InpsRecord {
 
-    private String locationCode;
+    private String officeCode;
 
     private String contributionReason;
 
     private String inpsCode;
 
-    private ReportingPeriod reportingPeriod;
+    private Period period;
 
     private String debitAmount;
 
@@ -20,28 +20,28 @@ public class InpsRecord {
     /**
      * Constructs INPS record for INPS Section (Sezione INPS)
      *
-     * @param locationCode       location code (codice sede)
+     * @param officeCode       location code (codice sede)
      * @param contributionReason contribution reason (causale contributo)
      * @param inpsCode           INPS number/INPS code/ company branch (matricola INPS/codice INPS/ filiale azienda)
-     * @param reportingPeriod    ReportingPeriod component (periodo di riferimento)
+     * @param period    ReportingPeriod component (periodo di riferimento)
      * @param debitAmount        debit amounts paid (importi a debito versati)
      * @param creditAmount       credit amounts offset (importi a credito compensati)
      */
-    public InpsRecord(String locationCode, String contributionReason, String inpsCode, ReportingPeriod reportingPeriod, String debitAmount, String creditAmount) {
-        this.locationCode = locationCode;
+    public InpsRecord(String officeCode, String contributionReason, String inpsCode, Period period, String debitAmount, String creditAmount) {
+        this.officeCode = officeCode;
         this.contributionReason = contributionReason;
         this.inpsCode = inpsCode;
-        this.reportingPeriod = reportingPeriod;
+        this.period = period;
         this.debitAmount = debitAmount;
         this.creditAmount = creditAmount;
     }
 
-    public String getLocationCode() {
-        return locationCode;
+    public String getOfficeCode() {
+        return officeCode;
     }
 
-    public void setLocationCode(String locationCode) {
-        this.locationCode = locationCode;
+    public void setOfficeCode(String officeCode) {
+        this.officeCode = officeCode;
     }
 
     public String getContributionReason() {
@@ -60,12 +60,12 @@ public class InpsRecord {
         this.inpsCode = inpsCode;
     }
 
-    public ReportingPeriod getReportingPeriod() {
-        return reportingPeriod;
+    public Period getPeriod() {
+        return period;
     }
 
-    public void setReportingPeriod(ReportingPeriod reportingPeriod) {
-        this.reportingPeriod = reportingPeriod;
+    public void setPeriod(Period period) {
+        this.period = period;
     }
 
     public String getDebitAmount() {
