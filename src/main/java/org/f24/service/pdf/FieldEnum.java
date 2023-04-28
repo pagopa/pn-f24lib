@@ -35,7 +35,6 @@ public enum FieldEnum {
     ADVANCE_PAYMENT("acc"),
     BALANCE("balance"),
     NUMBER_OF_BUILDINGS("numberOfBuildings"),
-    DEDUCTION("deduction"),
     INSTITUTION("institution"),
     MONTH("month"),
     DATE_OF_PAYMENT("dateOfPayment"),
@@ -71,14 +70,10 @@ public enum FieldEnum {
     PAYMENT_DETAILS("paymentDetails"),
     EXCISE("excise"),
 
-    DEDUCTION_INT("deductionInt"),
-    DEDUCTION_DEC("deductionDec"),
-    DEBIT_AMOUNT_INT("debitAmountInt"),
-    DEBIT_AMOUNT_DEC("debitAmountDec"),
-    CREDIT_AMOUNT_INT("creditAmountInt"),
-    CREDIT_AMOUNT_DEC("creditAmountDec"),
-    TOTAL_AMOUNT_INT("totalAmountInt"),
-    TOTAL_AMOUNT_DEC("totalAmountDec"),
+    DEDUCTION("deduction"),
+    DEBIT_AMOUNT("debitAmount"),
+    CREDIT_AMOUNT("creditAmount"),
+    TOTAL_AMOUNT("totalAmount"),
 
     SIGNATURE("signature");
     private String name;

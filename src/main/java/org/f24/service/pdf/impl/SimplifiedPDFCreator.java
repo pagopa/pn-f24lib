@@ -72,13 +72,6 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private String[] splitMoney(double input) {
-        input = Math.round(input*100.0)/100.0;
-        int integerPart = (int) input;
-        double decimalPart = input - integerPart;
-        return new String[] { Integer.toString(integerPart), String.format("%.2f", decimalPart).split(",")[1] };
-    }
-
     private void setPaymentMotiveRecordCheckboxes(PaymentMotiveRecord paymentMotiveRecord, int index) throws Exception {
         if (paymentMotiveRecord.getActiveRepentance() == Boolean.TRUE) setField(FieldEnum.ACTIVE_REPENTANCE.getName() + index, "X");
         if (paymentMotiveRecord.getVariedBuildings() == Boolean.TRUE) setField(FieldEnum.VARIED_BUILDINGS.getName() + index, "X");
@@ -89,19 +82,13 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
 
     private void setPaymentMotiveRecordAmounts(PaymentMotiveRecord paymentMotiveRecord, int index) throws Exception {
         if(paymentMotiveRecord.getDeduction() != null) {
-            String[] splittedDeduction = splitMoney(Double.parseDouble(paymentMotiveRecord.getDeduction()));
-            setField(FieldEnum.DEDUCTION_INT.getName() + index, splittedDeduction[0]);
-            setField(FieldEnum.DEDUCTION_DEC.getName() + index, splittedDeduction[1]);
+            setField(FieldEnum.DEDUCTION.getName() + index, getMoney(Integer.parseInt(paymentMotiveRecord.getDeduction())));
         }
         if(paymentMotiveRecord.getDebitAmount() != null) {
-            String[] splittedDebitAmount = splitMoney(Double.parseDouble(paymentMotiveRecord.getDebitAmount()));
-            setField(FieldEnum.DEBIT_AMOUNT_INT.getName() + index, splittedDebitAmount[0]);
-            setField(FieldEnum.DEBIT_AMOUNT_DEC.getName() + index, splittedDebitAmount[1]);
+            setField(FieldEnum.DEBIT_AMOUNT.getName() + index, getMoney(Integer.parseInt(paymentMotiveRecord.getDebitAmount())));
         }
         if(paymentMotiveRecord.getCreditAmount() != null) {
-            String[] splittedCreditAmount = splitMoney(Double.parseDouble(paymentMotiveRecord.getCreditAmount()));
-            setField(FieldEnum.CREDIT_AMOUNT_INT.getName() + index, splittedCreditAmount[0]);
-            setField(FieldEnum.CREDIT_AMOUNT_DEC.getName() + index, splittedCreditAmount[1]);
+            setField(FieldEnum.CREDIT_AMOUNT.getName() + index, getMoney(Integer.parseInt(paymentMotiveRecord.getCreditAmount())));
         }
     }
 
@@ -122,9 +109,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
                 setField(FieldEnum.REPORTING_YEAR.getName() + index, paymentMotiveRecord.getReportingYear());
                 setPaymentMotiveRecordAmounts(paymentMotiveRecord, index);
             }
-            String[] splittedTotalAmount = splitMoney(Double.parseDouble(this.form.getPaymentMotiveSection().getTotalAmount().toString()));
-            setField(FieldEnum.TOTAL_AMOUNT_INT.getName(), splittedTotalAmount[0]);
-            setField(FieldEnum.TOTAL_AMOUNT_DEC.getName(), splittedTotalAmount[1]);
+            setField(FieldEnum.TOTAL_AMOUNT.getName(), getMoney(Integer.parseInt(this.form.getPaymentMotiveSection().getTotalAmount().toString())));
         } catch (Exception e) {
             //
         }

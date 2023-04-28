@@ -40,10 +40,10 @@ public class PaymentMotiveSection {
         this.motiveRecordList = motiveRecordList;
     }
 
-    public Double getTotalAmount() throws ResourceException {
-        Double totalAmount =  getMotiveRecordList()
+    public Integer getTotalAmount() throws ResourceException {
+        Integer totalAmount =  getMotiveRecordList()
                 .stream()
-                .mapToDouble(mr -> Double.parseDouble(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0") - Double.parseDouble(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
+                .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0") - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
                 .sum();
         if(totalAmount < 0) {
             throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());
