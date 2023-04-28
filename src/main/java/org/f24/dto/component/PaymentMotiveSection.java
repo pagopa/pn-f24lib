@@ -2,6 +2,7 @@ package org.f24.dto.component;
 
 import java.util.List;
 
+import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
 
 public class PaymentMotiveSection extends Section {
