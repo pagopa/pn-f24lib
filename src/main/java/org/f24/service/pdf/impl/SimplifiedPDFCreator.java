@@ -38,20 +38,20 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
     }
 
     private void setPersonData() throws Exception {
-        PersonData personData = this.form.getContributor().getPersonData();
+        PersonData personData = this.form.getTaxPayer().getPersonData();
         if(personData != null && personData.getPersonalData() != null) {
             PersonalData personalData = personData.getPersonalData();
             setField(FieldEnum.CORPORATE_NAME.getName(), personalData.getSurname());
             setField(FieldEnum.NAME.getName(), personalData.getName());
-            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getDateOfBirth().replace("-", ""));
+            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthdate().replace("-", ""));
             setField(FieldEnum.SEX.getName(), personalData.getSex());
-            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getMunicipalityOfBirth());
+            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthMunicipality());
             setField(FieldEnum.PROVINCE.getName(), personalData.getProvince());
         }
     }
 
     private void setCompanyData() throws Exception {
-        CompanyData companyData = this.form.getContributor().getCompanyData();
+        CompanyData companyData = this.form.getTaxPayer().getCompanyData();
         if(companyData != null) {
             setField(FieldEnum.CORPORATE_NAME.getName(), companyData.getName());
         }
@@ -63,55 +63,55 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
     }
 
     private void setContributor() throws Exception {
-        Contributor contributor = this.form.getContributor();
-        if(contributor != null) {
-            setField(FieldEnum.TAX_CODE.getName(), contributor.getTaxCode());
-            setField(FieldEnum.OFFICE_CODE.getName(), contributor.getOfficeCode());
-            setField(FieldEnum.ACT_CODE.getName(), contributor.getActCode());
-            setField(FieldEnum.RECEIVER_TAX_CODE.getName(), contributor.getReceiverTaxCode());
-            setField(FieldEnum.ID_CODE.getName(), contributor.getIdCode());
+        TaxPayer taxPayer = this.form.getTaxPayer();
+        if(taxPayer != null) {
+            setField(FieldEnum.TAX_CODE.getName(), taxPayer.getTaxCode());
+            setField(FieldEnum.OFFICE_CODE.getName(), taxPayer.getOfficeCode());
+            setField(FieldEnum.ACT_CODE.getName(), taxPayer.getActCode());
+            setField(FieldEnum.OTHER_TAX_CODE.getName(), taxPayer.getOtherTaxCode());
+            setField(FieldEnum.ID_CODE.getName(), taxPayer.getIdCode());
             setRegistryData();
         }
     }
 
-    private void setPaymentMotiveRecordCheckboxes(PaymentMotiveRecord paymentMotiveRecord, int index) throws Exception {
-        if (paymentMotiveRecord.getActiveRepentance() == Boolean.TRUE) setField(FieldEnum.ACTIVE_REPENTANCE.getName() + index, "X");
-        if (paymentMotiveRecord.getVariedBuildings() == Boolean.TRUE) setField(FieldEnum.VARIED_BUILDINGS.getName() + index, "X");
-        if (paymentMotiveRecord.getAdvancePayment() == Boolean.TRUE) setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
-        if (paymentMotiveRecord.getBalance() == Boolean.TRUE) setField(FieldEnum.BALANCE.getName() + index, "X");
-        if (paymentMotiveRecord.getNumberOfBuildings() != null) setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, paymentMotiveRecord.getNumberOfBuildings());
+    private void setPaymentMotiveRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
+        if (paymentReasonRecord.getRepentance() == Boolean.TRUE) setField(FieldEnum.REPENTANCE.getName() + index, "X");
+        if (paymentReasonRecord.getChangedBuildings() == Boolean.TRUE) setField(FieldEnum.CHANGED_BUILDINGS.getName() + index, "X");
+        if (paymentReasonRecord.getAdvancePayment() == Boolean.TRUE) setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
+        if (paymentReasonRecord.getPayment() == Boolean.TRUE) setField(FieldEnum.PAYMENT.getName() + index, "X");
+        if (paymentReasonRecord.getNumberOfBuildings() != null) setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, paymentReasonRecord.getNumberOfBuildings());
     }
 
-    private void setPaymentMotiveRecordAmounts(PaymentMotiveRecord paymentMotiveRecord, int index) throws Exception {
-        if(paymentMotiveRecord.getDeduction() != null) {
-            setField(FieldEnum.DEDUCTION.getName() + index, helper.getMoney(Integer.parseInt(paymentMotiveRecord.getDeduction())));
+    private void setPaymentMotiveRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
+        if(paymentReasonRecord.getDeduction() != null) {
+            setField(FieldEnum.DEDUCTION.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getDeduction())));
         }
-        if(paymentMotiveRecord.getDebitAmount() != null) {
-            setField(FieldEnum.DEBIT_AMOUNT.getName() + index, helper.getMoney(Integer.parseInt(paymentMotiveRecord.getDebitAmount())));
+        if(paymentReasonRecord.getDebitAmount() != null) {
+            setField(FieldEnum.DEBIT_AMOUNT.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getDebitAmount())));
         }
-        if(paymentMotiveRecord.getCreditAmount() != null) {
-            setField(FieldEnum.CREDIT_AMOUNT.getName() + index, helper.getMoney(Integer.parseInt(paymentMotiveRecord.getCreditAmount())));
+        if(paymentReasonRecord.getCreditAmount() != null) {
+            setField(FieldEnum.CREDIT_AMOUNT.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getCreditAmount())));
         }
     }
 
     private void setPaymentMotiveSection(int copyIndex) {
         try {
-            setField(FieldEnum.OPERATION_ID.getName(), this.form.getPaymentMotiveSection().getOperationId());
-            List<PaymentMotiveRecord> paymentMotiveRecordList = this.form.getPaymentMotiveSection().getMotiveRecordList();
+            setField(FieldEnum.OPERATION_ID.getName(), this.form.getPaymentReasonSection().getOperationId());
+            List<PaymentReasonRecord> paymentReasonRecordList = this.form.getPaymentReasonSection().getReasonRecordList();
             int limit = copyIndex * MOTIVE_RECORDS_NUMBER + MOTIVE_RECORDS_NUMBER;
-            limit = Math.min(limit, paymentMotiveRecordList.size());
-            paymentMotiveRecordList = paymentMotiveRecordList.subList(copyIndex * MOTIVE_RECORDS_NUMBER, limit);
-            for (int index = 1; index <= paymentMotiveRecordList.size(); index++) {
-                PaymentMotiveRecord paymentMotiveRecord = paymentMotiveRecordList.get(index - 1);
-                setField(FieldEnum.SECTION.getName() + index, paymentMotiveRecord.getSection());
-                setField(FieldEnum.TRIBUTE_CODE.getName() + index, paymentMotiveRecord.getTributeCode());
-                setField(FieldEnum.INSTITUTION_CODE.getName() + index, paymentMotiveRecord.getInstitutionCode());
-                setPaymentMotiveRecordCheckboxes(paymentMotiveRecord, index);
-                setField(FieldEnum.MONTH.getName() + index, paymentMotiveRecord.getMonth());
-                setField(FieldEnum.REPORTING_YEAR.getName() + index, paymentMotiveRecord.getReportingYear());
-                setPaymentMotiveRecordAmounts(paymentMotiveRecord, index);
+            limit = Math.min(limit, paymentReasonRecordList.size());
+            paymentReasonRecordList = paymentReasonRecordList.subList(copyIndex * MOTIVE_RECORDS_NUMBER, limit);
+            for (int index = 1; index <= paymentReasonRecordList.size(); index++) {
+                PaymentReasonRecord paymentReasonRecord = paymentReasonRecordList.get(index - 1);
+                setField(FieldEnum.SECTION.getName() + index, paymentReasonRecord.getSection());
+                setField(FieldEnum.TRIBUTE_CODE.getName() + index, paymentReasonRecord.getTributeCode());
+                setField(FieldEnum.INSTITUTION_CODE.getName() + index, paymentReasonRecord.getInstitutionCode());
+                setPaymentMotiveRecordCheckboxes(paymentReasonRecord, index);
+                setField(FieldEnum.MONTH.getName() + index, paymentReasonRecord.getMonth());
+                setField(FieldEnum.YEAR.getName() + index, paymentReasonRecord.getYear());
+                setPaymentMotiveRecordAmounts(paymentReasonRecord, index);
             }
-            setField(FieldEnum.TOTAL_AMOUNT.getName(), helper.getMoney(Integer.parseInt(this.form.getPaymentMotiveSection().getTotalAmount().toString())));
+            setField(FieldEnum.TOTAL_AMOUNT.getName(), helper.getMoney(Integer.parseInt(this.form.getPaymentReasonSection().getTotalAmount().toString())));
         } catch (Exception e) {
             //
         }
@@ -120,7 +120,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
     private void setPaymentDetails() throws Exception {
         PaymentDetails paymentDetails = this.form.getPaymentDetails();
         if(paymentDetails != null) {
-            setField(FieldEnum.DATE_OF_PAYMENT.getName(), paymentDetails.getDateOfPayment().replace("-", ""));
+            setField(FieldEnum.DATE_OF_PAYMENT.getName(), paymentDetails.getPaymentDate().replace("-", ""));
             setField(FieldEnum.COMPANY.getName(), paymentDetails.getCompany());
             setField(FieldEnum.CAB_CODE.getName(), paymentDetails.getCabCode());
             setField(FieldEnum.CHECK_NUMBER.getName(), paymentDetails.getCheckNumber());
@@ -141,8 +141,8 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         try {
             loadDoc(MODEL_NAME);
 
-            int motiveRecordsCount = this.form.getPaymentMotiveSection().getMotiveRecordList().size();
-            if(this.form.getPaymentMotiveSection().getMotiveRecordList().size() > MOTIVE_RECORDS_NUMBER) {
+            int motiveRecordsCount = this.form.getPaymentReasonSection().getReasonRecordList().size();
+            if(this.form.getPaymentReasonSection().getReasonRecordList().size() > MOTIVE_RECORDS_NUMBER) {
                 copy(((motiveRecordsCount + MOTIVE_RECORDS_NUMBER - 1) / MOTIVE_RECORDS_NUMBER) - 1);
             }
 

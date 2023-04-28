@@ -6,10 +6,10 @@
       "pattern": "^[A-Z0-9]{18}$",
       "type": ["string", "null"]
     },
-    "motiveRecordList": {
+    "reasonRecordList": {
       "type": "array",
       "items": {
-        "$ref": "resource:/schemas/component/payment-motive-record.json"
+        "$ref": "resource:/schemas/component/payment-reason-record.json"
       }
     }
   },

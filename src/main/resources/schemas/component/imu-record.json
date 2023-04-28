@@ -6,16 +6,16 @@
       "pattern": "^[0-9A-Z]{4}$",
       "type": "string"
     },
-    "activeRepentance": {
+    "repentance": {
       "type": "boolean"
     },
-    "variedBuildings": {
+    "changedBuildings": {
       "type": "boolean"
     },
     "advancePayment": {
       "type": "boolean"
     },
-    "balance": {
+    "payment": {
       "type": "boolean"
     },
     "numberOfBuildings": {
@@ -30,7 +30,7 @@
       "pattern": "^[A-Z0-9]{0,4}$",
       "type": "string"
     },
-    "reportingYear": {
+    "year": {
       "pattern": "^[1-2][0-9]{3}$",
       "type": "string"
     },

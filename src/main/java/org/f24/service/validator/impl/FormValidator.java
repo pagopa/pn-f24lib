@@ -7,7 +7,7 @@ import com.github.fge.jsonschema.core.report.ProcessingMessage;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
-import org.f24.dto.component.Contributor;
+import org.f24.dto.component.TaxPayer;
 import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
@@ -55,29 +55,29 @@ public class FormValidator implements Validator {
     }
 
     private void validateTaxCode() throws ResourceException {
-        PersonData personData = this.form.getContributor().getPersonData();
+        PersonData personData = this.form.getTaxPayer().getPersonData();
         if(personData != null) {
             PersonalData personalData = personData.getPersonalData();
-            Date dateOfBirth = null;
+            Date birthdate = null;
             try {
-                dateOfBirth = new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getDateOfBirth());
+                birthdate = new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getBirthdate());
             } catch (ParseException e) {
-                dateOfBirth = new Date();
+                birthdate = new Date();
             }
-            String municipality = this.form.getContributor().getTaxCode().substring(11, 15);
-            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, municipality);
-            if(!this.form.getContributor().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
-                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage()); //TODO Comment for gen test
+            String municipality = this.form.getTaxPayer().getTaxCode().substring(11, 15);
+            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), birthdate, municipality);
+            if(!this.form.getTaxPayer().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
+                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
             }
         }
     }
 
     private void validateIdCode() throws ResourceException {
-        Contributor contributor = this.form.getContributor();
+        TaxPayer taxPayer = this.form.getTaxPayer();
 
-        if (contributor != null) {
-            String taxCode = contributor.getReceiverTaxCode();
-            String idCode = contributor.getIdCode();
+        if (taxPayer != null) {
+            String taxCode = taxPayer.getOtherTaxCode();
+            String idCode = taxPayer.getIdCode();
 
             if (taxCode != null && idCode == null)
                 throw new ResourceException(ErrorEnum.ID_CODE.getMessage());

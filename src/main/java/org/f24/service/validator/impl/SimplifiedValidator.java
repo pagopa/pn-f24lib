@@ -10,7 +10,7 @@ import org.f24.exception.ResourceException;
 
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 
-import org.f24.dto.component.PaymentMotiveRecord;
+import org.f24.dto.component.PaymentReasonRecord;
 
 public class SimplifiedValidator extends FormValidator {
 
@@ -24,9 +24,9 @@ public class SimplifiedValidator extends FormValidator {
     }
 
     private void validateDebitAndCreditFields() throws ResourceException {
-        List<PaymentMotiveRecord> paymentItemsList = this.form.getPaymentMotiveSection().getMotiveRecordList();
+        List<PaymentReasonRecord> paymentItemsList = this.form.getPaymentReasonSection().getReasonRecordList();
 
-        for (PaymentMotiveRecord paymentItem : paymentItemsList) {
+        for (PaymentReasonRecord paymentItem : paymentItemsList) {
             if (paymentItem.getDebitAmount() != null && !Objects.equals(paymentItem.getDebitAmount(), "0") && paymentItem.getCreditAmount() != null && !Objects.equals(paymentItem.getCreditAmount(), "0")) {
                 throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage());
             }

@@ -1,16 +1,16 @@
 package org.f24.dto.component;
 
-public class Contributor {
+public class TaxPayer {
 
     private String taxCode;
 
-    private boolean ifCalendarYear;
+    private boolean isNotCalendarYear;
 
     private PersonData personData;
 
     private CompanyData companyData;
 
-    private String receiverTaxCode;
+    private String otherTaxCode;
 
     private String idCode;
 
@@ -18,23 +18,23 @@ public class Contributor {
 
     private String officeCode;
 
-    public Contributor() {
+    public TaxPayer() {
     }
 
     /**
      * Constructs contributor section (Contribuente) for Excise, Standard forms with Person Data
      *
      * @param taxCode         tax code (codice fiscale)
-     * @param ifCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
+     * @param isNotCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
      * @param personData      PersonData component (dati anagrafici PF)
-     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public Contributor(String taxCode, boolean ifCalendarYear, PersonData personData, String receiverTaxCode, String idCode) {
+    public TaxPayer(String taxCode, boolean isNotCalendarYear, PersonData personData, String otherTaxCode, String idCode) {
         this.taxCode = taxCode;
-        this.ifCalendarYear = ifCalendarYear;
+        this.isNotCalendarYear = isNotCalendarYear;
         this.personData = personData;
-        this.receiverTaxCode = receiverTaxCode;
+        this.otherTaxCode = otherTaxCode;
         this.idCode = idCode;
     }
 
@@ -42,16 +42,16 @@ public class Contributor {
      * Constructs contributor section (Contribuente) for Excise, Standard forms with Company Data
      *
      * @param taxCode         tax code (codice fiscale)
-     * @param ifCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
+     * @param isNotCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
      * @param companyData     CompanyData component (dati anagrafici PNF)
-     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public Contributor(String taxCode, boolean ifCalendarYear, CompanyData companyData, String receiverTaxCode, String idCode) {
+    public TaxPayer(String taxCode, boolean isNotCalendarYear, CompanyData companyData, String otherTaxCode, String idCode) {
         this.taxCode = taxCode;
-        this.ifCalendarYear = ifCalendarYear;
+        this.isNotCalendarYear = isNotCalendarYear;
         this.companyData = companyData;
-        this.receiverTaxCode = receiverTaxCode;
+        this.otherTaxCode = otherTaxCode;
         this.idCode = idCode;
     }
 
@@ -62,15 +62,15 @@ public class Contributor {
      * @param actCode         act code
      * @param officeCode      office code
      * @param personData      PersonData component (dati anagrafici PF)
-     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public Contributor(String taxCode, String actCode, String officeCode, PersonData personData, String receiverTaxCode, String idCode) {
+    public TaxPayer(String taxCode, String actCode, String officeCode, PersonData personData, String otherTaxCode, String idCode) {
         this.taxCode = taxCode;
         this.actCode = actCode;
         this.officeCode = officeCode;
         this.personData = personData;
-        this.receiverTaxCode = receiverTaxCode;
+        this.otherTaxCode = otherTaxCode;
         this.idCode = idCode;
     }
 
@@ -79,13 +79,13 @@ public class Contributor {
      *
      * @param taxCode         tax code (codice fiscale)
      * @param personData      PersonData component (dati anagrafici PF)
-     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public Contributor(String taxCode, PersonData personData, String receiverTaxCode, String idCode) {
+    public TaxPayer(String taxCode, PersonData personData, String otherTaxCode, String idCode) {
         this.taxCode = taxCode;
         this.personData = personData;
-        this.receiverTaxCode = receiverTaxCode;
+        this.otherTaxCode = otherTaxCode;
         this.idCode = idCode;
     }
 
@@ -94,13 +94,13 @@ public class Contributor {
      *
      * @param taxCode         tax code (codice fiscale)
      * @param companyData     CompanyData component
-     * @param receiverTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public Contributor(String taxCode, CompanyData companyData, String receiverTaxCode, String idCode) {
+    public TaxPayer(String taxCode, CompanyData companyData, String otherTaxCode, String idCode) {
         this.taxCode = taxCode;
         this.companyData = companyData;
-        this.receiverTaxCode = receiverTaxCode;
+        this.otherTaxCode = otherTaxCode;
         this.idCode = idCode;
     }
 
@@ -112,12 +112,12 @@ public class Contributor {
         this.taxCode = taxCode;
     }
 
-    public boolean isIfCalendarYear() {
-        return ifCalendarYear;
+    public boolean isNotCalendarYear() {
+        return isNotCalendarYear;
     }
 
-    public void setIfCalendarYear(boolean ifCalendarYear) {
-        this.ifCalendarYear = ifCalendarYear;
+    public void setNotCalendarYear(boolean notCalendarYear) {
+        this.isNotCalendarYear = notCalendarYear;
     }
 
     public String getActCode() {
@@ -152,12 +152,12 @@ public class Contributor {
         this.companyData = companyData;
     }
 
-    public String getReceiverTaxCode() {
-        return receiverTaxCode;
+    public String getOtherTaxCode() {
+        return otherTaxCode;
     }
 
-    public void setReceiverTaxCode(String receiverTaxCode) {
-        this.receiverTaxCode = receiverTaxCode;
+    public void setOtherTaxCode(String otherTaxCode) {
+        this.otherTaxCode = otherTaxCode;
     }
 
     public String getIdCode() {

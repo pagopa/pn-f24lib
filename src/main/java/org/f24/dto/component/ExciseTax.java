@@ -14,7 +14,7 @@ public class ExciseTax {
 
     private String month;
 
-    private String reportingYear;
+    private String year;
 
     private String debitAmount;
 
@@ -27,17 +27,17 @@ public class ExciseTax {
      * @param tributeCode   tribute code (codice tributo)
      * @param installment   installment (rateazione)
      * @param month         month (mese rif.)
-     * @param reportingYear reporting year (anno di riferimento)
+     * @param year reporting year (anno di riferimento)
      * @param debitAmount   debit amounts paid (debit amounts paid)
      */
-    public ExciseTax(String institution, String province, String idCode, String tributeCode, String installment, String month, String reportingYear, String debitAmount) {
+    public ExciseTax(String institution, String province, String idCode, String tributeCode, String installment, String month, String year, String debitAmount) {
         this.institution = institution;
         this.province = province;
         this.idCode = idCode;
         this.tributeCode = tributeCode;
         this.installment = installment;
         this.month = month;
-        this.reportingYear = reportingYear;
+        this.year = year;
         this.debitAmount = debitAmount;
     }
 
@@ -91,12 +91,12 @@ public class ExciseTax {
         this.month = month;
     }
 
-    public String getReportingYear() {
-        return reportingYear;
+    public String getYear() {
+        return year;
     }
 
-    public void setReportingYear(String reportingYear) {
-        this.reportingYear = reportingYear;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getDebitAmount() {

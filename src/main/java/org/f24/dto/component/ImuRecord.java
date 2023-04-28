@@ -4,10 +4,10 @@ public class ImuRecord extends Record {
 
     private String municipalityCode;
 
-    private Boolean activeRepentance;
-    private Boolean variedBuildings;
+    private Boolean repentance;
+    private Boolean changedBuildings;
     private Boolean advancePayment;
-    private Boolean balance;
+    private Boolean payment;
 
     private String numberOfBuildings;
 
@@ -15,7 +15,7 @@ public class ImuRecord extends Record {
 
     private String installment;
 
-    private String reportingYear;
+    private String year;
 
     private String debitAmount;
 
@@ -25,27 +25,27 @@ public class ImuRecord extends Record {
      * Constructs IMU record for IMU Section (IMU e altri tributi locali)
      *
      * @param municipalityCode  entity code/municipality code (codice ente/codice comune)
-     * @param activeRepentance  active repentance (ravvedimento)
-     * @param variedBuildings   buildings (immobiliare variati)
+     * @param repentance  active repentance (ravvedimento)
+     * @param changedBuildings   buildings (immobiliare variati)
      * @param advancePayment    advance payment (acconto)
      * @param numberOfBuildings number of buildings (numero immobili)
-     * @param balance           balance (saldo)
+     * @param payment           payment (saldo)
      * @param tributeCode       tribute code (codice tributo)
      * @param installment       installment/month ref. (rateazione/ mese rif.)
-     * @param reportingYear     reporting year (anno di riferimento)
+     * @param year     reporting year (anno di riferimento)
      * @param debitAmount       debit amounts paid (importi a debito versati )
      * @param creditAmount      credit amounts offset (importi a credito compensati )
      */
-    public ImuRecord(String municipalityCode, Boolean activeRepentance, Boolean variedBuildings, Boolean advancePayment, Boolean balance, String numberOfBuildings, String tributeCode, String installment, String reportingYear, String debitAmount, String creditAmount) {
+    public ImuRecord(String municipalityCode, Boolean repentance, Boolean changedBuildings, Boolean advancePayment, Boolean payment, String numberOfBuildings, String tributeCode, String installment, String year, String debitAmount, String creditAmount) {
         this.municipalityCode = municipalityCode;
-        this.activeRepentance = activeRepentance;
-        this.variedBuildings = variedBuildings;
+        this.repentance = repentance;
+        this.changedBuildings = changedBuildings;
         this.advancePayment = advancePayment;
-        this.balance = balance;
+        this.payment = payment;
         this.numberOfBuildings = numberOfBuildings;
         this.tributeCode = tributeCode;
         this.installment = installment;
-        this.reportingYear = reportingYear;
+        this.year = year;
         this.debitAmount = debitAmount;
         this.creditAmount = creditAmount;
     }
@@ -60,20 +60,20 @@ public class ImuRecord extends Record {
         this.municipalityCode = municipalityCode;
     }
 
-    public Boolean getActiveRepentance() {
-        return activeRepentance;
+    public Boolean getRepentance() {
+        return repentance;
     }
 
-    public void setActiveRepentance(Boolean activeRepentance) {
-        this.activeRepentance = activeRepentance;
+    public void setRepentance(Boolean repentance) {
+        this.repentance = repentance;
     }
 
-    public Boolean getVariedBuildings() {
-        return variedBuildings;
+    public Boolean getChangedBuildings() {
+        return changedBuildings;
     }
 
-    public void setVariedBuildings(Boolean variedBuildings) {
-        this.variedBuildings = variedBuildings;
+    public void setChangedBuildings(Boolean changedBuildings) {
+        this.changedBuildings = changedBuildings;
     }
 
     public Boolean getAdvancePayment() {
@@ -92,12 +92,12 @@ public class ImuRecord extends Record {
         this.numberOfBuildings = numberOfBuildings;
     }
 
-    public Boolean getBalance() {
-        return balance;
+    public Boolean getPayment() {
+        return payment;
     }
 
-    public void setBalance(Boolean balance) {
-        this.balance = balance;
+    public void setPayment(Boolean payment) {
+        this.payment = payment;
     }
 
     public String getTributeCode() {
@@ -116,12 +116,12 @@ public class ImuRecord extends Record {
         this.installment = installment;
     }
 
-    public String getReportingYear() {
-        return reportingYear;
+    public String getYear() {
+        return year;
     }
 
-    public void setReportingYear(String reportingYear) {
-        this.reportingYear = reportingYear;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getDebitAmount() {

@@ -6,8 +6,8 @@
       "pattern": "^[A-Z\\s]{1,60}$",
       "type": "string"
     },
-    "taxResidence": {
-      "$ref": "resource:/schemas/component/tax-residence.json"
+    "taxAddress": {
+      "$ref": "resource:/schemas/component/tax-address.json"
     }
   },
   "description": "Company Data (Dati Anagrafici PNF) object"

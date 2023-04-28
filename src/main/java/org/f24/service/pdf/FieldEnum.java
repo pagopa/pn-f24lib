@@ -16,11 +16,11 @@ public enum FieldEnum {
     MUNICIPALITY_OF_BIRTH("municipalityOfBirth"),
     MUNICIPALITY("municipality"),
     ADDRESS("address"),
-    RECEIVER_TAX_CODE("receiverTaxCode"),
+    OTHER_TAX_CODE("receiverTaxCode"),
     ID_CODE("idCode"),
     TRIBUTE_CODE("tributeCode"),
     INSTALLMENT("installment"),
-    REPORTING_YEAR("reportingYear"),
+    YEAR("reportingYear"),
     OFFICE_CODE("officeCode"),
     ACT_CODE("deedCode"),
     LOCATION_CODE("locationCode"),
@@ -31,10 +31,10 @@ public enum FieldEnum {
     REGION_CODE("regionCode"),
     OPERATION_ID("operationId"),
     MUNICIPALITY_CODE("municipalityCode"),
-    ACTIVE_REPENTANCE("ravv"),
-    VARIED_BUILDINGS("building"),
+    REPENTANCE("ravv"),
+    CHANGED_BUILDINGS("building"),
     ADVANCE_PAYMENT("acc"),
-    BALANCE("balance"),
+    PAYMENT("balance"),
     NUMBER_OF_BUILDINGS("numberOfBuildings"),
     INSTITUTION("institution"),
     MONTH("month"),
@@ -47,7 +47,6 @@ public enum FieldEnum {
     CIRCULAR("isCircular"),
     IBAN_CODE("ibanCode"),
     COMPANY_CODE("companyCode"),
-    BANK_ACCOUNT("bankAccount"),
     CONTROL_CODE("controlCode"),
     REFERENCE_NUMBER("referenceNumber"),
     REASON("reason"),
@@ -59,11 +58,10 @@ public enum FieldEnum {
     BANK_ID("bankId"),
     SECTION("section"),
     CALENDAR_YEAR("calendarYear"),
-    
     HEADER("header"),
-    CONTRIBUTOR("contributor"),
+    TAX_PAYER("contributor"),
     PERSONAL_DATA("personalData"),
-    TAX_RESIDENCE("taxResidence"),
+    TAX_ADDRESS("taxResidence"),
     TREASURY("treasury"),
     INPS("inps"),
     REGION("region"),
@@ -72,16 +70,14 @@ public enum FieldEnum {
     SOCIAL_SECURITY("socialSecurity"),
     PAYMENT_DETAILS("paymentDetails"),
     EXCISE("excise"),
-
     DEDUCTION("deduction"),
     DEBIT_AMOUNT("debitAmount"),
     CREDIT_AMOUNT("creditAmount"),
     TOTAL_AMOUNT("totalAmount"),
-
     TOTAL_DEBIT("totalDebitAmount"),
     TOTAL_CREDIT("totalCreditAmount"),
-
     SIGNATURE("signature");
+
     private String name;
 
     FieldEnum(String name) {

@@ -10,7 +10,7 @@
       "pattern": "^[A-Z0-9]{0,4}$",
       "type": "string"
     },
-    "reportingYear": {
+    "year": {
       "pattern": "^[1-2][0-9]{3}$",
       "type": "string"
     },

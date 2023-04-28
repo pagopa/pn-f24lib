@@ -5,23 +5,23 @@ import java.util.List;
 import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
 
-public class PaymentMotiveSection extends Section {
+public class PaymentReasonSection extends Section {
 
     private String operationId;
 
-    private List<PaymentMotiveRecord> motiveRecordList;
+    private List<PaymentReasonRecord> reasonRecordList;
 
-    public PaymentMotiveSection() {}
+    public PaymentReasonSection() {}
 
     /**
      * Constructs Motive for Payment Section (Motivo del Pagamento)
      *
      * @param operationId      operation ID (identificativo operazione)
-     * @param motiveRecordList list of PaymentMotiveRecord components
+     * @param reasonRecordList list of PaymentMotiveRecord components
      */
-    public PaymentMotiveSection(String operationId, List<PaymentMotiveRecord> motiveRecordList) {
+    public PaymentReasonSection(String operationId, List<PaymentReasonRecord> reasonRecordList) {
         this.operationId = operationId;
-        this.motiveRecordList = motiveRecordList;
+        this.reasonRecordList = reasonRecordList;
     }
 
     public String getOperationId() {
@@ -32,16 +32,16 @@ public class PaymentMotiveSection extends Section {
         this.operationId = operationId;
     }
 
-    public List<PaymentMotiveRecord> getMotiveRecordList() {
-        return motiveRecordList;
+    public List<PaymentReasonRecord> getReasonRecordList() {
+        return reasonRecordList;
     }
 
-    public void setMotiveRecordList(List<PaymentMotiveRecord> motiveRecordList) {
-        this.motiveRecordList = motiveRecordList;
+    public void setReasonRecordList(List<PaymentReasonRecord> reasonRecordList) {
+        this.reasonRecordList = reasonRecordList;
     }
 
     public Integer getTotalAmount() throws ResourceException {
-        Integer totalAmount =  getMotiveRecordList()
+        Integer totalAmount =  getReasonRecordList()
                 .stream()
                 .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0") - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
                 .sum();

@@ -2,11 +2,11 @@ package org.f24.dto.component;
 
 public class InailRecord extends Record {
 
-    private String locationCode;
+    private String officeCode;
 
     private String companyCode;
 
-    private String bankAccount;
+    private String controlCode;
 
     private String referenceNumber;
 
@@ -19,18 +19,18 @@ public class InailRecord extends Record {
     /**
      * Constructs INAIL Record for Other social security and insurance institutions (sezione altri enri previdenziali e assicuretivi)
      *
-     * @param locationCode    location code (codice sede)
+     * @param officeCode    location code (codice sede)
      * @param companyCode     company code (codice ditta)
-     * @param bankAccount     bank account
+     * @param controlCode     bank account
      * @param referenceNumber reference number (numero di riferimento)
      * @param reason          reason (causale)
      * @param debitAmount     debit amounts paid (importi a debito versati)
      * @param creditAmount    credit amounts offset (importi a credito compensati)
      */
-    public InailRecord(String locationCode, String companyCode, String bankAccount, String referenceNumber, String reason, String debitAmount, String creditAmount) {
-        this.locationCode = locationCode;
+    public InailRecord(String officeCode, String companyCode, String controlCode, String referenceNumber, String reason, String debitAmount, String creditAmount) {
+        this.officeCode = officeCode;
         this.companyCode = companyCode;
-        this.bankAccount = bankAccount;
+        this.controlCode = controlCode;
         this.referenceNumber = referenceNumber;
         this.reason = reason;
         this.debitAmount = debitAmount;
@@ -39,12 +39,12 @@ public class InailRecord extends Record {
 
     public InailRecord() {}
 
-    public String getLocationCode() {
-        return locationCode;
+    public String getOfficeCode() {
+        return officeCode;
     }
 
-    public void setLocationCode(String locationCode) {
-        this.locationCode = locationCode;
+    public void setOfficeCode(String officeCode) {
+        this.officeCode = officeCode;
     }
 
     public String getCompanyCode() {
@@ -55,12 +55,12 @@ public class InailRecord extends Record {
         this.companyCode = companyCode;
     }
 
-    public String getBankAccount() {
-        return bankAccount;
+    public String getControlCode() {
+        return controlCode;
     }
 
-    public void setBankAccount(String bankAccount) {
-        this.bankAccount = bankAccount;
+    public void setControlCode(String controlCode) {
+        this.controlCode = controlCode;
     }
 
     public String getReferenceNumber() {

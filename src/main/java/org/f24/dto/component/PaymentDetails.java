@@ -2,7 +2,7 @@ package org.f24.dto.component;
 
 public class PaymentDetails {
 
-    private String dateOfPayment;
+    private String paymentDate;
 
     private String company;
 
@@ -22,7 +22,7 @@ public class PaymentDetails {
     /**
      * Constructs payment details section of F24 form
      *
-     * @param dateOfPayment date of payment (data)
+     * @param paymentDate date of payment (data)
      * @param company       company (azienda)
      * @param cabCode       bank CAB code (CAB/Sportello)
      * @param checkNumber   check number of payment (pagamento effettuato con assegno n.ro)
@@ -30,8 +30,8 @@ public class PaymentDetails {
      * @param abiCode       ABI code (Cod. ABI)
      * @param ibanCode      IBAN code (autorizzo addebito su conto corrente codice IBAN )
      */
-    public PaymentDetails(String dateOfPayment, String company, String cabCode, String checkNumber, boolean isBank, String abiCode, String ibanCode) {
-        this.dateOfPayment = dateOfPayment;
+    public PaymentDetails(String paymentDate, String company, String cabCode, String checkNumber, boolean isBank, String abiCode, String ibanCode) {
+        this.paymentDate = paymentDate;
         this.company = company;
         this.cabCode = cabCode;
         this.checkNumber = checkNumber;
@@ -40,12 +40,12 @@ public class PaymentDetails {
         this.ibanCode = ibanCode;
     }
 
-    public String getDateOfPayment() {
-        return dateOfPayment;
+    public String getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setDateOfPayment(String dateOfPayment) {
-        this.dateOfPayment = dateOfPayment;
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public String getCompany() {

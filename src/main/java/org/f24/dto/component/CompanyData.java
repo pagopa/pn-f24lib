@@ -4,7 +4,7 @@ public class CompanyData {
 
     private String name;
 
-    private TaxResidence taxResidence;
+    private TaxAddress taxAddress;
 
     public CompanyData() {}
 
@@ -12,11 +12,11 @@ public class CompanyData {
      * Constructs personal data section of contributor (dati anagrafici PF)
      *
      * @param name         name. (denominazione)
-     * @param taxResidence TaxResidence component (domicilio fiscale)
+     * @param taxAddress TaxResidence component (domicilio fiscale)
      */
-    public CompanyData(String name, TaxResidence taxResidence) {
+    public CompanyData(String name, TaxAddress taxAddress) {
         this.name = name;
-        this.taxResidence = taxResidence;
+        this.taxAddress = taxAddress;
     }
 
     public String getName() {
@@ -27,12 +27,12 @@ public class CompanyData {
         this.name = name;
     }
 
-    public TaxResidence getTaxResidence() {
-        return taxResidence;
+    public TaxAddress getTaxAddress() {
+        return taxAddress;
     }
 
-    public void setTaxResidence(TaxResidence taxResidence) {
-        this.taxResidence = taxResidence;
+    public void setTaxAddress(TaxAddress taxAddress) {
+        this.taxAddress = taxAddress;
     }
 
 }

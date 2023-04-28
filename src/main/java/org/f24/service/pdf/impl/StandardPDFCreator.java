@@ -4,30 +4,14 @@ import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import java.util.List;
 
-import org.f24.dto.component.Contributor;
-import org.f24.dto.component.Header;
-import org.f24.dto.component.ImuRecord;
-import org.f24.dto.component.ImuSection;
-import org.f24.dto.component.InailRecord;
-import org.f24.dto.component.InpsRecord;
-import org.f24.dto.component.InpsSection;
-import org.f24.dto.component.PaymentDetails;
-import org.f24.dto.component.PersonalData;
-import org.f24.dto.component.RegionRecord;
-import org.f24.dto.component.RegionSection;
-import org.f24.dto.component.Section;
-import org.f24.dto.component.SocialSecurityRecord;
-import org.f24.dto.component.SocialSecuritySection;
-import org.f24.dto.component.Tax;
-import org.f24.dto.component.TaxResidence;
-import org.f24.dto.component.TreasurySection;
+import org.f24.dto.component.*;
+import org.f24.dto.component.Record;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
 import org.f24.service.pdf.PDFFormManager;
 import org.f24.service.pdf.CreatorHelper;
 import org.f24.service.pdf.FieldEnum;
-import org.f24.dto.component.Record;
 
 public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
@@ -60,21 +44,21 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
     }
 
     private void setPersonData() throws Exception {
-        PersonalData personalData = this.form.getContributor().getPersonData().getPersonalData();
+        PersonalData personalData = this.form.getTaxPayer().getPersonData().getPersonalData();
 
         if (personalData == null)
             return;
 
         setField(FieldEnum.CORPORATE_NAME.getName(), personalData.getSurname());
         setField(FieldEnum.NAME.getName(), personalData.getName());
-        setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getDateOfBirth());
+        setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthdate());
         setField(FieldEnum.SEX.getName(), personalData.getSex());
-        setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getMunicipalityOfBirth());
+        setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthMunicipality());
         setField(FieldEnum.PROVINCE.getName(), personalData.getProvince());
     }
 
     private void setTaxResidenceData() throws Exception {
-        TaxResidence taxResidenceData = this.form.getContributor().getPersonData().getTaxResidence();
+        TaxAddress taxResidenceData = this.form.getTaxPayer().getPersonData().getTaxAddress();
 
         if (taxResidenceData == null)
             return;
@@ -85,17 +69,17 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
     }
 
     private void setContributor() throws Exception {
-        Contributor contributor = this.form.getContributor();
+        TaxPayer contributor = this.form.getTaxPayer();
         String currentYear = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
 
         if (contributor == null)
             return;
 
         setField(FieldEnum.TAX_CODE.getName(), contributor.getTaxCode());
-        setField(FieldEnum.RECEIVER_TAX_CODE.getName(), contributor.getReceiverTaxCode());
+        setField(FieldEnum.OTHER_TAX_CODE.getName(), contributor.getOtherTaxCode());
         setField(FieldEnum.ID_CODE.getName(), contributor.getIdCode());
 
-        if (contributor.isIfCalendarYear())
+        if (contributor.isNotCalendarYear())
             setField(FieldEnum.CALENDAR_YEAR.getName(), currentYear.substring(2, 4));
 
         setPersonData();
@@ -113,12 +97,12 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (InpsRecord record : inpsRecordList) {
-            setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getLocationCode());
+            setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
             setField(FieldEnum.CONTRIBUTION_REASON.getName() + sectionId + index, record.getContributionReason());
             setField(FieldEnum.INPS_CODE.getName() + sectionId + index, record.getInpsCode());
 
-            setMultiDate(FieldEnum.START_DATE.getName(), sectionId, index, record.getReportingPeriod().getStartDate());
-            setMultiDate(FieldEnum.END_DATE.getName(), sectionId, index, record.getReportingPeriod().getEndDate());
+            setMultiDate(FieldEnum.START_DATE.getName(), sectionId, index, record.getPeriod().getStartDate());
+            setMultiDate(FieldEnum.END_DATE.getName(), sectionId, index, record.getPeriod().getEndDate());
 
             setSectionRecordAmounts(sectionId, index, record);
 
@@ -139,19 +123,19 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (ImuRecord record : imuRecordList) {
-            setField(FieldEnum.REPORTING_YEAR.getName() + sectionId + index, record.getReportingYear());
+            setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
             setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
             setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
             setField(FieldEnum.MUNICIPALITY_CODE.getName() + sectionId + index, record.getMunicipalityCode());
 
-            if (record.getActiveRepentance() != null)
-                setField(FieldEnum.ACTIVE_REPENTANCE.getName() + index, "X");
-            if (record.getVariedBuildings() != null)
-                setField(FieldEnum.VARIED_BUILDINGS.getName() + index, "X");
+            if (record.getRepentance() != null)
+                setField(FieldEnum.REPENTANCE.getName() + index, "X");
+            if (record.getChangedBuildings() != null)
+                setField(FieldEnum.CHANGED_BUILDINGS.getName() + index, "X");
             if (record.getAdvancePayment() != null)
                 setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
-            if (record.getBalance() != null)
-                setField(FieldEnum.BALANCE.getName() + index, "X");
+            if (record.getPayment() != null)
+                setField(FieldEnum.PAYMENT.getName() + index, "X");
             if (record.getNumberOfBuildings() != null)
                 setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, record.getNumberOfBuildings());
 
@@ -179,7 +163,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         for (Tax record : taxList) {
             setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
             setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
-            setField(FieldEnum.REPORTING_YEAR.getName() + sectionId + index, record.getReportingYear());
+            setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
 
             setSectionRecordAmounts(sectionId, index, record);
     
@@ -204,7 +188,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         int index = 1;
         for (SocialSecurityRecord record : socSecurityList) {
             setField(FieldEnum.INSTITUTION_CODE.getName() + sectionId, record.getInstitutionCode());
-            setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getLocationCode());
+            setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
             setField(FieldEnum.CONTRIBUTION_REASON.getName() + sectionId + index, record.getContributionReason());
             setField(FieldEnum.POSITION_CODE.getName() + sectionId + index, record.getPositionCode());
 
@@ -230,9 +214,9 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (InailRecord record : inailRecordList) {
-            setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getLocationCode());
+            setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
             setField(FieldEnum.COMPANY_CODE.getName() + sectionId + index, record.getCompanyCode());
-            setField(FieldEnum.CONTROL_CODE.getName() + sectionId + index, record.getBankAccount());
+            setField(FieldEnum.CONTROL_CODE.getName() + sectionId + index, record.getControlCode());
             setField(FieldEnum.REFERENCE_NUMBER.getName() + sectionId + index, record.getReferenceNumber());
             setField(FieldEnum.REASON.getName() + sectionId + index, record.getReason());
 
@@ -247,7 +231,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
     private void setPaymentDetails() throws Exception {
         PaymentDetails paymentDetails = this.form.getPaymentDetails();
 
-        setField(FieldEnum.DATE_OF_PAYMENT.getName(), paymentDetails.getDateOfPayment().replaceAll("-", ""));
+        setField(FieldEnum.DATE_OF_PAYMENT.getName(), paymentDetails.getPaymentDate().replaceAll("-", ""));
         setField(FieldEnum.COMPANY.getName(), paymentDetails.getCompany());
         setField(FieldEnum.CAB_CODE.getName(), paymentDetails.getCabCode());
         setField(FieldEnum.CHECK_NUMBER.getName(), paymentDetails.getCheckNumber());
@@ -271,7 +255,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         int index = 1;
         for (RegionRecord record : regionRecordsList) {
-            setField(FieldEnum.REPORTING_YEAR.getName() + sectionId + index, record.getReportingYear());
+            setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
             setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
             setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
             setField(FieldEnum.REGION_CODE.getName() + sectionId + index, record.getRegionCode());
@@ -290,7 +274,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (helper.getTotalAmount(recordList) != null) {
             Integer total = helper.getTotalAmount(recordList);
             String parsedTotal = helper.getMoney(total);
-            setField(FieldEnum.BALANCE.getName() + sectionId, parsedTotal);
+            setField(FieldEnum.PAYMENT.getName() + sectionId, parsedTotal);
         }
 
         if (helper.getCreditTotal(recordList) != null) {
