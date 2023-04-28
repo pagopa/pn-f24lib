@@ -39,8 +39,15 @@ public class PaymentMotiveSection extends Section {
         this.motiveRecordList = motiveRecordList;
     }
 
-    @Override
-    public Double getTotalAmount(List<? extends Record> recordList) throws ResourceException {
-        return super.getTotalAmount(recordList);
+    public Integer getTotalAmount() throws ResourceException {
+        Integer totalAmount =  getMotiveRecordList()
+                .stream()
+                .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0") - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
+                .sum();
+        if(totalAmount < 0) {
+            throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());
+        }
+        return totalAmount;
     }
+
 }

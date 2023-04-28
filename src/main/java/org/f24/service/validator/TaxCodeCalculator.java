@@ -61,15 +61,14 @@ public class TaxCodeCalculator {
     }
 
     private static void throwEmptyArgException() {
-        throw new IllegalArgumentException(
-                "non sono permessi parametri nulli o vuoti");
+        throw new IllegalArgumentException("Null arguments are not permitted.");
     }
 
     private static void throwIllegalArgException(String arg_name) {
         throw new IllegalArgumentException(
-                "L'argomento '"
+                "Argument '"
                         + arg_name
-                        + "' non può contenere caratteri speciali.");
+                        + "' can not contain special characters.");
     }
 
     private static String getConsVow(String string, boolean conson) {

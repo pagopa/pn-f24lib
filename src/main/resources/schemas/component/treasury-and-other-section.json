@@ -11,8 +11,6 @@
       "type": "string"
     },
     "treasuryRecords": {
-      "maxItems": 28,
-      "minItems": 0,
       "type": "array",
       "items": {
         "$ref": "resource:/schemas/component/treasury-record.json"
