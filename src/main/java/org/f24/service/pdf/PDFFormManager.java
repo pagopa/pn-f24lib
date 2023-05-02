@@ -58,8 +58,8 @@ public class PDFFormManager {
     protected void setField(String fieldName, String fieldValue) throws ResourceException {
         if(fieldValue != null) {
             PDField field = getField(fieldName);
-            if (field instanceof PDTextField textField) {
-                textField.setActions(null);
+            if (field instanceof PDTextField) {
+                ((PDTextField) field).setActions(null);
             }
             try {
                 field.setValue(fieldValue);

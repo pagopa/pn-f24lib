@@ -2,6 +2,7 @@ package org.f24.service.pdf.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.Locale;
 
 import org.f24.dto.component.*;
 import org.f24.dto.component.Record;
@@ -327,7 +328,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         input = Math.round(input * 100.0) / 100.0;
         int integerPart = (int) input;
         double decimalPart = input - integerPart;
-        return new String[] { Integer.toString(integerPart), String.format("%.2f", decimalPart).split(",")[1] };
+        return new String[] { Integer.toString(integerPart), String.format(Locale.ROOT, "%.2f", decimalPart).split("\\.")[1] };
     }
 
     /**

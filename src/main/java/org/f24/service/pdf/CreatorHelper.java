@@ -2,6 +2,7 @@ package org.f24.service.pdf;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
@@ -13,7 +14,7 @@ public class CreatorHelper {
     double doubleInput = input / 100.0;
     int integerPart = (int) doubleInput;
     double decimalPart = doubleInput - integerPart;
-    String decimalPartString = String.format("%.2f", decimalPart).split(",")[1];
+    String decimalPartString = String.format(Locale.ROOT, "%.2f", decimalPart).split("\\.")[1];
     decimalPartString = decimalPartString.replace("", " ").trim();
     return integerPart + "  " + decimalPartString;
   }

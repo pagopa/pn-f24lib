@@ -21,7 +21,7 @@ public class F24Generator {
         Validator validator = ValidatorFactory.createValidator(f24Form);
         validator.validate();
 
-        Files.write(Path.of("C:\\Users\\GianlucaScatena\\Desktop\\PROGETTI\\F24\\output.pdf"), PDFCreatorFactory.createPDFCreator(f24Form).createPDF());
+        Files.write(Path.of("output.pdf"), PDFCreatorFactory.createPDFCreator(f24Form).createPDF());
     }
 
 }
