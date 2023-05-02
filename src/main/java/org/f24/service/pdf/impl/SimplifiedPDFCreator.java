@@ -17,7 +17,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
     private static final int MOTIVE_RECORDS_NUMBER = 10;
 
     private F24Simplified form;
-    private CreatorHelper helper;
+    private CreatorHelper helper = new CreatorHelper();
 
     /**
      * Constructs Simplified PDF Creator.
