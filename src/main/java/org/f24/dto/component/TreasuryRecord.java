@@ -10,10 +10,6 @@ public class TreasuryRecord extends Record {
 
     private String year;
 
-    private String debitAmount;
-
-    public TreasuryRecord() {}
-
     /**
      * Constructs Treasury record for Treasury and other section (Sezione erario ed altro)
      *
@@ -24,12 +20,14 @@ public class TreasuryRecord extends Record {
      * @param debitAmount   debit amounts paid (debit amounts paid)
      */
     public TreasuryRecord(String type, String idElements, String tributeCode, String year, String debitAmount) {
+        super(debitAmount, "", "");
         this.type = type;
         this.idElements = idElements;
         this.tributeCode = tributeCode;
         this.year = year;
-        this.debitAmount = debitAmount;
     }
+
+    public TreasuryRecord() {}
 
     public String getType() {
         return type;
@@ -61,14 +59,6 @@ public class TreasuryRecord extends Record {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
     }
 
 }

@@ -3,12 +3,9 @@ package org.f24.dto.component;
 import java.util.List;
 
 public class Section {
-  private List<? extends Record> recordList;
+  private List<Record> recordList;
 
-  public Section() {
-  }
-
-  public List<? extends Record> getRecordList() {
+  public List<Record> getRecordList() {
     return recordList;
   }
 

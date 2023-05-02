@@ -6,22 +6,21 @@ public class Record {
 
   private String creditAmount;
 
-  private String deductionAmount;
+  private String deduction;
+
+  public Record() {}
 
   /**
    * Constructs region record for region section (sezione regioni)
    *
    * @param debitAmount  debit amounts paid (importi a debito versati)
    * @param creditAmount credit amounts offset (importi a credito compensati)
-   * @param deductionAmount deduction amounts offset (importi a deduction compensati)
+   * @param deduction deduction amounts offset (importi a deduction compensati)
    */
-
-  public Record() {}
-
-  public Record(String debitAmount, String creditAmount, String deductionAmount) {
+  public Record(String debitAmount, String creditAmount, String deduction) {
     this.debitAmount = debitAmount;
     this.creditAmount = creditAmount;
-    this.deductionAmount = deductionAmount;
+    this.deduction = deduction;
   }
 
   public String getDebitAmount() {
@@ -36,11 +35,16 @@ public class Record {
     return creditAmount;
   }
 
-  public String getDeuctionAmount() {
-    return deductionAmount;
-  }
-
   public void setCreditAmount(String creditAmount) {
     this.creditAmount = creditAmount;
   }
+
+  public String getDeduction() {
+    return deduction;
+  }
+
+  public void setDeduction(String deduction) {
+    this.deduction = deduction;
+  }
+
 }

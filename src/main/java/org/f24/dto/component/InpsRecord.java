@@ -10,10 +10,6 @@ public class InpsRecord extends Record {
 
     private Period period;
 
-    private String debitAmount;
-
-    private String creditAmount;
-
     public InpsRecord() {}
 
     /**
@@ -27,12 +23,11 @@ public class InpsRecord extends Record {
      * @param creditAmount       credit amounts offset (importi a credito compensati)
      */
     public InpsRecord(String officeCode, String contributionReason, String inpsCode, Period period, String debitAmount, String creditAmount) {
+        super(debitAmount, creditAmount, "");
         this.officeCode = officeCode;
         this.contributionReason = contributionReason;
         this.inpsCode = inpsCode;
         this.period = period;
-        this.debitAmount = debitAmount;
-        this.creditAmount = creditAmount;
     }
 
     public String getOfficeCode() {
@@ -65,22 +60,6 @@ public class InpsRecord extends Record {
 
     public void setPeriod(Period period) {
         this.period = period;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
-    }
-
-    public String getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(String creditAmount) {
-        this.creditAmount = creditAmount;
     }
 
 }

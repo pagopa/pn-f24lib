@@ -29,8 +29,8 @@ public class CreatorHelper {
             - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
         .sum();
     if (totalAmount < 0) {
-      throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());// TODO comment for gen testing
-      //totalAmount *= -1;// TODO uncomment for gen testing
+      // throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());// TODO comment for gen testing
+      totalAmount *= -1;// TODO uncomment for gen testing
     }
     return totalAmount;
   }

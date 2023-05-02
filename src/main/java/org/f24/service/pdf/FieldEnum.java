@@ -7,6 +7,7 @@ public enum FieldEnum {
     AGENCY_PROVINCE("agencyProvince"),
     ATTORNEY("attorney"),
     PROVINCE("province"),
+    TAX_PROVINCE("domicileProvince"),
     TAX_CODE("taxCode"),
     CORPORATE_NAME("corporateName"),
     SURNAME("surname"),
@@ -86,10 +87,6 @@ public enum FieldEnum {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 }

@@ -8,12 +8,6 @@ public class Tax extends Record {
 
     private String year;
 
-    private String debitAmount;
-
-    private String creditAmount;
-
-    public Tax() { }
-
     /**
      * Constructs  taxes : direct taxes - VAT IMPOSTE (imposte dirette - IVA),
      * withhholding taxes (ritenute alla fonte) ant other taxes (altri tributi ed interessi)
@@ -25,12 +19,13 @@ public class Tax extends Record {
      * @param creditAmount  credit amounts offset (importi a credito)
      */
     public Tax(String tributeCode, String installment, String year, String debitAmount, String creditAmount) {
+        super(debitAmount, creditAmount, "");
         this.tributeCode = tributeCode;
         this.installment = installment;
         this.year = year;
-        this.debitAmount = debitAmount;
-        this.creditAmount = creditAmount;
     }
+
+    public Tax() { }
 
     public String getTributeCode() {
         return tributeCode;
@@ -54,22 +49,6 @@ public class Tax extends Record {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
-    }
-
-    public String getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(String creditAmount) {
-        this.creditAmount = creditAmount;
     }
 
 }

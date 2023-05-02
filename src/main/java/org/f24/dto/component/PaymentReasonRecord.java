@@ -17,15 +17,7 @@ public class PaymentReasonRecord extends Record {
 
     private String month;
 
-    private String deduction;
-
     private String year;
-
-    private String debitAmount;
-
-    private String creditAmount;
-
-    public PaymentReasonRecord() {}
 
     /**
      * Constructs record for Motive for Payment Section (Motivo del Pergamento)
@@ -45,6 +37,7 @@ public class PaymentReasonRecord extends Record {
      * @param creditAmount      credit amounts offset (importi a credito compensati)
      */
     public PaymentReasonRecord(String section, String tributeCode, String institutionCode, Boolean repentance, Boolean changedBuildings, Boolean advancePayment, Boolean payment, String numberOfBuildings, String month, String deduction, String year, String debitAmount, String creditAmount) {
+        super(debitAmount, creditAmount, deduction);
         this.section = section;
         this.tributeCode = tributeCode;
         this.institutionCode = institutionCode;
@@ -54,11 +47,10 @@ public class PaymentReasonRecord extends Record {
         this.payment = payment;
         this.numberOfBuildings = numberOfBuildings;
         this.month = month;
-        this.deduction = deduction;
         this.year = year;
-        this.debitAmount = debitAmount;
-        this.creditAmount = creditAmount;
     }
+
+    public PaymentReasonRecord() {}
 
     public String getSection() {
         return section;
@@ -132,36 +124,12 @@ public class PaymentReasonRecord extends Record {
         this.month = month;
     }
 
-    public String getDeduction() {
-        return deduction;
-    }
-
-    public void setDeduction(String deduction) {
-        this.deduction = deduction;
-    }
-
     public String getYear() {
         return year;
     }
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
-    }
-
-    public String getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(String creditAmount) {
-        this.creditAmount = creditAmount;
     }
 
 }

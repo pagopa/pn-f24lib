@@ -1,7 +1,6 @@
 package org.f24.service.pdf.impl;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Calendar;
 import java.util.List;
 
 import org.f24.dto.component.*;
@@ -65,12 +64,11 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         setField(FieldEnum.ADDRESS.getName(), taxResidenceData.getAddress());
         setField(FieldEnum.MUNICIPALITY.getName(), taxResidenceData.getMunicipality());
-        setField(FieldEnum.PROVINCE.getName(), taxResidenceData.getProvince());
+        setField(FieldEnum.TAX_PROVINCE.getName(), taxResidenceData.getProvince());
     }
 
     private void setContributor() throws Exception {
         TaxPayer contributor = this.form.getTaxPayer();
-        String currentYear = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
 
         if (contributor == null)
             return;
@@ -80,7 +78,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         setField(FieldEnum.ID_CODE.getName(), contributor.getIdCode());
 
         if (contributor.isNotCalendarYear())
-            setField(FieldEnum.CALENDAR_YEAR.getName(), currentYear.substring(2, 4));
+            setField(FieldEnum.CALENDAR_YEAR.getName(), "X");
 
         setPersonData();
         setTaxResidenceData();
@@ -146,7 +144,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         setSectionTotals(sectionId, index, imuRecordList);
 
-        Double parsedDeduction = Double.parseDouble(imuSection.getDeduction().toString());
+        Double parsedDeduction = Double.parseDouble(imuSection.getDeduction());
         setMultiField(FieldEnum.DEDUCTION.getName(), parsedDeduction);
     }
 
@@ -274,7 +272,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (helper.getTotalAmount(recordList) != null) {
             Integer total = helper.getTotalAmount(recordList);
             String parsedTotal = helper.getMoney(total);
-            setField(FieldEnum.PAYMENT.getName() + sectionId, parsedTotal);
+            setField(FieldEnum.TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
         }
 
         if (helper.getCreditTotal(recordList) != null) {
@@ -304,8 +302,8 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             setField(FieldEnum.DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
         }
 
-        if (record.getDeuctionAmount() != null) {
-            String parseDeduction = helper.getMoney(Integer.parseInt(record.getDeuctionAmount()));
+        if (record.getDeduction() != null) {
+            String parseDeduction = helper.getMoney(Integer.parseInt(record.getDeduction()));
             setField(FieldEnum.DEDUCTION.getName() + sectionId + index, parseDeduction);
         }
 
