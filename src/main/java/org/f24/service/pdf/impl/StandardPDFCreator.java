@@ -34,196 +34,193 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
     private void setHeader() throws Exception {
         Header header = this.form.getHeader();
-        if (header == null)
-            return;
 
-        setField(FieldEnum.ATTORNEY.getName(), header.getDelegationTo());
-        setField(FieldEnum.AGENCY.getName(), header.getAgency());
-        setField(FieldEnum.AGENCY_PROVINCE.getName(), header.getProvince());
+        if (header != null) {
+            setField(FieldEnum.ATTORNEY.getName(), header.getDelegationTo());
+            setField(FieldEnum.AGENCY.getName(), header.getAgency());
+            setField(FieldEnum.AGENCY_PROVINCE.getName(), header.getProvince());
+        }
     }
 
     private void setPersonData() throws Exception {
         PersonalData personalData = this.form.getTaxPayer().getPersonData().getPersonalData();
 
-        if (personalData == null)
-            return;
-
-        setField(FieldEnum.CORPORATE_NAME.getName(), personalData.getSurname());
-        setField(FieldEnum.NAME.getName(), personalData.getName());
-        setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthdate());
-        setField(FieldEnum.SEX.getName(), personalData.getSex());
-        setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthMunicipality());
-        setField(FieldEnum.PROVINCE.getName(), personalData.getProvince());
+        if (personalData != null) {
+            setField(FieldEnum.CORPORATE_NAME.getName(), personalData.getSurname());
+            setField(FieldEnum.NAME.getName(), personalData.getName());
+            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthdate().replace("-", ""));
+            setField(FieldEnum.SEX.getName(), personalData.getSex());
+            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthMunicipality());
+            setField(FieldEnum.PROVINCE.getName(), personalData.getProvince());
+        }
     }
 
     private void setTaxResidenceData() throws Exception {
         TaxAddress taxResidenceData = this.form.getTaxPayer().getPersonData().getTaxAddress();
 
-        if (taxResidenceData == null)
-            return;
-
-        setField(FieldEnum.ADDRESS.getName(), taxResidenceData.getAddress());
-        setField(FieldEnum.MUNICIPALITY.getName(), taxResidenceData.getMunicipality());
-        setField(FieldEnum.TAX_PROVINCE.getName(), taxResidenceData.getProvince());
+        if (taxResidenceData != null) {
+            setField(FieldEnum.ADDRESS.getName(), taxResidenceData.getAddress());
+            setField(FieldEnum.MUNICIPALITY.getName(), taxResidenceData.getMunicipality());
+            setField(FieldEnum.TAX_PROVINCE.getName(), taxResidenceData.getProvince());
+        }
     }
 
     private void setContributor() throws Exception {
         TaxPayer contributor = this.form.getTaxPayer();
 
-        if (contributor == null)
-            return;
+        if (contributor != null) {
+            setField(FieldEnum.TAX_CODE.getName(), contributor.getTaxCode());
+            setField(FieldEnum.OTHER_TAX_CODE.getName(), contributor.getOtherTaxCode());
+            setField(FieldEnum.ID_CODE.getName(), contributor.getIdCode());
 
-        setField(FieldEnum.TAX_CODE.getName(), contributor.getTaxCode());
-        setField(FieldEnum.OTHER_TAX_CODE.getName(), contributor.getOtherTaxCode());
-        setField(FieldEnum.ID_CODE.getName(), contributor.getIdCode());
+            if (contributor.isNotCalendarYear())
+                setField(FieldEnum.CALENDAR_YEAR.getName(), "X");
 
-        if (contributor.isNotCalendarYear())
-            setField(FieldEnum.CALENDAR_YEAR.getName(), "X");
-
-        setPersonData();
-        setTaxResidenceData();
+            setPersonData();
+            setTaxResidenceData();
+        }
     }
 
     private void setInpsSection(String sectionId, int copyIndex) throws Exception {
         InpsSection inpsSection = this.form.getInpsSection();
         List<InpsRecord> inpsRecordList = inpsSection.getInpsRecordList();
 
-        if (inpsRecordList == null)
-            return;
+        if (inpsRecordList != null) {
+            inpsRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsRecordList);
 
-        inpsRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsRecordList);
+            int index = 1;
+            for (InpsRecord record : inpsRecordList) {
+                setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
+                setField(FieldEnum.CONTRIBUTION_REASON.getName() + sectionId + index, record.getContributionReason());
+                setField(FieldEnum.INPS_CODE.getName() + sectionId + index, record.getInpsCode());
 
-        int index = 1;
-        for (InpsRecord record : inpsRecordList) {
-            setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
-            setField(FieldEnum.CONTRIBUTION_REASON.getName() + sectionId + index, record.getContributionReason());
-            setField(FieldEnum.INPS_CODE.getName() + sectionId + index, record.getInpsCode());
+                setMultiDate(FieldEnum.START_DATE.getName(), sectionId, index, record.getPeriod().getStartDate());
+                setMultiDate(FieldEnum.END_DATE.getName(), sectionId, index, record.getPeriod().getEndDate());
 
-            setMultiDate(FieldEnum.START_DATE.getName(), sectionId, index, record.getPeriod().getStartDate());
-            setMultiDate(FieldEnum.END_DATE.getName(), sectionId, index, record.getPeriod().getEndDate());
+                setSectionRecordAmounts(sectionId, index, record);
 
-            setSectionRecordAmounts(sectionId, index, record);
+                index++;
+            }
 
-            index++;
+            setSectionTotals(sectionId, index, inpsRecordList);
         }
-
-        setSectionTotals(sectionId, index, inpsRecordList);
     }
 
     private void setImuSection(String sectionId, int copyIndex) throws Exception {
         ImuSection imuSection = this.form.getImuSection();
         List<ImuRecord> imuRecordList = imuSection.getImuRecordList();
 
-        if (imuRecordList == null)
-            return;
+        if (imuRecordList != null) {
+            imuRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, imuRecordList);
 
-        imuRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, imuRecordList);
+            int index = 1;
+            for (ImuRecord record : imuRecordList) {
+                setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
+                setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
+                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
+                setField(FieldEnum.MUNICIPALITY_CODE.getName() + sectionId + index, record.getMunicipalityCode());
 
-        int index = 1;
-        for (ImuRecord record : imuRecordList) {
-            setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
-            setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
-            setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
-            setField(FieldEnum.MUNICIPALITY_CODE.getName() + sectionId + index, record.getMunicipalityCode());
+                if (record.getRepentance() != null) {
+                    setField(FieldEnum.REPENTANCE.getName() + index, "X");
+                }
+                if (record.getChangedBuildings() != null) {
+                    setField(FieldEnum.CHANGED_BUILDINGS.getName() + index, "X");
+                }
+                if (record.getAdvancePayment() != null) {
+                    setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
+                }
+                if (record.getPayment() != null) {
+                    setField(FieldEnum.PAYMENT.getName() + index, "X");
+                }
+                if (record.getNumberOfBuildings() != null) {
+                    setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, record.getNumberOfBuildings());
+                }
 
-            if (record.getRepentance() != null)
-                setField(FieldEnum.REPENTANCE.getName() + index, "X");
-            if (record.getChangedBuildings() != null)
-                setField(FieldEnum.CHANGED_BUILDINGS.getName() + index, "X");
-            if (record.getAdvancePayment() != null)
-                setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
-            if (record.getPayment() != null)
-                setField(FieldEnum.PAYMENT.getName() + index, "X");
-            if (record.getNumberOfBuildings() != null)
-                setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, record.getNumberOfBuildings());
+                setSectionRecordAmounts(sectionId, index, record);
 
-            setSectionRecordAmounts(sectionId, index, record);
+                index++;
+            }
 
-            index++;
+            setSectionTotals(sectionId, index, imuRecordList);
+
+            Double parsedDeduction = Double.parseDouble(imuSection.getDeduction());
+            setMultiField(FieldEnum.DEDUCTION.getName(), parsedDeduction);
         }
-
-        setSectionTotals(sectionId, index, imuRecordList);
-
-        Double parsedDeduction = Double.parseDouble(imuSection.getDeduction());
-        setMultiField(FieldEnum.DEDUCTION.getName(), parsedDeduction);
     }
 
     private void setTreasurySection(String sectionId, int copyIndex) throws Exception {
         TreasurySection treasurySection = this.form.getTreasurySection();
         List<Tax> taxList = treasurySection.getTaxList();
 
-        if (taxList == null)
-            return;
+        if (taxList != null) {
+            taxList = helper.paginateList(copyIndex, TAX_RECORDS_NUMBER, taxList);
 
-        taxList = helper.paginateList(copyIndex, TAX_RECORDS_NUMBER, taxList);
+            int index = 1;
+            for (Tax record : taxList) {
+                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
+                setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
+                setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
 
-        int index = 1;
-        for (Tax record : taxList) {
-            setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
-            setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
-            setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
+                setSectionRecordAmounts(sectionId, index, record);
 
-            setSectionRecordAmounts(sectionId, index, record);
-    
-            index++;
+                index++;
+            }
+
+            setField(FieldEnum.OFFICE_CODE.getName(), treasurySection.getOfficeCode());
+            setField(FieldEnum.ACT_CODE.getName(), treasurySection.getActCode());
+
+            setSectionTotals(sectionId, index, taxList);
         }
-
-        setField(FieldEnum.OFFICE_CODE.getName(), treasurySection.getOfficeCode());
-        setField(FieldEnum.ACT_CODE.getName(), treasurySection.getActCode());
-
-        setSectionTotals(sectionId, index, taxList);
     }
 
     private void setSocialSecurity(String sectionId, int copyIndex) throws Exception {
         SocialSecuritySection socSecurity = this.form.getSecuritySection();
         List<SocialSecurityRecord> socSecurityList = socSecurity.getSocialSecurityRecordList();
 
-        if (socSecurityList == null)
-            return;
+        if (socSecurityList != null) {
+            socSecurityList = helper.paginateList(copyIndex, SOC_RECORDS_NUMBER, socSecurityList);
 
-        socSecurityList = helper.paginateList(copyIndex, SOC_RECORDS_NUMBER, socSecurityList);
+            int index = 1;
+            for (SocialSecurityRecord record : socSecurityList) {
+                setField(FieldEnum.INSTITUTION_CODE.getName() + sectionId, record.getInstitutionCode());
+                setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
+                setField(FieldEnum.CONTRIBUTION_REASON.getName() + sectionId + index, record.getContributionReason());
+                setField(FieldEnum.POSITION_CODE.getName() + sectionId + index, record.getPositionCode());
 
-        int index = 1;
-        for (SocialSecurityRecord record : socSecurityList) {
-            setField(FieldEnum.INSTITUTION_CODE.getName() + sectionId, record.getInstitutionCode());
-            setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
-            setField(FieldEnum.CONTRIBUTION_REASON.getName() + sectionId + index, record.getContributionReason());
-            setField(FieldEnum.POSITION_CODE.getName() + sectionId + index, record.getPositionCode());
+                setMultiDate(FieldEnum.START_DATE.getName(), sectionId, index, record.getPeriod().getStartDate());
+                setMultiDate(FieldEnum.END_DATE.getName(), sectionId, index, record.getPeriod().getEndDate());
 
-            setMultiDate(FieldEnum.START_DATE.getName(), sectionId, index, record.getPeriod().getStartDate());
-            setMultiDate(FieldEnum.END_DATE.getName(), sectionId, index, record.getPeriod().getEndDate());
+                setSectionRecordAmounts(sectionId, index, record);
 
-            setSectionRecordAmounts(sectionId, index, record);
+                index++;
+            }
 
-            index++;
+            setSectionTotals(sectionId, index, socSecurityList);
         }
-
-        setSectionTotals(sectionId, index, socSecurityList);
     }
 
     private void setInail(String sectionId, int copyIndex) throws Exception {
         SocialSecuritySection socSecurity = this.form.getSecuritySection();
         List<InailRecord> inailRecordList = socSecurity.getInailRecords();
 
-        if (inailRecordList == null)
-            return;
+        if (inailRecordList != null) {
+            inailRecordList = helper.paginateList(copyIndex, INAIL_RECORDS_NUMBER, inailRecordList);
 
-        inailRecordList = helper.paginateList(copyIndex, INAIL_RECORDS_NUMBER, inailRecordList);
+            int index = 1;
+            for (InailRecord record : inailRecordList) {
+                setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
+                setField(FieldEnum.COMPANY_CODE.getName() + sectionId + index, record.getCompanyCode());
+                setField(FieldEnum.CONTROL_CODE.getName() + sectionId + index, record.getControlCode());
+                setField(FieldEnum.REFERENCE_NUMBER.getName() + sectionId + index, record.getReferenceNumber());
+                setField(FieldEnum.REASON.getName() + sectionId + index, record.getReason());
 
-        int index = 1;
-        for (InailRecord record : inailRecordList) {
-            setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
-            setField(FieldEnum.COMPANY_CODE.getName() + sectionId + index, record.getCompanyCode());
-            setField(FieldEnum.CONTROL_CODE.getName() + sectionId + index, record.getControlCode());
-            setField(FieldEnum.REFERENCE_NUMBER.getName() + sectionId + index, record.getReferenceNumber());
-            setField(FieldEnum.REASON.getName() + sectionId + index, record.getReason());
+                setSectionRecordAmounts(sectionId, index, record);
 
-            setSectionRecordAmounts(sectionId, index, record);
+                index++;
+            }
 
-            index++;
+            setSectionTotals(sectionId, index, inailRecordList);
         }
-
-        setSectionTotals(sectionId, index, inailRecordList);
     }
 
     private void setPaymentDetails() throws Exception {
@@ -246,27 +243,26 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         RegionSection regionSection = this.form.getRegionSection();
         List<RegionRecord> regionRecordsList = regionSection.getRegionRecordList();
 
-        if (regionRecordsList == null)
-            return;
+        if (regionRecordsList != null) {
+            regionRecordsList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionRecordsList);
 
-        regionRecordsList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionRecordsList);
+            int index = 1;
+            for (RegionRecord record : regionRecordsList) {
+                setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
+                setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
+                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
+                setField(FieldEnum.REGION_CODE.getName() + sectionId + index, record.getRegionCode());
 
-        int index = 1;
-        for (RegionRecord record : regionRecordsList) {
-            setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
-            setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
-            setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
-            setField(FieldEnum.REGION_CODE.getName() + sectionId + index, record.getRegionCode());
+                setSectionRecordAmounts(sectionId, index, record);
 
-            setSectionRecordAmounts(sectionId, index, record);
-    
-            index++;
+                index++;
+            }
+
+            setSectionTotals(sectionId, index, regionRecordsList);
         }
-
-        setSectionTotals(sectionId, index, regionRecordsList);
     }
 
-    private <S extends Section> void setSectionTotals(String sectionId, int index,
+    private void setSectionTotals(String sectionId, int index,
             List<? extends Record> recordList) throws NumberFormatException, ResourceException {
 
         if (helper.getTotalAmount(recordList) != null) {
@@ -288,29 +284,29 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private <R extends Record> void setSectionRecordAmounts(String sectionId, int index, R record)
+    private void setSectionRecordAmounts(String sectionId, int index, Record sourceRecord)
             throws ResourceException {
-        if (record.getCreditAmount() != null) {
-            String recordCredit = record.getCreditAmount();
-            String parsedCredit = helper.getMoney(Integer.parseInt(recordCredit)); //TODO rename recordTest
+        if (sourceRecord.getCreditAmount() != null) {
+            String recordCredit = sourceRecord.getCreditAmount();
+            String parsedCredit = helper.getMoney(Integer.parseInt(recordCredit));
             setField(FieldEnum.CREDIT_AMOUNT.getName() + sectionId + index, parsedCredit);
         }
 
-        if (record.getDebitAmount() != null) {
-            String recordDebit = record.getDebitAmount();
+        if (sourceRecord.getDebitAmount() != null) {
+            String recordDebit = sourceRecord.getDebitAmount();
             String parsedDebit = helper.getMoney(Integer.parseInt(recordDebit));
             setField(FieldEnum.DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
         }
 
-        if (record.getDeduction() != null) {
-            String parseDeduction = helper.getMoney(Integer.parseInt(record.getDeduction()));
+        if (sourceRecord.getDeduction() != null) {
+            String parseDeduction = helper.getMoney(Integer.parseInt(sourceRecord.getDeduction()));
             setField(FieldEnum.DEDUCTION.getName() + sectionId + index, parseDeduction);
         }
 
     }
 
-    private void setMultiField(String fieldName, Double record) throws Exception {
-        String[] splittedCreditAmount = splitField(record);
+    private void setMultiField(String fieldName, Double sourceRecord) throws Exception {
+        String[] splittedCreditAmount = splitField(sourceRecord);
         setField(fieldName + "Int", splittedCreditAmount[0]);
         setField(fieldName + "Dec", splittedCreditAmount[1]);
     }

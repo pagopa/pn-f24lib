@@ -18,12 +18,12 @@ public class CreatorHelper {
     return integerPart + "  " + decimalPartString;
   }
 
-  public Integer getTotalAmount(List<? extends Record> record) throws ResourceException {
+  public Integer getTotalAmount(List<? extends Record> totalRecord) throws ResourceException {
 
-    if (record == null)
-      throw new ResourceException("Record can`t be empty");
+    if (totalRecord == null)
+      throw new ResourceException(ErrorEnum.RECORD_EMPTY.getMessage());
 
-    Integer totalAmount = record
+    Integer totalAmount = totalRecord
         .stream()
         .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0")
             - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
@@ -35,12 +35,12 @@ public class CreatorHelper {
     return totalAmount;
   }
 
-  public Integer getDebitTotal(List<? extends Record> record) throws ResourceException {
+  public Integer getDebitTotal(List<? extends Record> debitRecord) throws ResourceException {
 
-    if (record == null)
-      throw new ResourceException("Record can`t be empty");
+    if (debitRecord == null)
+      throw new ResourceException(ErrorEnum.RECORD_EMPTY.getMessage());
 
-    Integer totalAmount = record
+    Integer totalAmount = debitRecord
         .stream()
         .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0"))
         .sum();
@@ -50,12 +50,12 @@ public class CreatorHelper {
     return totalAmount;
   }
 
-  public Integer getCreditTotal(List<? extends Record> record) throws ResourceException {
+  public Integer getCreditTotal(List<? extends Record> creditRecord) throws ResourceException {
 
-    if (record == null)
-      throw new ResourceException("Record can`t be empty");
+    if (creditRecord == null)
+      throw new ResourceException(ErrorEnum.RECORD_EMPTY.getMessage());
 
-    Integer totalAmount = record
+    Integer totalAmount = creditRecord
         .stream()
         .mapToInt(mr -> Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
         .sum();
