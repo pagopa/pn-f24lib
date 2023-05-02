@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class TreasuryRecord {
+public class TreasuryRecord extends Record {
 
     private String type;
 
@@ -9,8 +9,6 @@ public class TreasuryRecord {
     private String tributeCode;
 
     private String year;
-
-    private String debitAmount;
 
     /**
      * Constructs Treasury record for Treasury and other section (Sezione erario ed altro)
@@ -22,12 +20,14 @@ public class TreasuryRecord {
      * @param debitAmount   debit amounts paid (debit amounts paid)
      */
     public TreasuryRecord(String type, String idElements, String tributeCode, String year, String debitAmount) {
+        super(debitAmount, "", "");
         this.type = type;
         this.idElements = idElements;
         this.tributeCode = tributeCode;
         this.year = year;
-        this.debitAmount = debitAmount;
     }
+
+    public TreasuryRecord() {}
 
     public String getType() {
         return type;
@@ -59,14 +59,6 @@ public class TreasuryRecord {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
     }
 
 }

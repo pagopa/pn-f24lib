@@ -6,6 +6,8 @@ import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
+import org.f24.exception.ErrorEnum;
+import org.f24.exception.ResourceException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,27 +41,31 @@ public class PDFFormManager {
         return this.copies.get(this.currentIndex);
     }
 
-    protected PDAcroForm getForm() throws Exception {
+    protected PDAcroForm getForm() throws ResourceException {
         PDDocumentCatalog documentCatalog = getCurrentCopy().getDocumentCatalog();
         PDAcroForm form = documentCatalog.getAcroForm();
-        if(form == null) throw new Exception(); // TODO
+        if(form == null) throw new ResourceException(ErrorEnum.ACROFORM_EMPTY.getMessage()); 
         return form;
     }
 
-    protected PDField getField(String name) throws Exception {
+    protected PDField getField(String name) throws ResourceException {
         PDField field = getForm().getField(name);
-        if(field == null) throw new Exception(); // TODO
+        if(field == null) throw new ResourceException(ErrorEnum.FIELD_OBSOLETE.getMessage() + name);
         field.setReadOnly(true);
         return field;
     }
 
-    protected void setField(String fieldName, String fieldValue) throws Exception {
+    protected void setField(String fieldName, String fieldValue) throws ResourceException {
         if(fieldValue != null) {
             PDField field = getField(fieldName);
-            if (field instanceof PDTextField textField) {
-                textField.setActions(null);
+            if (field instanceof PDTextField) {
+                ((PDTextField) field).setActions(null);
             }
-            field.setValue(fieldValue);
+            try {
+                field.setValue(fieldValue);
+            } catch (IOException e) {
+                e.printStackTrace(); //TODO input/output exception
+            }
         }
     }
 

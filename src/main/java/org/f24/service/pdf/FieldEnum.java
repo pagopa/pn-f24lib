@@ -5,7 +5,9 @@ public enum FieldEnum {
     DELEGATION("attorney"),
     AGENCY("agency"),
     AGENCY_PROVINCE("agencyProvince"),
+    ATTORNEY("attorney"),
     PROVINCE("province"),
+    TAX_PROVINCE("domicileProvince"),
     TAX_CODE("taxCode"),
     CORPORATE_NAME("corporateName"),
     SURNAME("surname"),
@@ -46,6 +48,7 @@ public enum FieldEnum {
     CIRCULAR("isCircular"),
     IBAN_CODE("ibanCode"),
     COMPANY_CODE("companyCode"),
+    CONTROL_CODE("controlCode"),
     REFERENCE_NUMBER("referenceNumber"),
     REASON("reason"),
     INSTITUTION_CODE("institutionCode"),
@@ -55,7 +58,7 @@ public enum FieldEnum {
     BANK_ACCOUNT_NUMBER("bankAccountNumber"),
     BANK_ID("bankId"),
     SECTION("section"),
-
+    CALENDAR_YEAR("calendarYear"),
     HEADER("header"),
     TAX_PAYER("contributor"),
     PERSONAL_DATA("personalData"),
@@ -68,13 +71,14 @@ public enum FieldEnum {
     SOCIAL_SECURITY("socialSecurity"),
     PAYMENT_DETAILS("paymentDetails"),
     EXCISE("excise"),
-
     DEDUCTION("deduction"),
     DEBIT_AMOUNT("debitAmount"),
     CREDIT_AMOUNT("creditAmount"),
     TOTAL_AMOUNT("totalAmount"),
-
+    TOTAL_DEBIT("totalDebitAmount"),
+    TOTAL_CREDIT("totalCreditAmount"),
     SIGNATURE("signature");
+
     private String name;
 
     FieldEnum(String name) {
@@ -83,10 +87,6 @@ public enum FieldEnum {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 }

@@ -2,7 +2,7 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-public class ImuSection {
+public class ImuSection extends Section {
 
     private String operationId;
 
@@ -22,6 +22,8 @@ public class ImuSection {
         this.imuRecordList = imuRecordList;
         this.deduction = deduction;
     }
+
+    public ImuSection() {}
 
     public String getOperationId() {
         return operationId;
@@ -46,5 +48,4 @@ public class ImuSection {
     public void setDeduction(String deduction) {
         this.deduction = deduction;
     }
-
 }

@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class RegionRecord {
+public class RegionRecord extends Record {
 
     private String regionCode;
 
@@ -9,10 +9,6 @@ public class RegionRecord {
     private String installment;
 
     private String year;
-
-    private String debitAmount;
-
-    private String creditAmount;
 
     /**
      * Constructs region record for region section (sezione regioni)
@@ -25,13 +21,14 @@ public class RegionRecord {
      * @param creditAmount  credit amounts offset (importi a credito compensati)
      */
     public RegionRecord(String regionCode, String tributeCode, String installment, String year, String debitAmount, String creditAmount) {
+        super(debitAmount, creditAmount, "");
         this.regionCode = regionCode;
         this.tributeCode = tributeCode;
         this.installment = installment;
         this.year = year;
-        this.debitAmount = debitAmount;
-        this.creditAmount = creditAmount;
     }
+
+    public RegionRecord() {}
 
     public String getRegionCode() {
         return regionCode;
@@ -63,22 +60,6 @@ public class RegionRecord {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
-    }
-
-    public String getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(String creditAmount) {
-        this.creditAmount = creditAmount;
     }
 
 }

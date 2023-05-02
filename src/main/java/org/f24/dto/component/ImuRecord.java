@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class ImuRecord {
+public class ImuRecord extends Record {
 
     private String municipalityCode;
 
@@ -16,10 +16,6 @@ public class ImuRecord {
     private String installment;
 
     private String year;
-
-    private String debitAmount;
-
-    private String creditAmount;
 
     /**
      * Constructs IMU record for IMU Section (IMU e altri tributi locali)
@@ -37,6 +33,7 @@ public class ImuRecord {
      * @param creditAmount      credit amounts offset (importi a credito compensati )
      */
     public ImuRecord(String municipalityCode, Boolean repentance, Boolean changedBuildings, Boolean advancePayment, Boolean payment, String numberOfBuildings, String tributeCode, String installment, String year, String debitAmount, String creditAmount) {
+        super(debitAmount, creditAmount, "");
         this.municipalityCode = municipalityCode;
         this.repentance = repentance;
         this.changedBuildings = changedBuildings;
@@ -46,9 +43,9 @@ public class ImuRecord {
         this.tributeCode = tributeCode;
         this.installment = installment;
         this.year = year;
-        this.debitAmount = debitAmount;
-        this.creditAmount = creditAmount;
     }
+
+    public ImuRecord() {}
 
     public String getMunicipalityCode() {
         return municipalityCode;
@@ -120,22 +117,6 @@ public class ImuRecord {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
-    }
-
-    public String getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(String creditAmount) {
-        this.creditAmount = creditAmount;
     }
 
 }

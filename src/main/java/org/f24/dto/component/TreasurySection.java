@@ -2,13 +2,15 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-public class TreasurySection {
+public class TreasurySection extends Section {
 
     private List<Tax> taxList;
 
     private String officeCode;
 
     private String actCode;
+
+    public TreasurySection() {}
 
     /**
      * Constructs Treasury and other section (Sezione erario ed altro)

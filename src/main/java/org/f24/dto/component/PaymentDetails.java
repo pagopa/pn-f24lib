@@ -16,7 +16,8 @@ public class PaymentDetails {
 
     private String ibanCode;
 
-    public PaymentDetails() {}
+    public PaymentDetails() {
+    }
 
     /**
      * Constructs payment details section of F24 form

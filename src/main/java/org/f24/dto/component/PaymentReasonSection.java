@@ -5,7 +5,7 @@ import java.util.List;
 import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
 
-public class PaymentReasonSection {
+public class PaymentReasonSection extends Section {
 
     private String operationId;
 

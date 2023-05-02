@@ -3,6 +3,7 @@ package org.f24.service.pdf.impl;
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Simplified;
+import org.f24.service.pdf.CreatorHelper;
 import org.f24.service.pdf.FieldEnum;
 import org.f24.service.pdf.PDFCreator;
 import org.f24.service.pdf.PDFFormManager;
@@ -16,6 +17,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
     private static final int MOTIVE_RECORDS_NUMBER = 10;
 
     private F24Simplified form;
+    private CreatorHelper helper;
 
     /**
      * Constructs Simplified PDF Creator.
@@ -82,13 +84,13 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
 
     private void setPaymentReasonRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
         if(paymentReasonRecord.getDeduction() != null) {
-            setField(FieldEnum.DEDUCTION.getName() + index, getMoney(Integer.parseInt(paymentReasonRecord.getDeduction())));
+            setField(FieldEnum.DEDUCTION.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getDeduction())));
         }
         if(paymentReasonRecord.getDebitAmount() != null) {
-            setField(FieldEnum.DEBIT_AMOUNT.getName() + index, getMoney(Integer.parseInt(paymentReasonRecord.getDebitAmount())));
+            setField(FieldEnum.DEBIT_AMOUNT.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getDebitAmount())));
         }
         if(paymentReasonRecord.getCreditAmount() != null) {
-            setField(FieldEnum.CREDIT_AMOUNT.getName() + index, getMoney(Integer.parseInt(paymentReasonRecord.getCreditAmount())));
+            setField(FieldEnum.CREDIT_AMOUNT.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getCreditAmount())));
         }
     }
 
@@ -109,7 +111,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
                 setField(FieldEnum.YEAR.getName() + index, paymentReasonRecord.getYear());
                 setPaymentReasonRecordAmounts(paymentReasonRecord, index);
             }
-            setField(FieldEnum.TOTAL_AMOUNT.getName(), getMoney(Integer.parseInt(this.form.getPaymentReasonSection().getTotalAmount().toString())));
+            setField(FieldEnum.TOTAL_AMOUNT.getName(), helper.getMoney(Integer.parseInt(this.form.getPaymentReasonSection().getTotalAmount().toString())));
         } catch (Exception e) {
             //
         }
