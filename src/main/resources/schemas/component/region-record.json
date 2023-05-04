@@ -6,7 +6,7 @@
       "pattern": "^[0-9]{2}$",
       "type": "string"
     },
-    "tributeCode": {
+    "taxTypeCode": {
       "pattern": "^[0-9A-Z]{4}$",
       "type": "string"
     },

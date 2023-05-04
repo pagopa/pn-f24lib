@@ -54,10 +54,10 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (personalData != null) {
             setField(FieldEnum.CORPORATE_NAME.getName(), personalData.getSurname());
             setField(FieldEnum.NAME.getName(), personalData.getName());
-            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthdate().replace("-", ""));
+            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthDate().replace("-", ""));
             setField(FieldEnum.SEX.getName(), personalData.getSex());
-            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthMunicipality());
-            setField(FieldEnum.PROVINCE.getName(), personalData.getProvince());
+            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthPlace());
+            setField(FieldEnum.PROVINCE.getName(), personalData.getBirthProvince());
         }
     }
 
@@ -71,19 +71,27 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setContributor() throws Exception {
-        TaxPayer contributor = this.form.getTaxPayer();
+    private void setTaxPayer() throws Exception {
+        TaxPayer taxPayer = this.form.getTaxPayer();
 
-        if (contributor != null) {
-            setField(FieldEnum.TAX_CODE.getName(), contributor.getTaxCode());
-            setField(FieldEnum.OTHER_TAX_CODE.getName(), contributor.getOtherTaxCode());
-            setField(FieldEnum.ID_CODE.getName(), contributor.getIdCode());
+        if (taxPayer != null) {
+            setField(FieldEnum.TAX_CODE.getName(), taxPayer.getTaxCode());
+            setField(FieldEnum.OTHER_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
+            setField(FieldEnum.ID_CODE.getName(), taxPayer.getIdCode());
 
-            if (contributor.isNotCalendarYear())
+            if (taxPayer.getIsNotTaxYear())
                 setField(FieldEnum.CALENDAR_YEAR.getName(), "X");
 
             setPersonData();
+            setCompanyData();
             setTaxResidenceData();
+        }
+    }
+
+    private void setCompanyData() throws Exception {
+        CompanyData companyData = this.form.getTaxPayer().getCompanyData();
+        if(companyData != null) {
+            setField(FieldEnum.CORPORATE_NAME.getName(), companyData.getName());
         }
     }
 
@@ -112,34 +120,34 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setImuSection(String sectionId, int copyIndex) throws Exception {
-        ImuSection imuSection = this.form.getImuSection();
-        List<ImuRecord> imuRecordList = imuSection.getImuRecordList();
+    private void setLocalTaxSection(String sectionId, int copyIndex) throws Exception {
+        LocalTaxSection localTaxSection = this.form.getLocalTaxSection();
+        List<LocalTaxRecord> localTaxRecordList = localTaxSection.getLocalTaxRecordList();
 
-        if (imuRecordList != null) {
-            imuRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, imuRecordList);
+        if (localTaxRecordList != null) {
+            localTaxRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxRecordList);
 
             int index = 1;
-            for (ImuRecord record : imuRecordList) {
+            for (LocalTaxRecord record : localTaxRecordList) {
                 setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
                 setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
-                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
+                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTaxTypeCode());
                 setField(FieldEnum.MUNICIPALITY_CODE.getName() + sectionId + index, record.getMunicipalityCode());
 
-                if (record.getRepentance() != null) {
+                if (record.getReconsideration() != null) {
                     setField(FieldEnum.REPENTANCE.getName() + index, "X");
                 }
-                if (record.getChangedBuildings() != null) {
+                if (record.getPropertiesChanges() != null) {
                     setField(FieldEnum.CHANGED_BUILDINGS.getName() + index, "X");
                 }
                 if (record.getAdvancePayment() != null) {
                     setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
                 }
-                if (record.getPayment() != null) {
+                if (record.getFullPayment() != null) {
                     setField(FieldEnum.PAYMENT.getName() + index, "X");
                 }
-                if (record.getNumberOfBuildings() != null) {
-                    setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, record.getNumberOfBuildings());
+                if (record.getNumberOfProperties() != null) {
+                    setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, record.getNumberOfProperties());
                 }
 
                 setSectionRecordAmounts(sectionId, index, record);
@@ -147,9 +155,9 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
                 index++;
             }
 
-            setSectionTotals(sectionId, index, imuRecordList);
+            setSectionTotals(sectionId, index, localTaxRecordList);
 
-            Double parsedDeduction = Double.parseDouble(imuSection.getDeduction());
+            Double parsedDeduction = Double.parseDouble(localTaxSection.getDeduction());
             setMultiField(FieldEnum.DEDUCTION.getName(), parsedDeduction);
         }
     }
@@ -163,7 +171,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
             int index = 1;
             for (Tax record : taxList) {
-                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
+                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTaxTypeCode());
                 setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
                 setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
 
@@ -173,14 +181,14 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             }
 
             setField(FieldEnum.OFFICE_CODE.getName(), treasurySection.getOfficeCode());
-            setField(FieldEnum.ACT_CODE.getName(), treasurySection.getActCode());
+            setField(FieldEnum.ACT_CODE.getName(), treasurySection.getDocumentCode());
 
             setSectionTotals(sectionId, index, taxList);
         }
     }
 
     private void setSocialSecurity(String sectionId, int copyIndex) throws Exception {
-        SocialSecuritySection socSecurity = this.form.getSecuritySection();
+        SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
         List<SocialSecurityRecord> socSecurityList = socSecurity.getSocialSecurityRecordList();
 
         if (socSecurityList != null) {
@@ -206,7 +214,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
     }
 
     private void setInail(String sectionId, int copyIndex) throws Exception {
-        SocialSecuritySection socSecurity = this.form.getSecuritySection();
+        SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
         List<InailRecord> inailRecordList = socSecurity.getInailRecords();
 
         if (inailRecordList != null) {
@@ -256,7 +264,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             for (RegionRecord record : regionRecordsList) {
                 setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
                 setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
-                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTributeCode());
+                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTaxTypeCode());
                 setField(FieldEnum.REGION_CODE.getName() + sectionId + index, record.getRegionCode());
 
                 setSectionRecordAmounts(sectionId, index, record);
@@ -345,11 +353,11 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             int totalPages = 0;
 
             int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
-            int imuRecordsCount = this.form.getImuSection().getImuRecordList().size();
+            int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
             int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
             int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
-            int inailRecordsCount = this.form.getSecuritySection().getInailRecords().size();
-            int socSecurityRecordsCount = this.form.getSecuritySection().getSocialSecurityRecordList().size();
+            int inailRecordsCount = this.form.getSocialSecuritySection().getInailRecords().size();
+            int socSecurityRecordsCount = this.form.getSocialSecuritySection().getSocialSecurityRecordList().size();
 
             // TODO Test with multiple records count
             if (treasutyRecordsCount > TAX_RECORDS_NUMBER) {
@@ -367,8 +375,8 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
                 totalPages = totalPages < pagesCount ? pagesCount : totalPages;
             }
 
-            if (imuRecordsCount > UNIV_RECORDS_NUMBER) {
-                int pagesCount = ((imuRecordsCount + UNIV_RECORDS_NUMBER - 1) / UNIV_RECORDS_NUMBER) - 1;
+            if (localTaxRecordCount > UNIV_RECORDS_NUMBER) {
+                int pagesCount = ((localTaxRecordCount + UNIV_RECORDS_NUMBER - 1) / UNIV_RECORDS_NUMBER) - 1;
                 totalPages = totalPages < pagesCount ? pagesCount : totalPages;
             }
 
@@ -389,11 +397,11 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             for (int copyIndex = 0; copyIndex < copiesCount; copyIndex++) {
                 setIndex(copyIndex);
                 setHeader();
-                setContributor();
+                setTaxPayer();
                 setTreasurySection("1", copyIndex);
                 setInpsSection("2", copyIndex);
                 setRegionSection("3", copyIndex);
-                setImuSection("4", copyIndex);
+                setLocalTaxSection("4", copyIndex);
                 setInail("5", copyIndex);
                 setSocialSecurity("6", copyIndex);
                 // setPaymentDetails();

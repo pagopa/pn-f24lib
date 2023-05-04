@@ -4,7 +4,7 @@ public class RegionRecord extends Record {
 
     private String regionCode;
 
-    private String tributeCode;
+    private String taxTypeCode;
 
     private String installment;
 
@@ -14,16 +14,16 @@ public class RegionRecord extends Record {
      * Constructs region record for region section (sezione regioni)
      *
      * @param regionCode    region code (codice regione)
-     * @param tributeCode   tribute code (codice tributo)
+     * @param taxTypeCode   tribute code (codice tributo)
      * @param installment   installment/month ref. (rateazione/ mese rif.)
      * @param year reporting year (anno di riferimento)
      * @param debitAmount   debit amounts paid (importi a debito versati)
      * @param creditAmount  credit amounts offset (importi a credito compensati)
      */
-    public RegionRecord(String regionCode, String tributeCode, String installment, String year, String debitAmount, String creditAmount) {
+    public RegionRecord(String regionCode, String taxTypeCode, String installment, String year, String debitAmount, String creditAmount) {
         super(debitAmount, creditAmount, "");
         this.regionCode = regionCode;
-        this.tributeCode = tributeCode;
+        this.taxTypeCode = taxTypeCode;
         this.installment = installment;
         this.year = year;
     }
@@ -38,12 +38,12 @@ public class RegionRecord extends Record {
         this.regionCode = regionCode;
     }
 
-    public String getTributeCode() {
-        return tributeCode;
+    public String getTaxTypeCode() {
+        return taxTypeCode;
     }
 
-    public void setTributeCode(String tributeCode) {
-        this.tributeCode = tributeCode;
+    public void setTaxTypeCode(String taxTypeCode) {
+        this.taxTypeCode = taxTypeCode;
     }
 
     public String getInstallment() {

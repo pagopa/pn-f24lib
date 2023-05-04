@@ -43,10 +43,10 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             PersonalData personalData = personData.getPersonalData();
             setField(FieldEnum.CORPORATE_NAME.getName(), personalData.getSurname());
             setField(FieldEnum.NAME.getName(), personalData.getName());
-            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthdate().replace("-", ""));
+            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthDate().replace("-", ""));
             setField(FieldEnum.SEX.getName(), personalData.getSex());
-            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthMunicipality());
-            setField(FieldEnum.PROVINCE.getName(), personalData.getProvince());
+            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthPlace());
+            setField(FieldEnum.PROVINCE.getName(), personalData.getBirthProvince());
         }
     }
 
@@ -67,8 +67,8 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         if(taxPayer != null) {
             setField(FieldEnum.TAX_CODE.getName(), taxPayer.getTaxCode());
             setField(FieldEnum.OFFICE_CODE.getName(), taxPayer.getOfficeCode());
-            setField(FieldEnum.ACT_CODE.getName(), taxPayer.getActCode());
-            setField(FieldEnum.OTHER_TAX_CODE.getName(), taxPayer.getOtherTaxCode());
+            setField(FieldEnum.ACT_CODE.getName(), taxPayer.getDocumentCode());
+            setField(FieldEnum.OTHER_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
             setField(FieldEnum.ID_CODE.getName(), taxPayer.getIdCode());
             setRegistryData();
         }

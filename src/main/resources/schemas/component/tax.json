@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "tributeCode": {
+    "taxTypeCode": {
       "pattern": "^[A-Z0-9]{4}$",
       "type": "string"
     },

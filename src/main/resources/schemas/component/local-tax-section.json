@@ -6,10 +6,10 @@
       "pattern": "^[A-Z0-9]{18}$",
       "type": "string"
     },
-    "imuRecordList": {
+    "localTaxRecordList": {
       "type": "array",
       "items": {
-        "$ref": "resource:/schemas/component/imu-record.json"
+        "$ref": "resource:/schemas/component/local-tax-record.json"
       }
     },
     "deduction": {

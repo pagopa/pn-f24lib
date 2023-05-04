@@ -1,6 +1,7 @@
 package org.f24.dto.component;
 
 public class ImuRecord extends Record {
+    //TODO THIS RECORD CLASS DEPRECATED USE LOCALTAXPAYER RECORD INSTEAD
 
     private String municipalityCode;
 
