@@ -3,6 +3,8 @@ package org.f24.service.pdf.impl;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.f24.dto.component.*;
 import org.f24.dto.component.Record;
@@ -22,7 +24,9 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
     private static final int SOC_RECORDS_NUMBER = 2;
 
     private CreatorHelper helper = new CreatorHelper();
+    private Logger logger = Logger.getLogger(StandardPDFCreator.class.getName());
     private F24Standard form;
+    private int totalBalance = 0;
 
     /**
      * Constructs Standard PDF Creator.
@@ -31,6 +35,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
      */
     public StandardPDFCreator(F24Standard form) {
         this.form = form;
+        logger.setLevel(Level.WARNING);
     }
 
     private void setHeader() throws Exception {
@@ -268,6 +273,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         if (helper.getTotalAmount(recordList) != null) {
             Integer total = helper.getTotalAmount(recordList);
+            totalBalance += total;
             String parsedTotal = helper.getMoney(total);
             setField(FieldEnum.TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
         }
@@ -390,8 +396,9 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
                 setImuSection("4", copyIndex);
                 setInail("5", copyIndex);
                 setSocialSecurity("6", copyIndex);
-                setPaymentDetails();
+                // setPaymentDetails();
                 setField(FieldEnum.IBAN_CODE.getName(), this.form.getIbanCode());
+                setField(FieldEnum.TOTAL_AMOUNT.getName(), helper.getMoney(totalBalance));
             }
 
             mergeCopies();
@@ -401,7 +408,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
             return byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
             return null;
         }
     }
