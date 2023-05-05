@@ -1,39 +1,28 @@
 {
   "header": {
-    "delegationTo": "string",
-    "agency": "string",
+    "delegationTo": "delegation",
+    "agency": "agency",
     "province": "MB"
   },
   "taxPayer": {
-    "taxCode": "BGCDJV27L49N524I",
+    "taxCode": "RSSMRA74D22A001Q",
     "isNotTaxYear": true,
     "personData": {
       "personalData": {
-        "surname": "SEGPJUDFMQKMD",
-        "name": "CFVCF",
-        "birthDate": "11-88-9282",
+        "surname": "MARIA",
+        "name": "ROSSI",
+        "birthDate": "01-01-1998",
         "sex": "F",
-        "birthMunicipality": "BBZDDH",
-        "province": "GA"
+        "birthPlace": "ABANO BAGNI",
+        "birthProvince": "PD"
       },
       "taxAddress": {
-        "municipality": "DFGRHWPNLXKQY",
-        "province": "QY",
-        "address": "Z1VIEXJS7FWMNU"
+        "municipality": "MILANO",
+        "province": "MI",
+        "address": "VIA SAN MARCO"
       }
     },
-    "companyData": {
-      "name": "PFRIQGOWASCGSHVUXCCOTRFLFNLY",
-      "taxAddress": {
-        "municipality": "FWQOJKCXAVTCWKZAMDKMQ",
-        "province": "RJ",
-        "address": "O0VMCEJ8I"
-      }
-    },
-    "taxCode": "TDITLC46H54C619Q",
-    "idCode": "9W",
-    "actCode": "14441450837",
-    "officeCode": "6BU"
+    "idCode": "9W"
   },
   "paymentDetails": {
     "paymentDate": "35-76-9568",
@@ -50,17 +39,17 @@
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
-        "debitAmount": "0",
+        "debitAmount": "7309",
         "creditAmount": "0"
       },
-       {
+      {
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
         "debitAmount": "7309",
         "creditAmount": "0"
       },
-       {
+      {
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
@@ -104,6 +93,7 @@
       }
     ],
     "officeCode": "FRH",
+    "documentCode": "29542848644"
     "actCode": "29542848644"
   },
   "inpsSection": {
@@ -184,7 +174,7 @@
         "municipalityCode": "99YO",
         "reconsideration": true,
         "propertiesChanges": true,
-        "advancedPayment": true,
+        "advancePayment": true,
         "fullPayment": true,
         "numberOfProperties": "433",
         "taxTypeCode": "0943",
@@ -194,7 +184,7 @@
         "creditAmount": "0"
       }
     ],
-    "deduction": "9709187.77"
+    "deduction": "9709177"
   },
   "socialSecuritySection": {
     "inailRecords": [
@@ -223,5 +213,5 @@
       }
     ]
   },
-  "ibanCode": "string"
+  "ibanCode": "iban code"
 }

@@ -1,0 +1,21 @@
+{
+  "header": {
+    "delegationTo": "delegation",
+    "agency": "agency",
+    "province": "MI"
+  },
+  "taxPayer": {
+    "taxCode": "ZSDFGY86R78U765I",
+    "personData": {
+      "personalData": {
+        "surname": "ROSSI",
+        "name": "MARIO ALBERTO",
+        "birthDate": "11-12-1987",
+        "sex": "M",
+        "birthPlace": " MILANO",
+        "birthProvince": "MI"
+      }
+    },
+    "relativePersonTaxCode": "MRARSS22A01F205K"
+  }
+}
