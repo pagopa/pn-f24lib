@@ -8,7 +8,7 @@ public class TreasurySection extends Section {
 
     private String officeCode;
 
-    private String actCode;
+    private String documentCode;
 
     public TreasurySection() {}
 
@@ -17,12 +17,12 @@ public class TreasurySection extends Section {
      *
      * @param taxList    list of Tax components
      * @param officeCode office code (codice ufficio)
-     * @param actCode    act code (codice atto)
+     * @param documentCode    act code (codice atto)
      */
-    public TreasurySection(List<Tax> taxList, String officeCode, String actCode) {
+    public TreasurySection(List<Tax> taxList, String officeCode, String documentCode) {
         this.taxList = taxList;
         this.officeCode = officeCode;
-        this.actCode = actCode;
+        this.documentCode = documentCode;
     }
 
     public List<Tax> getTaxList() {
@@ -41,12 +41,12 @@ public class TreasurySection extends Section {
         this.officeCode = officeCode;
     }
 
-    public String getActCode() {
-        return actCode;
+    public String getDocumentCode() {
+        return documentCode;
     }
 
-    public void setActCode(String actCode) {
-        this.actCode = actCode;
+    public void setDocumentCode(String documentCode) {
+        this.documentCode = documentCode;
     }
 
 }

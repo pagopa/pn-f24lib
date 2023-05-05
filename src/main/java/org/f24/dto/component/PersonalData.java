@@ -6,13 +6,13 @@ public class PersonalData {
 
     private String name;
 
-    private String birthdate;
+    private String birthDate;
 
     private String sex;
 
-    private String birthMunicipality;
+    private String birthPlace;
 
-    private String province;
+    private String birthProvince;
 
     public PersonalData() {}
 
@@ -21,18 +21,18 @@ public class PersonalData {
      *
      * @param surname             surname/name or corporate name (cognome/denominazione o ragione sociale )
      * @param name                name (nome)
-     * @param birthdate         date of birth (data di nascita)
+     * @param birthDate         date of birth (data di nascita)
      * @param sex                 sex (sesso)
-     * @param birthMunicipality municipality (or foreign state) of birth (comune (o Stato estero) di nascita)
-     * @param province            province (prov.)
+     * @param birthPlace municipality (or foreign state) of birth (comune (o Stato estero) di nascita)
+     * @param birthProvince            birthProvince (prov.)
      */
-    public PersonalData(String surname, String name, String birthdate, String sex, String birthMunicipality, String province) {
+    public PersonalData(String surname, String name, String birthDate, String sex, String birthPlace, String birthProvince) {
         this.surname = surname;
         this.name = name;
-        this.birthdate = birthdate;
+        this.birthDate = birthDate;
         this.sex = sex;
-        this.birthMunicipality = birthMunicipality;
-        this.province = province;
+        this.birthPlace = birthPlace;
+        this.birthProvince = birthProvince;
     }
 
     public String getSurname() {
@@ -51,12 +51,12 @@ public class PersonalData {
         this.name = name;
     }
 
-    public String getBirthdate() {
-        return birthdate;
+    public String getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getSex() {
@@ -67,20 +67,20 @@ public class PersonalData {
         this.sex = sex;
     }
 
-    public String getBirthMunicipality() {
-        return birthMunicipality;
+    public String getBirthPlace() {
+        return birthPlace;
     }
 
-    public void setBirthMunicipality(String birthMunicipality) {
-        this.birthMunicipality = birthMunicipality;
+    public void setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
     }
 
-    public String getProvince() {
-        return province;
+    public String getBirthProvince() {
+        return birthProvince;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setBirthProvince(String birthProvince) {
+        this.birthProvince = birthProvince;
     }
 
 }

@@ -4,17 +4,17 @@ public class TaxPayer {
 
     private String taxCode;
 
-    private boolean isNotCalendarYear;
+    private boolean isNotTaxYear;
 
     private PersonData personData;
 
     private CompanyData companyData;
 
-    private String otherTaxCode;
+    private String relativePersonTaxCode;
 
     private String idCode;
 
-    private String actCode;
+    private String documentCode;
 
     private String officeCode;
 
@@ -22,85 +22,103 @@ public class TaxPayer {
     }
 
     /**
-     * Constructs contributor section (Contribuente) for Excise, Standard forms with Person Data
+     * Constructs taxPayer section (Contribuente) for Excise, Standard forms with Person Data
      *
      * @param taxCode         tax code (codice fiscale)
-     * @param isNotCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
+     * @param isNotTaxYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
      * @param personData      PersonData component (dati anagrafici PF)
-     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param relativePersonTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public TaxPayer(String taxCode, boolean isNotCalendarYear, PersonData personData, String otherTaxCode, String idCode) {
+    public TaxPayer(String taxCode, boolean isNotTaxYear, PersonData personData, String relativePersonTaxCode, String idCode) {
         this.taxCode = taxCode;
-        this.isNotCalendarYear = isNotCalendarYear;
+        this.isNotTaxYear = isNotTaxYear;
         this.personData = personData;
-        this.otherTaxCode = otherTaxCode;
+        this.relativePersonTaxCode = relativePersonTaxCode;
         this.idCode = idCode;
     }
 
     /**
-     * Constructs contributor section (Contribuente) for Excise, Standard forms with Company Data
+     * Constructs taxPayer section (Contribuente) for Excise, Standard forms with Company Data
      *
      * @param taxCode         tax code (codice fiscale)
-     * @param isNotCalendarYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
+     * @param isNotTaxYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
      * @param companyData     CompanyData component (dati anagrafici PNF)
-     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param relativePersonTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public TaxPayer(String taxCode, boolean isNotCalendarYear, CompanyData companyData, String otherTaxCode, String idCode) {
+    public TaxPayer(String taxCode, boolean isNotTaxYear, CompanyData companyData, String relativePersonTaxCode, String idCode) {
         this.taxCode = taxCode;
-        this.isNotCalendarYear = isNotCalendarYear;
+        this.isNotTaxYear = isNotTaxYear;
         this.companyData = companyData;
-        this.otherTaxCode = otherTaxCode;
+        this.relativePersonTaxCode = relativePersonTaxCode;
         this.idCode = idCode;
     }
 
     /**
-     * Constructs contributor section (Contribuente) for Simplified (Semplificato) Form
+     * Constructs taxPayerStandart section for Standard forms with Company Data adn PersonData
      *
      * @param taxCode         tax code (codice fiscale)
-     * @param actCode         act code
+     * @param isNotTaxYear  if tax year coincide with calendar year (anno d’imposta non coincidente con anno solare)
+     * @param companyData     CompanyData component (dati anagrafici PNF)
+     * @param relativePersonTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param idCode          ID code (codice identificativo)
+     */
+    public TaxPayer(String taxCode, boolean isNotTaxYear, PersonData personData, CompanyData companyData, String relativePersonTaxCode, String idCode) {
+        this.taxCode = taxCode;
+        this.isNotTaxYear = isNotTaxYear;
+        this.personData = personData;
+        this.companyData = companyData;
+        this.relativePersonTaxCode = relativePersonTaxCode;
+        this.idCode = idCode;
+    }
+
+    /**
+     * Constructs taxPayer section (Contribuente) for Simplified (Semplificato) Form
+     *
+     * @param taxCode         tax code (codice fiscale)
+     * @param documentCode         act code
      * @param officeCode      office code
      * @param personData      PersonData component (dati anagrafici PF)
-     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param relativePersonTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public TaxPayer(String taxCode, String actCode, String officeCode, PersonData personData, String otherTaxCode, String idCode) {
+    public TaxPayer(String taxCode, String documentCode, String officeCode, PersonData personData, String relativePersonTaxCode, String idCode) {
         this.taxCode = taxCode;
-        this.actCode = actCode;
-        this.officeCode = officeCode;
         this.personData = personData;
-        this.otherTaxCode = otherTaxCode;
+        this.relativePersonTaxCode = relativePersonTaxCode;
         this.idCode = idCode;
+        this.documentCode = documentCode;
+        this.officeCode = officeCode;
     }
 
     /**
-     * Constructs contributor section (Contribuente) for Elid Form with Person data
+     * Constructs taxPayer section (Contribuente) for Elid Form with Person data
      *
      * @param taxCode         tax code (codice fiscale)
      * @param personData      PersonData component (dati anagrafici PF)
-     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param relativePersonTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public TaxPayer(String taxCode, PersonData personData, String otherTaxCode, String idCode) {
+    public TaxPayer(String taxCode, PersonData personData, String relativePersonTaxCode, String idCode) {
         this.taxCode = taxCode;
         this.personData = personData;
-        this.otherTaxCode = otherTaxCode;
+        this.relativePersonTaxCode = relativePersonTaxCode;
         this.idCode = idCode;
     }
 
     /**
-     * Constructs contributor section (Contribuente) for Elid Form with Company data
+     * Constructs taxPayer section (Contribuente) for Elid Form with Company data
      *
      * @param taxCode         tax code (codice fiscale)
      * @param companyData     CompanyData component
-     * @param otherTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
+     * @param relativePersonTaxCode tax code of the co-obligor, heir, parent, guardian or receiver (codice fiscal del coobbligato, erede, genitore, tutore o curatore fallimentare)
      * @param idCode          ID code (codice identificativo)
      */
-    public TaxPayer(String taxCode, CompanyData companyData, String otherTaxCode, String idCode) {
+    public TaxPayer(String taxCode, CompanyData companyData, String relativePersonTaxCode, String idCode) {
         this.taxCode = taxCode;
         this.companyData = companyData;
-        this.otherTaxCode = otherTaxCode;
+        this.relativePersonTaxCode = relativePersonTaxCode;
         this.idCode = idCode;
     }
 
@@ -112,20 +130,20 @@ public class TaxPayer {
         this.taxCode = taxCode;
     }
 
-    public boolean isNotCalendarYear() {
-        return isNotCalendarYear;
+    public boolean getIsNotTaxYear() {
+        return isNotTaxYear;
     }
 
-    public void setNotCalendarYear(boolean notCalendarYear) {
-        this.isNotCalendarYear = notCalendarYear;
+    public void setIsNotTaxYear(boolean isNotTaxYear) {
+        this.isNotTaxYear = isNotTaxYear;
     }
 
-    public String getActCode() {
-        return actCode;
+    public String getDocumentCode() {
+        return documentCode;
     }
 
-    public void setActCode(String actCode) {
-        this.actCode = actCode;
+    public void setDocumentCode(String documentCode) {
+        this.documentCode = documentCode;
     }
 
     public String getOfficeCode() {
@@ -152,12 +170,12 @@ public class TaxPayer {
         this.companyData = companyData;
     }
 
-    public String getOtherTaxCode() {
-        return otherTaxCode;
+    public String getRelativePersonTaxCode() {
+        return relativePersonTaxCode;
     }
 
-    public void setOtherTaxCode(String otherTaxCode) {
-        this.otherTaxCode = otherTaxCode;
+    public void setRelativePersonTaxCode(String relativePersonTaxCode) {
+        this.relativePersonTaxCode = relativePersonTaxCode;
     }
 
     public String getIdCode() {

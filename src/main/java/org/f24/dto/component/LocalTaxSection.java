@@ -2,28 +2,28 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-public class ImuSection extends Section {
+public class LocalTaxSection extends Section {
 
     private String operationId;
 
-    private List<ImuRecord> imuRecordList;
+    private List<LocalTaxRecord> localTaxRecordList;
 
     private String deduction;
 
     /**
-     * Constructs IMU Section (IMU e altri tributi locali)
+     * Constructs LocalTaxPayer Section (Old IMU) (IMU e altri tributi locali)
      *
      * @param operationId   operation Id (identificativo operazione)
      * @param imuRecordList list of ImuRecord components
      * @param deduction     deduction (detrazione)
      */
-    public ImuSection(String operationId, List<ImuRecord> imuRecordList, String deduction) {
+    public LocalTaxSection(String operationId, List<LocalTaxRecord> localTaxRecordList, String deduction) {
         this.operationId = operationId;
-        this.imuRecordList = imuRecordList;
+        this.localTaxRecordList = localTaxRecordList;
         this.deduction = deduction;
     }
 
-    public ImuSection() {}
+    public LocalTaxSection() {}
 
     public String getOperationId() {
         return operationId;
@@ -33,12 +33,12 @@ public class ImuSection extends Section {
         this.operationId = operationId;
     }
 
-    public List<ImuRecord> getImuRecordList() {
-        return imuRecordList;
+    public List<LocalTaxRecord> getLocalTaxRecordList() {
+        return localTaxRecordList;
     }
 
-    public void setImuRecordList(List<ImuRecord> imuRecordList) {
-        this.imuRecordList = imuRecordList;
+    public void setLocalTaxRecordList(List<LocalTaxRecord> localTaxRecordList) {
+        this.localTaxRecordList = localTaxRecordList;
     }
 
     public String getDeduction() {

@@ -22,14 +22,6 @@
     "idCode": {
       "pattern": "^[A-Z0-9]{2}$",
       "type": ["string", "null"]
-    },
-    "documentCode": {
-      "pattern": "^\\d{11}$",
-      "type": ["string", "null"]
-    },
-    "officeCode": {
-      "pattern": "^[A-Z0-9]{3}$",
-      "type": ["string", "null"]
     }
   }
 }

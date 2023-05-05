@@ -64,10 +64,10 @@ public class TaxCodeCalculator {
         throw new IllegalArgumentException("Null arguments are not permitted.");
     }
 
-    private static void throwIllegalArgException(String arg_name) {
+    private static void throwIllegalArgException(String argument) {
         throw new IllegalArgumentException(
                 "Argument '"
-                        + arg_name
+                        + argument
                         + "' can not contain special characters.");
     }
 
@@ -158,9 +158,9 @@ public class TaxCodeCalculator {
 
             int k = Character.getNumericValue(taxCode.charAt(i));
             if (i % 2 == 0) {
-                sum += EVEN_ODD_CHAR_CODES[1][k];
+                sum += evenOddCharCodes[1][k];
             } else {
-                sum +=  EVEN_ODD_CHAR_CODES[0][k];
+                sum +=  evenOddCharCodes[0][k];
             }
 
         }
@@ -184,15 +184,15 @@ public class TaxCodeCalculator {
 
     private static final String SUBSTITUTION_CHAR = "X";
 
-    private static char[] MONTHS_CODES = {
+    private static char[] monthCodes = {
             'A', 'B', 'C', 'D', 'E', 'H',
             'L', 'M', 'P', 'R', 'S', 'T' };
 
     private static char getMonthCode(int mese){
-        return MONTHS_CODES[mese];
+        return monthCodes[mese];
     }
 
-    private static int[][] EVEN_ODD_CHAR_CODES={
+    private static int[][] evenOddCharCodes={
             {0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25},
             {1,0,5,7,9,13,15,17,19,21,1,0,5,7,9,13,15,17,19,21,2,4,18,20,11,3,6,8,12,14,16,10,22,25,24,23}};
 
