@@ -63,7 +63,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         setCompanyData();
     }
 
-    private void setContributor() throws ResourceException {
+    private void setTaxPayer() throws ResourceException {
         TaxPayer taxPayer = this.form.getTaxPayer();
         if(taxPayer != null) {
             setField(FieldEnum.TAX_CODE.getName(), taxPayer.getTaxCode());
@@ -107,10 +107,10 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
                 setField(FieldEnum.SECTION.getName() + index, paymentReasonRecord.getSection());
                 setField(FieldEnum.TAX_TYPE_CODE.getName() + index, paymentReasonRecord.getTaxTypeCode());
                 setField(FieldEnum.INSTITUTION_CODE.getName() + index, paymentReasonRecord.getInstitutionCode());
-                setPaymentReasonRecordCheckboxes(paymentReasonRecord, index);
+                setPaymentMotiveRecordCheckboxes(paymentReasonRecord, index);
                 setField(FieldEnum.MONTH.getName() + index, paymentReasonRecord.getMonth());
                 setField(FieldEnum.YEAR.getName() + index, paymentReasonRecord.getYear());
-                setPaymentReasonRecordAmounts(paymentReasonRecord, index);
+                setPaymentMotiveRecordAmounts(paymentReasonRecord, index);
             }
             setField(FieldEnum.TOTAL_AMOUNT.getName(), helper.getMoney(Integer.parseInt(this.form.getPaymentReasonSection().getTotalAmount().toString())));
         } catch (Exception e) {
