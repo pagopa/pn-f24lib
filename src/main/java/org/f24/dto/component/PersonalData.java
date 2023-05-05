@@ -14,17 +14,18 @@ public class PersonalData {
 
     private String birthProvince;
 
-    public PersonalData() {}
+    public PersonalData() {
+    }
 
     /**
      * Constructs personal data section of contributor (dati anagrafici)
      *
-     * @param surname             surname/name or corporate name (cognome/denominazione o ragione sociale )
-     * @param name                name (nome)
-     * @param birthDate         date of birth (data di nascita)
-     * @param sex                 sex (sesso)
-     * @param birthPlace municipality (or foreign state) of birth (comune (o Stato estero) di nascita)
-     * @param birthProvince            birthProvince (prov.)
+     * @param surname       surname/name or corporate name (cognome/denominazione o ragione sociale )
+     * @param name          name (nome)
+     * @param birthDate     date of birth (data di nascita)
+     * @param sex           sex (sesso)
+     * @param birthPlace    municipality (or foreign state) of birth (comune (o Stato estero) di nascita)
+     * @param birthProvince birthProvince (prov.)
      */
     public PersonalData(String surname, String name, String birthDate, String sex, String birthPlace, String birthProvince) {
         this.surname = surname;

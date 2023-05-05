@@ -11,12 +11,12 @@ import org.f24.dto.component.Record;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
-import org.f24.service.pdf.PDFFormManager;
+import org.f24.service.pdf.util.PDFFormManager;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 
-import org.f24.service.pdf.CreatorHelper;
-import org.f24.service.pdf.FieldEnum;
+import org.f24.service.pdf.util.CreatorHelper;
+import org.f24.service.pdf.util.FieldEnum;
 
 public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 

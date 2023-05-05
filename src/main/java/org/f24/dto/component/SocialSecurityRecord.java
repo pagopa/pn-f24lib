@@ -16,7 +16,7 @@ public class SocialSecurityRecord extends Record {
      * Constructs Social Security Record for Other social security and insurance institutions (sezione altri enri previdenziali e assicuretivi)
      *
      * @param institutionCode    institution code (codice ente)
-     * @param officeCode       location code (codice sede)
+     * @param officeCode         location code (codice sede)
      * @param contributionReason contribution reason (causale contributo)
      * @param positionCode       position code (codice posizione)
      * @param period             ReportingPeriod component (periodo di riferimento)
@@ -32,7 +32,8 @@ public class SocialSecurityRecord extends Record {
         this.period = period;
     }
 
-    public SocialSecurityRecord() {}
+    public SocialSecurityRecord() {
+    }
 
     public String getInstitutionCode() {
         return institutionCode;

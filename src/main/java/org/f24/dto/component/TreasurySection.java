@@ -10,14 +10,15 @@ public class TreasurySection extends Section {
 
     private String documentCode;
 
-    public TreasurySection() {}
+    public TreasurySection() {
+    }
 
     /**
      * Constructs Treasury and other section (Sezione erario ed altro)
      *
-     * @param taxList    list of Tax components
-     * @param officeCode office code (codice ufficio)
-     * @param documentCode    act code (codice atto)
+     * @param taxList      list of Tax components
+     * @param officeCode   office code (codice ufficio)
+     * @param documentCode act code (codice atto)
      */
     public TreasurySection(List<Tax> taxList, String officeCode, String documentCode) {
         this.taxList = taxList;

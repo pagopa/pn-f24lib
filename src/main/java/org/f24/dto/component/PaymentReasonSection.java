@@ -11,7 +11,8 @@ public class PaymentReasonSection extends Section {
 
     private List<PaymentReasonRecord> reasonRecordList;
 
-    public PaymentReasonSection() {}
+    public PaymentReasonSection() {
+    }
 
     /**
      * Constructs Motive for Payment Section (Motivo del Pagamento)
@@ -41,11 +42,11 @@ public class PaymentReasonSection extends Section {
     }
 
     public Integer getTotalAmount() throws ResourceException {
-        Integer totalAmount =  getReasonRecordList()
+        Integer totalAmount = getReasonRecordList()
                 .stream()
                 .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0") - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
                 .sum();
-        if(totalAmount < 0) {
+        if (totalAmount < 0) {
             throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());
         }
         return totalAmount;

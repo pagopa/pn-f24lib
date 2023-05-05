@@ -12,12 +12,13 @@ public class InailRecord extends Record {
 
     private String reason;
 
-    public InailRecord() {}
+    public InailRecord() {
+    }
 
     /**
      * Constructs INAIL Record for Other social security and insurance institutions (sezione altri enri previdenziali e assicuretivi)
      *
-     * @param officeCode    location code (codice sede)
+     * @param officeCode      location code (codice sede)
      * @param companyCode     company code (codice ditta)
      * @param controlCode     bank account
      * @param referenceNumber reference number (numero di riferimento)

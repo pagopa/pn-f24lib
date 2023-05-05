@@ -20,17 +20,17 @@ public class LocalTaxRecord extends Record {
     /**
      * Constructs LocalTaxPayer record for IMU Section (Old IMU) (IMU e altri tributi locali)
      *
-     * @param municipalityCode  entity code/municipality code (codice ente/codice comune)
-     * @param reconsideration  active reconsideration (ravvedimento)
-     * @param propertiesChanges   buildings (immobiliare variati)
-     * @param advancePayment    advance fullPayment (acconto)
+     * @param municipalityCode   entity code/municipality code (codice ente/codice comune)
+     * @param reconsideration    active reconsideration (ravvedimento)
+     * @param propertiesChanges  buildings (immobiliare variati)
+     * @param advancePayment     advance fullPayment (acconto)
      * @param numberOfProperties number of buildings (numero immobili)
-     * @param fullPayment           fullPayment (saldo)
-     * @param taxTypeCode       tribute code (codice tributo)
-     * @param installment       installment/month ref. (rateazione/ mese rif.)
-     * @param year              year (anno di riferimento)
-     * @param debitAmount       debit amounts paid (importi a debito versati )
-     * @param creditAmount      credit amounts offset (importi a credito compensati )
+     * @param fullPayment        fullPayment (saldo)
+     * @param taxTypeCode        tribute code (codice tributo)
+     * @param installment        installment/month ref. (rateazione/ mese rif.)
+     * @param year               year (anno di riferimento)
+     * @param debitAmount        debit amounts paid (importi a debito versati )
+     * @param creditAmount       credit amounts offset (importi a credito compensati )
      */
     public LocalTaxRecord(String municipalityCode, Boolean reconsideration, Boolean propertiesChanges, Boolean advancePayment, Boolean fullPayment, String numberOfProperties, String taxTypeCode, String installment, String year, String debitAmount, String creditAmount) {
         super(debitAmount, creditAmount, "");
@@ -45,7 +45,8 @@ public class LocalTaxRecord extends Record {
         this.year = year;
     }
 
-    public LocalTaxRecord() {}
+    public LocalTaxRecord() {
+    }
 
     public String getMunicipalityCode() {
         return municipalityCode;

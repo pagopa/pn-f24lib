@@ -13,9 +13,9 @@ public class LocalTaxSection extends Section {
     /**
      * Constructs LocalTaxPayer Section (Old IMU) (IMU e altri tributi locali)
      *
-     * @param operationId   operation Id (identificativo operazione)
-     * @param imuRecordList list of ImuRecord components
-     * @param deduction     deduction (detrazione)
+     * @param operationId        operation Id (identificativo operazione)
+     * @param localTaxRecordList list of LocalTaxRecord components
+     * @param deduction          deduction (detrazione)
      */
     public LocalTaxSection(String operationId, List<LocalTaxRecord> localTaxRecordList, String deduction) {
         this.operationId = operationId;
@@ -23,7 +23,8 @@ public class LocalTaxSection extends Section {
         this.deduction = deduction;
     }
 
-    public LocalTaxSection() {}
+    public LocalTaxSection() {
+    }
 
     public String getOperationId() {
         return operationId;
@@ -48,4 +49,5 @@ public class LocalTaxSection extends Section {
     public void setDeduction(String deduction) {
         this.deduction = deduction;
     }
+
 }

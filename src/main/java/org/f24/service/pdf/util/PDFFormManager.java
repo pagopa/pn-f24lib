@@ -1,4 +1,4 @@
-package org.f24.service.pdf;
+package org.f24.service.pdf.util;
 
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;

@@ -1,4 +1,4 @@
-package org.f24.service.validator;
+package org.f24.service.validator.util;
 
 import java.util.Date;
 import java.util.GregorianCalendar;

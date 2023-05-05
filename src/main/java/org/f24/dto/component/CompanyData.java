@@ -6,12 +6,13 @@ public class CompanyData {
 
     private TaxAddress taxAddress;
 
-    public CompanyData() {}
+    public CompanyData() {
+    }
 
     /**
      * Constructs personal data section of contributor (dati anagrafici PF)
      *
-     * @param name         name. (denominazione)
+     * @param name       name. (denominazione)
      * @param taxAddress TaxResidence component (domicilio fiscale)
      */
     public CompanyData(String name, TaxAddress taxAddress) {

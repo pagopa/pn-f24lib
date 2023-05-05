@@ -12,11 +12,11 @@ public class Tax extends Record {
      * Constructs  taxes : direct taxes - VAT IMPOSTE (imposte dirette - IVA),
      * withhholding taxes (ritenute alla fonte) ant other taxes (altri tributi ed interessi)
      *
-     * @param taxTypeCode   tribute code (codice tributo)
-     * @param installment   installment/region/ prov./month ref (rateazione/regione/ prov./mese rif.)
-     * @param year reporting year (anno di riferimento)
-     * @param debitAmount   debit amounts paid (importi a debito versati)
-     * @param creditAmount  credit amounts offset (importi a credito)
+     * @param taxTypeCode  tribute code (codice tributo)
+     * @param installment  installment/region/ prov./month ref (rateazione/regione/ prov./mese rif.)
+     * @param year         reporting year (anno di riferimento)
+     * @param debitAmount  debit amounts paid (importi a debito versati)
+     * @param creditAmount credit amounts offset (importi a credito)
      */
     public Tax(String taxTypeCode, String installment, String year, String debitAmount, String creditAmount) {
         super(debitAmount, creditAmount, "");
@@ -25,7 +25,8 @@ public class Tax extends Record {
         this.year = year;
     }
 
-    public Tax() { }
+    public Tax() {
+    }
 
     public String getTaxTypeCode() {
         return taxTypeCode;

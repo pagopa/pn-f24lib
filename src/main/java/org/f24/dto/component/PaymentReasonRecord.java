@@ -22,19 +22,19 @@ public class PaymentReasonRecord extends Record {
     /**
      * Constructs record for Motive for Payment Section (Motivo del Pergamento)
      *
-     * @param section           section (sezione)
-     * @param taxTypeCode       tribute code (cod. tributo)
-     * @param institutionCode   institution code (codice ente )
-     * @param reconsideration  active reconsideration (ravvedimento)
-     * @param propertiesChanges   buildings (immobiliare variati)
-     * @param advancePayment    advance payment (acconto)
+     * @param section            section (sezione)
+     * @param taxTypeCode        tribute code (cod. tributo)
+     * @param institutionCode    institution code (codice ente )
+     * @param reconsideration    active reconsideration (ravvedimento)
+     * @param propertiesChanges  buildings (immobiliare variati)
+     * @param advancePayment     advance payment (acconto)
      * @param numberOfProperties number of buildings (numero immobili)
-     * @param fullPayment           fullPayment (saldo)
-     * @param month             month (rateazione/mese)
-     * @param deduction         deduction (detrazione)
-     * @param year     reporting year (anno di riferimento)
-     * @param debitAmount       debit amounts paid (importi a debito versati)
-     * @param creditAmount      credit amounts offset (importi a credito compensati)
+     * @param fullPayment        fullPayment (saldo)
+     * @param month              month (rateazione/mese)
+     * @param deduction          deduction (detrazione)
+     * @param year               reporting year (anno di riferimento)
+     * @param debitAmount        debit amounts paid (importi a debito versati)
+     * @param creditAmount       credit amounts offset (importi a credito compensati)
      */
     public PaymentReasonRecord(String section, String taxTypeCode, String institutionCode, Boolean reconsideration, Boolean propertiesChanges, Boolean advancePayment, Boolean fullPayment, String numberOfProperties, String month, String deduction, String year, String debitAmount, String creditAmount) {
         super(debitAmount, creditAmount, deduction);
@@ -50,7 +50,8 @@ public class PaymentReasonRecord extends Record {
         this.year = year;
     }
 
-    public PaymentReasonRecord() {}
+    public PaymentReasonRecord() {
+    }
 
     public String getSection() {
         return section;

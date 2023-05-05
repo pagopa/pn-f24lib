@@ -1,6 +1,7 @@
 package org.f24.dto.component;
 
 import java.util.List;
+
 public class RegionSection extends Section {
 
     private List<RegionRecord> regionRecordList;
@@ -24,4 +25,5 @@ public class RegionSection extends Section {
     public void setRegionRecordList(List<RegionRecord> regionRecordList) {
         this.regionRecordList = regionRecordList;
     }
+
 }

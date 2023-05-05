@@ -8,7 +8,8 @@ public class SocialSecuritySection extends Section {
 
     private List<SocialSecurityRecord> socialSecurityRecordList;
 
-    public SocialSecuritySection() {}
+    public SocialSecuritySection() {
+    }
 
     /**
      * Constructs Other social security and insurance institutions section (sezione altri enri previdenziali e assicuretivi)
@@ -36,4 +37,5 @@ public class SocialSecuritySection extends Section {
     public void setSocialSecurityRecordList(List<SocialSecurityRecord> socialSecurityRecordList) {
         this.socialSecurityRecordList = socialSecurityRecordList;
     }
+
 }

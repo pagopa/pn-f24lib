@@ -20,15 +20,15 @@ public class F24Standard extends F24Form {
     /**
      * Constructs F24 Standard dto.
      *
-     * @param header          Header component
-     * @param taxPayer     Contributor component
-     * @param paymentDetails  PaymentDetails component
-     * @param treasurySection TreasurySection component
-     * @param inpsSection     InpsSection component
-     * @param regionSection   RegionSection component
-     * @param localTaxSection LocalTaxSection component
+     * @param header                Header component
+     * @param taxPayer              Contributor component
+     * @param paymentDetails        PaymentDetails component
+     * @param treasurySection       TreasurySection component
+     * @param inpsSection           InpsSection component
+     * @param regionSection         RegionSection component
+     * @param localTaxSection       LocalTaxSection component
      * @param socialSecuritySection SocialSecuritySection component
-     * @param ibanCode        IBAN code (autorizzo addebito su conto corrente codice IBAN)
+     * @param ibanCode              IBAN code (autorizzo addebito su conto corrente codice IBAN)
      */
     public F24Standard(Header header, TaxPayer taxPayer, PaymentDetails paymentDetails, TreasurySection treasurySection, InpsSection inpsSection, RegionSection regionSection, LocalTaxSection localTaxSection, SocialSecuritySection socialSecuritySection, String ibanCode) {
         super(header, taxPayer, paymentDetails);

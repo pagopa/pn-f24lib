@@ -19,14 +19,14 @@ public class ExciseTax extends Record {
     /**
      * Constructs excise tax for excise section (sezione Accise)
      *
-     * @param institution   institution (ente)
-     * @param province      province (prov.)
-     * @param idCode        ID Code (codice identificativo )
-     * @param tributeCode   tribute code (codice tributo)
-     * @param installment   installment (rateazione)
-     * @param month         month (mese rif.)
-     * @param year reporting year (anno di riferimento)
-     * @param debitAmount   debit amounts paid (debit amounts paid)
+     * @param institution institution (ente)
+     * @param province    province (prov.)
+     * @param idCode      ID Code (codice identificativo )
+     * @param tributeCode tribute code (codice tributo)
+     * @param installment installment (rateazione)
+     * @param month       month (mese rif.)
+     * @param year        reporting year (anno di riferimento)
+     * @param debitAmount debit amounts paid (debit amounts paid)
      */
     public ExciseTax(String institution, String province, String idCode, String tributeCode, String installment, String month, String year, String debitAmount) {
         super(debitAmount, "", "");
@@ -39,7 +39,8 @@ public class ExciseTax extends Record {
         this.year = year;
     }
 
-    public ExciseTax() {}
+    public ExciseTax() {
+    }
 
     public String getInstitution() {
         return institution;
@@ -96,4 +97,5 @@ public class ExciseTax extends Record {
     public void setYear(String year) {
         this.year = year;
     }
+
 }
