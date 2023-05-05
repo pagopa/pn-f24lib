@@ -54,10 +54,10 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
         if (personalData != null) {
             setField(FieldEnum.CORPORATE_NAME.getName(), personalData.getSurname());
             setField(FieldEnum.NAME.getName(), personalData.getName());
-            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthDate().replace("-", ""));
+            setField(FieldEnum.BIRTH_DATE.getName(), personalData.getBirthDate().replace("-", ""));
             setField(FieldEnum.SEX.getName(), personalData.getSex());
-            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthPlace());
-            setField(FieldEnum.PROVINCE.getName(), personalData.getBirthProvince());
+            setField(FieldEnum.BIRTH_PLACE.getName(), personalData.getBirthPlace());
+            setField(FieldEnum.BIRTH_PROVINCE.getName(), personalData.getBirthProvince());
         }
     }
 
@@ -76,11 +76,11 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
         if (taxPayer != null) {
             setField(FieldEnum.TAX_CODE.getName(), taxPayer.getTaxCode());
-            setField(FieldEnum.OTHER_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
+            setField(FieldEnum.RELATIVE_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
             setField(FieldEnum.ID_CODE.getName(), taxPayer.getIdCode());
 
             if (taxPayer.getIsNotTaxYear())
-                setField(FieldEnum.CALENDAR_YEAR.getName(), "X");
+                setField(FieldEnum.IS_NOT_TAX_YEAR.getName(), "X");
 
             setPersonData();
             setCompanyData();
@@ -104,7 +104,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
             int index = 1;
             for (InpsRecord record : inpsRecordList) {
-                setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
+                setField(FieldEnum.OFFICE_CODE.getName() + sectionId + index, record.getOfficeCode());
                 setField(FieldEnum.CONTRIBUTION_REASON.getName() + sectionId + index, record.getContributionReason());
                 setField(FieldEnum.INPS_CODE.getName() + sectionId + index, record.getInpsCode());
 
@@ -131,23 +131,23 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             for (LocalTaxRecord record : localTaxRecordList) {
                 setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
                 setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
-                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTaxTypeCode());
+                setField(FieldEnum.TAX_TYPE_CODE.getName() + sectionId + index, record.getTaxTypeCode());
                 setField(FieldEnum.MUNICIPALITY_CODE.getName() + sectionId + index, record.getMunicipalityCode());
 
                 if (record.getReconsideration() != null) {
-                    setField(FieldEnum.REPENTANCE.getName() + index, "X");
+                    setField(FieldEnum.RECONSIDERATION.getName() + index, "X");
                 }
                 if (record.getPropertiesChanges() != null) {
-                    setField(FieldEnum.CHANGED_BUILDINGS.getName() + index, "X");
+                    setField(FieldEnum.PROPERTIES_CHANGED.getName() + index, "X");
                 }
                 if (record.getAdvancePayment() != null) {
                     setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
                 }
                 if (record.getFullPayment() != null) {
-                    setField(FieldEnum.PAYMENT.getName() + index, "X");
+                    setField(FieldEnum.FULL_PAYMENT.getName() + index, "X");
                 }
                 if (record.getNumberOfProperties() != null) {
-                    setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, record.getNumberOfProperties());
+                    setField(FieldEnum.NUMBER_OF_PROPERTIES.getName() + index, record.getNumberOfProperties());
                 }
 
                 setSectionRecordAmounts(sectionId, index, record);
@@ -171,7 +171,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
             int index = 1;
             for (Tax record : taxList) {
-                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTaxTypeCode());
+                setField(FieldEnum.TAX_TYPE_CODE.getName() + sectionId + index, record.getTaxTypeCode());
                 setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
                 setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
 
@@ -180,8 +180,8 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
                 index++;
             }
 
-            setField(FieldEnum.OFFICE_CODE.getName(), treasurySection.getOfficeCode());
-            setField(FieldEnum.ACT_CODE.getName(), treasurySection.getDocumentCode());
+            setField(FieldEnum.OFFICE_CODE_TREASURY.getName(), treasurySection.getOfficeCode());
+            setField(FieldEnum.DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
 
             setSectionTotals(sectionId, index, taxList);
         }
@@ -197,7 +197,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             int index = 1;
             for (SocialSecurityRecord record : socSecurityList) {
                 setField(FieldEnum.INSTITUTION_CODE.getName() + sectionId, record.getInstitutionCode());
-                setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
+                setField(FieldEnum.OFFICE_CODE.getName() + sectionId + index, record.getOfficeCode());
                 setField(FieldEnum.CONTRIBUTION_REASON.getName() + sectionId + index, record.getContributionReason());
                 setField(FieldEnum.POSITION_CODE.getName() + sectionId + index, record.getPositionCode());
 
@@ -222,7 +222,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
 
             int index = 1;
             for (InailRecord record : inailRecordList) {
-                setField(FieldEnum.LOCATION_CODE.getName() + sectionId + index, record.getOfficeCode());
+                setField(FieldEnum.OFFICE_CODE.getName() + sectionId + index, record.getOfficeCode());
                 setField(FieldEnum.COMPANY_CODE.getName() + sectionId + index, record.getCompanyCode());
                 setField(FieldEnum.CONTROL_CODE.getName() + sectionId + index, record.getControlCode());
                 setField(FieldEnum.REFERENCE_NUMBER.getName() + sectionId + index, record.getReferenceNumber());
@@ -264,7 +264,7 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             for (RegionRecord record : regionRecordsList) {
                 setField(FieldEnum.YEAR.getName() + sectionId + index, record.getYear());
                 setField(FieldEnum.INSTALLMENT.getName() + sectionId + index, record.getInstallment());
-                setField(FieldEnum.TRIBUTE_CODE.getName() + sectionId + index, record.getTaxTypeCode());
+                setField(FieldEnum.TAX_TYPE_CODE.getName() + sectionId + index, record.getTaxTypeCode());
                 setField(FieldEnum.REGION_CODE.getName() + sectionId + index, record.getRegionCode());
 
                 setSectionRecordAmounts(sectionId, index, record);

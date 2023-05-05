@@ -43,10 +43,10 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             PersonalData personalData = personData.getPersonalData();
             setField(FieldEnum.CORPORATE_NAME.getName(), personalData.getSurname());
             setField(FieldEnum.NAME.getName(), personalData.getName());
-            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthDate().replace("-", ""));
+            setField(FieldEnum.BIRTH_DATE.getName(), personalData.getBirthDate().replace("-", ""));
             setField(FieldEnum.SEX.getName(), personalData.getSex());
-            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthPlace());
-            setField(FieldEnum.PROVINCE.getName(), personalData.getBirthProvince());
+            setField(FieldEnum.BIRTH_PLACE.getName(), personalData.getBirthPlace());
+            setField(FieldEnum.BIRTH_PROVINCE.getName(), personalData.getBirthProvince());
         }
     }
 
@@ -67,19 +67,19 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         if(taxPayer != null) {
             setField(FieldEnum.TAX_CODE.getName(), taxPayer.getTaxCode());
             setField(FieldEnum.OFFICE_CODE.getName(), taxPayer.getOfficeCode());
-            setField(FieldEnum.ACT_CODE.getName(), taxPayer.getDocumentCode());
-            setField(FieldEnum.OTHER_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
+            setField(FieldEnum.DOCUMENT_CODE.getName(), taxPayer.getDocumentCode());
+            setField(FieldEnum.RELATIVE_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
             setField(FieldEnum.ID_CODE.getName(), taxPayer.getIdCode());
             setRegistryData();
         }
     }
 
     private void setPaymentMotiveRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
-        if (paymentReasonRecord.getRepentance() == Boolean.TRUE) setField(FieldEnum.REPENTANCE.getName() + index, "X");
-        if (paymentReasonRecord.getChangedBuildings() == Boolean.TRUE) setField(FieldEnum.CHANGED_BUILDINGS.getName() + index, "X");
+        if (paymentReasonRecord.getRepentance() == Boolean.TRUE) setField(FieldEnum.RECONSIDERATION.getName() + index, "X");
+        if (paymentReasonRecord.getChangedBuildings() == Boolean.TRUE) setField(FieldEnum.PROPERTIES_CHANGED.getName() + index, "X");
         if (paymentReasonRecord.getAdvancePayment() == Boolean.TRUE) setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
-        if (paymentReasonRecord.getPayment() == Boolean.TRUE) setField(FieldEnum.PAYMENT.getName() + index, "X");
-        if (paymentReasonRecord.getNumberOfBuildings() != null) setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, paymentReasonRecord.getNumberOfBuildings());
+        if (paymentReasonRecord.getPayment() == Boolean.TRUE) setField(FieldEnum.FULL_PAYMENT.getName() + index, "X");
+        if (paymentReasonRecord.getNumberOfBuildings() != null) setField(FieldEnum.NUMBER_OF_PROPERTIES.getName() + index, paymentReasonRecord.getNumberOfBuildings());
     }
 
     private void setPaymentMotiveRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
@@ -104,7 +104,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             for (int index = 1; index <= paymentReasonRecordList.size(); index++) {
                 PaymentReasonRecord paymentReasonRecord = paymentReasonRecordList.get(index - 1);
                 setField(FieldEnum.SECTION.getName() + index, paymentReasonRecord.getSection());
-                setField(FieldEnum.TRIBUTE_CODE.getName() + index, paymentReasonRecord.getTributeCode());
+                setField(FieldEnum.TAX_TYPE_CODE.getName() + index, paymentReasonRecord.getTributeCode());
                 setField(FieldEnum.INSTITUTION_CODE.getName() + index, paymentReasonRecord.getInstitutionCode());
                 setPaymentMotiveRecordCheckboxes(paymentReasonRecord, index);
                 setField(FieldEnum.MONTH.getName() + index, paymentReasonRecord.getMonth());

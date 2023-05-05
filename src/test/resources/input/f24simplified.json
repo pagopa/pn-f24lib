@@ -5,10 +5,10 @@
       "personalData": {
         "surname": "ROSSI",
         "name": "MARIO ALBERTO",
-        "birthdate": "01-01-1980",
+        "birthDate": "01-01-1980",
         "sex": "M",
-        "birthMunicipality": "MILANO",
-        "province": "MI"
+        "birthPlace": "MILANO",
+        "birthProvince": "MI"
       }
     }
   },
