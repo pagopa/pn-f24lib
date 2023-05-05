@@ -3,6 +3,7 @@ package org.f24.service.pdf.impl;
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Simplified;
+import org.f24.exception.ResourceException;
 import org.f24.service.pdf.CreatorHelper;
 import org.f24.service.pdf.FieldEnum;
 import org.f24.service.pdf.PDFCreator;
@@ -28,7 +29,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         this.form = form;
     }
 
-    private void setHeader() throws Exception {
+    private void setHeader() throws ResourceException {
         Header header = this.form.getHeader();
         if(header != null) {
             setField(FieldEnum.DELEGATION.getName(), header.getDelegationTo());
@@ -37,7 +38,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setPersonData() throws Exception {
+    private void setPersonData() throws ResourceException {
         PersonData personData = this.form.getTaxPayer().getPersonData();
         if(personData != null && personData.getPersonalData() != null) {
             PersonalData personalData = personData.getPersonalData();
@@ -50,19 +51,19 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setCompanyData() throws Exception {
+    private void setCompanyData() throws ResourceException {
         CompanyData companyData = this.form.getTaxPayer().getCompanyData();
         if(companyData != null) {
             setField(FieldEnum.CORPORATE_NAME.getName(), companyData.getName());
         }
     }
 
-    private void setRegistryData() throws Exception {
+    private void setRegistryData() throws ResourceException {
         setPersonData();
         setCompanyData();
     }
 
-    private void setContributor() throws Exception {
+    private void setContributor() throws ResourceException {
         TaxPayer taxPayer = this.form.getTaxPayer();
         if(taxPayer != null) {
             setField(FieldEnum.TAX_CODE.getName(), taxPayer.getTaxCode());
@@ -74,7 +75,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setPaymentMotiveRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
+    private void setPaymentMotiveRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws ResourceException {
         if (paymentReasonRecord.getReconsideration() == Boolean.TRUE) setField(FieldEnum.RECONSIDERATION.getName() + index, "X");
         if (paymentReasonRecord.getPropertiesChanges() == Boolean.TRUE) setField(FieldEnum.PROPERTIES_CHANGED.getName() + index, "X");
         if (paymentReasonRecord.getAdvancePayment() == Boolean.TRUE) setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
@@ -82,7 +83,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         if (paymentReasonRecord.getNumberOfProperties() != null) setField(FieldEnum.NUMBER_OF_PROPERTIES.getName() + index, paymentReasonRecord.getNumberOfProperties());
     }
 
-    private void setPaymentMotiveRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
+    private void setPaymentMotiveRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws ResourceException {
         if(paymentReasonRecord.getDeduction() != null) {
             setField(FieldEnum.DEDUCTION.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getDeduction())));
         }
@@ -117,7 +118,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setPaymentDetails() throws Exception {
+    private void setPaymentDetails() throws ResourceException {
         PaymentDetails paymentDetails = this.form.getPaymentDetails();
         if(paymentDetails != null) {
             setField(FieldEnum.DATE_OF_PAYMENT.getName(), paymentDetails.getPaymentDate().replace("-", ""));
