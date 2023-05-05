@@ -1,28 +1,39 @@
 {
   "header": {
-    "delegationTo": "delegation",
-    "agency": "agency",
+    "delegationTo": "string",
+    "agency": "string",
     "province": "MB"
   },
   "taxPayer": {
-    "taxCode": "RSSMRA74D22A001Q",
+    "taxCode": "BGCDJV27L49N524I",
     "isNotTaxYear": true,
     "personData": {
       "personalData": {
-        "surname": "MARIA",
-        "name": "ROSSI",
-        "birthDate": "01-01-1998",
+        "surname": "ROSSI",
+        "name": "MARIO",
+        "birthDate": "11-11-1999",
         "sex": "F",
-        "birthPlace": "ABANO BAGNI",
-        "birthProvince": "PD"
+        "birthPlace": "MILANO",
+        "birthProvince": "MI"
       },
       "taxAddress": {
-        "municipality": "MILANO",
-        "province": "MI",
-        "address": "VIA SAN MARCO"
+        "municipality": "DFGRHWPNLXKQY",
+        "province": "QY",
+        "address": "Z1VIEXJS7FWMNU"
       }
     },
-    "idCode": "9W"
+    "companyData": {
+      "name": "PFRIQGOWASCGSHVUXCCOTRFLFNLY",
+      "taxAddress": {
+        "municipality": "FWQOJKCXAVTCWKZAMDKMQ",
+        "province": "RJ",
+        "address": "O0VMCEJ8I"
+      }
+    },
+    "taxCode": "TDITLC46H54C619Q",
+    "idCode": "9W",
+    "documentCode": "14441450837",
+    "officeCode": "6BU"
   },
   "paymentDetails": {
     "paymentDate": "35-76-9568",
@@ -42,14 +53,14 @@
         "debitAmount": "7309",
         "creditAmount": "0"
       },
-      {
+       {
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
         "debitAmount": "7309",
         "creditAmount": "0"
       },
-      {
+       {
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
@@ -94,7 +105,6 @@
     ],
     "officeCode": "FRH",
     "documentCode": "29542848644"
-    "actCode": "29542848644"
   },
   "inpsSection": {
     "inpsRecordList": [
@@ -184,7 +194,7 @@
         "creditAmount": "0"
       }
     ],
-    "deduction": "9709177"
+    "deduction": "9709187.77"
   },
   "socialSecuritySection": {
     "inailRecords": [
@@ -213,5 +223,5 @@
       }
     ]
   },
-  "ibanCode": "iban code"
+  "ibanCode": "string"
 }

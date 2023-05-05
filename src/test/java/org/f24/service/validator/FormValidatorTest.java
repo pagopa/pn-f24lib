@@ -18,7 +18,7 @@ public class FormValidatorTest {
     private F24Form form;
 
     @Before
-    public void setup() throws IOException {
+    public void setup() throws IOException, ResourceException {
         String jsonFile = "src/test/resources/input/f24form.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
         form = new ObjectMapper().readValue(jsonString, F24Form.class);

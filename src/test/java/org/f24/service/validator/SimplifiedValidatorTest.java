@@ -20,7 +20,7 @@ public class SimplifiedValidatorTest {
     private F24Simplified form;
 
     @Before
-    public void setup() throws IOException {
+    public void setup() throws IOException, ResourceException {
         String jsonFile = "src/test/resources/input/f24simplified.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
         form = new ObjectMapper().readValue(jsonString, F24Simplified.class);
@@ -92,13 +92,13 @@ public class SimplifiedValidatorTest {
 
     @Test
     public void givenInvalidTributeCode_whenValidatePaymentReasonRecord_thenThrowException() {
-        form.getPaymentReasonSection().getReasonRecordList().get(0).setTributeCode(null);
+        form.getPaymentReasonSection().getReasonRecordList().get(0).setTaxTypeCode(null);
         assertThrows(ResourceException.class, () -> validator.validate());
 
-        form.getPaymentReasonSection().getReasonRecordList().get(0).setTributeCode("TU9k");
+        form.getPaymentReasonSection().getReasonRecordList().get(0).setTaxTypeCode("TU9k");
         assertThrows(ResourceException.class, () -> validator.validate());
 
-        form.getPaymentReasonSection().getReasonRecordList().get(0).setTributeCode("TU.9P");
+        form.getPaymentReasonSection().getReasonRecordList().get(0).setTaxTypeCode("TU.9P");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
@@ -113,10 +113,10 @@ public class SimplifiedValidatorTest {
 
     @Test
     public void givenInvalidNumberOfBuildings_whenValidatePaymentReasonRecord_thenThrowException() {
-        form.getPaymentReasonSection().getReasonRecordList().get(0).setNumberOfBuildings("1");
+        form.getPaymentReasonSection().getReasonRecordList().get(0).setNumberOfProperties("1");
         assertThrows(ResourceException.class, () -> validator.validate());
 
-        form.getPaymentReasonSection().getReasonRecordList().get(0).setNumberOfBuildings("J87");
+        form.getPaymentReasonSection().getReasonRecordList().get(0).setNumberOfProperties("J87");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 

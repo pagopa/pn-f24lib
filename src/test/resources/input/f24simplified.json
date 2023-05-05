@@ -1,38 +1,27 @@
 {
-  "header": {
-    "delegationTo": "delegation",
-    "agency": "agency",
-    "province": "MI"
-  },
   "taxPayer": {
-    "taxCode": "MRARSS22A01F205K",
+    "taxCode": "RSSMLB80A01A200D",
     "personData": {
       "personalData": {
         "surname": "ROSSI",
-        "name": "MARIO",
-        "birthDate": "01-01-2022",
+        "name": "MARIO ALBERTO",
+        "birthDate": "01-01-1980",
         "sex": "M",
-        "birthPlace": " MILANO",
+        "birthPlace": "MILANO",
         "birthProvince": "MI"
       }
-    },
-    "idCode": "9T",
-    "documentCode": "29046758207",
-    "officeCode": "9PF"
+    }
   },
   "paymentReasonSection": {
-    "operationId": "123456789011112391",
     "reasonRecordList": [
       {
         "section": "ER",
         "taxTypeCode": "TSC1",
         "institutionCode": "1111",
-        "repentance": true,
-        "changedBuildings": false,
-        "advancePayment": true,
-        "payment": false,
-        "numberOfBuildings": "786",
-
+        "reconsideration": false,
+        "propertiesChanges": false,
+        "advancePayment": false,
+        "fullPayment": false,
         "month": "0101",
         "deduction": "604",
         "year": "2020",

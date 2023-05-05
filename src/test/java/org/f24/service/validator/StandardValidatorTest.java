@@ -19,7 +19,7 @@ public class StandardValidatorTest {
     private F24Standard form;
 
     @Before
-    public void setup() throws IOException {
+    public void setup() throws IOException, ResourceException {
         String jsonFile = "src/test/resources/input/f24standard.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
         form = new ObjectMapper().readValue(jsonString, F24Standard.class);
