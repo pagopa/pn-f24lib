@@ -25,13 +25,14 @@
     "reasonRecordList": [
       {
         "section": "ER",
-        "tributeCode": "TSC1",
+        "taxTypeCode": "TSC1",
         "institutionCode": "1111",
         "repentance": true,
         "changedBuildings": false,
         "advancePayment": true,
         "payment": false,
         "numberOfBuildings": "786",
+
         "month": "0101",
         "deduction": "604",
         "year": "2020",

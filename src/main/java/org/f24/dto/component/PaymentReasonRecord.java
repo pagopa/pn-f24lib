@@ -4,16 +4,16 @@ public class PaymentReasonRecord extends Record {
 
     private String section;
 
-    private String tributeCode;
+    private String taxTypeCode;
 
     private String institutionCode;
 
-    private Boolean repentance;
-    private Boolean changedBuildings;
+    private Boolean reconsideration;
+    private Boolean propertiesChanges;
     private Boolean advancePayment;
-    private Boolean payment;
+    private Boolean fullPayment;
 
-    private String numberOfBuildings;
+    private String numberOfProperties;
 
     private String month;
 
@@ -23,29 +23,29 @@ public class PaymentReasonRecord extends Record {
      * Constructs record for Motive for Payment Section (Motivo del Pergamento)
      *
      * @param section           section (sezione)
-     * @param tributeCode       tribute code (cod. tributo)
+     * @param taxTypeCode       tribute code (cod. tributo)
      * @param institutionCode   institution code (codice ente )
-     * @param repentance  active repentance (ravvedimento)
-     * @param changedBuildings   buildings (immobiliare variati)
+     * @param reconsideration  active reconsideration (ravvedimento)
+     * @param propertiesChanges   buildings (immobiliare variati)
      * @param advancePayment    advance payment (acconto)
-     * @param numberOfBuildings number of buildings (numero immobili)
-     * @param payment           payment (saldo)
+     * @param numberOfProperties number of buildings (numero immobili)
+     * @param fullPayment           fullPayment (saldo)
      * @param month             month (rateazione/mese)
      * @param deduction         deduction (detrazione)
      * @param year     reporting year (anno di riferimento)
      * @param debitAmount       debit amounts paid (importi a debito versati)
      * @param creditAmount      credit amounts offset (importi a credito compensati)
      */
-    public PaymentReasonRecord(String section, String tributeCode, String institutionCode, Boolean repentance, Boolean changedBuildings, Boolean advancePayment, Boolean payment, String numberOfBuildings, String month, String deduction, String year, String debitAmount, String creditAmount) {
+    public PaymentReasonRecord(String section, String taxTypeCode, String institutionCode, Boolean reconsideration, Boolean propertiesChanges, Boolean advancePayment, Boolean fullPayment, String numberOfProperties, String month, String deduction, String year, String debitAmount, String creditAmount) {
         super(debitAmount, creditAmount, deduction);
         this.section = section;
-        this.tributeCode = tributeCode;
+        this.taxTypeCode = taxTypeCode;
         this.institutionCode = institutionCode;
-        this.repentance = repentance;
-        this.changedBuildings = changedBuildings;
+        this.reconsideration = reconsideration;
+        this.propertiesChanges = propertiesChanges;
         this.advancePayment = advancePayment;
-        this.payment = payment;
-        this.numberOfBuildings = numberOfBuildings;
+        this.fullPayment = fullPayment;
+        this.numberOfProperties = numberOfProperties;
         this.month = month;
         this.year = year;
     }
@@ -60,12 +60,12 @@ public class PaymentReasonRecord extends Record {
         this.section = section;
     }
 
-    public String getTributeCode() {
-        return tributeCode;
+    public String getTaxTypeCode() {
+        return taxTypeCode;
     }
 
-    public void setTributeCode(String tributeCode) {
-        this.tributeCode = tributeCode;
+    public void setTaxTypeCode(String taxTypeCode) {
+        this.taxTypeCode = taxTypeCode;
     }
 
     public String getInstitutionCode() {
@@ -76,20 +76,20 @@ public class PaymentReasonRecord extends Record {
         this.institutionCode = institutionCode;
     }
 
-    public Boolean getRepentance() {
-        return repentance;
+    public Boolean getReconsideration() {
+        return reconsideration;
     }
 
-    public void setRepentance(Boolean repentance) {
-        this.repentance = repentance;
+    public void setReconsideration(Boolean reconsideration) {
+        this.reconsideration = reconsideration;
     }
 
-    public Boolean getChangedBuildings() {
-        return changedBuildings;
+    public Boolean getPropertiesChanges() {
+        return propertiesChanges;
     }
 
-    public void setChangedBuildings(Boolean changedBuildings) {
-        this.changedBuildings = changedBuildings;
+    public void setPropertiesChanges(Boolean propertiesChanges) {
+        this.propertiesChanges = propertiesChanges;
     }
 
     public Boolean getAdvancePayment() {
@@ -100,20 +100,20 @@ public class PaymentReasonRecord extends Record {
         this.advancePayment = advancePayment;
     }
 
-    public Boolean getPayment() {
-        return payment;
+    public Boolean getFullPayment() {
+        return fullPayment;
     }
 
-    public void setPayment(Boolean payment) {
-        this.payment = payment;
+    public void setFullPayment(Boolean fullPayment) {
+        this.fullPayment = fullPayment;
     }
 
-    public String getNumberOfBuildings() {
-        return numberOfBuildings;
+    public String getNumberOfProperties() {
+        return numberOfProperties;
     }
 
-    public void setNumberOfBuildings(String numberOfBuildings) {
-        this.numberOfBuildings = numberOfBuildings;
+    public void setNumberOfProperties(String numberOfProperties) {
+        this.numberOfProperties = numberOfProperties;
     }
 
     public String getMonth() {

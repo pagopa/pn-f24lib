@@ -3,6 +3,7 @@ package org.f24.service.pdf.impl;
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Simplified;
+import org.f24.exception.ResourceException;
 import org.f24.service.pdf.CreatorHelper;
 import org.f24.service.pdf.FieldEnum;
 import org.f24.service.pdf.PDFCreator;
@@ -28,7 +29,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         this.form = form;
     }
 
-    private void setHeader() throws Exception {
+    private void setHeader() throws ResourceException {
         Header header = this.form.getHeader();
         if(header != null) {
             setField(FieldEnum.DELEGATION.getName(), header.getDelegationTo());
@@ -37,52 +38,52 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setPersonData() throws Exception {
+    private void setPersonData() throws ResourceException {
         PersonData personData = this.form.getTaxPayer().getPersonData();
         if(personData != null && personData.getPersonalData() != null) {
             PersonalData personalData = personData.getPersonalData();
             setField(FieldEnum.CORPORATE_NAME.getName(), personalData.getSurname());
             setField(FieldEnum.NAME.getName(), personalData.getName());
-            setField(FieldEnum.DATE_OF_BIRTH.getName(), personalData.getBirthDate().replace("-", ""));
+            setField(FieldEnum.BIRTH_DATE.getName(), personalData.getBirthDate().replace("-", ""));
             setField(FieldEnum.SEX.getName(), personalData.getSex());
-            setField(FieldEnum.MUNICIPALITY_OF_BIRTH.getName(), personalData.getBirthPlace());
-            setField(FieldEnum.PROVINCE.getName(), personalData.getBirthProvince());
+            setField(FieldEnum.BIRTH_PLACE.getName(), personalData.getBirthPlace());
+            setField(FieldEnum.BIRTH_PROVINCE.getName(), personalData.getBirthProvince());
         }
     }
 
-    private void setCompanyData() throws Exception {
+    private void setCompanyData() throws ResourceException {
         CompanyData companyData = this.form.getTaxPayer().getCompanyData();
         if(companyData != null) {
             setField(FieldEnum.CORPORATE_NAME.getName(), companyData.getName());
         }
     }
 
-    private void setRegistryData() throws Exception {
+    private void setRegistryData() throws ResourceException {
         setPersonData();
         setCompanyData();
     }
 
-    private void setContributor() throws Exception {
+    private void setContributor() throws ResourceException {
         TaxPayer taxPayer = this.form.getTaxPayer();
         if(taxPayer != null) {
             setField(FieldEnum.TAX_CODE.getName(), taxPayer.getTaxCode());
             setField(FieldEnum.OFFICE_CODE.getName(), taxPayer.getOfficeCode());
-            setField(FieldEnum.ACT_CODE.getName(), taxPayer.getDocumentCode());
-            setField(FieldEnum.OTHER_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
+            setField(FieldEnum.DOCUMENT_CODE.getName(), taxPayer.getDocumentCode());
+            setField(FieldEnum.RELATIVE_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
             setField(FieldEnum.ID_CODE.getName(), taxPayer.getIdCode());
             setRegistryData();
         }
     }
 
-    private void setPaymentMotiveRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
-        if (paymentReasonRecord.getRepentance() == Boolean.TRUE) setField(FieldEnum.REPENTANCE.getName() + index, "X");
-        if (paymentReasonRecord.getChangedBuildings() == Boolean.TRUE) setField(FieldEnum.CHANGED_BUILDINGS.getName() + index, "X");
+    private void setPaymentMotiveRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws ResourceException {
+        if (paymentReasonRecord.getReconsideration() == Boolean.TRUE) setField(FieldEnum.RECONSIDERATION.getName() + index, "X");
+        if (paymentReasonRecord.getPropertiesChanges() == Boolean.TRUE) setField(FieldEnum.PROPERTIES_CHANGED.getName() + index, "X");
         if (paymentReasonRecord.getAdvancePayment() == Boolean.TRUE) setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
-        if (paymentReasonRecord.getPayment() == Boolean.TRUE) setField(FieldEnum.PAYMENT.getName() + index, "X");
-        if (paymentReasonRecord.getNumberOfBuildings() != null) setField(FieldEnum.NUMBER_OF_BUILDINGS.getName() + index, paymentReasonRecord.getNumberOfBuildings());
+        if (paymentReasonRecord.getFullPayment() == Boolean.TRUE) setField(FieldEnum.FULL_PAYMENT.getName() + index, "X");
+        if (paymentReasonRecord.getNumberOfProperties() != null) setField(FieldEnum.NUMBER_OF_PROPERTIES.getName() + index, paymentReasonRecord.getNumberOfProperties());
     }
 
-    private void setPaymentMotiveRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
+    private void setPaymentMotiveRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws ResourceException {
         if(paymentReasonRecord.getDeduction() != null) {
             setField(FieldEnum.DEDUCTION.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getDeduction())));
         }
@@ -104,7 +105,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             for (int index = 1; index <= paymentReasonRecordList.size(); index++) {
                 PaymentReasonRecord paymentReasonRecord = paymentReasonRecordList.get(index - 1);
                 setField(FieldEnum.SECTION.getName() + index, paymentReasonRecord.getSection());
-                setField(FieldEnum.TRIBUTE_CODE.getName() + index, paymentReasonRecord.getTributeCode());
+                setField(FieldEnum.TAX_TYPE_CODE.getName() + index, paymentReasonRecord.getTaxTypeCode());
                 setField(FieldEnum.INSTITUTION_CODE.getName() + index, paymentReasonRecord.getInstitutionCode());
                 setPaymentMotiveRecordCheckboxes(paymentReasonRecord, index);
                 setField(FieldEnum.MONTH.getName() + index, paymentReasonRecord.getMonth());
@@ -117,7 +118,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
         }
     }
 
-    private void setPaymentDetails() throws Exception {
+    private void setPaymentDetails() throws ResourceException {
         PaymentDetails paymentDetails = this.form.getPaymentDetails();
         if(paymentDetails != null) {
             setField(FieldEnum.DATE_OF_PAYMENT.getName(), paymentDetails.getPaymentDate().replace("-", ""));

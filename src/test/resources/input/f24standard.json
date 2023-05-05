@@ -56,35 +56,35 @@
         "debitAmount": "7309",
         "creditAmount": "0"
       },
-      {
+       {
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
         "debitAmount": "7309",
         "creditAmount": "0"
       },
-      {
+       {
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
         "debitAmount": "7309",
         "creditAmount": "0"
       },
-      {
+       {
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
         "debitAmount": "7309",
         "creditAmount": "0"
       },
-      {
+       {
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
         "debitAmount": "7309",
         "creditAmount": "0"
       },
-      {
+       {
         "taxTypeCode": "B9AD",
         "installment": "88MP",
         "year": "2617",
@@ -94,6 +94,7 @@
     ],
     "officeCode": "FRH",
     "documentCode": "29542848644"
+    "actCode": "29542848644"
   },
   "inpsSection": {
     "inpsRecordList": [
@@ -108,7 +109,7 @@
         "debitAmount": "84",
         "creditAmount": "0"
       },
-      {
+       {
         "officeCode": "5670",
         "contributionReason": "HHW",
         "inpsCode": "32W95Mf",
@@ -119,7 +120,7 @@
         "debitAmount": "84",
         "creditAmount": "0"
       },
-      {
+       {
         "officeCode": "5670",
         "contributionReason": "HHW",
         "inpsCode": "32W95Mf",
@@ -130,7 +131,7 @@
         "debitAmount": "84",
         "creditAmount": "0"
       },
-      {
+       {
         "officeCode": "5670",
         "contributionReason": "HHW",
         "inpsCode": "32W95Mf",
@@ -141,7 +142,7 @@
         "debitAmount": "84",
         "creditAmount": "0"
       },
-      {
+       {
         "officeCode": "5670",
         "contributionReason": "HHW",
         "inpsCode": "32W95Mf",

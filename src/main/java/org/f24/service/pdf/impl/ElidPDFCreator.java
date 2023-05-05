@@ -3,6 +3,8 @@ package org.f24.service.pdf.impl;
 import org.f24.dto.form.F24Elid;
 import org.f24.service.pdf.PDFCreator;
 
+import com.fasterxml.jackson.core.util.ByteArrayBuilder;
+
 public class ElidPDFCreator implements PDFCreator {
 
     private F24Elid form;
@@ -23,7 +25,7 @@ public class ElidPDFCreator implements PDFCreator {
      */
     @Override
     public byte[] createPDF() {
-        return null;
+        return ByteArrayBuilder.NO_BYTES;
     }
 
 }

@@ -43,9 +43,10 @@ public class StandardValidator extends FormValidator {
     private void validateDebitandCredit(List<? extends Record> targetRecordList) throws ResourceException {
         if (targetRecordList != null) {
             for (Record recordItem : targetRecordList) {
-                if (recordItem.getDebitAmount() != null && recordItem.getDebitAmount().equals("0")
-                        && recordItem.getCreditAmount() != null && recordItem.getCreditAmount().equals("0")) {
-                    //throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage()); // TODO comment for gen test
+                if(recordItem.getDebitAmount() != null && recordItem.getCreditAmount() != null ) {
+                    if (!recordItem.getDebitAmount().equals("0") && !recordItem.getCreditAmount().equals("0")) {
+                        throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage()); // TODO comment for gen test
+                    }
                 }
             }
         }
