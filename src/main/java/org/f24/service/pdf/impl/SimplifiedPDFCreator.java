@@ -75,11 +75,11 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
     }
 
     private void setPaymentMotiveRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
-        if (paymentReasonRecord.getRepentance() == Boolean.TRUE) setField(FieldEnum.RECONSIDERATION.getName() + index, "X");
-        if (paymentReasonRecord.getChangedBuildings() == Boolean.TRUE) setField(FieldEnum.PROPERTIES_CHANGED.getName() + index, "X");
+        if (paymentReasonRecord.getReconsideration() == Boolean.TRUE) setField(FieldEnum.RECONSIDERATION.getName() + index, "X");
+        if (paymentReasonRecord.getPropertiesChanges() == Boolean.TRUE) setField(FieldEnum.PROPERTIES_CHANGED.getName() + index, "X");
         if (paymentReasonRecord.getAdvancePayment() == Boolean.TRUE) setField(FieldEnum.ADVANCE_PAYMENT.getName() + index, "X");
-        if (paymentReasonRecord.getPayment() == Boolean.TRUE) setField(FieldEnum.FULL_PAYMENT.getName() + index, "X");
-        if (paymentReasonRecord.getNumberOfBuildings() != null) setField(FieldEnum.NUMBER_OF_PROPERTIES.getName() + index, paymentReasonRecord.getNumberOfBuildings());
+        if (paymentReasonRecord.getFullPayment() == Boolean.TRUE) setField(FieldEnum.FULL_PAYMENT.getName() + index, "X");
+        if (paymentReasonRecord.getNumberOfProperties() != null) setField(FieldEnum.NUMBER_OF_PROPERTIES.getName() + index, paymentReasonRecord.getNumberOfProperties());
     }
 
     private void setPaymentMotiveRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws Exception {
@@ -104,7 +104,7 @@ public class SimplifiedPDFCreator extends PDFFormManager implements PDFCreator {
             for (int index = 1; index <= paymentReasonRecordList.size(); index++) {
                 PaymentReasonRecord paymentReasonRecord = paymentReasonRecordList.get(index - 1);
                 setField(FieldEnum.SECTION.getName() + index, paymentReasonRecord.getSection());
-                setField(FieldEnum.TAX_TYPE_CODE.getName() + index, paymentReasonRecord.getTributeCode());
+                setField(FieldEnum.TAX_TYPE_CODE.getName() + index, paymentReasonRecord.getTaxTypeCode());
                 setField(FieldEnum.INSTITUTION_CODE.getName() + index, paymentReasonRecord.getInstitutionCode());
                 setPaymentMotiveRecordCheckboxes(paymentReasonRecord, index);
                 setField(FieldEnum.MONTH.getName() + index, paymentReasonRecord.getMonth());
