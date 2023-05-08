@@ -1,8 +1,8 @@
 {
   "header": {
-    "delegationTo": "string",
-    "agency": "string",
-    "province": "MB"
+    "delegationTo": "delegation",
+    "agency": "agency",
+    "province": "MI"
   },
   "taxPayer": {
     "taxCode": "BGCDJV27L49N524I",

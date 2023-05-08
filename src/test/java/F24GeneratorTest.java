@@ -17,22 +17,26 @@ import java.text.ParseException;
 public class F24GeneratorTest {
 
     public static void main(String[] args) throws IOException, ResourceException, ProcessingException, ParseException {
-        String simplifiedJson = "F24-PDF\\src\\test\\resources\\input\\f24simplified.json";
+        String simplifiedJson = "src/test/resources/input/f24simplified.json";
+        //String simplifiedJson = "F24-PDF\\src\\test\\resources\\input\\f24simplified.json";
         String simplifiedString = new String(Files.readAllBytes(Paths.get(simplifiedJson)));
 
         F24Simplified f24Simplified = new ObjectMapper().readValue(simplifiedString, F24Simplified.class);
         Validator simplifiedValidator = ValidatorFactory.createValidator(f24Simplified);
         simplifiedValidator.validate();
 
-        Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24simplified.pdf"), PDFCreatorFactory.createPDFCreator(f24Simplified).createPDF());
+        Files.write(Path.of("src/test/resources/output/f24simplified.pdf"), PDFCreatorFactory.createPDFCreator(f24Simplified).createPDF());
+        //Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24simplified.pdf"), PDFCreatorFactory.createPDFCreator(f24Simplified).createPDF());
 
-        String standardJson = "F24-PDF\\src\\test\\resources\\input\\f24standard.json";
+        String standardJson = "src/test/resources/input/f24standard.json";
+        //String standardJson = "F24-PDF\\src\\test\\resources\\input\\f24standard.json";
         String standardString = new String(Files.readAllBytes(Paths.get(standardJson)));
 
         F24Standard f24Standard = new ObjectMapper().readValue(standardString, F24Standard.class);
         Validator standardValidator = ValidatorFactory.createValidator(f24Standard);
         standardValidator.validate();
 
-        Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
+        Files.write(Path.of("src/test/resources/output/f24standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
+        //Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
     }
 }

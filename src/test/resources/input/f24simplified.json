@@ -1,4 +1,9 @@
 {
+  "header": {
+    "delegationTo": "delegation",
+    "agency": "agency",
+    "province": "MI"
+  },
   "taxPayer": {
     "taxCode": "RSSMLB80A01A200D",
     "personData": {

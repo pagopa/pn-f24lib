@@ -18,7 +18,7 @@ public class PaymentReasonSection extends Section {
      * Constructs Motive for Payment Section (Motivo del Pagamento)
      *
      * @param operationId      operation ID (identificativo operazione)
-     * @param reasonRecordList list of PaymentMotiveRecord components
+     * @param reasonRecordList list of PaymentReasonRecord components
      */
     public PaymentReasonSection(String operationId, List<PaymentReasonRecord> reasonRecordList) {
         this.operationId = operationId;

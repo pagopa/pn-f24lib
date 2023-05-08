@@ -16,7 +16,7 @@ public class F24Simplified extends F24Form {
      * @param header               Header component
      * @param taxPayer             Contributor component
      * @param paymentDetails       PaymentDetails component
-     * @param paymentReasonSection PaymentMotiveSection component
+     * @param paymentReasonSection PaymentReasonSection component
      */
     public F24Simplified(Header header, TaxPayer taxPayer, PaymentDetails paymentDetails, PaymentReasonSection paymentReasonSection) {
         super(header, taxPayer, paymentDetails);
