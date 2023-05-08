@@ -11,7 +11,6 @@ import org.f24.dto.component.Record;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
-import org.f24.service.pdf.util.PDFFormManager;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 
@@ -19,7 +18,7 @@ import org.f24.service.pdf.util.CreatorHelper;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
-public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
+public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24IMU2013.pdf";
     private static final int TAX_RECORDS_NUMBER = 6;
@@ -38,40 +37,8 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
      * @param form F24Standard component (DTO for Standard Form).
      */
     public StandardPDFCreator(F24Standard form) {
+        super(form);
         this.form = form;
-    }
-
-    private void setHeader() throws ResourceException {
-        Header header = this.form.getHeader();
-
-        if (header != null) {
-            setField(DELEGATION.getName(), header.getDelegationTo());
-            setField(AGENCY.getName(), header.getAgency());
-            setField(AGENCY_PROVINCE.getName(), header.getProvince());
-        }
-    }
-
-    private void setPersonData() throws ResourceException {
-        PersonalData personalData = this.form.getTaxPayer().getPersonData().getPersonalData();
-
-        if (personalData != null) {
-            setField(CORPORATE_NAME.getName(), personalData.getSurname());
-            setField(NAME.getName(), personalData.getName());
-            setField(BIRTH_DATE.getName(), personalData.getBirthDate().replace("-", ""));
-            setField(SEX.getName(), personalData.getSex());
-            setField(BIRTH_PLACE.getName(), personalData.getBirthPlace());
-            setField(BIRTH_PROVINCE.getName(), personalData.getBirthProvince());
-        }
-    }
-
-    private void setTaxResidenceData() throws ResourceException {
-        TaxAddress taxResidenceData = this.form.getTaxPayer().getPersonData().getTaxAddress();
-
-        if (taxResidenceData != null) {
-            setField(ADDRESS.getName(), taxResidenceData.getAddress());
-            setField(MUNICIPALITY.getName(), taxResidenceData.getMunicipality());
-            setField(TAX_PROVINCE.getName(), taxResidenceData.getProvince());
-        }
     }
 
     private void setTaxPayer() throws ResourceException {
@@ -85,16 +52,8 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             if (taxPayer.getIsNotTaxYear())
                 setField(IS_NOT_TAX_YEAR.getName(), "X");
 
-            setPersonData();
-            setCompanyData();
+            setRegistryData();
             setTaxResidenceData();
-        }
-    }
-
-    private void setCompanyData() throws ResourceException {
-        CompanyData companyData = this.form.getTaxPayer().getCompanyData();
-        if (companyData != null) {
-            setField(CORPORATE_NAME.getName(), companyData.getName());
         }
     }
 
@@ -237,22 +196,6 @@ public class StandardPDFCreator extends PDFFormManager implements PDFCreator {
             }
 
             setSectionTotals(sectionId, inailRecordList);
-        }
-    }
-
-    private void setPaymentDetails() throws ResourceException {
-        PaymentDetails paymentDetails = this.form.getPaymentDetails();
-
-        setField(DATE_OF_PAYMENT.getName(), paymentDetails.getPaymentDate().replace("-", ""));
-        setField(COMPANY.getName(), paymentDetails.getCompany());
-        setField(CAB_CODE.getName(), paymentDetails.getCabCode());
-        setField(CHECK_NUMBER.getName(), paymentDetails.getCheckNumber());
-        setField(ABI_CODE.getName(), paymentDetails.getAbiCode());
-
-        if (paymentDetails.isBank()) {
-            setField(BANK.getName(), "X");
-        } else {
-            setField(CIRCULAR.getName(), "X");
         }
     }
 
