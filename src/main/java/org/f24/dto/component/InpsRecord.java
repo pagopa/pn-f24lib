@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class InpsRecord {
+public class InpsRecord extends Record {
 
     private String officeCode;
 
@@ -10,30 +10,25 @@ public class InpsRecord {
 
     private Period period;
 
-    private String debitAmount;
-
-    private String creditAmount;
-
     public InpsRecord() {
     }
 
     /**
      * Constructs INPS record for INPS Section (Sezione INPS)
      *
-     * @param officeCode       location code (codice sede)
+     * @param officeCode         location code (codice sede)
      * @param contributionReason contribution reason (causale contributo)
      * @param inpsCode           INPS number/INPS code/ company branch (matricola INPS/codice INPS/ filiale azienda)
-     * @param period    ReportingPeriod component (periodo di riferimento)
+     * @param period             ReportingPeriod component (periodo di riferimento)
      * @param debitAmount        debit amounts paid (importi a debito versati)
      * @param creditAmount       credit amounts offset (importi a credito compensati)
      */
     public InpsRecord(String officeCode, String contributionReason, String inpsCode, Period period, String debitAmount, String creditAmount) {
+        super(debitAmount, creditAmount, "");
         this.officeCode = officeCode;
         this.contributionReason = contributionReason;
         this.inpsCode = inpsCode;
         this.period = period;
-        this.debitAmount = debitAmount;
-        this.creditAmount = creditAmount;
     }
 
     public String getOfficeCode() {
@@ -66,22 +61,6 @@ public class InpsRecord {
 
     public void setPeriod(Period period) {
         this.period = period;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
-    }
-
-    public String getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(String creditAmount) {
-        this.creditAmount = creditAmount;
     }
 
 }

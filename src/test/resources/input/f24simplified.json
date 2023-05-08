@@ -1,14 +1,19 @@
 {
+  "header": {
+    "delegationTo": "delegation",
+    "agency": "agency",
+    "province": "MI"
+  },
   "taxPayer": {
     "taxCode": "RSSMLB80A01A200D",
     "personData": {
       "personalData": {
         "surname": "ROSSI",
         "name": "MARIO ALBERTO",
-        "birthdate": "01-01-1980",
+        "birthDate": "01-01-1980",
         "sex": "M",
-        "birthMunicipality": "MILANO",
-        "province": "MI"
+        "birthPlace": "MILANO",
+        "birthProvince": "MI"
       }
     }
   },
@@ -16,12 +21,12 @@
     "reasonRecordList": [
       {
         "section": "ER",
-        "tributeCode": "TSC1",
-        "institutionCode": "1111",
-        "repentance": false,
-        "changedBuildings": false,
+        "taxTypeCode": "TSC1",
+        "institutionCode": "1211",
+        "reconsideration": false,
+        "propertiesChanges": false,
         "advancePayment": false,
-        "payment": false,
+        "fullPayment": false,
         "month": "0101",
         "deduction": "604",
         "year": "2020",

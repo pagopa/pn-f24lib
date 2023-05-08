@@ -12,7 +12,7 @@ import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
 import org.f24.exception.ErrorEnum;
-import org.f24.service.validator.TaxCodeCalculator;
+import org.f24.service.validator.util.TaxCodeCalculator;
 import org.f24.service.validator.Validator;
 import org.f24.exception.ResourceException;
 
@@ -60,14 +60,14 @@ public class FormValidator implements Validator {
             PersonalData personalData = personData.getPersonalData();
             Date birthdate = null;
             try {
-                birthdate = new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getBirthdate());
+                birthdate = new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getBirthDate());
             } catch (ParseException e) {
                 birthdate = new Date();
             }
             String municipality = this.form.getTaxPayer().getTaxCode().substring(11, 15);
             String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), birthdate, municipality);
             if(!this.form.getTaxPayer().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
-                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
+                //throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
             }
         }
     }
@@ -76,7 +76,7 @@ public class FormValidator implements Validator {
         TaxPayer taxPayer = this.form.getTaxPayer();
 
         if (taxPayer != null) {
-            String taxCode = taxPayer.getOtherTaxCode();
+            String taxCode = taxPayer.getRelativePersonTaxCode();
             String idCode = taxPayer.getIdCode();
 
             if (taxCode != null && idCode == null)

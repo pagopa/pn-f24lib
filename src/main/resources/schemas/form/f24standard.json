@@ -20,14 +20,11 @@
     "regionSection": {
       "$ref": "resource:/schemas/component/region-section.json"
     },
-    "imuSection": {
-      "$ref": "resource:/schemas/component/imu-section.json"
+    "localTaxSection": {
+      "$ref": "resource:/schemas/component/local-tax-section.json"
     },
-    "securitySection": {
+    "socialSecuritySection": {
       "$ref": "resource:/schemas/component/social-security-section.json"
-    },
-    "ibanCode": {
-      "type": "string"
     }
   }
 }

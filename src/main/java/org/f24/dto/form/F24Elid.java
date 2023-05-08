@@ -17,7 +17,7 @@ public class F24Elid extends F24Form {
      * Constructs F24 ELID dto.
      *
      * @param header            Header component
-     * @param taxPayer       Contributor component
+     * @param taxPayer          Contributor component
      * @param paymentDetails    PaymentDetails component
      * @param treasurySection   TreasuryAndOtherSection component
      * @param bankAccountNumber bank account debit authorization n (autorizzo addebito su conto corrente bancario n°)
@@ -25,7 +25,7 @@ public class F24Elid extends F24Form {
      * @param bankId            bank ID (CAB)
      */
     public F24Elid(Header header, TaxPayer taxPayer, PaymentDetails paymentDetails, TreasuryAndOtherSection treasurySection, String bankAccountNumber, String abiCode, String bankId) {
-        super(header, taxPayer,  paymentDetails);
+        super(header, taxPayer, paymentDetails);
         this.treasurySection = treasurySection;
         this.bankAccountNumber = bankAccountNumber;
         this.abiCode = abiCode;

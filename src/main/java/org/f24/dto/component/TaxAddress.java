@@ -8,7 +8,8 @@ public class TaxAddress {
 
     private String address;
 
-    public TaxAddress() {}
+    public TaxAddress() {
+    }
 
     /**
      * Constructs tax residence section of contributor (domicilio fiscale)

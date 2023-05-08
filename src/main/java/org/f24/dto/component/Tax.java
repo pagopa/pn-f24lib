@@ -1,41 +1,39 @@
 package org.f24.dto.component;
 
-public class Tax {
+public class Tax extends Record {
 
-    private String tributeCode;
+    private String taxTypeCode;
 
     private String installment;
 
     private String year;
 
-    private String debitAmount;
-
-    private String creditAmount;
-
     /**
      * Constructs  taxes : direct taxes - VAT IMPOSTE (imposte dirette - IVA),
      * withhholding taxes (ritenute alla fonte) ant other taxes (altri tributi ed interessi)
      *
-     * @param tributeCode   tribute code (codice tributo)
-     * @param installment   installment/region/ prov./month ref (rateazione/regione/ prov./mese rif.)
-     * @param year reporting year (anno di riferimento)
-     * @param debitAmount   debit amounts paid (importi a debito versati)
-     * @param creditAmount  credit amounts offset (importi a credito)
+     * @param taxTypeCode  tribute code (codice tributo)
+     * @param installment  installment/region/ prov./month ref (rateazione/regione/ prov./mese rif.)
+     * @param year         reporting year (anno di riferimento)
+     * @param debitAmount  debit amounts paid (importi a debito versati)
+     * @param creditAmount credit amounts offset (importi a credito)
      */
-    public Tax(String tributeCode, String installment, String year, String debitAmount, String creditAmount) {
-        this.tributeCode = tributeCode;
+    public Tax(String taxTypeCode, String installment, String year, String debitAmount, String creditAmount) {
+        super(debitAmount, creditAmount, "");
+        this.taxTypeCode = taxTypeCode;
         this.installment = installment;
         this.year = year;
-        this.debitAmount = debitAmount;
-        this.creditAmount = creditAmount;
     }
 
-    public String getTributeCode() {
-        return tributeCode;
+    public Tax() {
     }
 
-    public void setTributeCode(String tributeCode) {
-        this.tributeCode = tributeCode;
+    public String getTaxTypeCode() {
+        return taxTypeCode;
+    }
+
+    public void setTaxTypeCode(String taxTypeCode) {
+        this.taxTypeCode = taxTypeCode;
     }
 
     public String getInstallment() {
@@ -52,22 +50,6 @@ public class Tax {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
-    }
-
-    public String getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(String creditAmount) {
-        this.creditAmount = creditAmount;
     }
 
 }

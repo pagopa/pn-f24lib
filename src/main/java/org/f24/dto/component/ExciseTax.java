@@ -1,6 +1,6 @@
 package org.f24.dto.component;
 
-public class ExciseTax {
+public class ExciseTax extends Record {
 
     private String institution;
 
@@ -16,21 +16,20 @@ public class ExciseTax {
 
     private String year;
 
-    private String debitAmount;
-
     /**
      * Constructs excise tax for excise section (sezione Accise)
      *
-     * @param institution   institution (ente)
-     * @param province      province (prov.)
-     * @param idCode        ID Code (codice identificativo )
-     * @param tributeCode   tribute code (codice tributo)
-     * @param installment   installment (rateazione)
-     * @param month         month (mese rif.)
-     * @param year reporting year (anno di riferimento)
-     * @param debitAmount   debit amounts paid (debit amounts paid)
+     * @param institution institution (ente)
+     * @param province    province (prov.)
+     * @param idCode      ID Code (codice identificativo )
+     * @param tributeCode tribute code (codice tributo)
+     * @param installment installment (rateazione)
+     * @param month       month (mese rif.)
+     * @param year        reporting year (anno di riferimento)
+     * @param debitAmount debit amounts paid (debit amounts paid)
      */
     public ExciseTax(String institution, String province, String idCode, String tributeCode, String installment, String month, String year, String debitAmount) {
+        super(debitAmount, "", "");
         this.institution = institution;
         this.province = province;
         this.idCode = idCode;
@@ -38,7 +37,9 @@ public class ExciseTax {
         this.installment = installment;
         this.month = month;
         this.year = year;
-        this.debitAmount = debitAmount;
+    }
+
+    public ExciseTax() {
     }
 
     public String getInstitution() {
@@ -95,14 +96,6 @@ public class ExciseTax {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
     }
 
 }

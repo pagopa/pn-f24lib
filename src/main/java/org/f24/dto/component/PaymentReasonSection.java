@@ -5,19 +5,20 @@ import java.util.List;
 import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
 
-public class PaymentReasonSection {
+public class PaymentReasonSection extends Section {
 
     private String operationId;
 
     private List<PaymentReasonRecord> reasonRecordList;
 
-    public PaymentReasonSection() {}
+    public PaymentReasonSection() {
+    }
 
     /**
      * Constructs Motive for Payment Section (Motivo del Pagamento)
      *
      * @param operationId      operation ID (identificativo operazione)
-     * @param reasonRecordList list of PaymentMotiveRecord components
+     * @param reasonRecordList list of PaymentReasonRecord components
      */
     public PaymentReasonSection(String operationId, List<PaymentReasonRecord> reasonRecordList) {
         this.operationId = operationId;
@@ -41,11 +42,11 @@ public class PaymentReasonSection {
     }
 
     public Integer getTotalAmount() throws ResourceException {
-        Integer totalAmount =  getReasonRecordList()
+        Integer totalAmount = getReasonRecordList()
                 .stream()
                 .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0") - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
                 .sum();
-        if(totalAmount < 0) {
+        if (totalAmount < 0) {
             throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());
         }
         return totalAmount;
