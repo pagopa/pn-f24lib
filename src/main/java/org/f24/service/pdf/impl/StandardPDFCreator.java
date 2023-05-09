@@ -351,6 +351,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                 // setPaymentDetails();
                 setField(IBAN_CODE.getName(), this.form.getIbanCode());
                 setField(TOTAL_AMOUNT.getName(), helper.getMoney(totalBalance));
+                totalBalance = 0;
             }
 
             mergeCopies();
