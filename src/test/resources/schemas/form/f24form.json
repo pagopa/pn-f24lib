@@ -10,9 +10,6 @@
     },
     "paymentDetails": {
       "$ref": "resource:/schemas/component/payment-details.json"
-    },
-    "paymentReasonSection": {
-      "$ref": "resource:/schemas/component/payment-reason-section.json"
     }
   }
 }

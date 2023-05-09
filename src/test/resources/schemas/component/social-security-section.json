@@ -3,16 +3,12 @@
   "type": "object",
   "properties": {
     "inailRecords": {
-      "maxItems": 3,
-      "minItems": 0,
       "type": "array",
       "items": {
         "$ref": "resource:/schemas/component/inail-record.json"
       }
     },
     "socialSecurityRecordList": {
-      "maxItems": 2,
-      "minItems": 0,
       "type": "array",
       "items": {
         "$ref": "resource:/schemas/component/social-security-record.json"

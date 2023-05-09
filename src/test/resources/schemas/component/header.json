@@ -1,16 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
+  "type": ["object", "null"],
   "properties": {
     "delegationTo": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "agency": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "province": {
       "pattern": "^[A-Z]{2}$",
-      "type": "string"
+      "type": ["string", "null"]
     }
   },
   "description": "Header object"
