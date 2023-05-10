@@ -19,6 +19,13 @@ public class CreatorHelper {
     return integerPart + "  " + decimalPartString;
   }
 
+  public String[] splitField(double input) {
+    input = Math.round(input * 100.0) / 100.0;
+    int integerPart = (int) input;
+    double decimalPart = input - integerPart;
+    return new String[]{Integer.toString(integerPart), String.format(Locale.ROOT, "%.2f", decimalPart).split("\\.")[1]};
+  }
+
   public Integer getTotalAmount(List<? extends Record> totalRecord) throws ResourceException {
 
     if (totalRecord == null)
@@ -30,8 +37,8 @@ public class CreatorHelper {
             - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
         .sum();
     if (totalAmount < 0) {
-      // throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());// TODO comment for gen testing
-      totalAmount *= -1;// TODO uncomment for gen testing
+      throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());// TODO comment for gen testing
+      //totalAmount *= -1;// TODO uncomment for gen testing
     }
     return totalAmount;
   }

@@ -3,7 +3,6 @@ package org.f24.service.pdf.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Logger;
 
 import org.f24.dto.component.*;
@@ -266,7 +265,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
     }
 
     private void setMultiField(String fieldName, Double sourceRecord) throws ResourceException {
-        String[] splittedCreditAmount = splitField(sourceRecord);
+        String[] splittedCreditAmount = helper.splitField(sourceRecord);
         setField(fieldName + "Int", splittedCreditAmount[0]);
         setField(fieldName + "Dec", splittedCreditAmount[1]);
     }
@@ -277,13 +276,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
         setField(fieldName + "Month" + sectionId + index, monthPart);
         setField(fieldName + "Year" + sectionId + index, yearPart);
-    }
-
-    private String[] splitField(double input) {
-        input = Math.round(input * 100.0) / 100.0;
-        int integerPart = (int) input;
-        double decimalPart = input - integerPart;
-        return new String[]{Integer.toString(integerPart), String.format(Locale.ROOT, "%.2f", decimalPart).split("\\.")[1]};
     }
 
     /**
