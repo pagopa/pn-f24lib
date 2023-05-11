@@ -1,4 +1,4 @@
-package org.f24.service.pdf;
+package org.f24.service.pdf.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.f24.dto.form.F24Simplified;
