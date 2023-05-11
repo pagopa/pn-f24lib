@@ -1,5 +1,7 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import org.f24.dto.form.F24Excise;
+import org.f24.dto.form.F24Form;
 import org.f24.dto.form.F24Simplified;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
@@ -38,5 +40,17 @@ public class F24GeneratorTest {
 
         Files.write(Path.of("src/test/resources/output/f24standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
         //Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
+
+        String exciseJson = "src/test/resources/input/f24excise.json";
+        //String standardJson = "F24-PDF\\src\\test\\resources\\input\\f24excise.json";
+        String exciseString = new String(Files.readAllBytes(Paths.get(exciseJson)));
+
+        F24Excise f24Excise = new ObjectMapper().readValue(exciseString, F24Excise.class);
+        Validator exciseValidator = ValidatorFactory.createValidator(f24Excise);
+        exciseValidator.validate();
+
+        Files.write(Path.of("src/test/resources/output/f24excise1.pdf"), PDFCreatorFactory.createPDFCreator(f24Excise).createPDF());
+        //Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24excise.pdf"), PDFCreatorFactory.createPDFCreator(f24Excise).createPDF());
     }
+
 }

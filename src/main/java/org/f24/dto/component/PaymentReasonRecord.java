@@ -6,7 +6,7 @@ public class PaymentReasonRecord extends Record {
 
     private String taxTypeCode;
 
-    private String institutionCode;
+    private String municipalityCode;
 
     private Boolean reconsideration;
     private Boolean propertiesChanges;
@@ -24,7 +24,7 @@ public class PaymentReasonRecord extends Record {
      *
      * @param section            section (sezione)
      * @param taxTypeCode        tax type code (cod. tributo)
-     * @param institutionCode    institution code (codice ente )
+     * @param municipalityCode   municipality code (codice ente )
      * @param reconsideration    reconsideration (ravvedimento)
      * @param propertiesChanges  properties changes (immobiliare variati)
      * @param advancePayment     advance payment (acconto)
@@ -36,11 +36,11 @@ public class PaymentReasonRecord extends Record {
      * @param debitAmount        debit amounts paid (importi a debito versati)
      * @param creditAmount       credit amounts offset (importi a credito compensati)
      */
-    public PaymentReasonRecord(String section, String taxTypeCode, String institutionCode, Boolean reconsideration, Boolean propertiesChanges, Boolean advancePayment, Boolean fullPayment, String numberOfProperties, String month, String deduction, String year, String debitAmount, String creditAmount) {
+    public PaymentReasonRecord(String section, String taxTypeCode, String municipalityCode, Boolean reconsideration, Boolean propertiesChanges, Boolean advancePayment, Boolean fullPayment, String numberOfProperties, String month, String deduction, String year, String debitAmount, String creditAmount) {
         super(debitAmount, creditAmount, deduction);
         this.section = section;
         this.taxTypeCode = taxTypeCode;
-        this.institutionCode = institutionCode;
+        this.municipalityCode = municipalityCode;
         this.reconsideration = reconsideration;
         this.propertiesChanges = propertiesChanges;
         this.advancePayment = advancePayment;
@@ -69,13 +69,9 @@ public class PaymentReasonRecord extends Record {
         this.taxTypeCode = taxTypeCode;
     }
 
-    public String getInstitutionCode() {
-        return institutionCode;
-    }
+    public String getMunicipalityCode() { return municipalityCode; }
 
-    public void setInstitutionCode(String institutionCode) {
-        this.institutionCode = institutionCode;
-    }
+    public void setMunicipalityCode(String municipalityCode) { this.municipalityCode = municipalityCode; }
 
     public Boolean getReconsideration() {
         return reconsideration;

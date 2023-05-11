@@ -19,7 +19,7 @@ public class F24Form {
      * Constructs basic components of F24 forms
      *
      * @param header         Header component
-     * @param taxPayer       Contributor component
+     * @param taxPayer       TaxPayer component
      * @param paymentDetails PaymentDetails component
      */
     public F24Form(Header header, TaxPayer taxPayer, PaymentDetails paymentDetails) {

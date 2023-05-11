@@ -23,7 +23,7 @@ public enum FieldEnum {
     IS_NOT_TAX_YEAR("calendarYear"),
     OPERATION_ID("operationId"),
     TAX_TYPE_CODE("taxTypeCode"),
-    INSTITUTION_CODE("institutionCode"),
+    EXCISE_PROVINCE("exciseProvince"),
     RECONSIDERATION("reconsideration"),
     PROPERTIES_CHANGED("propertiesChanges"),
     ADVANCE_PAYMENT("advancePayment"),

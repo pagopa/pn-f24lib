@@ -13,7 +13,7 @@ public class PersonData {
      * Constructs personal data section of contributor (dati anagrafici PF)
      *
      * @param personalData PersonalData component (dati anagrafici)
-     * @param taxAddress   TaxResidence component (domicilio fiscale)
+     * @param taxAddress   TaxAddress component (domicilio fiscale)
      */
     public PersonData(PersonalData personalData, TaxAddress taxAddress) {
         this.personalData = personalData;

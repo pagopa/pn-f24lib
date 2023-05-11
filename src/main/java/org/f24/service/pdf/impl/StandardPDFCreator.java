@@ -77,7 +77,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
                 index++;
             }
-
             setSectionTotals(sectionId, inpsRecordList);
         }
     }
@@ -96,21 +95,20 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                 setField(TAX_TYPE_CODE.getName() + sectionId + index, localTaxRecord.getTaxTypeCode());
                 setField(MUNICIPALITY_CODE.getName() + sectionId + index, localTaxRecord.getMunicipalityCode());
 
-                if (localTaxRecord.getReconsideration() != null) {
+                if (localTaxRecord.getReconsideration() != null && localTaxRecord.getReconsideration())
                     setField(RECONSIDERATION.getName() + index, "X");
-                }
-                if (localTaxRecord.getPropertiesChanges() != null) {
+
+                if (localTaxRecord.getPropertiesChanges() != null && localTaxRecord.getPropertiesChanges())
                     setField(PROPERTIES_CHANGED.getName() + index, "X");
-                }
-                if (localTaxRecord.getAdvancePayment() != null) {
+
+                if (localTaxRecord.getAdvancePayment() != null && localTaxRecord.getAdvancePayment())
                     setField(ADVANCE_PAYMENT.getName() + index, "X");
-                }
-                if (localTaxRecord.getFullPayment() != null) {
+
+                if (localTaxRecord.getFullPayment() != null && localTaxRecord.getFullPayment())
                     setField(FULL_PAYMENT.getName() + index, "X");
-                }
-                if (localTaxRecord.getNumberOfProperties() != null) {
+
+                if (localTaxRecord.getNumberOfProperties() != null)
                     setField(NUMBER_OF_PROPERTIES.getName() + index, localTaxRecord.getNumberOfProperties());
-                }
 
                 setSectionRecordAmounts(sectionId, index, localTaxRecord);
 
@@ -158,7 +156,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
             int index = 1;
             for (SocialSecurityRecord socSecRecord : socSecurityList) {
-                setField(INSTITUTION_CODE.getName() + sectionId, socSecRecord.getInstitutionCode());
+                setField(MUNICIPALITY_CODE.getName() + sectionId, socSecRecord.getMunicipalityCode());
                 setField(OFFICE_CODE.getName() + sectionId + index, socSecRecord.getOfficeCode());
                 setField(CONTRIBUTION_REASON.getName() + sectionId + index, socSecRecord.getContributionReason());
                 setField(POSITION_CODE.getName() + sectionId + index, socSecRecord.getPositionCode());
@@ -265,26 +263,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
     }
 
-    private void setMultiField(String fieldName, Double sourceRecord) throws ResourceException {
-        String[] splittedCreditAmount = splitField(sourceRecord);
-        setField(fieldName + "Int", splittedCreditAmount[0]);
-        setField(fieldName + "Dec", splittedCreditAmount[1]);
-    }
-
-    private void setMultiDate(String fieldName, String sectionId, int index, String date) throws ResourceException {
-        String monthPart = date.substring(0, 2);
-        String yearPart = date.substring(2, date.length() - 1);
-
-        setField(fieldName + "Month" + sectionId + index, monthPart);
-        setField(fieldName + "Year" + sectionId + index, yearPart);
-    }
-
-    private String[] splitField(double input) {
-        input = Math.round(input * 100.0) / 100.0;
-        int integerPart = (int) input;
-        double decimalPart = input - integerPart;
-        return new String[]{Integer.toString(integerPart), String.format(Locale.ROOT, "%.2f", decimalPart).split("\\.")[1]};
-    }
 
     /**
      * Method which creates PDF Document for F24 Standard Form.

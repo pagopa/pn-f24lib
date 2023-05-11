@@ -21,7 +21,7 @@ public class F24Standard extends F24Form {
      * Constructs F24 Standard dto.
      *
      * @param header                Header component
-     * @param taxPayer              Contributor component
+     * @param taxPayer              TaxPayer component
      * @param paymentDetails        PaymentDetails component
      * @param treasurySection       TreasurySection component
      * @param inpsSection           InpsSection component

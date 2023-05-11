@@ -17,7 +17,7 @@ public class F24Elid extends F24Form {
      * Constructs F24 ELID dto.
      *
      * @param header            Header component
-     * @param taxPayer          Contributor component
+     * @param taxPayer          TaxPayer component
      * @param paymentDetails    PaymentDetails component
      * @param treasurySection   TreasuryAndOtherSection component
      * @param bankAccountNumber bank account debit authorization n (autorizzo addebito su conto corrente bancario n°)

@@ -19,7 +19,7 @@ public class InpsRecord extends Record {
      * @param officeCode         location code (codice sede)
      * @param contributionReason contribution reason (causale contributo)
      * @param inpsCode           INPS number/INPS code/ company branch (matricola INPS/codice INPS/ filiale azienda)
-     * @param period             ReportingPeriod component (periodo di riferimento)
+     * @param period             Period component (periodo di riferimento)
      * @param debitAmount        debit amounts paid (importi a debito versati)
      * @param creditAmount       credit amounts offset (importi a credito compensati)
      */
