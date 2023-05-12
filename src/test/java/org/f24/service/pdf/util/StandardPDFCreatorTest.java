@@ -33,7 +33,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
 import static org.f24.service.pdf.util.FieldEnum.*;
 
 public class StandardPDFCreatorTest {
@@ -61,14 +60,6 @@ public class StandardPDFCreatorTest {
 
         pdfCreator = new StandardPDFCreator(form);
         pdfCreator.loadDoc("templates" + "/ModF24IMU2013.pdf");
-    }
-
-    @Test
-    public void givenSimplifiedObject_whenGeneratePDF_thenReturnByteArray() {
-        byte[] generatedPDF = pdfCreator.createPDF();
-
-        assertNotNull(generatedPDF);
-        assertTrue(generatedPDF.length > 0);
     }
 
     @Test
@@ -463,5 +454,13 @@ public class StandardPDFCreatorTest {
 
         pdfCreator.setField(START_DATE.getName() + "Month" + 6 + 1, monthPart);
         pdfCreator.setField(START_DATE.getName() + "Year" + 6 + 1, yearPart);
+    }
+
+    @Test
+    public void givenSimplifiedObject_whenGeneratePDF_thenReturnByteArray() {
+        byte[] generatedPDF = pdfCreator.createPDF();
+
+        assertNotNull(generatedPDF);
+        assertTrue(generatedPDF.length > 0);
     }
 }
