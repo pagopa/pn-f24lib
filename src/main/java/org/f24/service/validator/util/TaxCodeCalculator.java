@@ -71,7 +71,7 @@ public class TaxCodeCalculator {
                         + "' can not contain special characters.");
     }
 
-    private static String getConsVow(String string, boolean conson) {
+    protected static String getConsVow(String string, boolean conson) {
         StringBuilder text = new StringBuilder();
         int i = 0;
         char[] valChar = string.toCharArray();
@@ -83,7 +83,7 @@ public class TaxCodeCalculator {
         return text.toString();
     }
 
-    private static StringBuilder calculateLastnameCod(String stringa) {
+    protected static StringBuilder calculateLastnameCod(String stringa) {
 
         StringBuilder cod = new StringBuilder();
 
@@ -102,7 +102,7 @@ public class TaxCodeCalculator {
 
     }
 
-    private static StringBuilder calculateFirstnameCod(String stringa) {
+    protected static StringBuilder calculateFirstnameCod(String stringa) {
 
         StringBuilder cod = new StringBuilder(getConsVow(stringa, true));
 
@@ -124,7 +124,7 @@ public class TaxCodeCalculator {
 
     }
 
-    private static StringBuilder calculateDtCod(Date birthDate, String sex) {
+    protected static StringBuilder calculateDtCod(Date birthDate, String sex) {
 
         StringBuilder cod = new StringBuilder();
 
@@ -150,7 +150,7 @@ public class TaxCodeCalculator {
 
     }
 
-    private static Character calculateControlChar(StringBuilder taxCode) {
+    protected static Character calculateControlChar(StringBuilder taxCode) {
 
         Integer sum = 0;
 
@@ -169,7 +169,7 @@ public class TaxCodeCalculator {
 
     }
 
-    private static String getSubstitutionChar(String value){
+    protected static String getSubstitutionChar(String value){
 
         for (int i = 0; i < CHAR_SUBSTITUTION[1].length;i++){
 
