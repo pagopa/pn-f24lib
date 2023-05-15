@@ -28,7 +28,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -38,7 +37,6 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 public class StandardPDFCreatorTest {
 
     private StandardPDFCreator pdfCreator;
-    private CreatorHelper helper = new CreatorHelper();
     List<Record> recordList;
     F24Standard form;
 
@@ -109,7 +107,7 @@ public class StandardPDFCreatorTest {
         assertNotNull(inpsSection);
         assertNotNull(inpsRecordList);
 
-        inpsRecordList = helper.paginateList(0, 4, inpsRecordList);
+        inpsRecordList = pdfCreator.paginateList(0, 4, inpsRecordList);
 
         int index = 1;
         for (InpsRecord inpsRecord : inpsRecordList) {
@@ -143,7 +141,7 @@ public class StandardPDFCreatorTest {
         assertNotNull(localTaxSection);
         assertNotNull(localTaxRecordList);
 
-        localTaxRecordList = helper.paginateList(0, 4, localTaxRecordList);
+        localTaxRecordList = pdfCreator.paginateList(0, 4, localTaxRecordList);
 
         int index = 1;
         for (LocalTaxRecord localTaxRecord : localTaxRecordList) {
@@ -203,7 +201,7 @@ public class StandardPDFCreatorTest {
         assertNotNull(treasurySection);
         assertNotNull(taxList);
 
-        taxList = helper.paginateList(0, 6, taxList);
+        taxList = pdfCreator.paginateList(0, 6, taxList);
 
         int index = 1;
         for (Tax taxRecord : taxList) {
@@ -246,7 +244,7 @@ public class StandardPDFCreatorTest {
         assertNotNull(socSecurity);
         assertNotNull(socSecurityList);
 
-        socSecurityList = helper.paginateList(0, 2, socSecurityList);
+        socSecurityList = pdfCreator.paginateList(0, 2, socSecurityList);
 
         int index = 1;
         for (SocialSecurityRecord socSecRecord : socSecurityList) {
@@ -284,7 +282,7 @@ public class StandardPDFCreatorTest {
         assertNotNull(socSecurity);
         assertNotNull(inailRecordList);
 
-        inailRecordList = helper.paginateList(0, 3, inailRecordList);
+        inailRecordList = pdfCreator.paginateList(0, 3, inailRecordList);
 
         int index = 1;
         for (InailRecord inailRecord : inailRecordList) {
@@ -355,10 +353,10 @@ public class StandardPDFCreatorTest {
         pdfCreator.setIndex(0);
         String sectionId = "5";
 
-        assertNotNull(helper.getTotalAmount(recordList));
+        assertNotNull(pdfCreator.getTotalAmount(recordList));
 
-        Integer total = helper.getTotalAmount(recordList);
-        String parsedTotal = helper.getMoney(total);
+        Integer total = pdfCreator.getTotalAmount(recordList);
+        String parsedTotal = pdfCreator.getMoney(total);
         pdfCreator.setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
 
         assertEquals(pdfCreator.getField(TOTAL_AMOUNT.getName() + sectionId).getValueAsString(), parsedTotal);
@@ -369,10 +367,10 @@ public class StandardPDFCreatorTest {
         pdfCreator.setIndex(0);
         String sectionId = "5";
 
-        assertNotNull(helper.getDebitTotal(recordList));
+        assertNotNull(pdfCreator.getDebitTotal(recordList));
 
-        Integer debitTotal = helper.getDebitTotal(recordList);
-        String parsedTotal = helper.getMoney(debitTotal);
+        Integer debitTotal = pdfCreator.getDebitTotal(recordList);
+        String parsedTotal = pdfCreator.getMoney(debitTotal);
         pdfCreator.setField(TOTAL_DEBIT.getName() + sectionId, parsedTotal);
 
         assertEquals(pdfCreator.getField(TOTAL_DEBIT.getName() + sectionId).getValueAsString(), parsedTotal);
@@ -383,10 +381,10 @@ public class StandardPDFCreatorTest {
         pdfCreator.setIndex(0);
         String sectionId = "5";
 
-        assertNotNull(helper.getCreditTotal(recordList));
+        assertNotNull(pdfCreator.getCreditTotal(recordList));
 
-        Integer creditTotal = helper.getCreditTotal(recordList);
-        String parsedTotal = helper.getMoney(creditTotal);
+        Integer creditTotal = pdfCreator.getCreditTotal(recordList);
+        String parsedTotal = pdfCreator.getMoney(creditTotal);
         pdfCreator.setField(TOTAL_CREDIT.getName() + sectionId, parsedTotal);
 
         assertEquals(pdfCreator.getField(TOTAL_CREDIT.getName() + sectionId).getValueAsString(), parsedTotal);
@@ -402,7 +400,7 @@ public class StandardPDFCreatorTest {
         int index = 1;
         for (Record record : recordList) {
             String recordCredit = record.getCreditAmount();
-            String parsedCredit = helper.getMoney(Integer.parseInt(recordCredit));
+            String parsedCredit = pdfCreator.getMoney(Integer.parseInt(recordCredit));
             pdfCreator.setField(CREDIT_AMOUNT.getName() + sectionId + index, parsedCredit);
 
             assertEquals(pdfCreator.getField(CREDIT_AMOUNT.getName() + sectionId + index).getValueAsString(), parsedCredit);
@@ -422,7 +420,7 @@ public class StandardPDFCreatorTest {
         int index = 1;
         for (Record record : recordList) {
             String recordCredit = record.getDebitAmount();
-            String parsedDebit = helper.getMoney(Integer.parseInt(recordCredit));
+            String parsedDebit = pdfCreator.getMoney(Integer.parseInt(recordCredit));
             pdfCreator.setField(DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
 
             assertEquals(pdfCreator.getField(DEBIT_AMOUNT.getName() + sectionId + index).getValueAsString(), parsedDebit);
@@ -436,7 +434,7 @@ public class StandardPDFCreatorTest {
     public void shouldFillMultiField() throws ResourceException {
         pdfCreator.setIndex(0);
 
-        String[] splittedCreditAmount = helper.splitField(1235.456);
+        String[] splittedCreditAmount = pdfCreator.splitField(1235.456);
         pdfCreator.setField(DEDUCTION.getName() + "Int", splittedCreditAmount[0]);
         pdfCreator.setField(DEDUCTION.getName() + "Dec", splittedCreditAmount[1]);
 

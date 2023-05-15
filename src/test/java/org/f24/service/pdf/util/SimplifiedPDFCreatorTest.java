@@ -12,7 +12,6 @@ import org.junit.Test;
 import static org.f24.service.pdf.util.FieldEnum.*;
 
 import java.io.*;
-import java.lang.module.ResolutionException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -20,21 +19,17 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
-import static org.junit.Assume.assumeTrue;
 
 public class SimplifiedPDFCreatorTest {
 
     private SimplifiedPDFCreator pdfCreator;
     private F24Simplified form;
-    private CreatorHelper helper;
 
     @Before
     public void setup() throws IOException {
         String jsonFile = "src/test/resources/input/f24simplified.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
         form = new ObjectMapper().readValue(jsonString, F24Simplified.class);
-        helper = new CreatorHelper();
 
         pdfCreator = new SimplifiedPDFCreator(form);
         pdfCreator.loadDoc("templates" + "/ModF24Semplificato.pdf");
@@ -93,7 +88,7 @@ public class SimplifiedPDFCreatorTest {
         assertEquals(pdfCreator.getField(OPERATION_ID.getName()).getValueAsString(),
                 form.getPaymentReasonSection().getOperationId());
 
-        helper.paginateList(0, 10, paymentReasonRecordList);
+        pdfCreator.paginateList(0, 10, paymentReasonRecordList);
 
         int index = 1;
         for (PaymentReasonRecord paymentReasonRecord : paymentReasonRecordList) {

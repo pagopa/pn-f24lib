@@ -13,8 +13,6 @@ import org.f24.service.pdf.PDFCreator;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 
-import org.f24.service.pdf.util.CreatorHelper;
-
 import static org.f24.service.pdf.util.FieldEnum.*;
 
 public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
@@ -25,7 +23,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int INAIL_RECORDS_NUMBER = 3;
     private static final int SOC_RECORDS_NUMBER = 2;
 
-    private CreatorHelper helper = new CreatorHelper();
     private Logger logger = Logger.getLogger(StandardPDFCreator.class.getName());
     private F24Standard form;
     private int totalBalance = 0;
@@ -61,7 +58,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         List<InpsRecord> inpsRecordList = inpsSection.getInpsRecordList();
 
         if (inpsRecordList != null) {
-            inpsRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsRecordList);
+            inpsRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsRecordList);
 
             int index = 1;
             for (InpsRecord inpsRecord : inpsRecordList) {
@@ -86,7 +83,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         List<LocalTaxRecord> localTaxRecordList = localTaxSection.getLocalTaxRecordList();
 
         if (localTaxRecordList != null) {
-            localTaxRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxRecordList);
+            localTaxRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxRecordList);
 
             int index = 1;
             for (LocalTaxRecord localTaxRecord : localTaxRecordList) {
@@ -128,7 +125,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         List<Tax> taxList = treasurySection.getTaxList();
 
         if (taxList != null) {
-            taxList = helper.paginateList(copyIndex, TAX_RECORDS_NUMBER, taxList);
+            taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER, taxList);
 
             int index = 1;
             for (Tax taxRecord : taxList) {
@@ -153,7 +150,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         List<SocialSecurityRecord> socSecurityList = socSecurity.getSocialSecurityRecordList();
 
         if (socSecurityList != null) {
-            socSecurityList = helper.paginateList(copyIndex, SOC_RECORDS_NUMBER, socSecurityList);
+            socSecurityList = paginateList(copyIndex, SOC_RECORDS_NUMBER, socSecurityList);
 
             int index = 1;
             for (SocialSecurityRecord socSecRecord : socSecurityList) {
@@ -179,7 +176,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         List<InailRecord> inailRecordList = socSecurity.getInailRecords();
 
         if (inailRecordList != null) {
-            inailRecordList = helper.paginateList(copyIndex, INAIL_RECORDS_NUMBER, inailRecordList);
+            inailRecordList = paginateList(copyIndex, INAIL_RECORDS_NUMBER, inailRecordList);
 
             int index = 1;
             for (InailRecord inailRecord : inailRecordList) {
@@ -203,7 +200,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         List<RegionRecord> regionRecordsList = regionSection.getRegionRecordList();
 
         if (regionRecordsList != null) {
-            regionRecordsList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionRecordsList);
+            regionRecordsList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionRecordsList);
 
             int index = 1;
             for (RegionRecord regionRecord : regionRecordsList) {
@@ -223,22 +220,22 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private void setSectionTotals(String sectionId, List<? extends Record> recordList) throws NumberFormatException, ResourceException {
 
-        if (helper.getTotalAmount(recordList) != null) {
-            Integer total = helper.getTotalAmount(recordList);
+        if (getTotalAmount(recordList) != null) {
+            Integer total = getTotalAmount(recordList);
             totalBalance += total;
-            String parsedTotal = helper.getMoney(total);
+            String parsedTotal = getMoney(total);
             setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
         }
 
-        if (helper.getCreditTotal(recordList) != null) {
-            Integer creditTotal = helper.getCreditTotal(recordList);
-            String parsedTotal = helper.getMoney(creditTotal);
+        if (getCreditTotal(recordList) != null) {
+            Integer creditTotal = getCreditTotal(recordList);
+            String parsedTotal = getMoney(creditTotal);
             setField(TOTAL_CREDIT.getName() + sectionId, parsedTotal);
         }
 
-        if (helper.getDebitTotal(recordList) != null) {
-            Integer debitTotal = helper.getDebitTotal(recordList);
-            String parsedTotal = helper.getMoney(debitTotal);
+        if (getDebitTotal(recordList) != null) {
+            Integer debitTotal = getDebitTotal(recordList);
+            String parsedTotal = getMoney(debitTotal);
             setField(TOTAL_DEBIT.getName() + sectionId, parsedTotal);
         }
     }
@@ -247,25 +244,25 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
             throws ResourceException {
         if (sourceRecord.getCreditAmount() != null) {
             String recordCredit = sourceRecord.getCreditAmount();
-            String parsedCredit = helper.getMoney(Integer.parseInt(recordCredit));
+            String parsedCredit = getMoney(Integer.parseInt(recordCredit));
             setField(CREDIT_AMOUNT.getName() + sectionId + index, parsedCredit);
         }
 
         if (sourceRecord.getDebitAmount() != null) {
             String recordDebit = sourceRecord.getDebitAmount();
-            String parsedDebit = helper.getMoney(Integer.parseInt(recordDebit));
+            String parsedDebit = getMoney(Integer.parseInt(recordDebit));
             setField(DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
         }
 
         if (sourceRecord.getDeduction() != null) {
-            String parseDeduction = helper.getMoney(Integer.parseInt(sourceRecord.getDeduction()));
+            String parseDeduction = getMoney(Integer.parseInt(sourceRecord.getDeduction()));
             setField(DEDUCTION.getName() + sectionId + index, parseDeduction);
         }
 
     }
 
     private void setMultiField(String fieldName, Double sourceRecord) throws ResourceException {
-        String[] splittedCreditAmount = helper.splitField(sourceRecord);
+        String[] splittedCreditAmount = splitField(sourceRecord);
         setField(fieldName + "Int", splittedCreditAmount[0]);
         setField(fieldName + "Dec", splittedCreditAmount[1]);
     }
@@ -342,7 +339,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                 setSocialSecurity("6", copyIndex);
                 // setPaymentDetails();
                 setField(IBAN_CODE.getName(), this.form.getIbanCode());
-                setField(TOTAL_AMOUNT.getName(), helper.getMoney(totalBalance));
+                setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
             }
 
