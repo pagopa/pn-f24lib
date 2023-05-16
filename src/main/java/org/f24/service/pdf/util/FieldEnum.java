@@ -23,7 +23,7 @@ public enum FieldEnum {
     IS_NOT_TAX_YEAR("calendarYear"),
     OPERATION_ID("operationId"),
     TAX_TYPE_CODE("taxTypeCode"),
-    INSTITUTION_CODE("institutionCode"),
+    EXCISE_PROVINCE("exciseProvince"),
     RECONSIDERATION("reconsideration"),
     PROPERTIES_CHANGED("propertiesChanges"),
     ADVANCE_PAYMENT("advancePayment"),
@@ -57,7 +57,10 @@ public enum FieldEnum {
     TOTAL_AMOUNT("totalAmount"),
     TOTAL_DEBIT("totalDebitAmount"),
     TOTAL_CREDIT("totalCreditAmount"),
-    SIGNATURE("signature");
+    SIGNATURE("signature"),
+    TYPE("type"),
+    ID_ELEMENT("idElement"),
+    BALANCE_SIGN("balanceSign");
 
     private String name;
 

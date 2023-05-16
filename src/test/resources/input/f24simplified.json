@@ -22,7 +22,7 @@
       {
         "section": "ER",
         "taxTypeCode": "TSC1",
-        "institutionCode": "1211",
+        "municipalityCode": "1211",
         "reconsideration": false,
         "propertiesChanges": false,
         "advancePayment": false,

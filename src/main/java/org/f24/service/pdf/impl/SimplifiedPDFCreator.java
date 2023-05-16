@@ -6,7 +6,6 @@ import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.util.CreatorHelper;
 import org.f24.service.pdf.PDFCreator;
-import org.f24.service.pdf.util.PDFFormManager;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -76,7 +75,7 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
                 PaymentReasonRecord paymentReasonRecord = paymentReasonRecordList.get(index - 1);
                 setField(SECTION.getName() + index, paymentReasonRecord.getSection());
                 setField(TAX_TYPE_CODE.getName() + index, paymentReasonRecord.getTaxTypeCode());
-                setField(INSTITUTION_CODE.getName() + index, paymentReasonRecord.getInstitutionCode());
+                setField(MUNICIPALITY_CODE.getName() + index, paymentReasonRecord.getMunicipalityCode());
                 setPaymentReasonRecordCheckboxes(paymentReasonRecord, index);
                 setField(MONTH.getName() + index, paymentReasonRecord.getMonth());
                 setField(YEAR.getName() + index, paymentReasonRecord.getYear());

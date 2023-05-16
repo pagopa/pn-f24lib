@@ -14,11 +14,15 @@ public class F24Excise extends F24Form {
     private ExciseSection exciseSection;
     private String ibanCode;
 
+    public F24Excise() {
+        super();
+    }
+
     /**
      * Constructs F24 Excise dto.
      *
      * @param header          Header component
-     * @param taxPayer        Contributor component
+     * @param taxPayer        TaxPayer component
      * @param paymentDetails  PaymentDetails component
      * @param treasurySection TreasurySection component
      * @param inpsSection     InpsSection component
