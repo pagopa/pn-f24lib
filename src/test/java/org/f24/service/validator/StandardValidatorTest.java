@@ -225,36 +225,30 @@ public class StandardValidatorTest {
 
     //INAIL section
     @Test
-    @Ignore
     public void givenInvalidOfficeCode_whenValidateInailSection_thenThrowException() throws ProcessingException, IOException, ResourceException {
         form.getSocialSecuritySection().getInailRecords().get(0).setOfficeCode("abcd1");
-        validator.validate();
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    @Ignore
     public void givenInvalidCompanyCode_whenValidateInailSection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setCompanyCode("abcd");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    @Ignore
     public void givenInvalidControlCode_whenValidateInailSection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setControlCode("abcd");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    @Ignore
     public void givenInvalidReferenceNumber_whenValidateInailSection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setReferenceNumber("abcd");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    @Ignore
     public void givenInvalidReason_whenValidateInailSection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setReason(null);
         assertThrows(ResourceException.class, () -> validator.validate());

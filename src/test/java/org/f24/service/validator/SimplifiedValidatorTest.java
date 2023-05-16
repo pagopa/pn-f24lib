@@ -104,8 +104,7 @@ public class SimplifiedValidatorTest {
     }
 
     @Test
-    @Ignore
-    public void givenInvalidInstitutionCode_whenValidatePaymentReasonRecord_thenThrowException() {
+    public void givenInvalidMunicipalityCode_whenValidatePaymentReasonRecord_thenThrowException() {
         form.getPaymentReasonSection().getReasonRecordList().get(0).setMunicipalityCode(null);
         assertThrows(ResourceException.class, () -> validator.validate());
 

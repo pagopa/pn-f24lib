@@ -10,7 +10,7 @@
       "pattern": "^[0-9A-Z]{4}$",
       "type": "string"
     },
-    "institutionCode": {
+    "municipalityCode": {
       "pattern": "^[0-9]{4}$",
       "type": "string"
     },
