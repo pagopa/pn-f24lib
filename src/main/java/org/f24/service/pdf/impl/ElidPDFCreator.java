@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -20,6 +21,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private F24Elid form;
     private int totalBalance = 0;
+    private Logger logger = Logger.getLogger(SimplifiedPDFCreator.class.getName());;
 
     /**
      * Constructs ELID PDF Creator.
@@ -96,8 +98,6 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
                 setHeader();
                 setTaxPayer();
                 setTreasurySection(copyIndex);
-                //setPaymentDetails();
-                //setField(IBAN_CODE.getName(), this.form.getIbanCode());
                 setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
             }
@@ -107,6 +107,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             getDoc().save(byteArrayOutputStream);
 
+            logger.info("elid pdf is created");
             return byteArrayOutputStream.toByteArray();
         } catch (ResourceException | IOException e) {
             return ByteArrayBuilder.NO_BYTES;

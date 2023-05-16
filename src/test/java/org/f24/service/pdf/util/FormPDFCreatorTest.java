@@ -18,13 +18,13 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class FormPDFCreatorTest {
+class FormPDFCreatorTest {
 
   private FormPDFCreator f24FormCreator;
   private F24Form form;
 
   @BeforeEach
-  public void setup() throws IOException {
+  void setup() throws IOException {
     String jsonFile = "src/test/resources/input/f24form.json";
     String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
     form = new ObjectMapper().readValue(jsonString, F24Form.class);
@@ -34,7 +34,7 @@ public class FormPDFCreatorTest {
   }
 
   @Test
-  public void shouldFillHeaderSection() throws ResourceException {
+  void shouldFillHeaderSection() throws ResourceException {
     f24FormCreator.setIndex(0);
     Header header = form.getHeader();
 
@@ -44,13 +44,13 @@ public class FormPDFCreatorTest {
     f24FormCreator.setField(AGENCY.getName(), "agency");
     f24FormCreator.setField(AGENCY_PROVINCE.getName(), "MI");
 
-    assertEquals(f24FormCreator.getField(DELEGATION.getName()).getValueAsString(), "delegation");
-    assertEquals(f24FormCreator.getField(AGENCY.getName()).getValueAsString(), "agency");
-    assertEquals(f24FormCreator.getField(AGENCY_PROVINCE.getName()).getValueAsString(), "MI");
+    assertEquals("delegation", f24FormCreator.getField(DELEGATION.getName()).getValueAsString());
+    assertEquals("agency", f24FormCreator.getField(AGENCY.getName()).getValueAsString());
+    assertEquals("MI", f24FormCreator.getField(AGENCY_PROVINCE.getName()).getValueAsString());
   }
 
   @Test
-  public void shouldFillPersonData() throws ResourceException {
+  void shouldFillPersonData() throws ResourceException {
     f24FormCreator.setIndex(0);
     PersonData personData = form.getTaxPayer().getPersonData();
     PersonalData personalData = personData.getPersonalData();
@@ -65,39 +65,39 @@ public class FormPDFCreatorTest {
     f24FormCreator.setField(BIRTH_PLACE.getName(), personalData.getBirthPlace());
     f24FormCreator.setField(BIRTH_PROVINCE.getName(), personalData.getBirthProvince());
 
-    assertEquals(f24FormCreator.getField(CORPORATE_NAME.getName()).getValueAsString(), personalData.getSurname());
-    assertEquals(f24FormCreator.getField(NAME.getName()).getValueAsString(), personalData.getName());
-    assertEquals(f24FormCreator.getField(BIRTH_DATE.getName()).getValueAsString(),
-        personalData.getBirthDate().replace("-", ""));
-    assertEquals(f24FormCreator.getField(SEX.getName()).getValueAsString(), personalData.getSex());
-    assertEquals(f24FormCreator.getField(BIRTH_PLACE.getName()).getValueAsString(), personalData.getBirthPlace());
-    assertEquals(f24FormCreator.getField(BIRTH_PROVINCE.getName()).getValueAsString(), personalData.getBirthProvince());
+    assertEquals(personalData.getSurname(), f24FormCreator.getField(CORPORATE_NAME.getName()).getValueAsString());
+    assertEquals(personalData.getName(), f24FormCreator.getField(NAME.getName()).getValueAsString());
+    assertEquals(personalData.getBirthDate().replace("-", ""),
+        f24FormCreator.getField(BIRTH_DATE.getName()).getValueAsString());
+    assertEquals(personalData.getSex(), f24FormCreator.getField(SEX.getName()).getValueAsString());
+    assertEquals(personalData.getBirthPlace(), f24FormCreator.getField(BIRTH_PLACE.getName()).getValueAsString());
+    assertEquals(personalData.getBirthProvince(), f24FormCreator.getField(BIRTH_PROVINCE.getName()).getValueAsString());
   }
 
   @Test
-  public void shouldFillCompanyData() throws ResourceException {
+  void shouldFillCompanyData() throws ResourceException {
     f24FormCreator.setIndex(0);
 
     f24FormCreator.setField(CORPORATE_NAME.getName(), "name");
 
-    assertEquals(f24FormCreator.getField(CORPORATE_NAME.getName()).getValueAsString(), "name");
+    assertEquals("name", f24FormCreator.getField(CORPORATE_NAME.getName()).getValueAsString());
   }
 
   @Test
-  public void shouldFillResidenceData() throws ResourceException {
+  void shouldFillResidenceData() throws ResourceException {
     f24FormCreator.setIndex(0);
 
     f24FormCreator.setField(ADDRESS.getName(), "address");
-    f24FormCreator.setField(MUNICIPALITY.getName(),"province");
+    f24FormCreator.setField(MUNICIPALITY.getName(), "province");
     f24FormCreator.setField(TAX_PROVINCE.getName(), "taxprovince");
 
-    assertEquals(f24FormCreator.getField(ADDRESS.getName()).getValueAsString(), "address");
-    assertEquals(f24FormCreator.getField(MUNICIPALITY.getName()).getValueAsString(), "province");
-    assertEquals(f24FormCreator.getField(TAX_PROVINCE.getName()).getValueAsString(), "taxprovince");
+    assertEquals("address", f24FormCreator.getField(ADDRESS.getName()).getValueAsString());
+    assertEquals("province", f24FormCreator.getField(MUNICIPALITY.getName()).getValueAsString());
+    assertEquals("taxprovince", f24FormCreator.getField(TAX_PROVINCE.getName()).getValueAsString());
   }
 
   @Test
-  public void shouldFillPaymentDetails() throws ResourceException {
+  void shouldFillPaymentDetails() throws ResourceException {
     f24FormCreator.setIndex(0);
 
     f24FormCreator.setField(DATE_OF_PAYMENT.getName(), "20042068");
@@ -108,13 +108,13 @@ public class FormPDFCreatorTest {
     f24FormCreator.setField(BANK.getName(), "X");
     f24FormCreator.setField(CIRCULAR.getName(), "");
 
-    assertEquals(f24FormCreator.getField(DATE_OF_PAYMENT.getName()).getValueAsString(), "20042068");
-    assertEquals(f24FormCreator.getField(COMPANY.getName()).getValueAsString(), "company");
-    assertEquals(f24FormCreator.getField(CAB_CODE.getName()).getValueAsString(), "code");
-    assertEquals(f24FormCreator.getField(CHECK_NUMBER.getName()).getValueAsString(), "number");
-    assertEquals(f24FormCreator.getField(ABI_CODE.getName()).getValueAsString(), "code");
-    assertEquals(f24FormCreator.getField(BANK.getName()).getValueAsString(), "X");
-    assertEquals(f24FormCreator.getField(CIRCULAR.getName()).getValueAsString(), "");
+    assertEquals("20042068", f24FormCreator.getField(DATE_OF_PAYMENT.getName()).getValueAsString());
+    assertEquals("company", f24FormCreator.getField(COMPANY.getName()).getValueAsString());
+    assertEquals("code", f24FormCreator.getField(CAB_CODE.getName()).getValueAsString());
+    assertEquals("number", f24FormCreator.getField(CHECK_NUMBER.getName()).getValueAsString());
+    assertEquals("code", f24FormCreator.getField(ABI_CODE.getName()).getValueAsString());
+    assertEquals("X", f24FormCreator.getField(BANK.getName()).getValueAsString());
+    assertEquals("", f24FormCreator.getField(CIRCULAR.getName()).getValueAsString());
   }
 
 }

@@ -8,6 +8,7 @@ import org.f24.service.pdf.PDFCreator;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -17,6 +18,7 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int REASON_RECORDS_NUMBER = 10;
 
     private F24Simplified form;
+    private Logger logger = Logger.getLogger(SimplifiedPDFCreator.class.getName());
 
     /**
      * Constructs Simplified PDF Creator.
@@ -107,7 +109,6 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
                 setHeader();
                 setTaxPayer();
                 setPaymentReasonSection(copyIndex);
-                //setPaymentDetails();
             }
 
             mergeCopies();
@@ -115,9 +116,9 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             getDoc().save(byteArrayOutputStream);
 
+            logger.info("simplified pdf is created");
             return byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
-            e.printStackTrace();
             return ByteArrayBuilder.NO_BYTES;
         }
     }

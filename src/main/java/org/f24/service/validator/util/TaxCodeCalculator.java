@@ -211,7 +211,7 @@ public class TaxCodeCalculator {
     private static final Pattern CHAR_ALLOWED = Pattern.compile("[A-ZÀÈÉÌÒÙ' ]+");
 
     private static final Pattern MUNICIPALITY_COD_ALLOWED = Pattern
-            .compile("[A-Z][0-9]{3}");
+            .compile("[A-Z]\\d{3}");
 
     private static final Pattern VOWEL_ALLOWED = Pattern.compile("[AEIOU]");
 

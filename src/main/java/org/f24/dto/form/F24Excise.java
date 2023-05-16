@@ -69,8 +69,8 @@ public class F24Excise extends F24Form {
         return localTaxSection;
     }
 
-    public void setLocalTaxSection(LocalTaxSection LocalTaxSection) {
-        this.localTaxSection = LocalTaxSection;
+    public void setLocalTaxSection(LocalTaxSection localTaxSection) {
+        this.localTaxSection = localTaxSection;
     }
 
     public ExciseSection getExciseSection() {

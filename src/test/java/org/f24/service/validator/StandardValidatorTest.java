@@ -16,13 +16,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class StandardValidatorTest {
+class StandardValidatorTest {
 
     private StandardValidator validator;
     private F24Standard form;
 
     @BeforeEach
-    public void setup() throws IOException, ResourceException {
+    void setup() throws IOException, ResourceException {
         String jsonFile = "src/test/resources/input/f24standard.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
         form = new ObjectMapper().readValue(jsonString, F24Standard.class);
@@ -32,7 +32,7 @@ public class StandardValidatorTest {
 
     // Treasury Section
     @Test
-    public void givenInvalidOfficeCode_whenValidateTreasurySection_thenThrowException() {
+    void givenInvalidOfficeCode_whenValidateTreasurySection_thenThrowException() {
         form.getTreasurySection().setOfficeCode(null);
         assertThrows(ResourceException.class, () -> validator.validate());
 
@@ -41,7 +41,7 @@ public class StandardValidatorTest {
     }
 
     @Test
-    public void givenInvalidDocumentCode_whenValidateTreasurySection_thenThrowException() {
+    void givenInvalidDocumentCode_whenValidateTreasurySection_thenThrowException() {
         form.getTreasurySection().setDocumentCode(null);
         assertThrows(ResourceException.class, () -> validator.validate());
 
@@ -50,7 +50,7 @@ public class StandardValidatorTest {
     }
 
     @Test
-    public void givenInvalidTaxTypeCode_whenValidateTreasurySection_thenThrowException() {
+    void givenInvalidTaxTypeCode_whenValidateTreasurySection_thenThrowException() {
         form.getTreasurySection().getTaxList().get(0).setTaxTypeCode("14TYi");
         assertThrows(ResourceException.class, () -> validator.validate());
 
@@ -59,7 +59,7 @@ public class StandardValidatorTest {
     }
 
     @Test
-    public void givenInvalidInstallment_whenValidateTreasurySection_thenThrowException() {
+    void givenInvalidInstallment_whenValidateTreasurySection_thenThrowException() {
         form.getTreasurySection().getTaxList().get(0).setInstallment("579u");
         assertThrows(ResourceException.class, () -> validator.validate());
 
@@ -68,7 +68,7 @@ public class StandardValidatorTest {
     }
 
     @Test
-    public void givenInvalidDebitAmount_whenValidateTreasurySection_thenThrowException() {
+    void givenInvalidDebitAmount_whenValidateTreasurySection_thenThrowException() {
         form.getTreasurySection().getTaxList().get(0).setDebitAmount("0.94");
         assertThrows(ResourceException.class, () -> validator.validate());
 
@@ -77,13 +77,13 @@ public class StandardValidatorTest {
     }
 
     @Test
-    public void givenInvalidCreditAmount_whenValidateTreasurySection_thenThrowException() {
+    void givenInvalidCreditAmount_whenValidateTreasurySection_thenThrowException() {
         form.getTreasurySection().getTaxList().get(0).setCreditAmount("0,4");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenDebitAndCredit_whenValidateTreasurySection_thenThrowException() {
+    void givenDebitAndCredit_whenValidateTreasurySection_thenThrowException() {
         form.getTreasurySection().getTaxList().get(0).setDebitAmount("101");
         form.getTreasurySection().getTaxList().get(0).setCreditAmount("103");
         assertThrows(ResourceException.class, () -> validator.validate());
@@ -91,39 +91,39 @@ public class StandardValidatorTest {
 
     // InpsSection
     @Test
-    public void givenInvalidOfficeCode_whenValidateInpsSection_thenThrowException() {
+    void givenInvalidOfficeCode_whenValidateInpsSection_thenThrowException() {
         form.getInpsSection().getInpsRecordList().get(0).setOfficeCode("ABC");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidContributionReason_whenValidateInpsSection_thenThrowException() {
+    void givenInvalidContributionReason_whenValidateInpsSection_thenThrowException() {
         form.getInpsSection().getInpsRecordList().get(0).setContributionReason("123");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidInpsCode_whenValidateInpsSection_thenThrowException() {
+    void givenInvalidInpsCode_whenValidateInpsSection_thenThrowException() {
         form.getInpsSection().getInpsRecordList().get(0).setInpsCode("123456789zxcvbnmqwerty");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidPeriodStartDate_whenValidateInpsSection_thenThrowException() {
+    void givenInvalidPeriodStartDate_whenValidateInpsSection_thenThrowException() {
         form.getInpsSection().getInpsRecordList().get(0).getPeriod().setStartDate("date");
         ;
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidPeriodEndDate_whenValidateInpsSection_thenThrowException() {
+    void givenInvalidPeriodEndDate_whenValidateInpsSection_thenThrowException() {
         form.getInpsSection().getInpsRecordList().get(0).getPeriod().setEndDate("date");
         ;
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenDebitAndCredit_whenValidateInpsSection_thenThrowException() {
+    void givenDebitAndCredit_whenValidateInpsSection_thenThrowException() {
         form.getInpsSection().getInpsRecordList().get(0).setDebitAmount("101");
         form.getInpsSection().getInpsRecordList().get(0).setCreditAmount("101");
         assertThrows(ResourceException.class, () -> validator.validate());
@@ -131,185 +131,193 @@ public class StandardValidatorTest {
 
     // RegionSection
     @Test
-    public void givenInvalidRegionCode_whenValidateRegionRecord_thenThrowException() {
+    void givenInvalidRegionCode_whenValidateRegionRecord_thenThrowException() {
         form.getRegionSection().getRegionRecordList().get(0).setRegionCode("ABC");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidTaxTypeCode_whenValidateRegionRecord_thenThrowException() {
+    void givenInvalidTaxTypeCode_whenValidateRegionRecord_thenThrowException() {
         form.getRegionSection().getRegionRecordList().get(0).setTaxTypeCode("ABCDF");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidInstallment_whenValidateRegionRecord_thenThrowException() {
+    void givenInvalidInstallment_whenValidateRegionRecord_thenThrowException() {
         form.getRegionSection().getRegionRecordList().get(0).setInstallment("ABCDF");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidYear_whenValidateRegionRecord_thenThrowException() {
+    void givenInvalidYear_whenValidateRegionRecord_thenThrowException() {
         form.getRegionSection().getRegionRecordList().get(0).setYear("ABCDF");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenDebitAndCredit_whenValidateRegionSection_thenThrowException() {
+    void givenDebitAndCredit_whenValidateRegionSection_thenThrowException() {
         form.getRegionSection().getRegionRecordList().get(0).setDebitAmount("101");
         form.getRegionSection().getRegionRecordList().get(0).setCreditAmount("101");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
-    //Local Tax Section (Old Imu)
+    // Local Tax Section (Old Imu)
     @Test
-    public void givenInvalidMunicipalityCode_whenValidateLocalTaxSection_thenThrowException() {
+    void givenInvalidMunicipalityCode_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setMunicipalityCode("adasdasd");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
-    
+
     @Test
-    public void givenInvalidReconsideration_whenValidateLocalTaxSection_thenThrowException() {
+    void givenInvalidReconsideration_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setReconsideration(null);
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidPropertiesChanges_whenValidateLocalTaxSection_thenThrowException() {
+    void givenInvalidPropertiesChanges_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setPropertiesChanges(null);
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidAdvancePayment_whenValidateLocalTaxSection_thenThrowException() {
+    void givenInvalidAdvancePayment_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setAdvancePayment(null);
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidFullPayment_whenValidateLocalTaxSection_thenThrowException() {
+    void givenInvalidFullPayment_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setFullPayment(null);
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidNumberOfProperties_whenValidateLocalTaxSection_thenThrowException() {
+    void givenInvalidNumberOfProperties_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setNumberOfProperties("ABCDF");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidTaxTypeCode_whenValidateLocalTaxSection_thenThrowException() {
+    void givenInvalidTaxTypeCode_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setTaxTypeCode("ABCDF");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidInstallment_whenValidateLocalTaxSection_thenThrowException() {
+    void givenInvalidInstallment_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setInstallment("ABCDF");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidYear_whenValidateLocalTaxSection_thenThrowException() {
+    void givenInvalidYear_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setYear("ABCDF");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
-    
+
     @Test
-    public void given_DebitAndCredit_whenValidateLocalTaxSection_thenThrowException() {
+    void given_DebitAndCredit_whenValidateLocalTaxSection_thenThrowException() {
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setDebitAmount("101");
         form.getLocalTaxSection().getLocalTaxRecordList().get(0).setCreditAmount("101");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
-    //INAIL section
+    // INAIL section
     @Test
-    public void givenInvalidOfficeCode_whenValidateInailSection_thenThrowException() throws ProcessingException, IOException, ResourceException {
+    void givenInvalidOfficeCode_whenValidateInailSection_thenThrowException()
+            throws ProcessingException, IOException, ResourceException {
         form.getSocialSecuritySection().getInailRecords().get(0).setOfficeCode("abcd1");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidCompanyCode_whenValidateInailSection_thenThrowException() {
+    void givenInvalidCompanyCode_whenValidateInailSection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setCompanyCode("abcd");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidControlCode_whenValidateInailSection_thenThrowException() {
+    void givenInvalidControlCode_whenValidateInailSection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setControlCode("abcd");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidReferenceNumber_whenValidateInailSection_thenThrowException() {
+    void givenInvalidReferenceNumber_whenValidateInailSection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setReferenceNumber("abcd");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidReason_whenValidateInailSection_thenThrowException() {
+    void givenInvalidReason_whenValidateInailSection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setReason(null);
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void given_DebitAndCredit_whenValidateInailSection_thenThrowException() {
+    void given_DebitAndCredit_whenValidateInailSection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setDebitAmount("101");
         form.getSocialSecuritySection().getInailRecords().get(0).setCreditAmount("101");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
-    //Social Security section
+    // Social Security section
     @Test
-    public void givenInvalMunicipalityCode_whenValidateSocialSecuritySection_thenThrowException() {
-        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setMunicipalityCode("abcd");;
+    void givenInvalMunicipalityCode_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setMunicipalityCode("abcd");
+
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidOfficeCode_whenValidateSocialSecuritySection_thenThrowException() {
-        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setOfficeCode("abcd");;
+    void givenInvalidOfficeCode_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setOfficeCode("abcd");
+
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidContributionReason_whenValidateSocialSecuritySection_thenThrowException() {
-        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setContributionReason("abCD");;
+    void givenInvalidContributionReason_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setContributionReason("abCD");
+
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidPositionCode_whenValidateSocialSecuritySection_thenThrowException() {
-        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setPositionCode("abcd");;
+    void givenInvalidPositionCode_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setPositionCode("abcd");
+
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidPeriodStartDate_whenValidateSocialSecuritySection_thenThrowException() {
-        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).getPeriod().setStartDate("abcd");;
+    void givenInvalidPeriodStartDate_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).getPeriod().setStartDate("abcd");
+
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidPeriodEndDate_whenValidateSocialSecuritySection_thenThrowException() {
-        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).getPeriod().setEndDate("abcd");;
+    void givenInvalidPeriodEndDate_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).getPeriod().setEndDate("abcd");
+
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void given_DebitAndCredit_whenValidateSocialSecuritySection_thenThrowException() {
+    void given_DebitAndCredit_whenValidateSocialSecuritySection_thenThrowException() {
         form.getSocialSecuritySection().getInailRecords().get(0).setDebitAmount("101");
         form.getSocialSecuritySection().getInailRecords().get(0).setCreditAmount("101");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
-    //IBAN code
+    // IBAN code
     @Test
-    @Disabled
-    public void givenInvalidIBAN_whenValidateStandartPdf_thenThrowException() {
-        form.setIbanCode("abcd");;
+    @Disabled("IBAN code is not present in json scheme")
+    void givenInvalidIBAN_whenValidateStandartPdf_thenThrowException() {
+        form.setIbanCode("abcd");
+
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 }

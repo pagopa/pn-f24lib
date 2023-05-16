@@ -22,14 +22,14 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class PDFFormManagerTest {
+class PDFFormManagerTest {
 
   private FormPDFCreator f24FormCreator;
   private static final String MODEL_NAME = "templates" + "/ModF24Semplificato.pdf";
   private List<Record> recordList;
 
   @BeforeEach
-  public void setup() throws IOException {
+  void setup() throws IOException {
     String jsonFile = "src/test/resources/input/f24form.json";
     String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
     F24Form form = new ObjectMapper().readValue(jsonString, F24Form.class);
@@ -49,7 +49,7 @@ public class PDFFormManagerTest {
   }
 
   @Test
-  public void givenPDFDocument_whentGetPDFAcroForm_thenReturnPDFForm() throws ResourceException {
+  void givenPDFDocument_whentGetPDFAcroForm_thenReturnPDFForm() throws ResourceException {
     f24FormCreator.setIndex(0);
     PDDocumentCatalog documentCatalog = f24FormCreator.getCurrentCopy().getDocumentCatalog();
     PDAcroForm form = documentCatalog.getAcroForm();
@@ -58,35 +58,36 @@ public class PDFFormManagerTest {
   }
 
   @Test
-  public void givenStringFieldName_whenGetPDFField_thenReturnPDFField() throws ResourceException {
+  void givenStringFieldName_whenGetPDFField_thenReturnPDFField() throws ResourceException {
     f24FormCreator.setIndex(0);
     PDField field = f24FormCreator.getField("taxCode");
+
     assertNotNull(field);
   }
 
   @Test
-  public void givenStringFieldNameStringFieldValue_shouldUpdatePdfField() throws ResourceException {
+  void givenStringFieldNameStringFieldValue_shouldUpdatePdfField() throws ResourceException {
     f24FormCreator.setIndex(0);
     f24FormCreator.setField("name", "test");
 
     PDField field = f24FormCreator.getField("name");
 
     assertNotNull(field);
-    assertEquals(field.getValueAsString(), "test");
+    assertEquals("test", field.getValueAsString());
   }
 
   @Test
-  public void givenIntNumberOfCopies_shouldAddNewCopy() throws IOException {
+  void givenIntNumberOfCopies_shouldAddNewCopy() throws IOException {
     f24FormCreator.setIndex(1);
     int documentCopies = f24FormCreator.getCopies().size();
     f24FormCreator.copy(1);
 
     assertNotNull(f24FormCreator.getCopies());
-    assertEquals(f24FormCreator.getCopies().size(), documentCopies + 1);
+    assertEquals(documentCopies + 1, f24FormCreator.getCopies().size());
   }
 
   @Test
-  public void shouldMergeDocumentCopies() throws IOException, ResourceException {
+  void shouldMergeDocumentCopies() throws IOException, ResourceException {
     f24FormCreator.setIndex(0);
     f24FormCreator.copy(1);
     f24FormCreator.mergeCopies();
@@ -95,54 +96,51 @@ public class PDFFormManagerTest {
   }
 
   @Test
-  public void givenIntValue_whenConvertToFloatString_thenReturnString() {
+  void givenIntValue_whenConvertToFloatString_thenReturnString() {
     String parsedInt = f24FormCreator.getMoney(10000);
 
     assertNotNull(parsedInt);
-    assertEquals(parsedInt, "100  0 0");
+    assertEquals("100  0 0", parsedInt);
   }
 
-  // @Test
-  // public void giventDoubleValue_whenConverToFloatString_thenReturnString() {
-  //   String[] paresedFloat = f24FormCreator.splitField(1465.236);
+  @Test
+  void giventDoubleValue_whenConverToFloatString_thenReturnString() {
+    String[] paresedFloat = f24FormCreator.splitField(1465.236);
 
-  //   assertNotNull(paresedFloat);
-  //   assertEquals(paresedFloat[0], "1465");
-  //   assertEquals(paresedFloat[1], "24");
-  // }
+    assertNotNull(paresedFloat);
+    assertEquals("1465", paresedFloat[0]);
+    assertEquals("24", paresedFloat[1]);
+  }
 
   @Test
-  public void givenPDFRecordList_whenCalculateTotalAmount_thenReturnTotalAmount() throws ResourceException {
+  void givenPDFRecordList_whenCalculateTotalAmount_thenReturnTotalAmount() throws ResourceException {
     int totalAmount = f24FormCreator.getTotalAmount(recordList);
 
-    assertNotNull(totalAmount);
-    assertEquals(totalAmount, 3800);
+    assertEquals(3800, totalAmount);
   }
 
   @Test
-  public void givenPDFRecordList_whenCalculateTotalCredit_thenReturnTotalCredit() throws ResourceException {
+  void givenPDFRecordList_whenCalculateTotalCredit_thenReturnTotalCredit() throws ResourceException {
     int totalCredit = f24FormCreator.getCreditTotal(recordList);
 
-    assertNotNull(totalCredit);
-    assertEquals(totalCredit, 1600);
+    assertEquals(1600, totalCredit);
   }
 
   @Test
-  public void givenPDFRecordList_whenCalculateTotalDebit_thenReturnTotalDebit() throws ResourceException {
+  void givenPDFRecordList_whenCalculateTotalDebit_thenReturnTotalDebit() throws ResourceException {
     int totalDebit = f24FormCreator.getDebitTotal(recordList);
 
-    assertNotNull(totalDebit);
-    assertEquals(totalDebit, 5400);
+    assertEquals(5400, totalDebit);
   }
 
   @Test
-  public void givenPDFRecordList_whenPaginateRecordList_thenReturnPage() {
+  void givenPDFRecordList_whenPaginateRecordList_thenReturnPage() {
     List<Record> page = f24FormCreator.paginateList(1, 4, recordList);
 
     assertNotNull(page);
-    assertEquals(page.size(), 4);
+    assertEquals(4, page.size());
 
     List<Record> examplePage = recordList.subList(4, 8);
-    assertEquals(page, examplePage);
+    assertEquals(examplePage, page);
   }
 }

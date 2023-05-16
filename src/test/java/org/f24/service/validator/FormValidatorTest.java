@@ -13,13 +13,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-
-public class FormValidatorTest {
+class FormValidatorTest {
     private FormValidator validator;
     private F24Form form;
 
     @BeforeEach
-    public void setup() throws IOException, ResourceException {
+    void setup() throws IOException, ResourceException {
         String jsonFile = "src/test/resources/input/f24form.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
         form = new ObjectMapper().readValue(jsonString, F24Form.class);
@@ -28,19 +27,19 @@ public class FormValidatorTest {
     }
 
     @Test
-    public void givenInvalidTaxCode_whenValidatePersonalData_thenThrowException()  {
+    void givenInvalidTaxCode_whenValidatePersonalData_thenThrowException() {
         form.getTaxPayer().setTaxCode("Zsdfg86R78U765I");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenTaxCodeWithoutIdCode_whenValidatePersonalData_thenThrowException(){
+    void givenTaxCodeWithoutIdCode_whenValidatePersonalData_thenThrowException() {
         form.getTaxPayer().setIdCode(null);
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
-    public void givenInvalidName_whenValidatePersonalData_thenThrowException()  {
+    void givenInvalidName_whenValidatePersonalData_thenThrowException() {
         form.getTaxPayer().getPersonData().getPersonalData().setName("MARIO ,");
         assertThrows(ResourceException.class, () -> validator.validate());
 
@@ -52,7 +51,7 @@ public class FormValidatorTest {
     }
 
     @Test
-    public void givenInvalidSurname_whenValidatePersonalData_thenThrowException()  {
+    void givenInvalidSurname_whenValidatePersonalData_thenThrowException() {
         form.getTaxPayer().getPersonData().getPersonalData().setSurname("ROssi-");
         assertThrows(IllegalArgumentException.class, () -> validator.validate());
 
@@ -64,7 +63,7 @@ public class FormValidatorTest {
     }
 
     @Test
-    public void givenInvalidBirthDate_whenValidatePersonalData_thenThrowException()  {
+    void givenInvalidBirthDate_whenValidatePersonalData_thenThrowException() {
         form.getTaxPayer().getPersonData().getPersonalData().setBirthDate("19.12-1952");
         assertThrows(ResourceException.class, () -> validator.validate());
 
@@ -79,7 +78,7 @@ public class FormValidatorTest {
     }
 
     @Test
-    public void givenInvalidSex_whenValidatePersonalData_thenThrowException() {
+    void givenInvalidSex_whenValidatePersonalData_thenThrowException() {
         form.getTaxPayer().getPersonData().getPersonalData().setSex("O");
         assertThrows(ResourceException.class, () -> validator.validate());
 
@@ -91,7 +90,7 @@ public class FormValidatorTest {
     }
 
     @Test
-    public void givenInvalidBirthPlace_whenValidatePersonalData_thenThrowException() {
+    void givenInvalidBirthPlace_whenValidatePersonalData_thenThrowException() {
         form.getTaxPayer().getPersonData().getPersonalData().setBirthPlace("ROMA 5");
         assertThrows(ResourceException.class, () -> validator.validate());
 
@@ -100,7 +99,7 @@ public class FormValidatorTest {
     }
 
     @Test
-    public void givenInvalidProvince_whenValidateForm_thenThrowException() {
+    void givenInvalidProvince_whenValidateForm_thenThrowException() {
         form.getTaxPayer().getPersonData().getPersonalData().setBirthProvince("MI6");
         assertThrows(ResourceException.class, () -> validator.validate());
 

@@ -33,14 +33,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class StandardPDFCreatorTest {
+class StandardPDFCreatorTest {
 
     private StandardPDFCreator pdfCreator;
     List<Record> recordList;
     F24Standard form;
 
     @BeforeEach
-    public void setup() throws IOException {
+    void setup() throws IOException {
         String jsonFile = "src/test/resources/input/f24standard.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
         form = new ObjectMapper().readValue(jsonString, F24Standard.class);
@@ -60,7 +60,7 @@ public class StandardPDFCreatorTest {
     }
 
     @Test
-    public void shouldFillTaxPayer() throws ResourceException {
+    void shouldFillTaxPayer() throws ResourceException {
         pdfCreator.setIndex(0);
         TaxPayer taxPayer = this.form.getTaxPayer();
 
@@ -73,15 +73,15 @@ public class StandardPDFCreatorTest {
         if (taxPayer.getIsNotTaxYear())
             pdfCreator.setField(IS_NOT_TAX_YEAR.getName(), "X");
 
-        assertEquals(pdfCreator.getField(TAX_CODE.getName()).getValueAsString(), taxPayer.getTaxCode());
-        assertEquals(pdfCreator.getField(RELATIVE_PERSON_TAX_CODE.getName()).getValueAsString(), "BGCDJV27L49N524I");
-        assertEquals(pdfCreator.getField(ID_CODE.getName()).getValueAsString(), taxPayer.getIdCode());
+        assertEquals(taxPayer.getTaxCode(), pdfCreator.getField(TAX_CODE.getName()).getValueAsString());
+        assertEquals("BGCDJV27L49N524I", pdfCreator.getField(RELATIVE_PERSON_TAX_CODE.getName()).getValueAsString());
+        assertEquals(taxPayer.getIdCode(), pdfCreator.getField(ID_CODE.getName()).getValueAsString());
 
-        assertEquals(pdfCreator.getField(IS_NOT_TAX_YEAR.getName()).getValueAsString(), "X");
+        assertEquals("X", pdfCreator.getField(IS_NOT_TAX_YEAR.getName()).getValueAsString());
     }
 
     @Test
-    public void shouldFillPaymentReasonRecordCheckboxes() throws ResourceException {
+    void shouldFillPaymentReasonRecordCheckboxes() throws ResourceException {
         pdfCreator.setIndex(0);
         pdfCreator.setField(RECONSIDERATION.getName() + 1, "X");
         pdfCreator.setField(PROPERTIES_CHANGED.getName() + 1, "X");
@@ -89,15 +89,15 @@ public class StandardPDFCreatorTest {
         pdfCreator.setField(FULL_PAYMENT.getName() + 1, "X");
         pdfCreator.setField(NUMBER_OF_PROPERTIES.getName() + 1, "X");
 
-        assertEquals(pdfCreator.getField(RECONSIDERATION.getName() + 1).getValueAsString(), "X");
-        assertEquals(pdfCreator.getField(PROPERTIES_CHANGED.getName() + 1).getValueAsString(), "X");
-        assertEquals(pdfCreator.getField(ADVANCE_PAYMENT.getName() + 1).getValueAsString(), "X");
-        assertEquals(pdfCreator.getField(FULL_PAYMENT.getName() + 1).getValueAsString(), "X");
-        assertEquals(pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + 1).getValueAsString(), "X");
+        assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + 1).getValueAsString());
+        assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + 1).getValueAsString());
+        assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + 1).getValueAsString());
+        assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + 1).getValueAsString());
+        assertEquals("X", pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + 1).getValueAsString());
     }
 
     @Test
-    public void shouldFillInpsSection() throws ResourceException {
+    void shouldFillInpsSection() throws ResourceException {
         pdfCreator.setIndex(0);
         InpsSection inpsSection = form.getInpsSection();
         List<InpsRecord> inpsRecordList = inpsSection.getInpsRecordList();
@@ -119,19 +119,19 @@ public class StandardPDFCreatorTest {
 
         index = 1;
         for (InpsRecord inpsRecord : inpsRecordList) {
-            assertEquals(pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString(),
-                    inpsRecord.getOfficeCode());
-            assertEquals(pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString(),
-                    inpsRecord.getContributionReason());
-            assertEquals(pdfCreator.getField(INPS_CODE.getName() + sectionId + index).getValueAsString(),
-                    inpsRecord.getInpsCode());
+            assertEquals(inpsRecord.getOfficeCode(),
+                    pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
+            assertEquals(inpsRecord.getContributionReason(),
+                    pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString());
+            assertEquals(inpsRecord.getInpsCode(),
+                    pdfCreator.getField(INPS_CODE.getName() + sectionId + index).getValueAsString());
 
             index++;
         }
     }
 
     @Test
-    public void shouldFillLocalTaxSection() throws ResourceException {
+    void shouldFillLocalTaxSection() throws ResourceException {
         pdfCreator.setIndex(0);
         LocalTaxSection localTaxSection = this.form.getLocalTaxSection();
         List<LocalTaxRecord> localTaxRecordList = localTaxSection.getLocalTaxRecordList();
@@ -165,25 +165,25 @@ public class StandardPDFCreatorTest {
         index = 1;
 
         for (LocalTaxRecord localTaxRecord : localTaxRecordList) {
-            assertEquals(pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString(),
-                    localTaxRecord.getYear());
-            assertEquals(pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString(),
-                    localTaxRecord.getInstallment());
-            assertEquals(pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString(),
-                    localTaxRecord.getTaxTypeCode());
-            assertEquals(pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId + index).getValueAsString(),
-                    localTaxRecord.getMunicipalityCode());
+            assertEquals(localTaxRecord.getYear(),
+                    pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+            assertEquals(localTaxRecord.getInstallment(),
+                    pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+            assertEquals(localTaxRecord.getTaxTypeCode(),
+                    pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+            assertEquals(localTaxRecord.getMunicipalityCode(),
+                    pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId + index).getValueAsString());
 
-            assertEquals(pdfCreator.getField(RECONSIDERATION.getName() + index).getValueAsString(), "X");
+            assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + index).getValueAsString());
 
-            assertEquals(pdfCreator.getField(PROPERTIES_CHANGED.getName() + index).getValueAsString(), "X");
+            assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + index).getValueAsString());
 
-            assertEquals(pdfCreator.getField(ADVANCE_PAYMENT.getName() + index).getValueAsString(), "X");
+            assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + index).getValueAsString());
 
-            assertEquals(pdfCreator.getField(FULL_PAYMENT.getName() + index).getValueAsString(), "X");
+            assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + index).getValueAsString());
 
-            assertEquals(pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + index).getValueAsString(),
-                    localTaxRecord.getNumberOfProperties());
+            assertEquals(localTaxRecord.getNumberOfProperties(),
+                    pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + index).getValueAsString());
 
             index++;
         }
@@ -191,7 +191,7 @@ public class StandardPDFCreatorTest {
     }
 
     @Test
-    public void shouldFillTreasurySection() throws ResourceException {
+    void shouldFillTreasurySection() throws ResourceException {
         pdfCreator.setIndex(0);
         TreasurySection treasurySection = this.form.getTreasurySection();
         List<Tax> taxList = treasurySection.getTaxList();
@@ -214,12 +214,12 @@ public class StandardPDFCreatorTest {
         index = 1;
 
         for (Tax taxRecord : taxList) {
-            assertEquals(pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString(),
-                    taxRecord.getTaxTypeCode());
-            assertEquals(pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString(),
-                    taxRecord.getInstallment());
-            assertEquals(pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString(),
-                    taxRecord.getYear());
+            assertEquals(taxRecord.getTaxTypeCode(),
+                    pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+            assertEquals(taxRecord.getInstallment(),
+                    pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+            assertEquals(taxRecord.getYear(),
+                    pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
 
             index++;
         }
@@ -227,14 +227,14 @@ public class StandardPDFCreatorTest {
         pdfCreator.setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
         pdfCreator.setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
 
-        assertEquals(pdfCreator.getField(OFFICE_CODE.getName()).getValueAsString(), treasurySection.getOfficeCode());
-        assertEquals(pdfCreator.getField(DOCUMENT_CODE.getName()).getValueAsString(),
-                treasurySection.getDocumentCode());
+        assertEquals(treasurySection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()).getValueAsString());
+        assertEquals(treasurySection.getDocumentCode(),
+                pdfCreator.getField(DOCUMENT_CODE.getName()).getValueAsString());
 
     }
 
     @Test
-    public void shouldFillSocialSecurity() throws ResourceException {
+    void shouldFillSocialSecurity() throws ResourceException {
         pdfCreator.setIndex(0);
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
         List<SocialSecurityRecord> socSecurityList = socSecurity.getSocialSecurityRecordList();
@@ -258,21 +258,21 @@ public class StandardPDFCreatorTest {
 
         index = 1;
         for (SocialSecurityRecord socSecRecord : socSecurityList) {
-            assertEquals(pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId).getValueAsString(),
-                    socSecRecord.getMunicipalityCode());
-            assertEquals(pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString(),
-                    socSecRecord.getOfficeCode());
-            assertEquals(pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString(),
-                    socSecRecord.getContributionReason());
-            assertEquals(pdfCreator.getField(POSITION_CODE.getName() + sectionId + index).getValueAsString(),
-                    socSecRecord.getPositionCode());
+            assertEquals(socSecRecord.getMunicipalityCode(),
+                    pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId).getValueAsString());
+            assertEquals(socSecRecord.getOfficeCode(),
+                    pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
+            assertEquals(socSecRecord.getContributionReason(),
+                    pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString());
+            assertEquals(socSecRecord.getPositionCode(),
+                    pdfCreator.getField(POSITION_CODE.getName() + sectionId + index).getValueAsString());
 
             index++;
         }
     }
 
     @Test
-    public void shouldFillInail() throws ResourceException {
+    void shouldFillInail() throws ResourceException {
         pdfCreator.setIndex(0);
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
         List<InailRecord> inailRecordList = socSecurity.getInailRecords();
@@ -296,23 +296,23 @@ public class StandardPDFCreatorTest {
 
         index = 1;
         for (InailRecord inailRecord : inailRecordList) {
-            assertEquals(pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString(),
-                    inailRecord.getOfficeCode());
-            assertEquals(pdfCreator.getField(COMPANY_CODE.getName() + sectionId + index).getValueAsString(),
-                    inailRecord.getCompanyCode());
-            assertEquals(pdfCreator.getField(CONTROL_CODE.getName() + sectionId + index).getValueAsString(),
-                    inailRecord.getControlCode());
-            assertEquals(pdfCreator.getField(REFERENCE_NUMBER.getName() + sectionId + index).getValueAsString(),
-                    inailRecord.getReferenceNumber());
-            assertEquals(pdfCreator.getField(REASON.getName() + sectionId + index).getValueAsString(),
-                    inailRecord.getReason());
+            assertEquals(inailRecord.getOfficeCode(),
+                    pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
+            assertEquals(inailRecord.getCompanyCode(),
+                    pdfCreator.getField(COMPANY_CODE.getName() + sectionId + index).getValueAsString());
+            assertEquals(inailRecord.getControlCode(),
+                    pdfCreator.getField(CONTROL_CODE.getName() + sectionId + index).getValueAsString());
+            assertEquals(inailRecord.getReferenceNumber(),
+                    pdfCreator.getField(REFERENCE_NUMBER.getName() + sectionId + index).getValueAsString());
+            assertEquals(inailRecord.getReason(),
+                    pdfCreator.getField(REASON.getName() + sectionId + index).getValueAsString());
 
             index++;
         }
     }
 
     @Test
-    public void shouldFillRegionSection() throws ResourceException {
+    void shouldFillRegionSection() throws ResourceException {
         pdfCreator.setIndex(0);
         RegionSection regionSection = this.form.getRegionSection();
         List<RegionRecord> regionRecordsList = regionSection.getRegionRecordList();
@@ -333,14 +333,14 @@ public class StandardPDFCreatorTest {
 
         index = 1;
         for (RegionRecord regionRecord : regionRecordsList) {
-            assertEquals(pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString(),
-                    regionRecord.getYear());
-            assertEquals(pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString(),
-                    regionRecord.getInstallment());
-            assertEquals(pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString(),
-                    regionRecord.getTaxTypeCode());
-            assertEquals(pdfCreator.getField(REGION_CODE.getName() + sectionId + index).getValueAsString(),
-                    regionRecord.getRegionCode());
+            assertEquals(regionRecord.getYear(),
+                    pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+            assertEquals(regionRecord.getInstallment(),
+                    pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+            assertEquals(regionRecord.getTaxTypeCode(),
+                    pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+            assertEquals(regionRecord.getRegionCode(),
+                    pdfCreator.getField(REGION_CODE.getName() + sectionId + index).getValueAsString());
 
             index++;
         }
@@ -348,7 +348,7 @@ public class StandardPDFCreatorTest {
     }
 
     @Test
-    public void shouldFillSectionTotal() throws ResourceException {
+    void shouldFillSectionTotal() throws ResourceException {
         pdfCreator.setIndex(0);
         String sectionId = "5";
 
@@ -358,11 +358,11 @@ public class StandardPDFCreatorTest {
         String parsedTotal = pdfCreator.getMoney(total);
         pdfCreator.setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
 
-        assertEquals(pdfCreator.getField(TOTAL_AMOUNT.getName() + sectionId).getValueAsString(), parsedTotal);
+        assertEquals(parsedTotal, pdfCreator.getField(TOTAL_AMOUNT.getName() + sectionId).getValueAsString());
     }
 
     @Test
-    public void shouldFillSectionDebit() throws ResourceException {
+    void shouldFillSectionDebit() throws ResourceException {
         pdfCreator.setIndex(0);
         String sectionId = "5";
 
@@ -372,11 +372,11 @@ public class StandardPDFCreatorTest {
         String parsedTotal = pdfCreator.getMoney(debitTotal);
         pdfCreator.setField(TOTAL_DEBIT.getName() + sectionId, parsedTotal);
 
-        assertEquals(pdfCreator.getField(TOTAL_DEBIT.getName() + sectionId).getValueAsString(), parsedTotal);
+        assertEquals(parsedTotal, pdfCreator.getField(TOTAL_DEBIT.getName() + sectionId).getValueAsString());
     }
 
     @Test
-    public void shouldFillSectionCredit() throws ResourceException {
+    void shouldFillSectionCredit() throws ResourceException {
         pdfCreator.setIndex(0);
         String sectionId = "5";
 
@@ -386,11 +386,11 @@ public class StandardPDFCreatorTest {
         String parsedTotal = pdfCreator.getMoney(creditTotal);
         pdfCreator.setField(TOTAL_CREDIT.getName() + sectionId, parsedTotal);
 
-        assertEquals(pdfCreator.getField(TOTAL_CREDIT.getName() + sectionId).getValueAsString(), parsedTotal);
+        assertEquals(parsedTotal, pdfCreator.getField(TOTAL_CREDIT.getName() + sectionId).getValueAsString());
     }
 
     @Test
-    public void shouldFillRecordCredit() throws ResourceException {
+    void shouldFillRecordCredit() throws ResourceException {
         pdfCreator.setIndex(0);
         String sectionId = "4";
 
@@ -402,7 +402,8 @@ public class StandardPDFCreatorTest {
             String parsedCredit = pdfCreator.getMoney(Integer.parseInt(recordCredit));
             pdfCreator.setField(CREDIT_AMOUNT.getName() + sectionId + index, parsedCredit);
 
-            assertEquals(pdfCreator.getField(CREDIT_AMOUNT.getName() + sectionId + index).getValueAsString(), parsedCredit);
+            assertEquals(parsedCredit,
+                    pdfCreator.getField(CREDIT_AMOUNT.getName() + sectionId + index).getValueAsString());
 
             index++;
         }
@@ -410,7 +411,7 @@ public class StandardPDFCreatorTest {
     }
 
     @Test
-    public void shouldFillRecordDebit() throws ResourceException {
+    void shouldFillRecordDebit() throws ResourceException {
         pdfCreator.setIndex(0);
         String sectionId = "4";
 
@@ -422,27 +423,28 @@ public class StandardPDFCreatorTest {
             String parsedDebit = pdfCreator.getMoney(Integer.parseInt(recordCredit));
             pdfCreator.setField(DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
 
-            assertEquals(pdfCreator.getField(DEBIT_AMOUNT.getName() + sectionId + index).getValueAsString(), parsedDebit);
+            assertEquals(parsedDebit,
+                    pdfCreator.getField(DEBIT_AMOUNT.getName() + sectionId + index).getValueAsString());
 
             index++;
         }
 
     }
 
-    // @Test
-    // public void shouldFillMultiField() throws ResourceException {
-    //     pdfCreator.setIndex(0);
+    @Test
+    void shouldFillMultiField() throws ResourceException {
+        pdfCreator.setIndex(0);
 
-    //     String[] splittedCreditAmount = pdfCreator.splitField(1235.456);
-    //     pdfCreator.setField(DEDUCTION.getName() + "Int", splittedCreditAmount[0]);
-    //     pdfCreator.setField(DEDUCTION.getName() + "Dec", splittedCreditAmount[1]);
+        String[] splittedCreditAmount = pdfCreator.splitField(1235.456);
+        pdfCreator.setField(DEDUCTION.getName() + "Int", splittedCreditAmount[0]);
+        pdfCreator.setField(DEDUCTION.getName() + "Dec", splittedCreditAmount[1]);
 
-    //     assertEquals(pdfCreator.getField(DEDUCTION.getName() + "Int").getValueAsString(), splittedCreditAmount[0]);
-    //     assertEquals(pdfCreator.getField(DEDUCTION.getName() + "Dec").getValueAsString(), splittedCreditAmount[1]);
-    // }
+        assertEquals(splittedCreditAmount[0], pdfCreator.getField(DEDUCTION.getName() + "Int").getValueAsString());
+        assertEquals(splittedCreditAmount[1], pdfCreator.getField(DEDUCTION.getName() + "Dec").getValueAsString());
+    }
 
     @Test
-    public void shouldFillMultidate() throws ResourceException {
+    void shouldFillMultidate() throws ResourceException {
         pdfCreator.setIndex(0);
         String date = "202034";
 
@@ -451,10 +453,13 @@ public class StandardPDFCreatorTest {
 
         pdfCreator.setField(START_DATE.getName() + "Month" + 6 + 1, monthPart);
         pdfCreator.setField(START_DATE.getName() + "Year" + 6 + 1, yearPart);
+
+        assertEquals(monthPart, pdfCreator.getField(START_DATE.getName() + "Month" + 6 + 1).getValueAsString());
+        assertEquals(yearPart, pdfCreator.getField(START_DATE.getName() + "Year" + 6 + 1).getValueAsString());
     }
 
     @Test
-    public void givenSimplifiedObject_whenGeneratePDF_thenReturnByteArray() {
+    void givenSimplifiedObject_whenGeneratePDF_thenReturnByteArray() {
         byte[] generatedPDF = pdfCreator.createPDF();
 
         assertNotNull(generatedPDF);

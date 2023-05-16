@@ -58,7 +58,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         if (!treasurySection.getTaxList().isEmpty()) {
             List<Tax> taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER, treasurySection.getTaxList());
 
-            if (taxList.size() != 0) {
+            if (taxList.isEmpty()) {
                 for (int index = 1; index <= taxList.size(); index++) {
                     Tax taxRecord = taxList.get(index - 1);
                     setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
@@ -78,9 +78,10 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         InpsSection inpsSection = this.form.getInpsSection();
 
         if (!inpsSection.getInpsRecordList().isEmpty()) {
-            List<InpsRecord> inpsRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsSection.getInpsRecordList());
+            List<InpsRecord> inpsRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER,
+                    inpsSection.getInpsRecordList());
 
-            if (inpsRecordList.size() != 0) {
+            if (inpsRecordList.isEmpty()) {
                 for (int index = 1; index <= inpsRecordList.size(); index++) {
                     InpsRecord inpsRecord = inpsRecordList.get(index - 1);
                     setField(OFFICE_CODE.getName() + sectionId + index, inpsRecord.getOfficeCode());
@@ -101,9 +102,10 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         RegionSection regionSection = this.form.getRegionSection();
 
         if (!regionSection.getRegionRecordList().isEmpty()) {
-            List<RegionRecord> regionRecordsList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionSection.getRegionRecordList());
+            List<RegionRecord> regionRecordsList = paginateList(copyIndex, UNIV_RECORDS_NUMBER,
+                    regionSection.getRegionRecordList());
 
-            if (regionRecordsList.size() != 0) {
+            if (regionRecordsList.isEmpty()) {
                 for (int index = 1; index <= regionRecordsList.size(); index++) {
                     RegionRecord regionRecord = regionRecordsList.get(index - 1);
                     setField(YEAR.getName() + sectionId + index, regionRecord.getYear());
@@ -122,7 +124,8 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         LocalTaxSection localTaxSection = this.form.getLocalTaxSection();
 
         if (!localTaxSection.getLocalTaxRecordList().isEmpty()) {
-            List<LocalTaxRecord> localTaxRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxSection.getLocalTaxRecordList());
+            List<LocalTaxRecord> localTaxRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER,
+                    localTaxSection.getLocalTaxRecordList());
 
             if (!localTaxRecordList.isEmpty()) {
                 for (int index = 1; index <= localTaxRecordList.size(); index++) {
@@ -132,22 +135,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                     setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
                     setField(MUNICIPALITY_CODE.getName() + sectionId + index, taxRecord.getMunicipalityCode());
 
-                    if (taxRecord.getReconsideration() != null && taxRecord.getReconsideration()) {
-                        setField(RECONSIDERATION.getName() + index, "X");
-                    }
-                    if (taxRecord.getPropertiesChanges() != null && taxRecord.getPropertiesChanges()) {
-                        setField(PROPERTIES_CHANGED.getName() + index, "X");
-                    }
-                    if (taxRecord.getAdvancePayment() != null && taxRecord.getAdvancePayment()) {
-                        setField(ADVANCE_PAYMENT.getName() + index, "X");
-                    }
-                    if (taxRecord.getFullPayment() != null && taxRecord.getFullPayment()) {
-                        setField(FULL_PAYMENT.getName() + index, "X");
-                    }
-                    if (taxRecord.getNumberOfProperties() != null) {
-                        setField(NUMBER_OF_PROPERTIES.getName() + index, taxRecord.getNumberOfProperties());
-                    }
-
+                    setLocalTaxSectionChecks(taxRecord, index);
                     setSectionRecordAmount(sectionId, index, taxRecord);
                 }
                 if (!localTaxSection.getOperationId().isEmpty()) {
@@ -161,13 +149,32 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         }
     }
 
+    private void setLocalTaxSectionChecks(LocalTaxRecord taxRecord, int index) throws ResourceException {
+        if (taxRecord.getReconsideration() != null && taxRecord.getReconsideration()) {
+            setField(RECONSIDERATION.getName() + index, "X");
+        }
+        if (taxRecord.getPropertiesChanges() != null && taxRecord.getPropertiesChanges()) {
+            setField(PROPERTIES_CHANGED.getName() + index, "X");
+        }
+        if (taxRecord.getAdvancePayment() != null && taxRecord.getAdvancePayment()) {
+            setField(ADVANCE_PAYMENT.getName() + index, "X");
+        }
+        if (taxRecord.getFullPayment() != null && taxRecord.getFullPayment()) {
+            setField(FULL_PAYMENT.getName() + index, "X");
+        }
+        if (taxRecord.getNumberOfProperties() != null) {
+            setField(NUMBER_OF_PROPERTIES.getName() + index, taxRecord.getNumberOfProperties());
+        }
+    }
+
     private void setInail(String sectionId, int copyIndex) throws ResourceException {
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
 
         if (!socSecurity.getInailRecords().isEmpty()) {
-            List<InailRecord> inailRecordList = paginateList(copyIndex, INAIL_RECORDS_NUMBER, socSecurity.getInailRecords());
+            List<InailRecord> inailRecordList = paginateList(copyIndex, INAIL_RECORDS_NUMBER,
+                    socSecurity.getInailRecords());
 
-            if (inailRecordList.size() != 0) {
+            if (inailRecordList.isEmpty()) {
                 for (int index = 1; index <= inailRecordList.size(); index++) {
                     InailRecord inailRecord = inailRecordList.get(index - 1);
                     setField(OFFICE_CODE.getName() + sectionId + index, inailRecord.getOfficeCode());
@@ -188,9 +195,10 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
 
         if (!socSecurity.getSocialSecurityRecordList().isEmpty()) {
-            List<SocialSecurityRecord> socSecurityList = paginateList(copyIndex, SOC_RECORDS_NUMBER, socSecurity.getSocialSecurityRecordList());
+            List<SocialSecurityRecord> socSecurityList = paginateList(copyIndex, SOC_RECORDS_NUMBER,
+                    socSecurity.getSocialSecurityRecordList());
 
-            if (socSecurityList.size() != 0) {
+            if (socSecurityList.isEmpty()) {
                 for (int index = 1; index <= socSecurityList.size(); index++) {
                     SocialSecurityRecord socSecRecord = socSecurityList.get(index - 1);
                     setField(MUNICIPALITY_CODE.getName() + sectionId, socSecRecord.getMunicipalityCode());
@@ -207,7 +215,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
             }
         }
     }
-
 
     /**
      * Method which creates PDF Document for F24 Standard Form.
@@ -248,8 +255,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                 setLocalTaxSection("4", copyIndex);
                 setInail("5", copyIndex);
                 setSocialSecurity("6", copyIndex);
-                //setPaymentDetails();
-                //setField(IBAN_CODE.getName(), this.form.getIbanCode());
                 setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
             }
@@ -258,8 +263,8 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             getDoc().save(byteArrayOutputStream);
-            logger.info("standard pdf created");
-
+            
+            logger.info("standard pdf is created");
             return byteArrayOutputStream.toByteArray();
         } catch (ResourceException | IOException e) {
             logger.info(e.getMessage());

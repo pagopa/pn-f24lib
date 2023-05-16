@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -22,6 +23,8 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
     private F24Excise form;
     private int totalBalance = 0;
+
+    private Logger logger = Logger.getLogger(SimplifiedPDFCreator.class.getName());
 
     /**
      * Constructs Excise PDF Creator.
@@ -55,7 +58,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         if (!treasurySection.getTaxList().isEmpty()) {
             List<Tax> taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER, treasurySection.getTaxList());
 
-            if (taxList.size() != 0) {
+            if (taxList.isEmpty()) {
                 for (int index = 1; index <= taxList.size(); index++) {
                     Tax taxRecord = taxList.get(index - 1);
                     setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
@@ -75,9 +78,10 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         InpsSection inpsSection = this.form.getInpsSection();
 
         if (!inpsSection.getInpsRecordList().isEmpty()) {
-            List<InpsRecord> inpsRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsSection.getInpsRecordList());
+            List<InpsRecord> inpsRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER,
+                    inpsSection.getInpsRecordList());
 
-            if (inpsRecordList.size() != 0) {
+            if (inpsRecordList.isEmpty()) {
                 for (int index = 1; index <= inpsRecordList.size(); index++) {
                     InpsRecord inpsRecord = inpsRecordList.get(index - 1);
                     setField(OFFICE_CODE.getName() + sectionId + index, inpsRecord.getOfficeCode());
@@ -98,9 +102,10 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         RegionSection regionSection = this.form.getRegionSection();
 
         if (!regionSection.getRegionRecordList().isEmpty()) {
-            List<RegionRecord> regionRecordsList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionSection.getRegionRecordList());
+            List<RegionRecord> regionRecordsList = paginateList(copyIndex, UNIV_RECORDS_NUMBER,
+                    regionSection.getRegionRecordList());
 
-            if (regionRecordsList.size() != 0) {
+            if (regionRecordsList.isEmpty()) {
                 for (int index = 1; index <= regionRecordsList.size(); index++) {
                     RegionRecord regionRecord = regionRecordsList.get(index - 1);
                     setField(YEAR.getName() + sectionId + index, regionRecord.getYear());
@@ -119,7 +124,8 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         LocalTaxSection localTaxSection = this.form.getLocalTaxSection();
 
         if (!localTaxSection.getLocalTaxRecordList().isEmpty()) {
-            List<LocalTaxRecord> localTaxRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxSection.getLocalTaxRecordList());
+            List<LocalTaxRecord> localTaxRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER,
+                    localTaxSection.getLocalTaxRecordList());
 
             if (!localTaxRecordList.isEmpty()) {
                 for (int index = 1; index <= localTaxRecordList.size(); index++) {
@@ -129,24 +135,10 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
                     setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
                     setField(MUNICIPALITY_CODE.getName() + sectionId + index, taxRecord.getMunicipalityCode());
 
-                    if (taxRecord.getReconsideration() != null && taxRecord.getReconsideration()) {
-                        setField(RECONSIDERATION.getName() + index, "X");
-                    }
-                    if (taxRecord.getPropertiesChanges() != null && taxRecord.getPropertiesChanges()) {
-                        setField(PROPERTIES_CHANGED.getName() + index, "X");
-                    }
-                    if (taxRecord.getAdvancePayment() != null && taxRecord.getAdvancePayment()) {
-                        setField(ADVANCE_PAYMENT.getName() + index, "X");
-                    }
-                    if (taxRecord.getFullPayment() != null && taxRecord.getFullPayment()) {
-                        setField(FULL_PAYMENT.getName() + index, "X");
-                    }
-                    if (taxRecord.getNumberOfProperties() != null) {
-                        setField(NUMBER_OF_PROPERTIES.getName() + index, taxRecord.getNumberOfProperties());
-                    }
-
+                    setLocalTaxSectionChecks(taxRecord, index);
                     setSectionRecordAmount(sectionId, index, taxRecord);
                 }
+
                 if (!localTaxSection.getOperationId().isEmpty()) {
                     setField(OPERATION_ID.getName(), localTaxSection.getOperationId());
                 }
@@ -159,12 +151,31 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         }
     }
 
+    private void setLocalTaxSectionChecks(LocalTaxRecord taxRecord, int index) throws ResourceException {
+        if (taxRecord.getReconsideration() != null && taxRecord.getReconsideration()) {
+            setField(RECONSIDERATION.getName() + index, "X");
+        }
+        if (taxRecord.getPropertiesChanges() != null && taxRecord.getPropertiesChanges()) {
+            setField(PROPERTIES_CHANGED.getName() + index, "X");
+        }
+        if (taxRecord.getAdvancePayment() != null && taxRecord.getAdvancePayment()) {
+            setField(ADVANCE_PAYMENT.getName() + index, "X");
+        }
+        if (taxRecord.getFullPayment() != null && taxRecord.getFullPayment()) {
+            setField(FULL_PAYMENT.getName() + index, "X");
+        }
+        if (taxRecord.getNumberOfProperties() != null) {
+            setField(NUMBER_OF_PROPERTIES.getName() + index, taxRecord.getNumberOfProperties());
+        }
+    }
+
     private void setExciseSection(String sectionId, int copyIndex) throws ResourceException {
         ExciseSection exciseSection = this.form.getExciseSection();
         if (!exciseSection.getExciseTaxList().isEmpty()) {
-            List<ExciseTax> exciseTaxList = paginateList(copyIndex, EXCISE_TAX_RECORDS_NUMBER, exciseSection.getExciseTaxList());
+            List<ExciseTax> exciseTaxList = paginateList(copyIndex, EXCISE_TAX_RECORDS_NUMBER,
+                    exciseSection.getExciseTaxList());
 
-            if (exciseTaxList.size() != 0) {
+            if (exciseTaxList.isEmpty()) {
                 for (int index = 1; index <= exciseTaxList.size(); index++) {
                     ExciseTax exciseTax = exciseTaxList.get(index - 1);
                     setField(MUNICIPALITY.getName() + sectionId + index, exciseTax.getMunicipality());
@@ -201,11 +212,11 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
             int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
             int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
 
-            totalPages = getTotalPages(treasutyRecordsCount,TAX_RECORDS_NUMBER, totalPages);
+            totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER, totalPages);
             totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER, totalPages);
-            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER,totalPages);
-            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER,totalPages);
-            totalPages = getTotalPages(localTaxRecordCount, EXCISE_TAX_RECORDS_NUMBER,totalPages);
+            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER, totalPages);
+            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER, totalPages);
+            totalPages = getTotalPages(localTaxRecordCount, EXCISE_TAX_RECORDS_NUMBER, totalPages);
 
             copy(totalPages);
 
@@ -220,8 +231,6 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
                 setRegionSection("3", copyIndex);
                 setLocalTaxSection("4", copyIndex);
                 setExciseSection("5", copyIndex);
-                //setPaymentDetails();
-                //setField(IBAN_CODE.getName(), this.form.getIbanCode());
                 setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
             }
@@ -230,8 +239,9 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             getDoc().save(byteArrayOutputStream);
-            return byteArrayOutputStream.toByteArray();
 
+            logger.info("excise pdf is created");
+            return byteArrayOutputStream.toByteArray();
         } catch (ResourceException | IOException e) {
             return ByteArrayBuilder.NO_BYTES;
         }

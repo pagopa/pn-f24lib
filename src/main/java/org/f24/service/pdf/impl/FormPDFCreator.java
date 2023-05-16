@@ -7,7 +7,6 @@ import org.f24.exception.ResourceException;
 import org.f24.service.pdf.util.PDFFormManager;
 
 import java.util.List;
-import java.util.Locale;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -89,6 +88,7 @@ public class FormPDFCreator extends PDFFormManager {
     protected int setSectionTotal(String sectionId, List<? extends Record> recordList, int totalBalance) throws NumberFormatException, ResourceException {
         Integer creditTotal = 0;
         Integer debitTotal = 0;
+        int sectionTotalBalance = totalBalance;
 
         if (getCreditTotal(recordList) != 0) {
             creditTotal = getCreditTotal(recordList);
@@ -101,15 +101,17 @@ public class FormPDFCreator extends PDFFormManager {
             String parsedTotal = getMoney(debitTotal);
             setField(TOTAL_DEBIT.getName() + sectionId, parsedTotal);
         }
-        totalBalance = debitTotal - creditTotal;
-        if (totalBalance != 0) {
-            if (totalBalance < 0)
+
+        sectionTotalBalance = debitTotal - creditTotal;
+        
+        if (sectionTotalBalance != 0) {
+            if (sectionTotalBalance < 0)
                 setField(BALANCE_SIGN.getName() + sectionId, "-");
-            String parsedTotal = getMoney(totalBalance);
+            String parsedTotal = getMoney(sectionTotalBalance);
             setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
         }
 
-        return totalBalance;
+        return sectionTotalBalance;
     }
 
     protected void setMultiField(String fieldName, Double sourceRecord) throws ResourceException {
@@ -124,13 +126,6 @@ public class FormPDFCreator extends PDFFormManager {
 
         setField(fieldName + "Month" + sectionId + index, monthPart);
         setField(fieldName + "Year" + sectionId + index, yearPart);
-    }
-
-    protected String[] splitField(double input) {
-        input = Math.round(input * 100.0) / 100.0;
-        int integerPart = (int) input;
-        double decimalPart = input - integerPart;
-        return new String[]{Integer.toString(integerPart), String.format(Locale.ROOT, "%.2f", decimalPart).split("\\.")[1]};
     }
 
     protected void setPaymentDetails() throws ResourceException {

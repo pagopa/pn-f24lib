@@ -7,6 +7,8 @@ import org.f24.service.validator.impl.*;
 
 public class ValidatorFactory {
 
+    private ValidatorFactory() {}
+
     public static Validator createValidator(F24Form form) throws ResourceException {
         if (form instanceof F24Excise f24Excise)
             return new ExciseValidator("schemas/form/f24excise.json", f24Excise);

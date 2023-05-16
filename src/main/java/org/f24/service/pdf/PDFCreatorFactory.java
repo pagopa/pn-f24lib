@@ -10,6 +10,8 @@ import org.f24.service.pdf.impl.SimplifiedPDFCreator;
 
 public class PDFCreatorFactory {
 
+    private PDFCreatorFactory() {}
+
     /**
      * This method takes F24Form DTO and creates object of definite PDFCreator for it.
      *

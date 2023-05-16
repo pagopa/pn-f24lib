@@ -15,8 +15,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static org.f24.service.pdf.util.FieldEnum.*;
 
 public class PDFFormManager {
 
@@ -33,8 +34,6 @@ public class PDFFormManager {
         this.doc = PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName));
         this.copies = new ArrayList<>();
         this.copies.add(doc);
-
-        logger.setLevel(Level.WARNING);
     }
 
     protected void setIndex(Integer currentIndex) {
@@ -75,7 +74,6 @@ public class PDFFormManager {
                 field.setValue(fieldValue);
             } catch (IOException e) {
                 logger.info(e.getMessage());
-                e.printStackTrace();
             }
         }
     }
@@ -141,7 +139,7 @@ public class PDFFormManager {
                         - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
                 .sum();
         if (totalAmount < 0) {
-            throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());
+            throw new ResourceException(TOTAL_AMOUNT + ErrorEnum.NEGATIVE_NUM.getMessage());
         }
         return totalAmount;
     }
@@ -156,7 +154,7 @@ public class PDFFormManager {
                 .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0"))
                 .sum();
         if (totalAmount < 0) {
-            throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());
+            throw new ResourceException(TOTAL_AMOUNT + ErrorEnum.NEGATIVE_NUM.getMessage());
         }
         return totalAmount;
     }
@@ -171,7 +169,7 @@ public class PDFFormManager {
                 .mapToInt(mr -> Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
                 .sum();
         if (totalAmount < 0) {
-            throw new ResourceException("TotalAmount: " + ErrorEnum.NEGATIVE_NUM.getMessage());
+            throw new ResourceException(TOTAL_AMOUNT + ErrorEnum.NEGATIVE_NUM.getMessage());
         }
         return totalAmount;
     }
