@@ -29,8 +29,8 @@ public class StandardValidator extends FormValidator {
         List<? extends Record> regionRecordList = this.form.getRegionSection().getRegionRecordList();
         validateDebitandCredit(regionRecordList);
 
-        List<? extends Record> imuRecordList = this.form.getLocalTaxSection().getLocalTaxRecordList();
-        validateDebitandCredit(imuRecordList);
+        List<? extends Record> localTaxList = this.form.getLocalTaxSection().getLocalTaxRecordList();
+        validateDebitandCredit(localTaxList);
 
         List<? extends Record> inailRecordList = this.form.getSocialSecuritySection().getInailRecords();
         validateDebitandCredit(inailRecordList);
@@ -45,7 +45,7 @@ public class StandardValidator extends FormValidator {
             for (Record recordItem : targetRecordList) {
                 if(recordItem.getDebitAmount() != null && recordItem.getCreditAmount() != null ) {
                     if (!recordItem.getDebitAmount().equals("0") && !recordItem.getCreditAmount().equals("0")) {
-                        throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage()); // TODO comment for gen test
+                        throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage());
                     }
                 }
             }
