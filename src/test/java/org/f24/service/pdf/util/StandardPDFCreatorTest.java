@@ -18,9 +18,8 @@ import org.f24.dto.component.TreasurySection;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.impl.StandardPDFCreator;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,10 +28,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.f24.service.pdf.util.FieldEnum.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StandardPDFCreatorTest {
 
@@ -40,7 +39,7 @@ public class StandardPDFCreatorTest {
     List<Record> recordList;
     F24Standard form;
 
-    @Before
+    @BeforeEach
     public void setup() throws IOException {
         String jsonFile = "src/test/resources/input/f24standard.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));

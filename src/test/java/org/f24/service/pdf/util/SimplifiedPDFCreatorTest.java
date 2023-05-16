@@ -7,25 +7,25 @@ import org.f24.dto.component.TaxPayer;
 import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.impl.SimplifiedPDFCreator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.f24.service.pdf.util.FieldEnum.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 public class SimplifiedPDFCreatorTest {
 
     private SimplifiedPDFCreator pdfCreator;
     private F24Simplified form;
 
-    @Before
+    @BeforeEach
     public void setup() throws IOException {
         String jsonFile = "src/test/resources/input/f24simplified.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));

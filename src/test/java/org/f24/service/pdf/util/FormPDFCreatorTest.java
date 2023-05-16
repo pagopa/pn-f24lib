@@ -1,8 +1,5 @@
 package org.f24.service.pdf.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,18 +10,20 @@ import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.impl.FormPDFCreator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.f24.service.pdf.util.FieldEnum.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class FormPDFCreatorTest {
 
   private FormPDFCreator f24FormCreator;
   private F24Form form;
 
-  @Before
+  @BeforeEach
   public void setup() throws IOException {
     String jsonFile = "src/test/resources/input/f24form.json";
     String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));

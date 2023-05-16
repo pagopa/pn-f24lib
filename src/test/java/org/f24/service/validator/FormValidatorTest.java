@@ -4,20 +4,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.f24.dto.form.F24Form;
 import org.f24.exception.ResourceException;
 import org.f24.service.validator.impl.FormValidator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertThrows;
 
 public class FormValidatorTest {
     private FormValidator validator;
     private F24Form form;
 
-    @Before
+    @BeforeEach
     public void setup() throws IOException, ResourceException {
         String jsonFile = "src/test/resources/input/f24form.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));

@@ -6,22 +6,22 @@ import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
 import org.f24.service.validator.impl.StandardValidator;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import static org.junit.Assert.assertThrows;
 
 public class StandardValidatorTest {
 
     private StandardValidator validator;
     private F24Standard form;
 
-    @Before
+    @BeforeEach
     public void setup() throws IOException, ResourceException {
         String jsonFile = "src/test/resources/input/f24standard.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
@@ -307,7 +307,7 @@ public class StandardValidatorTest {
 
     //IBAN code
     @Test
-    @Ignore
+    @Disabled
     public void givenInvalidIBAN_whenValidateStandartPdf_thenThrowException() {
         form.setIbanCode("abcd");;
         assertThrows(ResourceException.class, () -> validator.validate());

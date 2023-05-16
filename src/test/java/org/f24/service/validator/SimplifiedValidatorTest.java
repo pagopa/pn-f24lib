@@ -5,22 +5,21 @@ import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
 import org.f24.service.validator.impl.SimplifiedValidator;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import static org.junit.Assert.*;
 
 public class SimplifiedValidatorTest {
 
     private SimplifiedValidator validator;
     private F24Simplified form;
 
-    @Before
+    @BeforeEach
     public void setup() throws IOException, ResourceException {
         String jsonFile = "src/test/resources/input/f24simplified.json";
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
