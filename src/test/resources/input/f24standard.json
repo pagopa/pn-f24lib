@@ -28,12 +28,12 @@
     "officeCode": "6BU"
   },
   "paymentDetails": {
-    "paymentDate": "35-76-9568",
-    "company": "string",
-    "cabCode": "string",
-    "checkNumber": "string",
-    "abiCode": "string",
-    "ibanCode": "string",
+    "paymentDate": "12-12-2022",
+    "company": "company",
+    "cabCode": "56789",
+    "checkNumber": "01",
+    "abiCode": "01234",
+    "ibanCode": "01A0123456789012345678901",
     "bank": true
   },
   "treasurySection": {
@@ -215,5 +215,5 @@
       }
     ]
   },
-  "ibanCode": "string"
+  "ibanCode": "01A0123456789012345678901"
 }

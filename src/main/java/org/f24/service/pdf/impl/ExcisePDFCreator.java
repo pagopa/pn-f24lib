@@ -11,7 +11,6 @@ import org.f24.service.pdf.util.CreatorHelper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -23,10 +22,8 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int EXCISE_TAX_RECORDS_NUMBER = 7;
 
     private CreatorHelper helper = new CreatorHelper();
-    private Logger logger = Logger.getLogger(StandardPDFCreator.class.getName());
     private F24Excise form;
     private int totalBalance = 0;
-
 
     /**
      * Constructs Excise PDF Creator.
@@ -56,148 +53,137 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
     private void setTreasurySection(String sectionId, int copyIndex) throws ResourceException {
         TreasurySection treasurySection = this.form.getTreasurySection();
-        List<Tax> taxList = treasurySection.getTaxList();
 
-        if (taxList != null) {
-            taxList = helper.paginateList(copyIndex, TAX_RECORDS_NUMBER, taxList);
+        if (!treasurySection.getTaxList().isEmpty()) {
+            List<Tax> taxList = helper.paginateList(copyIndex, TAX_RECORDS_NUMBER, treasurySection.getTaxList());
 
-            int index = 1;
-            for (Tax taxRecord : taxList) {
-                setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
-                setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
-                setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
+            if (taxList.size() != 0) {
+                for (int index = 1; index <= taxList.size(); index++) {
+                    Tax taxRecord = taxList.get(index - 1);
+                    setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
+                    setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
+                    setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
+                    setSectionRecordAmount(sectionId, index, taxRecord);
+                }
+                setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
+                setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
 
-                setSectionRecordAmount(sectionId, index, taxRecord);
-
-                index++;
+                totalBalance += setSectionTotal(sectionId, taxList, totalBalance);
             }
-
-            setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
-            setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
-
-            totalBalance += setSectionTotal(sectionId, taxList, totalBalance);
         }
     }
 
     private void setInpsSection(String sectionId, int copyIndex) throws ResourceException {
         InpsSection inpsSection = this.form.getInpsSection();
-        List<InpsRecord> inpsRecordList = inpsSection.getInpsRecordList();
 
-        if (inpsRecordList != null) {
-            inpsRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsRecordList);
+        if (!inpsSection.getInpsRecordList().isEmpty()) {
+            List<InpsRecord> inpsRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsSection.getInpsRecordList());
 
-            int index = 1;
-            for (InpsRecord inpsRecord : inpsRecordList) {
-                setField(OFFICE_CODE.getName() + sectionId + index, inpsRecord.getOfficeCode());
-                setField(CONTRIBUTION_REASON.getName() + sectionId + index, inpsRecord.getContributionReason());
-                setField(INPS_CODE.getName() + sectionId + index, inpsRecord.getInpsCode());
+            if (inpsRecordList.size() != 0) {
+                for (int index = 1; index <= inpsRecordList.size(); index++) {
+                    InpsRecord inpsRecord = inpsRecordList.get(index - 1);
+                    setField(OFFICE_CODE.getName() + sectionId + index, inpsRecord.getOfficeCode());
+                    setField(CONTRIBUTION_REASON.getName() + sectionId + index, inpsRecord.getContributionReason());
+                    setField(INPS_CODE.getName() + sectionId + index, inpsRecord.getInpsCode());
+                    setMultiDate(START_DATE.getName(), sectionId, index, inpsRecord.getPeriod().getStartDate());
+                    setMultiDate(END_DATE.getName(), sectionId, index, inpsRecord.getPeriod().getEndDate());
 
-                setMultiDate(START_DATE.getName(), sectionId, index, inpsRecord.getPeriod().getStartDate());
-                setMultiDate(END_DATE.getName(), sectionId, index, inpsRecord.getPeriod().getEndDate());
+                    setSectionRecordAmount(sectionId, index, inpsRecord);
 
-                setSectionRecordAmount(sectionId, index, inpsRecord);
-
-                index++;
+                }
+                totalBalance += setSectionTotal(sectionId, inpsRecordList, totalBalance);
             }
-            totalBalance += setSectionTotal(sectionId, inpsRecordList, totalBalance);
         }
     }
 
     private void setRegionSection(String sectionId, int copyIndex) throws ResourceException {
         RegionSection regionSection = this.form.getRegionSection();
-        List<RegionRecord> regionRecordsList = regionSection.getRegionRecordList();
 
-        if (regionRecordsList != null) {
-            regionRecordsList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionRecordsList);
+        if (!regionSection.getRegionRecordList().isEmpty()) {
+            List<RegionRecord> regionRecordsList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionSection.getRegionRecordList());
 
-            int index = 1;
-            for (RegionRecord regionRecord : regionRecordsList) {
-                setField(YEAR.getName() + sectionId + index, regionRecord.getYear());
-                setField(INSTALLMENT.getName() + sectionId + index, regionRecord.getInstallment());
-                setField(TAX_TYPE_CODE.getName() + sectionId + index, regionRecord.getTaxTypeCode());
-                setField(REGION_CODE.getName() + sectionId + index, regionRecord.getRegionCode());
+            if (regionRecordsList.size() != 0) {
+                for (int index = 1; index <= regionRecordsList.size(); index++) {
+                    RegionRecord regionRecord = regionRecordsList.get(index - 1);
+                    setField(YEAR.getName() + sectionId + index, regionRecord.getYear());
+                    setField(INSTALLMENT.getName() + sectionId + index, regionRecord.getInstallment());
+                    setField(TAX_TYPE_CODE.getName() + sectionId + index, regionRecord.getTaxTypeCode());
+                    setField(REGION_CODE.getName() + sectionId + index, regionRecord.getRegionCode());
 
-                setSectionRecordAmount(sectionId, index, regionRecord);
-
-                index++;
+                    setSectionRecordAmount(sectionId, index, regionRecord);
+                }
+                totalBalance += setSectionTotal(sectionId, regionRecordsList, totalBalance);
             }
-
-            totalBalance += setSectionTotal(sectionId, regionRecordsList, totalBalance);
         }
     }
 
     private void setLocalTaxSection(String sectionId, int copyIndex) throws ResourceException {
         LocalTaxSection localTaxSection = this.form.getLocalTaxSection();
-        List<LocalTaxRecord> localTaxRecordList = localTaxSection.getLocalTaxRecordList();
 
-        if (!localTaxRecordList.isEmpty()) {
-            localTaxRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxRecordList);
+        if (!localTaxSection.getLocalTaxRecordList().isEmpty()) {
+            List<LocalTaxRecord> localTaxRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxSection.getLocalTaxRecordList());
 
-            int index = 1;
-            for (LocalTaxRecord localTaxRecord : localTaxRecordList) {
-                setField(YEAR.getName() + sectionId + index, localTaxRecord.getYear());
-                setField(INSTALLMENT.getName() + sectionId + index, localTaxRecord.getInstallment());
-                setField(TAX_TYPE_CODE.getName() + sectionId + index, localTaxRecord.getTaxTypeCode());
-                setField(MUNICIPALITY_CODE.getName() + sectionId + index, localTaxRecord.getMunicipalityCode());
+            if (!localTaxRecordList.isEmpty()) {
+                for (int index = 1; index <= localTaxRecordList.size(); index++) {
+                    LocalTaxRecord taxRecord = localTaxRecordList.get(index - 1);
+                    setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
+                    setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
+                    setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
+                    setField(MUNICIPALITY_CODE.getName() + sectionId + index, taxRecord.getMunicipalityCode());
 
-                if (localTaxRecord.getReconsideration() != null && localTaxRecord.getReconsideration()) {
-                    setField(RECONSIDERATION.getName() + index, "X");
+                    if (taxRecord.getReconsideration() != null && taxRecord.getReconsideration()) {
+                        setField(RECONSIDERATION.getName() + index, "X");
+                    }
+                    if (taxRecord.getPropertiesChanges() != null && taxRecord.getPropertiesChanges()) {
+                        setField(PROPERTIES_CHANGED.getName() + index, "X");
+                    }
+                    if (taxRecord.getAdvancePayment() != null && taxRecord.getAdvancePayment()) {
+                        setField(ADVANCE_PAYMENT.getName() + index, "X");
+                    }
+                    if (taxRecord.getFullPayment() != null && taxRecord.getFullPayment()) {
+                        setField(FULL_PAYMENT.getName() + index, "X");
+                    }
+                    if (taxRecord.getNumberOfProperties() != null) {
+                        setField(NUMBER_OF_PROPERTIES.getName() + index, taxRecord.getNumberOfProperties());
+                    }
+
+                    setSectionRecordAmount(sectionId, index, taxRecord);
                 }
-                if (localTaxRecord.getPropertiesChanges() != null && localTaxRecord.getPropertiesChanges()) {
-                    setField(PROPERTIES_CHANGED.getName() + index, "X");
-                }
-                if (localTaxRecord.getAdvancePayment() != null && localTaxRecord.getAdvancePayment()) {
-                    setField(ADVANCE_PAYMENT.getName() + index, "X");
-                }
-                if (localTaxRecord.getFullPayment() != null && localTaxRecord.getFullPayment()) {
-                    setField(FULL_PAYMENT.getName() + index, "X");
-                }
-                if (localTaxRecord.getNumberOfProperties() != null) {
-                    setField(NUMBER_OF_PROPERTIES.getName() + index, localTaxRecord.getNumberOfProperties());
+                if (!localTaxSection.getOperationId().isEmpty()) {
+                    setField(OPERATION_ID.getName(), localTaxSection.getOperationId());
                 }
 
-                setSectionRecordAmount(sectionId, index, localTaxRecord);
+                totalBalance += setSectionTotal(sectionId, localTaxRecordList, totalBalance);
 
-                index++;
+                Double parsedDeduction = Double.parseDouble(localTaxSection.getDeduction());
+                setMultiField(DEDUCTION.getName(), parsedDeduction);
             }
-            if (!localTaxSection.getOperationId().isEmpty()) {
-                setField(OPERATION_ID.getName(), localTaxSection.getOperationId());
-            }
-
-            totalBalance += setSectionTotal(sectionId, localTaxRecordList, totalBalance);
-
-            Double parsedDeduction = Double.parseDouble(localTaxSection.getDeduction());
-            setMultiField(DEDUCTION.getName(), parsedDeduction);
         }
     }
 
     private void setExciseSection(String sectionId, int copyIndex) throws ResourceException {
         ExciseSection exciseSection = this.form.getExciseSection();
-        List<ExciseTax> exciseTaxList = exciseSection.getExciseTaxList();
+        if (!exciseSection.getExciseTaxList().isEmpty()) {
+            List<ExciseTax> exciseTaxList = helper.paginateList(copyIndex, EXCISE_TAX_RECORDS_NUMBER, exciseSection.getExciseTaxList());
 
-        if (exciseTaxList != null) {
-            exciseTaxList = helper.paginateList(copyIndex, EXCISE_TAX_RECORDS_NUMBER, exciseTaxList);
+            if (exciseTaxList.size() != 0) {
+                for (int index = 1; index <= exciseTaxList.size(); index++) {
+                    ExciseTax exciseTax = exciseTaxList.get(index - 1);
+                    setField(MUNICIPALITY.getName() + sectionId + index, exciseTax.getMunicipality());
+                    setField(EXCISE_PROVINCE.getName() + sectionId + index, exciseTax.getProvince());
+                    setField(TAX_TYPE_CODE.getName() + sectionId + index, exciseTax.getTaxTypeCode());
+                    setField(ID_CODE.getName() + sectionId + index, exciseTax.getIdCode());
+                    setField(INSTALLMENT.getName() + sectionId + index, exciseTax.getInstallment());
+                    setField(MONTH.getName() + sectionId + index, exciseTax.getMonth());
+                    setField(YEAR.getName() + sectionId + index, exciseTax.getYear());
 
-            int index = 1;
-            for (ExciseTax taxRecord : exciseTaxList) {
-                setField(MUNICIPALITY.getName() + sectionId + index, taxRecord.getMunicipality());
-                setField(EXCISE_PROVINCE.getName() + sectionId + index, taxRecord.getProvince());
-                setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
-                setField(ID_CODE.getName() + sectionId + index, taxRecord.getIdCode());
-                setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
-                setField(MONTH.getName() + sectionId + index, taxRecord.getMonth());
+                    setSectionRecordAmount(sectionId, index, exciseTax);
+                }
+                setField(OFFICE_CODE.getName() + sectionId, exciseSection.getOfficeCode());
+                setField(DOCUMENT_CODE.getName() + sectionId, exciseSection.getDocumentCode());
 
-                setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
-
-                setSectionRecordAmount(sectionId, index, taxRecord);
-
-                index++;
+                totalBalance += setSectionTotal(sectionId, exciseTaxList, totalBalance);
             }
-
-            setField(OFFICE_CODE.getName() + sectionId, exciseSection.getOfficeCode());
-            setField(DOCUMENT_CODE.getName() + sectionId, exciseSection.getDocumentCode());
-
-            totalBalance += setSectionTotal(sectionId, exciseTaxList, totalBalance);
         }
     }
 
@@ -212,31 +198,16 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
             loadDoc(MODEL_NAME);
             int totalPages = 0;
 
-
             int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
             int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
             int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
             int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
 
-            if (treasutyRecordsCount > TAX_RECORDS_NUMBER) {
-                int pagesCount = ((treasutyRecordsCount + TAX_RECORDS_NUMBER - 1) / TAX_RECORDS_NUMBER) - 1;
-                totalPages = Math.max(totalPages, pagesCount);
-            }
-
-            if (inpsRecordsCount > UNIV_RECORDS_NUMBER) {
-                int pagesCount = ((inpsRecordsCount + UNIV_RECORDS_NUMBER - 1) / UNIV_RECORDS_NUMBER) - 1;
-                totalPages = Math.max(totalPages, pagesCount);
-            }
-
-            if (regionRecordsCount > UNIV_RECORDS_NUMBER) {
-                int pagesCount = ((regionRecordsCount + UNIV_RECORDS_NUMBER - 1) / UNIV_RECORDS_NUMBER) - 1;
-                totalPages = Math.max(totalPages, pagesCount);
-            }
-
-            if (localTaxRecordCount > UNIV_RECORDS_NUMBER) {
-                int pagesCount = ((localTaxRecordCount + UNIV_RECORDS_NUMBER - 1) / UNIV_RECORDS_NUMBER) - 1;
-                totalPages = Math.max(totalPages, pagesCount);
-            }
+            totalPages = getTotalPages(treasutyRecordsCount,TAX_RECORDS_NUMBER, totalPages);
+            totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER, totalPages);
+            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER,totalPages);
+            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER,totalPages);
+            totalPages = getTotalPages(localTaxRecordCount, EXCISE_TAX_RECORDS_NUMBER,totalPages);
 
             copy(totalPages);
 
@@ -251,7 +222,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
                 setRegionSection("3", copyIndex);
                 setLocalTaxSection("4", copyIndex);
                 setExciseSection("5", copyIndex);
-                // setPaymentDetails();
+                //setPaymentDetails();
                 //setField(IBAN_CODE.getName(), this.form.getIbanCode());
                 setField(TOTAL_AMOUNT.getName(), helper.getMoney(totalBalance));
                 totalBalance = 0;
@@ -261,11 +232,9 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             getDoc().save(byteArrayOutputStream);
-            logger.info("excise pdf created");
-
             return byteArrayOutputStream.toByteArray();
+
         } catch (ResourceException | IOException e) {
-            logger.info(e.getMessage());
             return ByteArrayBuilder.NO_BYTES;
         }
     }

@@ -6,7 +6,7 @@ public class TreasuryRecord extends Record {
 
     private String idElements;
 
-    private String tributeCode;
+    private String taxTypeCode;
 
     private String year;
 
@@ -15,15 +15,15 @@ public class TreasuryRecord extends Record {
      *
      * @param type        type (tipo)
      * @param idElements  identification elements (elementi identificativi)
-     * @param tributeCode tribute code (codice)
+     * @param taxTypeCode tax type code (codice)
      * @param year        reporting year (anno di riferimento)
      * @param debitAmount debit amounts paid (debit amounts paid)
      */
-    public TreasuryRecord(String type, String idElements, String tributeCode, String year, String debitAmount) {
+    public TreasuryRecord(String type, String idElements, String taxTypeCode, String year, String debitAmount) {
         super(debitAmount, "", "");
         this.type = type;
         this.idElements = idElements;
-        this.tributeCode = tributeCode;
+        this.taxTypeCode = taxTypeCode;
         this.year = year;
     }
 
@@ -46,12 +46,12 @@ public class TreasuryRecord extends Record {
         this.idElements = idElements;
     }
 
-    public String getTributeCode() {
-        return tributeCode;
+    public String getTaxTypeCode() {
+        return taxTypeCode;
     }
 
-    public void setTributeCode(String tributeCode) {
-        this.tributeCode = tributeCode;
+    public void setTaxTypeCode(String taxTypeCode) {
+        this.taxTypeCode = taxTypeCode;
     }
 
     public String getYear() {

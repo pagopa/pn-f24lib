@@ -57,7 +57,10 @@ public enum FieldEnum {
     TOTAL_AMOUNT("totalAmount"),
     TOTAL_DEBIT("totalDebitAmount"),
     TOTAL_CREDIT("totalCreditAmount"),
-    SIGNATURE("signature");
+    SIGNATURE("signature"),
+    TYPE("type"),
+    ID_ELEMENT("idElement"),
+    BALANCE_SIGN("balanceSign");
 
     private String name;
 

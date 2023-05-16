@@ -12,16 +12,16 @@
       "$ref": "resource:/schemas/component/payment-details.json"
     },
     "treasurySection": {
-      "$ref": "resource:/schemas/component/treasury-section.json"
+      "$ref": "resource:/schemas/component/treasury-and-other-section.json"
     },
     "bankAccountNumber": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "abiCode": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "bankId": {
-      "type": "string"
+      "type": ["string", "null"]
     }
   }
 }

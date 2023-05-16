@@ -31,14 +31,14 @@
         "taxTypeCode": "QDFU",
         "installment": "E8Q",
         "year": "2023",
-        "debitAmount": "575854714",
+        "debitAmount": "617",
         "creditAmount": "6130"
       },
       {
         "taxTypeCode": "SFGE",
         "installment": "1N7",
         "year": "2023",
-        "debitAmount": "1283277",
+        "debitAmount": "1291",
         "creditAmount": "0"
       },
       {
@@ -52,7 +52,7 @@
         "taxTypeCode": "QDFU",
         "installment": "E8Q",
         "year": "2023",
-        "debitAmount": "575854714",
+        "debitAmount": "91721",
         "creditAmount": "6130"
       },
       {
@@ -239,5 +239,14 @@
     "officeCode": "TZQ",
     "documentCode": "84635602429"
   },
-  "ibanCode": "string"
+  "paymentDetails": {
+    "paymentDate": "12-12-2022",
+    "company": "company",
+    "cabCode": "56789",
+    "checkNumber": "01",
+    "abiCode": "01234",
+    "ibanCode": "01A0123456789012345678901",
+    "bank": true
+  },
+  "ibanCode": "01A0123456789012345678901"
 }

@@ -13,6 +13,10 @@ public class F24Elid extends F24Form {
     private String abiCode;
     private String bankId;
 
+    public F24Elid() {
+        super();
+    }
+
     /**
      * Constructs F24 ELID dto.
      *

@@ -89,25 +89,28 @@ public class FormPDFCreator extends PDFFormManager {
     }
 
     protected int setSectionTotal(String sectionId, List<? extends Record> recordList, int totalBalance) throws NumberFormatException, ResourceException {
-
-        if (helper.getTotalAmount(recordList) != 0) {
-            Integer total = helper.getTotalAmount(recordList);
-            totalBalance += total;
-            String parsedTotal = helper.getMoney(total);
-            setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
-        }
+        Integer creditTotal = 0;
+        Integer debitTotal = 0;
 
         if (helper.getCreditTotal(recordList) != 0) {
-            Integer creditTotal = helper.getCreditTotal(recordList);
+            creditTotal = helper.getCreditTotal(recordList);
             String parsedTotal = helper.getMoney(creditTotal);
             setField(TOTAL_CREDIT.getName() + sectionId, parsedTotal);
         }
 
         if (helper.getDebitTotal(recordList) != 0) {
-            Integer debitTotal = helper.getDebitTotal(recordList);
+            debitTotal = helper.getDebitTotal(recordList);
             String parsedTotal = helper.getMoney(debitTotal);
             setField(TOTAL_DEBIT.getName() + sectionId, parsedTotal);
         }
+        totalBalance = debitTotal - creditTotal;
+        if (totalBalance != 0) {
+            if (totalBalance < 0)
+                setField(BALANCE_SIGN.getName() + sectionId, "-");
+            String parsedTotal = helper.getMoney(totalBalance);
+            setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
+        }
+
         return totalBalance;
     }
 
