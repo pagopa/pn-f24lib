@@ -106,12 +106,12 @@ public class SimplifiedPDFCreatorTest {
             assertEquals(pdfCreator.getField(TAX_TYPE_CODE.getName() + index).getValueAsString(),
                     paymentReasonRecord.getTaxTypeCode());
 
-            if (paymentReasonRecord.getInstitutionCode() == null) {
-                paymentReasonRecord.setInstitutionCode("1234");
+            if (paymentReasonRecord.getMunicipalityCode() == null) {
+                paymentReasonRecord.setMunicipalityCode("1234");
             }
-            pdfCreator.setField(INSTITUTION_CODE.getName() + index, paymentReasonRecord.getInstitutionCode());
-            assertEquals(pdfCreator.getField(INSTITUTION_CODE.getName() + index).getValueAsString(),
-                    paymentReasonRecord.getInstitutionCode());
+            pdfCreator.setField(MUNICIPALITY_CODE.getName() + index, paymentReasonRecord.getMunicipalityCode());
+            assertEquals(pdfCreator.getField(MUNICIPALITY_CODE.getName() + index).getValueAsString(),
+                    paymentReasonRecord.getMunicipalityCode());
 
             shouldFillPaymentReasonCheckboxes(paymentReasonRecord, index);
 

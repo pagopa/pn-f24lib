@@ -4,7 +4,6 @@ import org.f24.dto.component.*;
 import org.f24.dto.component.Record;
 import org.f24.dto.form.F24Form;
 import org.f24.exception.ResourceException;
-import org.f24.service.pdf.util.CreatorHelper;
 import org.f24.service.pdf.util.PDFFormManager;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 public class FormPDFCreator extends PDFFormManager {
 
     private F24Form form;
-    private CreatorHelper helper = new CreatorHelper();
 
     public FormPDFCreator(F24Form form) {
         this.form = form;
@@ -71,18 +69,18 @@ public class FormPDFCreator extends PDFFormManager {
             throws ResourceException {
         if (sourceRecord.getCreditAmount() != null) {
             String recordCredit = sourceRecord.getCreditAmount();
-            String parsedCredit = helper.getMoney(Integer.parseInt(recordCredit));
+            String parsedCredit = getMoney(Integer.parseInt(recordCredit));
             setField(CREDIT_AMOUNT.getName() + sectionId + index, parsedCredit);
         }
 
         if (sourceRecord.getDebitAmount() != null) {
             String recordDebit = sourceRecord.getDebitAmount();
-            String parsedDebit = helper.getMoney(Integer.parseInt(recordDebit));
+            String parsedDebit = getMoney(Integer.parseInt(recordDebit));
             setField(DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
         }
 
         if (sourceRecord.getDeduction() != null) {
-            String parseDeduction = helper.getMoney(Integer.parseInt(sourceRecord.getDeduction()));
+            String parseDeduction = getMoney(Integer.parseInt(sourceRecord.getDeduction()));
             setField(DEDUCTION.getName() + sectionId + index, parseDeduction);
         }
 
@@ -92,22 +90,22 @@ public class FormPDFCreator extends PDFFormManager {
         Integer creditTotal = 0;
         Integer debitTotal = 0;
 
-        if (helper.getCreditTotal(recordList) != 0) {
-            creditTotal = helper.getCreditTotal(recordList);
-            String parsedTotal = helper.getMoney(creditTotal);
+        if (getCreditTotal(recordList) != 0) {
+            creditTotal = getCreditTotal(recordList);
+            String parsedTotal = getMoney(creditTotal);
             setField(TOTAL_CREDIT.getName() + sectionId, parsedTotal);
         }
 
-        if (helper.getDebitTotal(recordList) != 0) {
-            debitTotal = helper.getDebitTotal(recordList);
-            String parsedTotal = helper.getMoney(debitTotal);
+        if (getDebitTotal(recordList) != 0) {
+            debitTotal = getDebitTotal(recordList);
+            String parsedTotal = getMoney(debitTotal);
             setField(TOTAL_DEBIT.getName() + sectionId, parsedTotal);
         }
         totalBalance = debitTotal - creditTotal;
         if (totalBalance != 0) {
             if (totalBalance < 0)
                 setField(BALANCE_SIGN.getName() + sectionId, "-");
-            String parsedTotal = helper.getMoney(totalBalance);
+            String parsedTotal = getMoney(totalBalance);
             setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
         }
 
@@ -128,7 +126,7 @@ public class FormPDFCreator extends PDFFormManager {
         setField(fieldName + "Year" + sectionId + index, yearPart);
     }
 
-    private String[] splitField(double input) {
+    protected String[] splitField(double input) {
         input = Math.round(input * 100.0) / 100.0;
         int integerPart = (int) input;
         double decimalPart = input - integerPart;

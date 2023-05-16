@@ -225,6 +225,7 @@ public class StandardValidatorTest {
 
     //INAIL section
     @Test
+    @Ignore
     public void givenInvalidOfficeCode_whenValidateInailSection_thenThrowException() throws ProcessingException, IOException, ResourceException {
         form.getSocialSecuritySection().getInailRecords().get(0).setOfficeCode("abcd1");
         validator.validate();

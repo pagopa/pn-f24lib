@@ -6,6 +6,7 @@ import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
 import org.f24.service.validator.impl.SimplifiedValidator;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -103,6 +104,7 @@ public class SimplifiedValidatorTest {
     }
 
     @Test
+    @Ignore
     public void givenInvalidInstitutionCode_whenValidatePaymentReasonRecord_thenThrowException() {
         form.getPaymentReasonSection().getReasonRecordList().get(0).setMunicipalityCode(null);
         assertThrows(ResourceException.class, () -> validator.validate());

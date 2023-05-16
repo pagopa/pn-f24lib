@@ -6,7 +6,6 @@ import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
-import org.f24.service.pdf.util.CreatorHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,7 +19,6 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int TREASURY_RECORDS_NUMBER = 28;
 
     private F24Elid form;
-    private CreatorHelper helper = new CreatorHelper();
     private int totalBalance = 0;
 
     /**
@@ -51,7 +49,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
         List<TreasuryRecord> treasuryTaxList = treasurySection.getTreasuryRecords();
 
         if (treasuryTaxList != null) {
-            treasuryTaxList = helper.paginateList(copyIndex, TREASURY_RECORDS_NUMBER, treasuryTaxList);
+            treasuryTaxList = paginateList(copyIndex, TREASURY_RECORDS_NUMBER, treasuryTaxList);
 
             for (int index = 1; index <= treasuryTaxList.size(); index++) {
                 TreasuryRecord treasuryRecord = treasuryTaxList.get(index - 1);
@@ -66,7 +64,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
             setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
             setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
 
-            totalBalance += helper.getTotalAmount(treasuryTaxList);
+            totalBalance += getTotalAmount(treasuryTaxList);
         }
     }
 
@@ -100,7 +98,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
                 setTreasurySection(copyIndex);
                 //setPaymentDetails();
                 //setField(IBAN_CODE.getName(), this.form.getIbanCode());
-                setField(TOTAL_AMOUNT.getName(), helper.getMoney(totalBalance));
+                setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
             }
 

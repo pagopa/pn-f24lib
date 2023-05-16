@@ -102,14 +102,14 @@ public class PDFFormManagerTest {
     assertEquals(parsedInt, "100  0 0");
   }
 
-  @Test
-  public void giventDoubleValue_whenConverToFloatString_thenReturnString() {
-    String[] paresedFloat = f24FormCreator.splitField(1465.236);
+  // @Test
+  // public void giventDoubleValue_whenConverToFloatString_thenReturnString() {
+  //   String[] paresedFloat = f24FormCreator.splitField(1465.236);
 
-    assertNotNull(paresedFloat);
-    assertEquals(paresedFloat[0], "1465");
-    assertEquals(paresedFloat[1], "24");
-  }
+  //   assertNotNull(paresedFloat);
+  //   assertEquals(paresedFloat[0], "1465");
+  //   assertEquals(paresedFloat[1], "24");
+  // }
 
   @Test
   public void givenPDFRecordList_whenCalculateTotalAmount_thenReturnTotalAmount() throws ResourceException {

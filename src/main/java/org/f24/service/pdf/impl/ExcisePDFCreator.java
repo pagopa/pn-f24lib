@@ -6,7 +6,6 @@ import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
-import org.f24.service.pdf.util.CreatorHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,7 +20,6 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int UNIV_RECORDS_NUMBER = 4;
     private static final int EXCISE_TAX_RECORDS_NUMBER = 7;
 
-    private CreatorHelper helper = new CreatorHelper();
     private F24Excise form;
     private int totalBalance = 0;
 
@@ -55,7 +53,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         TreasurySection treasurySection = this.form.getTreasurySection();
 
         if (!treasurySection.getTaxList().isEmpty()) {
-            List<Tax> taxList = helper.paginateList(copyIndex, TAX_RECORDS_NUMBER, treasurySection.getTaxList());
+            List<Tax> taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER, treasurySection.getTaxList());
 
             if (taxList.size() != 0) {
                 for (int index = 1; index <= taxList.size(); index++) {
@@ -77,7 +75,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         InpsSection inpsSection = this.form.getInpsSection();
 
         if (!inpsSection.getInpsRecordList().isEmpty()) {
-            List<InpsRecord> inpsRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsSection.getInpsRecordList());
+            List<InpsRecord> inpsRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsSection.getInpsRecordList());
 
             if (inpsRecordList.size() != 0) {
                 for (int index = 1; index <= inpsRecordList.size(); index++) {
@@ -100,7 +98,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         RegionSection regionSection = this.form.getRegionSection();
 
         if (!regionSection.getRegionRecordList().isEmpty()) {
-            List<RegionRecord> regionRecordsList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionSection.getRegionRecordList());
+            List<RegionRecord> regionRecordsList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionSection.getRegionRecordList());
 
             if (regionRecordsList.size() != 0) {
                 for (int index = 1; index <= regionRecordsList.size(); index++) {
@@ -121,7 +119,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         LocalTaxSection localTaxSection = this.form.getLocalTaxSection();
 
         if (!localTaxSection.getLocalTaxRecordList().isEmpty()) {
-            List<LocalTaxRecord> localTaxRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxSection.getLocalTaxRecordList());
+            List<LocalTaxRecord> localTaxRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxSection.getLocalTaxRecordList());
 
             if (!localTaxRecordList.isEmpty()) {
                 for (int index = 1; index <= localTaxRecordList.size(); index++) {
@@ -164,7 +162,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
     private void setExciseSection(String sectionId, int copyIndex) throws ResourceException {
         ExciseSection exciseSection = this.form.getExciseSection();
         if (!exciseSection.getExciseTaxList().isEmpty()) {
-            List<ExciseTax> exciseTaxList = helper.paginateList(copyIndex, EXCISE_TAX_RECORDS_NUMBER, exciseSection.getExciseTaxList());
+            List<ExciseTax> exciseTaxList = paginateList(copyIndex, EXCISE_TAX_RECORDS_NUMBER, exciseSection.getExciseTaxList());
 
             if (exciseTaxList.size() != 0) {
                 for (int index = 1; index <= exciseTaxList.size(); index++) {
@@ -224,7 +222,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
                 setExciseSection("5", copyIndex);
                 //setPaymentDetails();
                 //setField(IBAN_CODE.getName(), this.form.getIbanCode());
-                setField(TOTAL_AMOUNT.getName(), helper.getMoney(totalBalance));
+                setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
             }
 
