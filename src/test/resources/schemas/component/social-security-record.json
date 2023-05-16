@@ -7,7 +7,7 @@
   ],
   "type": "object",
   "properties": {
-    "institutionCode": {
+    "municipalityCode": {
       "pattern": "^[0-9]{4}$",
       "type": "string"
     },

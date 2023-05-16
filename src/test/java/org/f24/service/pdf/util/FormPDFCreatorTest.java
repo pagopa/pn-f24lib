@@ -106,8 +106,8 @@ public class FormPDFCreatorTest {
     f24FormCreator.setField(CAB_CODE.getName(), "code");
     f24FormCreator.setField(CHECK_NUMBER.getName(), "number");
     f24FormCreator.setField(ABI_CODE.getName(), "code");
-    f24FormCreator.setField(BANK.getName(), true ? "X" : "");
-    f24FormCreator.setField(CIRCULAR.getName(), false ? "X" : "");
+    f24FormCreator.setField(BANK.getName(), "X");
+    f24FormCreator.setField(CIRCULAR.getName(), "");
 
     assertEquals(f24FormCreator.getField(DATE_OF_PAYMENT.getName()).getValueAsString(), "20042068");
     assertEquals(f24FormCreator.getField(COMPANY.getName()).getValueAsString(), "company");

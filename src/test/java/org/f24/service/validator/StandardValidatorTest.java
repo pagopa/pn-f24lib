@@ -260,4 +260,56 @@ public class StandardValidatorTest {
         form.getSocialSecuritySection().getInailRecords().get(0).setCreditAmount("101");
         assertThrows(ResourceException.class, () -> validator.validate());
     }
+
+    //Social Security section
+    @Test
+    public void givenInvalMunicipalityCode_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setMunicipalityCode("abcd");;
+        assertThrows(ResourceException.class, () -> validator.validate());
+    }
+
+    @Test
+    public void givenInvalidOfficeCode_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setOfficeCode("abcd");;
+        assertThrows(ResourceException.class, () -> validator.validate());
+    }
+
+    @Test
+    public void givenInvalidContributionReason_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setContributionReason("abCD");;
+        assertThrows(ResourceException.class, () -> validator.validate());
+    }
+
+    @Test
+    public void givenInvalidPositionCode_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).setPositionCode("abcd");;
+        assertThrows(ResourceException.class, () -> validator.validate());
+    }
+
+    @Test
+    public void givenInvalidPeriodStartDate_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).getPeriod().setStartDate("abcd");;
+        assertThrows(ResourceException.class, () -> validator.validate());
+    }
+
+    @Test
+    public void givenInvalidPeriodEndDate_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getSocialSecurityRecordList().get(0).getPeriod().setEndDate("abcd");;
+        assertThrows(ResourceException.class, () -> validator.validate());
+    }
+
+    @Test
+    public void given_DebitAndCredit_whenValidateSocialSecuritySection_thenThrowException() {
+        form.getSocialSecuritySection().getInailRecords().get(0).setDebitAmount("101");
+        form.getSocialSecuritySection().getInailRecords().get(0).setCreditAmount("101");
+        assertThrows(ResourceException.class, () -> validator.validate());
+    }
+
+    //IBAN code
+    @Test
+    @Ignore
+    public void givenInvalidIBAN_whenValidateStandartPdf_thenThrowException() {
+        form.setIbanCode("abcd");;
+        assertThrows(ResourceException.class, () -> validator.validate());
+    }
 }
