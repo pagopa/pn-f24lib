@@ -12,8 +12,6 @@ import org.f24.service.pdf.PDFCreator;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 
-import org.f24.service.pdf.util.CreatorHelper;
-
 import static org.f24.service.pdf.util.FieldEnum.*;
 
 public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
@@ -24,7 +22,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int INAIL_RECORDS_NUMBER = 3;
     private static final int SOC_RECORDS_NUMBER = 2;
 
-    private CreatorHelper helper = new CreatorHelper();
     private Logger logger = Logger.getLogger(StandardPDFCreator.class.getName());
     private F24Standard form;
     private int totalBalance = 0;
@@ -59,7 +56,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         TreasurySection treasurySection = this.form.getTreasurySection();
 
         if (!treasurySection.getTaxList().isEmpty()) {
-            List<Tax> taxList = helper.paginateList(copyIndex, TAX_RECORDS_NUMBER, treasurySection.getTaxList());
+            List<Tax> taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER, treasurySection.getTaxList());
 
             if (taxList.size() != 0) {
                 for (int index = 1; index <= taxList.size(); index++) {
@@ -81,7 +78,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         InpsSection inpsSection = this.form.getInpsSection();
 
         if (!inpsSection.getInpsRecordList().isEmpty()) {
-            List<InpsRecord> inpsRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsSection.getInpsRecordList());
+            List<InpsRecord> inpsRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, inpsSection.getInpsRecordList());
 
             if (inpsRecordList.size() != 0) {
                 for (int index = 1; index <= inpsRecordList.size(); index++) {
@@ -104,7 +101,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         RegionSection regionSection = this.form.getRegionSection();
 
         if (!regionSection.getRegionRecordList().isEmpty()) {
-            List<RegionRecord> regionRecordsList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionSection.getRegionRecordList());
+            List<RegionRecord> regionRecordsList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, regionSection.getRegionRecordList());
 
             if (regionRecordsList.size() != 0) {
                 for (int index = 1; index <= regionRecordsList.size(); index++) {
@@ -125,7 +122,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         LocalTaxSection localTaxSection = this.form.getLocalTaxSection();
 
         if (!localTaxSection.getLocalTaxRecordList().isEmpty()) {
-            List<LocalTaxRecord> localTaxRecordList = helper.paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxSection.getLocalTaxRecordList());
+            List<LocalTaxRecord> localTaxRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER, localTaxSection.getLocalTaxRecordList());
 
             if (!localTaxRecordList.isEmpty()) {
                 for (int index = 1; index <= localTaxRecordList.size(); index++) {
@@ -168,7 +165,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
 
         if (!socSecurity.getInailRecords().isEmpty()) {
-            List<InailRecord> inailRecordList = helper.paginateList(copyIndex, INAIL_RECORDS_NUMBER, socSecurity.getInailRecords());
+            List<InailRecord> inailRecordList = paginateList(copyIndex, INAIL_RECORDS_NUMBER, socSecurity.getInailRecords());
 
             if (inailRecordList.size() != 0) {
                 for (int index = 1; index <= inailRecordList.size(); index++) {
@@ -191,7 +188,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
 
         if (!socSecurity.getSocialSecurityRecordList().isEmpty()) {
-            List<SocialSecurityRecord> socSecurityList = helper.paginateList(copyIndex, SOC_RECORDS_NUMBER, socSecurity.getSocialSecurityRecordList());
+            List<SocialSecurityRecord> socSecurityList = paginateList(copyIndex, SOC_RECORDS_NUMBER, socSecurity.getSocialSecurityRecordList());
 
             if (socSecurityList.size() != 0) {
                 for (int index = 1; index <= socSecurityList.size(); index++) {
@@ -253,7 +250,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                 setSocialSecurity("6", copyIndex);
                 //setPaymentDetails();
                 //setField(IBAN_CODE.getName(), this.form.getIbanCode());
-                setField(TOTAL_AMOUNT.getName(), helper.getMoney(totalBalance));
+                setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
             }
 

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
-import org.f24.service.pdf.util.CreatorHelper;
 import org.f24.service.pdf.PDFCreator;
 
 import java.io.ByteArrayOutputStream;
@@ -18,7 +17,6 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int REASON_RECORDS_NUMBER = 10;
 
     private F24Simplified form;
-    private CreatorHelper helper = new CreatorHelper();
 
     /**
      * Constructs Simplified PDF Creator.
@@ -54,13 +52,13 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private void setPaymentReasonRecordAmounts(PaymentReasonRecord paymentReasonRecord, int index) throws ResourceException {
         if (paymentReasonRecord.getDeduction() != null) {
-            setField(DEDUCTION.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getDeduction())));
+            setField(DEDUCTION.getName() + index, getMoney(Integer.parseInt(paymentReasonRecord.getDeduction())));
         }
         if (paymentReasonRecord.getDebitAmount() != null) {
-            setField(DEBIT_AMOUNT.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getDebitAmount())));
+            setField(DEBIT_AMOUNT.getName() + index, getMoney(Integer.parseInt(paymentReasonRecord.getDebitAmount())));
         }
         if (paymentReasonRecord.getCreditAmount() != null) {
-            setField(CREDIT_AMOUNT.getName() + index, helper.getMoney(Integer.parseInt(paymentReasonRecord.getCreditAmount())));
+            setField(CREDIT_AMOUNT.getName() + index, getMoney(Integer.parseInt(paymentReasonRecord.getCreditAmount())));
         }
     }
 
@@ -81,7 +79,7 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
                 setField(YEAR.getName() + index, paymentReasonRecord.getYear());
                 setPaymentReasonRecordAmounts(paymentReasonRecord, index);
             }
-            setField(TOTAL_AMOUNT.getName(), helper.getMoney(Integer.parseInt(this.form.getPaymentReasonSection().getTotalAmount().toString())));
+            setField(TOTAL_AMOUNT.getName(), getMoney(Integer.parseInt(this.form.getPaymentReasonSection().getTotalAmount().toString())));
         } catch (Exception e) {
             //
         }
