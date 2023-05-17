@@ -20,7 +20,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private Logger logger = Logger.getLogger(StandardPDFCreator.class.getName());
     private F24Standard form;
-    private int totalBalance = 0;
 
     /**
      * Constructs Standard PDF Creator.
@@ -131,6 +130,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                 setHeader();
                 setTaxPayer();
                 setTreasurySection("1", copyIndex);
+                setTreasurySectionCodes();
                 setInpsSection("2", copyIndex);
                 setRegionSection("3", copyIndex);
                 setLocalTaxSection("4", copyIndex);

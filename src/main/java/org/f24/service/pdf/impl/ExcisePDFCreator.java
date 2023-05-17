@@ -20,7 +20,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
     private F24Excise form;
 
-    private Logger logger = Logger.getLogger(SimplifiedPDFCreator.class.getName());
+    private Logger logger = Logger.getLogger(ExcisePDFCreator.class.getName());
 
     /**
      * Constructs Excise PDF Creator.
@@ -45,29 +45,6 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
             setRegistryData();
             setTaxResidenceData();
-        }
-    }
-
-    @Override
-    protected void setTreasurySection(String sectionId, int copyIndex) throws ResourceException {
-        TreasurySection treasurySection = this.form.getTreasurySection();
-
-        if (!treasurySection.getTaxList().isEmpty()) {
-            List<Tax> taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER.getRecordsNum(), treasurySection.getTaxList());
-
-            if (!taxList.isEmpty()) {
-                for (int index = 1; index <= taxList.size(); index++) {
-                    Tax taxRecord = taxList.get(index - 1);
-                    setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
-                    setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
-                    setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
-                    setSectionRecordAmount(sectionId, index, taxRecord);
-                }
-                setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
-                setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
-
-                totalBalance += setSectionTotal(sectionId, taxList, totalBalance);
-            }
         }
     }
 
@@ -129,6 +106,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
                 setHeader();
                 setTaxPayer();
                 setTreasurySection("1", copyIndex);
+                setTreasurySectionCodes("1");
                 setInpsSection("2", copyIndex);
                 setRegionSection("3", copyIndex);
                 setLocalTaxSection("4", copyIndex);

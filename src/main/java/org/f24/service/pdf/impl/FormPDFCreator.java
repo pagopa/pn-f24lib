@@ -90,7 +90,7 @@ public class FormPDFCreator extends PDFFormManager {
             throws NumberFormatException, ResourceException {
         Integer creditTotal = 0;
         Integer debitTotal = 0;
-        int sectionTotalBalance = totalBalance;
+        int sectionTotalBalance;
 
         if (getCreditTotal(recordList) != 0) {
             creditTotal = getCreditTotal(recordList);
@@ -157,12 +157,28 @@ public class FormPDFCreator extends PDFFormManager {
                     setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
                     setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
                     setSectionRecordAmount(sectionId, index, taxRecord);
-                }
-                setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
-                setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
+                }        
 
                 totalBalance += setSectionTotal(sectionId, taxList, totalBalance);
             }
+        }
+    }
+
+    protected void setTreasurySectionCodes() throws ResourceException {
+        TreasurySection treasurySection = this.form.getTreasurySection();
+
+        if (!treasurySection.getTaxList().isEmpty()) {
+            setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
+            setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
+        }
+    }
+
+    protected void setTreasurySectionCodes(String sectionId) throws ResourceException {
+        TreasurySection treasurySection = this.form.getTreasurySection();
+
+        if (!treasurySection.getTaxList().isEmpty()) {
+            setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
+            setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
         }
     }
 

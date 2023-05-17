@@ -20,8 +20,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int TREASURY_RECORDS_NUMBER = 28;
 
     private F24Elid form;
-    private int totalBalance = 0;
-    private Logger logger = Logger.getLogger(SimplifiedPDFCreator.class.getName());;
+    private Logger logger = Logger.getLogger(ElidPDFCreator.class.getName());;
 
     /**
      * Constructs ELID PDF Creator.
