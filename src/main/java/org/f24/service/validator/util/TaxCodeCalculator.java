@@ -1,5 +1,6 @@
 package org.f24.service.validator.util;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
@@ -132,9 +133,9 @@ public class TaxCodeCalculator {
 
         cal.setTime(birthDate);
 
-        Integer day = cal.get(GregorianCalendar.DAY_OF_MONTH);
-        Integer month = cal.get(GregorianCalendar.MONTH);
-        Integer year = cal.get(GregorianCalendar.YEAR);
+        Integer day = cal.get(Calendar.DAY_OF_MONTH);
+        Integer month = cal.get(Calendar.MONTH);
+        Integer year = cal.get(Calendar.YEAR);
 
         cod.append(year.toString(), 2, 4);
         cod.append(getMonthCode(month));

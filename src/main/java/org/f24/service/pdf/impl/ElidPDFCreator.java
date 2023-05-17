@@ -20,7 +20,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int TREASURY_RECORDS_NUMBER = 28;
 
     private F24Elid form;
-    private Logger logger = Logger.getLogger(ElidPDFCreator.class.getName());;
+    private Logger logger = Logger.getLogger(ElidPDFCreator.class.getName());
 
     /**
      * Constructs ELID PDF Creator.
@@ -32,7 +32,8 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
         this.form = form;
     }
 
-    private void setTaxPayer() throws ResourceException {
+    @Override
+    protected void setTaxPayer() throws ResourceException {
         TaxPayer taxPayer = this.form.getTaxPayer();
 
         if (taxPayer != null) {

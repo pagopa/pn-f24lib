@@ -31,22 +31,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         this.form = form;
     }
 
-    private void setTaxPayer() throws ResourceException {
-        TaxPayer taxPayer = this.form.getTaxPayer();
-
-        if (taxPayer != null) {
-            setField(TAX_CODE.getName(), taxPayer.getTaxCode());
-            setField(RELATIVE_PERSON_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
-            setField(ID_CODE.getName(), taxPayer.getIdCode());
-
-            if (taxPayer.getIsNotTaxYear())
-                setField(IS_NOT_TAX_YEAR.getName(), "X");
-
-            setRegistryData();
-            setTaxResidenceData();
-        }
-    }
-
     private void setInail(String sectionId, int copyIndex) throws ResourceException {
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
 
@@ -66,7 +50,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                     setSectionRecordAmount(sectionId, index, inailRecord);
 
                 }
-                totalBalance += setSectionTotal(sectionId, inailRecordList, totalBalance);
+                totalBalance += setSectionTotal(sectionId, inailRecordList);
             }
         }
     }
@@ -91,7 +75,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
                     setSectionRecordAmount(sectionId, index, socSecRecord);
                 }
-                totalBalance += setSectionTotal(sectionId, socSecurityList, totalBalance);
+                totalBalance += setSectionTotal(sectionId, socSecurityList);
             }
         }
     }

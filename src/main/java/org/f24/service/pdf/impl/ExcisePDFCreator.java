@@ -32,22 +32,6 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         this.form = form;
     }
 
-    private void setTaxPayer() throws ResourceException {
-        TaxPayer taxPayer = this.form.getTaxPayer();
-
-        if (taxPayer != null) {
-            setField(TAX_CODE.getName(), taxPayer.getTaxCode());
-            setField(RELATIVE_PERSON_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
-            setField(ID_CODE.getName(), taxPayer.getIdCode());
-
-            if (taxPayer.getIsNotTaxYear())
-                setField(IS_NOT_TAX_YEAR.getName(), "X");
-
-            setRegistryData();
-            setTaxResidenceData();
-        }
-    }
-
     private void setExciseSection(String sectionId, int copyIndex) throws ResourceException {
         ExciseSection exciseSection = this.form.getExciseSection();
         if (!exciseSection.getExciseTaxList().isEmpty()) {
@@ -70,7 +54,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
                 setField(OFFICE_CODE.getName() + sectionId, exciseSection.getOfficeCode());
                 setField(DOCUMENT_CODE.getName() + sectionId, exciseSection.getDocumentCode());
 
-                totalBalance += setSectionTotal(sectionId, exciseTaxList, totalBalance);
+                totalBalance += setSectionTotal(sectionId, exciseTaxList);
             }
         }
     }

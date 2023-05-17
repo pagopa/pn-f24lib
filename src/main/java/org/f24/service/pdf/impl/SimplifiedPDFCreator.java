@@ -30,7 +30,8 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
         this.form = form;
     }
 
-    private void setTaxPayer() throws ResourceException {
+    @Override
+    protected void setTaxPayer() throws ResourceException {
         TaxPayer taxPayer = this.form.getTaxPayer();
         if (taxPayer != null) {
             setField(TAX_CODE.getName(), taxPayer.getTaxCode());
