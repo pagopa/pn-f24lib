@@ -7,7 +7,7 @@ import org.f24.dto.component.TreasuryAndOtherSection;
 
 public class F24Elid extends F24Form {
 
-    private TreasuryAndOtherSection treasurySection;
+    private TreasuryAndOtherSection treasuryAndOtherSection;
 
     private String bankAccountNumber;
     private String abiCode;
@@ -20,28 +20,30 @@ public class F24Elid extends F24Form {
     /**
      * Constructs F24 ELID dto.
      *
-     * @param header            Header component
-     * @param taxPayer          TaxPayer component
-     * @param paymentDetails    PaymentDetails component
-     * @param treasurySection   TreasuryAndOtherSection component
-     * @param bankAccountNumber bank account debit authorization n (autorizzo addebito su conto corrente bancario n°)
-     * @param abiCode           ABI code (cod. ABI)
-     * @param bankId            bank ID (CAB)
+     * @param header                  Header component
+     * @param taxPayer                TaxPayer component
+     * @param paymentDetails          PaymentDetails component
+     * @param treasuryAndOtherSection TreasuryAndOtherSection component
+     * @param bankAccountNumber       bank account debit authorization n (autorizzo
+     *                                addebito su conto corrente bancario n°)
+     * @param abiCode                 ABI code (cod. ABI)
+     * @param bankId                  bank ID (CAB)
      */
-    public F24Elid(Header header, TaxPayer taxPayer, PaymentDetails paymentDetails, TreasuryAndOtherSection treasurySection, String bankAccountNumber, String abiCode, String bankId) {
+    public F24Elid(Header header, TaxPayer taxPayer, PaymentDetails paymentDetails,
+            TreasuryAndOtherSection treasuryAndOtherSection, String bankAccountNumber, String abiCode, String bankId) {
         super(header, taxPayer, paymentDetails);
-        this.treasurySection = treasurySection;
+        this.treasuryAndOtherSection = treasuryAndOtherSection;
         this.bankAccountNumber = bankAccountNumber;
         this.abiCode = abiCode;
         this.bankId = bankId;
     }
 
-    public TreasuryAndOtherSection getTreasurySection() {
-        return treasurySection;
+    public TreasuryAndOtherSection getTreasuryAndOtherSection() {
+        return treasuryAndOtherSection;
     }
 
-    public void setTreasurySection(TreasuryAndOtherSection treasurySection) {
-        this.treasurySection = treasurySection;
+    public void setTreasuryAndOtherSection(TreasuryAndOtherSection treasuryAndOtherSection) {
+        this.treasuryAndOtherSection = treasuryAndOtherSection;
     }
 
     public String getBankAccountNumber() {

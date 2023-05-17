@@ -60,9 +60,17 @@ public enum FieldEnum {
     SIGNATURE("signature"),
     TYPE("type"),
     ID_ELEMENT("idElement"),
-    BALANCE_SIGN("balanceSign");
+    BALANCE_SIGN("balanceSign"),
+
+    // Records numbers
+    TAX_RECORDS_NUMBER(6),
+    UNIV_RECORDS_NUMBER(4),
+    INAIL_RECORDS_NUMBER(3),
+    SOC_RECORDS_NUMBER(2),
+    EXCISE_TAX_RECORDS_NUMBER(7);
 
     private String name;
+    private int recordsNum;
 
     FieldEnum(String name) {
         this.name = name;
@@ -70,6 +78,14 @@ public enum FieldEnum {
 
     public String getName() {
         return name;
+    }
+
+    FieldEnum(int recordsNum) {
+        this.recordsNum = recordsNum;
+    }
+
+    public int getRecordsNum() {
+        return recordsNum;
     }
 
 }

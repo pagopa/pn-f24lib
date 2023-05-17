@@ -11,7 +11,7 @@
     "paymentDetails": {
       "$ref": "resource:/schemas/component/payment-details.json"
     },
-    "treasurySection": {
+    "treasuryAndOtherSection": {
       "$ref": "resource:/schemas/component/treasury-and-other-section.json"
     },
     "bankAccountNumber": {
