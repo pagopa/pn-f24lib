@@ -64,7 +64,7 @@ public class FormPDFCreator extends PDFFormManager {
         }
     }
 
-    private void setCompanyData() throws ResourceException {
+    protected void setCompanyData() throws ResourceException {
         CompanyData companyData = this.form.getTaxPayer().getCompanyData();
         if (companyData != null) {
             setField(CORPORATE_NAME.getName(), companyData.getName());
@@ -234,7 +234,7 @@ public class FormPDFCreator extends PDFFormManager {
 
     }
 
-    protected int setSectionTotal(String sectionId, List<? extends Record> recordList)
+    public int setSectionTotal(String sectionId, List<? extends Record> recordList)
             throws NumberFormatException, ResourceException {
         Integer creditTotal = 0;
         Integer debitTotal = 0;

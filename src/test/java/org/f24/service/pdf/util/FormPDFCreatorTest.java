@@ -3,8 +3,16 @@ package org.f24.service.pdf.util;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.f24.dto.component.CompanyData;
+import org.f24.dto.component.PaymentDetails;
 import org.f24.dto.component.Header;
+import org.f24.dto.component.InailRecord;
+import org.f24.dto.component.InpsSection;
+import org.f24.dto.component.Record;
 import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
@@ -22,12 +30,21 @@ class FormPDFCreatorTest {
 
   private FormPDFCreator f24FormCreator;
   private F24Form form;
+  List<InailRecord> sectionRecords;
 
   @BeforeEach
   void setup() throws IOException {
     String jsonFile = "src/test/resources/input/f24form.json";
     String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
     form = new ObjectMapper().readValue(jsonString, F24Form.class);
+
+    sectionRecords = new ArrayList<InailRecord>(Arrays.asList(
+        new InailRecord("", "", "", "", "", "2000", "500"),
+        new InailRecord("", "", "", "", "", "500", "1000"),
+        new InailRecord("", "", "", "", "", "1000", "500"),
+        new InailRecord("", "", "", "", "", "500", "1000"),
+        new InailRecord("", "", "", "", "", "1000", "500"),
+        new InailRecord("", "", "", "", "", "500", "1000")));
 
     f24FormCreator = new FormPDFCreator(form);
     f24FormCreator.loadDoc("templates" + "/ModF24IMU2013.pdf");
@@ -75,6 +92,19 @@ class FormPDFCreatorTest {
   }
 
   @Test
+  void shouldSetCompanyData() throws ResourceException {
+    f24FormCreator.setIndex(0);
+    CompanyData companyData = form.getTaxPayer().getCompanyData();
+
+    if (companyData == null) {
+      companyData = new CompanyData("NAME", null);
+    }
+
+    f24FormCreator.setField(CORPORATE_NAME.getName(), companyData.getName());
+    assertEquals(companyData.getName(), f24FormCreator.getField(CORPORATE_NAME.getName()).getValueAsString());
+  }
+
+  @Test
   void shouldFillCompanyData() throws ResourceException {
     f24FormCreator.setIndex(0);
 
@@ -87,26 +117,36 @@ class FormPDFCreatorTest {
   void shouldFillResidenceData() throws ResourceException {
     f24FormCreator.setIndex(0);
 
-    f24FormCreator.setField(ADDRESS.getName(), "address");
-    f24FormCreator.setField(MUNICIPALITY.getName(), "province");
-    f24FormCreator.setField(TAX_PROVINCE.getName(), "taxprovince");
+    f24FormCreator.setField(ADDRESS.getName(), "ADDRESS");
+    f24FormCreator.setField(MUNICIPALITY.getName(), "PR");
+    f24FormCreator.setField(TAX_PROVINCE.getName(), "TAXPR");
 
-    assertEquals("address", f24FormCreator.getField(ADDRESS.getName()).getValueAsString());
-    assertEquals("province", f24FormCreator.getField(MUNICIPALITY.getName()).getValueAsString());
-    assertEquals("taxprovince", f24FormCreator.getField(TAX_PROVINCE.getName()).getValueAsString());
+    assertEquals("ADDRESS", f24FormCreator.getField(ADDRESS.getName()).getValueAsString());
+    assertEquals("PR", f24FormCreator.getField(MUNICIPALITY.getName()).getValueAsString());
+    assertEquals("TAXPR", f24FormCreator.getField(TAX_PROVINCE.getName()).getValueAsString());
+  }
+
+  @Test
+  void givenStringSectionIdListRecordsList_whenCalculateSectionTotal_theReturnIntSectionTotal()
+      throws NumberFormatException, ResourceException {
+    f24FormCreator.setIndex(0);
+    assertEquals(1000, f24FormCreator.setSectionTotal("1", sectionRecords));
   }
 
   @Test
   void shouldFillPaymentDetails() throws ResourceException {
     f24FormCreator.setIndex(0);
+    PaymentDetails paymentDetails = new PaymentDetails("20042068", "company", "code", "number", true, "code", "");
 
-    f24FormCreator.setField(DATE_OF_PAYMENT.getName(), "20042068");
-    f24FormCreator.setField(COMPANY.getName(), "company");
-    f24FormCreator.setField(CAB_CODE.getName(), "code");
-    f24FormCreator.setField(CHECK_NUMBER.getName(), "number");
-    f24FormCreator.setField(ABI_CODE.getName(), "code");
+    assertNotNull(paymentDetails);
+
+    f24FormCreator.setField(DATE_OF_PAYMENT.getName(), paymentDetails.getPaymentDate());
+    f24FormCreator.setField(COMPANY.getName(), paymentDetails.getCompany());
+    f24FormCreator.setField(CAB_CODE.getName(), paymentDetails.getCabCode());
+    f24FormCreator.setField(CHECK_NUMBER.getName(), paymentDetails.getCheckNumber());
+    f24FormCreator.setField(ABI_CODE.getName(), paymentDetails.getAbiCode());
     f24FormCreator.setField(BANK.getName(), "X");
-    f24FormCreator.setField(CIRCULAR.getName(), "");
+    f24FormCreator.setField(CIRCULAR.getName(), paymentDetails.getIbanCode());
 
     assertEquals("20042068", f24FormCreator.getField(DATE_OF_PAYMENT.getName()).getValueAsString());
     assertEquals("company", f24FormCreator.getField(COMPANY.getName()).getValueAsString());

@@ -234,6 +234,22 @@ class StandardPDFCreatorTest {
     }
 
     @Test
+    void shouldFillTreasurySectionCodes() throws ResourceException {
+        pdfCreator.setIndex(0);
+        TreasurySection treasurySection = this.form.getTreasurySection();
+
+        assertNotNull(treasurySection);
+
+        pdfCreator.setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
+        pdfCreator.setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
+
+        assertEquals(treasurySection.getOfficeCode(),
+                pdfCreator.getField(OFFICE_CODE.getName()).getValueAsString());
+        assertEquals(treasurySection.getDocumentCode(),
+                pdfCreator.getField(DOCUMENT_CODE.getName()).getValueAsString());
+    }
+
+    @Test
     void shouldFillSocialSecurity() throws ResourceException {
         pdfCreator.setIndex(0);
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
