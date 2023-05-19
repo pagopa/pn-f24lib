@@ -15,17 +15,22 @@
         "birthPlace": "MILANO",
         "birthProvince": "MI"
       }
-    }
+    },
+    "officeCode": "FRH",
+    "documentCode": "29542848644",
+    "relativePersonTaxCode": "TDITLC46H54C619Q",
+    "idCode": "9W"
   },
   "paymentReasonSection": {
+    "operationId": "123456789012345678",
     "reasonRecordList": [
       {
         "section": "ER",
         "taxTypeCode": "TSC1",
         "municipalityCode": "1211",
-        "reconsideration": false,
+        "reconsideration": true,
         "propertiesChanges": false,
-        "advancePayment": false,
+        "advancePayment": true,
         "fullPayment": false,
         "month": "0101",
         "deduction": "604",
