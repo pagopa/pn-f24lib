@@ -12,20 +12,18 @@
         "surname": "ROSSI",
         "name": "MARIO",
         "birthDate": "11-11-1999",
-        "sex": "F",
+        "sex": "M",
         "birthPlace": "MILANO",
         "birthProvince": "MI"
       },
       "taxAddress": {
-        "municipality": "DFGRHWPNLXKQY",
-        "province": "QY",
-        "address": "Z1VIEXJS7FWMNU"
+        "municipality": "MILANO",
+        "province": "MI",
+        "address": "VIA LARGA 21"
       }
     },
-    "taxCode": "TDITLC46H54C619Q",
-    "idCode": "9W",
-    "documentCode": "14441450837",
-    "officeCode": "6BU"
+    "relativePersonTaxCode": "TDITLC46H54C619Q",
+    "idCode": "9W"
   },
   "paymentDetails": {
     "paymentDate": "12-12-2022",
