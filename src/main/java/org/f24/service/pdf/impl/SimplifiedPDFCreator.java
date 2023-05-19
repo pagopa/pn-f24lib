@@ -30,6 +30,18 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
         this.form = form;
     }
 
+    @Override
+    protected void setTaxPayer() throws ResourceException {
+        TaxPayer taxPayer = this.form.getTaxPayer();
+        if (taxPayer != null) {
+            setField(TAX_CODE.getName(), taxPayer.getTaxCode());
+            setField(OFFICE_CODE.getName(), taxPayer.getOfficeCode());
+            setField(DOCUMENT_CODE.getName(), taxPayer.getDocumentCode());
+            setField(RELATIVE_PERSON_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
+            setField(ID_CODE.getName(), taxPayer.getIdCode());
+            setRegistryData();
+        }
+    }
 
     private void setPaymentReasonRecordCheckboxes(PaymentReasonRecord paymentReasonRecord, int index) throws ResourceException {
         if (paymentReasonRecord.getReconsideration() == Boolean.TRUE) setField(RECONSIDERATION.getName() + index, "X");

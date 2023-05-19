@@ -42,7 +42,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
             setField(ID_CODE.getName(), taxPayer.getIdCode());
 
             setRegistryData();
-            setTaxResidence();
+            setTaxResidenceData();
         }
     }
 

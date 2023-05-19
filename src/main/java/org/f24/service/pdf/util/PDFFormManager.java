@@ -103,7 +103,6 @@ public class PDFFormManager {
             merger.appendDocument(doc, this.copies.get(copyIndex));
         }
     }
-
     protected int getTotalPages(int recordAmount, int maxAmount, int totalPages ){
         if (recordAmount > maxAmount) {
             int pagesCount = ((recordAmount + maxAmount - 1) / maxAmount) - 1;
@@ -127,20 +126,6 @@ public class PDFFormManager {
         double decimalPart = input - integerPart;
         return new String[] { Integer.toString(integerPart),
                 String.format(Locale.ROOT, "%.2f", decimalPart).split("\\.")[1] };
-    }
-
-    protected void setMultiField(String fieldName, Double sourceRecord) throws ResourceException {
-        String[] splittedAmount = splitField(sourceRecord);
-        setField(fieldName + "Int", splittedAmount[0]);
-        setField(fieldName + "Dec", splittedAmount[1]);
-    }
-
-    protected void setMultiDate(String fieldName, String sectionId, int index, String date) throws ResourceException {
-        String monthPart = date.substring(0, 2);
-        String yearPart = date.substring(2);
-
-        setField(fieldName + "Month" + sectionId + index, monthPart);
-        setField(fieldName + "Year" + sectionId + index, yearPart);
     }
 
     protected Integer getTotalAmount(List<? extends Record> totalRecord) throws ResourceException {
