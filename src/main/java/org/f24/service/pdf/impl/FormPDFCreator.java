@@ -29,11 +29,6 @@ public class FormPDFCreator extends PDFFormManager {
         }
     }
 
-    protected void setRegistryData() throws ResourceException {
-        setPersonData();
-        setCompanyData();
-    }
-
     protected void setTaxPayer() throws ResourceException {
         TaxPayer taxPayer = this.form.getTaxPayer();
 
@@ -45,9 +40,19 @@ public class FormPDFCreator extends PDFFormManager {
             if (taxPayer.getIsNotTaxYear())
                 setField(IS_NOT_TAX_YEAR.getName(), "X");
 
+            if (taxPayer.getOfficeCode() != null && taxPayer.getDocumentCode() != null) {
+                setField(OFFICE_CODE.getName(), taxPayer.getOfficeCode());
+                setField(DOCUMENT_CODE.getName(), taxPayer.getDocumentCode());
+            }
+
             setRegistryData();
-            setTaxResidenceData();
+            setTaxResidence();
         }
+    }
+
+    protected void setRegistryData() throws ResourceException {
+        setPersonData();
+        setCompanyData();
     }
 
     private void setPersonData() throws ResourceException {
@@ -71,7 +76,7 @@ public class FormPDFCreator extends PDFFormManager {
         }
     }
 
-    protected void setTaxResidenceData() throws ResourceException {
+    protected void setTaxResidence() throws ResourceException {
         TaxAddress taxResidenceData = this.form.getTaxPayer().getPersonData().getTaxAddress();
 
         if (taxResidenceData != null) {
@@ -95,8 +100,7 @@ public class FormPDFCreator extends PDFFormManager {
                     setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
                     setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
                     setSectionRecordAmount(sectionId, index, taxRecord);
-                }        
-
+                }
                 totalBalance += setSectionTotal(sectionId, taxList);
             }
         }
@@ -253,7 +257,7 @@ public class FormPDFCreator extends PDFFormManager {
         }
 
         sectionTotalBalance = debitTotal - creditTotal;
-        
+
         if (sectionTotalBalance != 0) {
             if (sectionTotalBalance < 0)
                 setField(BALANCE_SIGN.getName() + sectionId, "-");
@@ -262,20 +266,6 @@ public class FormPDFCreator extends PDFFormManager {
         }
 
         return sectionTotalBalance;
-    }
-
-    protected void setMultiField(String fieldName, Double sourceRecord) throws ResourceException {
-        String[] splittedAmount = splitField(sourceRecord);
-        setField(fieldName + "Int", splittedAmount[0]);
-        setField(fieldName + "Dec", splittedAmount[1]);
-    }
-
-    protected void setMultiDate(String fieldName, String sectionId, int index, String date) throws ResourceException {
-        String monthPart = date.substring(0, 2);
-        String yearPart = date.substring(2);
-
-        setField(fieldName + "Month" + sectionId + index, monthPart);
-        setField(fieldName + "Year" + sectionId + index, yearPart);
     }
 
     protected void setPaymentDetails() throws ResourceException {

@@ -62,7 +62,7 @@ public enum FieldEnum {
     ID_ELEMENT("idElement"),
     BALANCE_SIGN("balanceSign"),
 
-    // Records numbers
+    // Records number
     TAX_RECORDS_NUMBER(6),
     UNIV_RECORDS_NUMBER(4),
     INAIL_RECORDS_NUMBER(3),

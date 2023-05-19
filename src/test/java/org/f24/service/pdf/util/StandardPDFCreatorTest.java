@@ -45,7 +45,7 @@ class StandardPDFCreatorTest {
         String jsonString = new String(Files.readAllBytes(Paths.get(jsonFile)));
         form = new ObjectMapper().readValue(jsonString, F24Standard.class);
 
-        recordList = new ArrayList<Record>(Arrays.asList(
+        recordList = new ArrayList<>(Arrays.asList(
                 new Record("1000", "0", "1000"),
                 new Record("0", "800", "800"),
                 new Record("1200", "0", "1200"),
