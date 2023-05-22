@@ -18,7 +18,7 @@ import static org.f24.service.pdf.util.FieldEnum.DOCUMENT_CODE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ElidPDFCreatorTest {
+class ElidPDFCreatorTest {
 
     private ElidPDFCreator pdfCreator;
     private F24Elid form;

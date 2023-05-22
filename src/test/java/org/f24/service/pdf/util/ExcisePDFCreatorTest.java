@@ -17,7 +17,7 @@ import java.util.List;
 import static org.f24.service.pdf.util.FieldEnum.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ExcisePDFCreatorTest {
+class ExcisePDFCreatorTest {
 
     private ExcisePDFCreator pdfCreator;
     private F24Excise form;

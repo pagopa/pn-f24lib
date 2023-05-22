@@ -1,11 +1,8 @@
 package org.f24.service.validator.impl;
 
 import java.io.IOException;
-import java.util.List;
 
-import org.f24.dto.component.Record;
 import org.f24.dto.form.F24Standard;
-import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
 
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;

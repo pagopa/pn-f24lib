@@ -2,7 +2,6 @@ package org.f24.service.validator.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.f24.dto.form.F24Elid;
-import org.f24.dto.form.F24Excise;
 import org.f24.exception.ResourceException;
 import org.f24.service.validator.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,7 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ElidValidatorTest {
+class ElidValidatorTest {
     private ElidValidator validator;
     private F24Elid form;
 

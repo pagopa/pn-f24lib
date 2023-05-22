@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ExciseValidatorTest {
+class ExciseValidatorTest {
     private ExciseValidator validator;
     private F24Excise form;
 

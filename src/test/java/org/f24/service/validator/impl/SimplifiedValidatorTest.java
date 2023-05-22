@@ -5,7 +5,6 @@ import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
 import org.f24.service.validator.ValidatorFactory;
-import org.f24.service.validator.impl.SimplifiedValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
