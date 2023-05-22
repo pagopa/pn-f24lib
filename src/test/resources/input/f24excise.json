@@ -32,7 +32,7 @@
         "installment": "E8Q",
         "year": "2023",
         "debitAmount": "617",
-        "creditAmount": "6130"
+        "creditAmount": "0"
       },
       {
         "taxTypeCode": "SFGE",
@@ -52,7 +52,7 @@
         "taxTypeCode": "QDFU",
         "installment": "E8Q",
         "year": "2023",
-        "debitAmount": "91721",
+        "debitAmount": "0",
         "creditAmount": "6130"
       },
       {
@@ -233,8 +233,69 @@
         "installment": "KEA",
         "month": "10",
         "year": "2016",
+        "debitAmount": "12"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "11",
+        "year": "2017",
+        "debitAmount": "2001"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "09",
+        "year": "2018",
+        "debitAmount": "2781"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "04",
+        "year": "2019",
+        "debitAmount": "4012"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "01",
+        "year": "2020",
+        "debitAmount": "9127"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "03",
+        "year": "2021",
+        "debitAmount": "201"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "05",
+        "year": "2022",
         "debitAmount": "3021"
       }
+
     ],
     "officeCode": "TZQ",
     "documentCode": "84635602429"

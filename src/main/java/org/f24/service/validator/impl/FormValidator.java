@@ -7,6 +7,7 @@ import com.github.fge.jsonschema.core.report.ProcessingMessage;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import org.f24.dto.component.Record;
 import org.f24.dto.component.TaxPayer;
 import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
@@ -21,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class FormValidator implements Validator {
@@ -81,6 +83,17 @@ public class FormValidator implements Validator {
 
             if (taxCode != null && idCode == null)
                 throw new ResourceException(ErrorEnum.ID_CODE.getMessage());
+        }
+    }
+
+    void validateDebitandCredit(List<? extends Record> targetRecordList) throws ResourceException {
+        if (targetRecordList != null) {
+            for (Record recordItem : targetRecordList) {
+                if ((recordItem.getDebitAmount() != null && recordItem.getCreditAmount() != null)
+                        && (!recordItem.getDebitAmount().equals("0") && !recordItem.getCreditAmount().equals("0"))) {
+                    throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage());
+                }
+            }
         }
     }
 

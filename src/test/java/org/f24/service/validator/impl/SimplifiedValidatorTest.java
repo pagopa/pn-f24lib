@@ -1,9 +1,10 @@
-package org.f24.service.validator;
+package org.f24.service.validator.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
+import org.f24.service.validator.ValidatorFactory;
 import org.f24.service.validator.impl.SimplifiedValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -167,7 +168,7 @@ class SimplifiedValidatorTest {
     void givenDebitAndCredit_whenValidatePaymentReasonRecord_thenThrowException() {
         form.getPaymentReasonSection().getReasonRecordList().get(0).setDebitAmount("101");
         form.getPaymentReasonSection().getReasonRecordList().get(0).setCreditAmount("202");
-        assertThrows(IllegalArgumentException.class, () -> validator.validate());
+        assertThrows(ResourceException.class, () -> validator.validate());
     }
 
 }

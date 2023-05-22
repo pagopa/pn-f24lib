@@ -12,7 +12,7 @@
       "pattern": "^[A-Z0-9]{3}$",
       "type": "string"
     },
-    "actCode": {
+    "documentCode": {
       "pattern": "^\\d{11}$",
       "type": "string"
     }
