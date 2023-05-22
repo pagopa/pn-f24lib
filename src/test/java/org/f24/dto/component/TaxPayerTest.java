@@ -27,11 +27,11 @@ public class TaxPayerTest {
     TaxPayer taxPayer = new TaxPayer("taxCode", false, personData, "code", "idCode");
     assertNotNull(taxPayer);
 
-    assertEquals(taxPayer.getTaxCode(), "taxCode");
-    assertEquals(taxPayer.getIsNotTaxYear(), false);
-    assertEquals(taxPayer.getPersonData(), personData);
-    assertEquals(taxPayer.getRelativePersonTaxCode(), "code");
-    assertEquals(taxPayer.getIdCode(), "idCode");
+    assertEquals("taxCode", taxPayer.getTaxCode());
+    assertEquals(false, taxPayer.getIsNotTaxYear());
+    assertEquals(personData, taxPayer.getPersonData());
+    assertEquals("code", taxPayer.getRelativePersonTaxCode());
+    assertEquals("idCode", taxPayer.getIdCode());
 
   }
 
@@ -41,11 +41,11 @@ public class TaxPayerTest {
     TaxPayer taxPayer = new TaxPayer("taxCode", false, personData, "code", "idCode");
     assertNotNull(taxPayer);
 
-    assertEquals(taxPayer.getTaxCode(), "taxCode");
-    assertEquals(taxPayer.getIsNotTaxYear(), false);
-    assertEquals(taxPayer.getPersonData(), personData);
-    assertEquals(taxPayer.getRelativePersonTaxCode(), "code");
-    assertEquals(taxPayer.getIdCode(), "idCode");
+    assertEquals("taxCode", taxPayer.getTaxCode());
+    assertEquals(false, taxPayer.getIsNotTaxYear());
+    assertEquals(personData, taxPayer.getPersonData());
+    assertEquals("code", taxPayer.getRelativePersonTaxCode());
+    assertEquals("idCode", taxPayer.getIdCode());
 
   }
 
@@ -55,12 +55,12 @@ public class TaxPayerTest {
     TaxPayer taxPayer = new TaxPayer("taxCode", false, personData, companyData, "code", "idCode");
     assertNotNull(taxPayer);
 
-    assertEquals(taxPayer.getTaxCode(), "taxCode");
-    assertEquals(taxPayer.getIsNotTaxYear(), false);
-    assertEquals(taxPayer.getCompanyData(), companyData);
-    assertEquals(taxPayer.getPersonData(), personData);
-    assertEquals(taxPayer.getRelativePersonTaxCode(), "code");
-    assertEquals(taxPayer.getIdCode(), "idCode");
+    assertEquals("taxCode", taxPayer.getTaxCode());
+    assertEquals(false, taxPayer.getIsNotTaxYear());
+    assertEquals(companyData, taxPayer.getCompanyData());
+    assertEquals(personData, taxPayer.getPersonData());
+    assertEquals("code", taxPayer.getRelativePersonTaxCode());
+    assertEquals("idCode", taxPayer.getIdCode());
   }
 
   @Test
@@ -69,12 +69,12 @@ public class TaxPayerTest {
     TaxPayer simpleTaxPayer = new TaxPayer("taxCode", "documentCode", "officeCode", personData, "code", "idCode");
     assertNotNull(simpleTaxPayer);
 
-    assertEquals(simpleTaxPayer.getTaxCode(), "taxCode");
-    assertEquals(simpleTaxPayer.getDocumentCode(), "documentCode");
-    assertEquals(simpleTaxPayer.getOfficeCode(), "officeCode");
-    assertEquals(simpleTaxPayer.getPersonData(), personData);
-    assertEquals(simpleTaxPayer.getRelativePersonTaxCode(), "code");
-    assertEquals(simpleTaxPayer.getIdCode(), "idCode");
+    assertEquals("taxCode", simpleTaxPayer.getTaxCode());
+    assertEquals("documentCode", simpleTaxPayer.getDocumentCode());
+    assertEquals("officeCode", simpleTaxPayer.getOfficeCode());
+    assertEquals(personData, simpleTaxPayer.getPersonData());
+    assertEquals("code", simpleTaxPayer.getRelativePersonTaxCode());
+    assertEquals("idCode", simpleTaxPayer.getIdCode());
   }
 
   @Test
@@ -83,10 +83,10 @@ public class TaxPayerTest {
     TaxPayer taxPayer = new TaxPayer("taxCode", personData, "code", "idCode");
     assertNotNull(taxPayer);
 
-    assertEquals(taxPayer.getTaxCode(), "taxCode");
-    assertEquals(taxPayer.getPersonData(), personData);
-    assertEquals(taxPayer.getRelativePersonTaxCode(), "code");
-    assertEquals(taxPayer.getIdCode(), "idCode");
+    assertEquals("taxCode", taxPayer.getTaxCode());
+    assertEquals(personData, taxPayer.getPersonData());
+    assertEquals("code", taxPayer.getRelativePersonTaxCode());
+    assertEquals("idCode", taxPayer.getIdCode());
   }
 
 
@@ -96,10 +96,10 @@ public class TaxPayerTest {
     TaxPayer taxPayer = new TaxPayer("taxCode", companyData, "code", "idCode");
     assertNotNull(taxPayer);
 
-    assertEquals(taxPayer.getTaxCode(), "taxCode");
-    assertEquals(taxPayer.getCompanyData(), companyData);
-    assertEquals(taxPayer.getRelativePersonTaxCode(), "code");
-    assertEquals(taxPayer.getIdCode(), "idCode");
+    assertEquals("taxCode", taxPayer.getTaxCode());
+    assertEquals(companyData, taxPayer.getCompanyData());
+    assertEquals("code", taxPayer.getRelativePersonTaxCode());
+    assertEquals("idCode", taxPayer.getIdCode());
   }
 
 
