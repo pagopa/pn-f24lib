@@ -21,7 +21,7 @@
       "$ref": "resource:/schemas/component/region-section.json"
     },
     "imuSection": {
-      "$ref": "resource:/schemas/component/imu-section.json"
+      "$ref": "resource:/schemas/component/local-tax-section.json"
     },
     "exciseSection": {
       "$ref": "resource:/schemas/component/excise-section.json"

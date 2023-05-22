@@ -168,7 +168,7 @@ class SimplifiedValidatorTest {
     void givenDebitAndCredit_whenValidatePaymentReasonRecord_thenThrowException() {
         form.getPaymentReasonSection().getReasonRecordList().get(0).setDebitAmount("101");
         form.getPaymentReasonSection().getReasonRecordList().get(0).setCreditAmount("202");
-        assertThrows(IllegalArgumentException.class, () -> validator.validate());
+        assertThrows(ResourceException.class, () -> validator.validate());
     }
 
 }

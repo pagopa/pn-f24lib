@@ -112,14 +112,12 @@ class StandardValidatorTest {
     @Test
     void givenInvalidPeriodStartDate_whenValidateInpsSection_thenThrowException() {
         form.getInpsSection().getInpsRecordList().get(0).getPeriod().setStartDate("date");
-        ;
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
     @Test
     void givenInvalidPeriodEndDate_whenValidateInpsSection_thenThrowException() {
         form.getInpsSection().getInpsRecordList().get(0).getPeriod().setEndDate("date");
-        ;
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 

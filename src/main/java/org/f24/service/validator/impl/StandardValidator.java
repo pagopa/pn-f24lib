@@ -20,37 +20,14 @@ public class StandardValidator extends FormValidator {
     }
 
     private void validateSections() throws ResourceException {
-        List<? extends Record> treasuryRecordList = this.form.getTreasurySection().getTaxList();
-        validateDebitandCredit(treasuryRecordList);
-
-        List<? extends Record> inpsRecordList = this.form.getInpsSection().getInpsRecordList();
-        validateDebitandCredit(inpsRecordList);
-
-        List<? extends Record> regionRecordList = this.form.getRegionSection().getRegionRecordList();
-        validateDebitandCredit(regionRecordList);
-
-        List<? extends Record> localTaxList = this.form.getLocalTaxSection().getLocalTaxRecordList();
-        validateDebitandCredit(localTaxList);
-
-        List<? extends Record> inailRecordList = this.form.getSocialSecuritySection().getInailRecords();
-        validateDebitandCredit(inailRecordList);
-
-        List<? extends Record> socSecurityRecordList = this.form.getSocialSecuritySection()
-                .getSocialSecurityRecordList();
-        validateDebitandCredit(socSecurityRecordList);
-
+        validateDebitandCredit(this.form.getTreasurySection().getTaxList());
+        validateDebitandCredit(this.form.getInpsSection().getInpsRecordList());
+        validateDebitandCredit(this.form.getRegionSection().getRegionRecordList());
+        validateDebitandCredit(this.form.getLocalTaxSection().getLocalTaxRecordList());
+        validateDebitandCredit(this.form.getSocialSecuritySection().getInailRecords());
+        validateDebitandCredit(this.form.getSocialSecuritySection().getSocialSecurityRecordList());
     }
 
-    private void validateDebitandCredit(List<? extends Record> targetRecordList) throws ResourceException {
-        if (targetRecordList != null) {
-            for (Record recordItem : targetRecordList) {
-                if ((recordItem.getDebitAmount() != null && recordItem.getCreditAmount() != null)
-                        && (!recordItem.getDebitAmount().equals("0") && !recordItem.getCreditAmount().equals("0"))) {
-                    throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage());
-                }
-            }
-        }
-    }
 
     @Override
     public void validate() throws ProcessingException, IOException, ResourceException {
