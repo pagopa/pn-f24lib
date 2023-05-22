@@ -1,10 +1,11 @@
-package org.f24.service.validator;
+package org.f24.service.validator.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
+import org.f24.service.validator.ValidatorFactory;
 import org.f24.service.validator.impl.StandardValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -225,8 +226,7 @@ class StandardValidatorTest {
 
     // INAIL section
     @Test
-    void givenInvalidOfficeCode_whenValidateInailSection_thenThrowException()
-            throws ProcessingException, IOException, ResourceException {
+    void givenInvalidOfficeCode_whenValidateInailSection_thenThrowException(){
         form.getSocialSecuritySection().getInailRecords().get(0).setOfficeCode("abcd1");
         assertThrows(ResourceException.class, () -> validator.validate());
     }

@@ -1,8 +1,9 @@
-package org.f24.service.validator;
+package org.f24.service.validator.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.f24.dto.form.F24Form;
 import org.f24.exception.ResourceException;
+import org.f24.service.validator.ValidatorFactory;
 import org.f24.service.validator.impl.FormValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
