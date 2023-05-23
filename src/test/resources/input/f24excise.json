@@ -217,8 +217,8 @@
         "taxTypeCode": "8383",
         "installment": "C4",
         "year": "2023",
-        "debitAmount": "102283",
-        "creditAmount": "0"
+        "debitAmount": "0",
+        "creditAmount": "102283"
       }
     ],
     "deduction": "12934"

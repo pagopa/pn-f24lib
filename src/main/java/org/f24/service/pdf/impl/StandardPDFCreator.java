@@ -114,7 +114,6 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                 setHeader();
                 setTaxPayer();
                 setTreasurySection("1", copyIndex);
-                setTreasurySectionCodes();
                 setInpsSection("2", copyIndex);
                 setRegionSection("3", copyIndex);
                 setLocalTaxSection("4", copyIndex);

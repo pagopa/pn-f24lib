@@ -90,7 +90,6 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
                 setHeader();
                 setTaxPayer();
                 setTreasurySection("1", copyIndex);
-                setTreasurySectionCodes("1");
                 setInpsSection("2", copyIndex);
                 setRegionSection("3", copyIndex);
                 setLocalTaxSection("4", copyIndex);
