@@ -85,8 +85,7 @@ public class FormPDFCreator extends PDFFormManager {
         TreasurySection treasurySection = this.form.getTreasurySection();
 
         if (!treasurySection.getTaxList().isEmpty()) {
-            List<Tax> taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER.getRecordsNum(),
-                    treasurySection.getTaxList());
+            List<Tax> taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER.getRecordsNum(), treasurySection.getTaxList());
 
             if (!taxList.isEmpty()) {
                 for (int index = 1; index <= taxList.size(); index++) {
@@ -95,30 +94,14 @@ public class FormPDFCreator extends PDFFormManager {
                     setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
                     setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
                     setSectionRecordAmount(sectionId, index, taxRecord);
-                }        
-
+                }
+                setField(OFFICE_CODE.getName()+ sectionId, treasurySection.getOfficeCode());
+                setField(DOCUMENT_CODE.getName()+ sectionId, treasurySection.getDocumentCode());
                 totalBalance += setSectionTotal(sectionId, taxList);
             }
         }
     }
 
-    protected void setTreasurySectionCodes() throws ResourceException {
-        TreasurySection treasurySection = this.form.getTreasurySection();
-
-        if (!treasurySection.getTaxList().isEmpty()) {
-            setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
-            setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
-        }
-    }
-
-    protected void setTreasurySectionCodes(String sectionId) throws ResourceException {
-        TreasurySection treasurySection = this.form.getTreasurySection();
-
-        if (!treasurySection.getTaxList().isEmpty()) {
-            setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
-            setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
-        }
-    }
 
     protected void setInpsSection(String sectionId, int copyIndex) throws ResourceException {
         InpsSection inpsSection = this.form.getInpsSection();
@@ -255,9 +238,11 @@ public class FormPDFCreator extends PDFFormManager {
         sectionTotalBalance = debitTotal - creditTotal;
         
         if (sectionTotalBalance != 0) {
-            if (sectionTotalBalance < 0)
-                setField(BALANCE_SIGN.getName() + sectionId, "-");
             String parsedTotal = getMoney(sectionTotalBalance);
+            if (sectionTotalBalance < 0) {
+                setField(BALANCE_SIGN.getName() + sectionId, "-");
+                parsedTotal = getMoney(sectionTotalBalance*-1);
+            }
             setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
         }
 
