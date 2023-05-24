@@ -224,12 +224,12 @@ class StandardPDFCreatorTest {
             index++;
         }
 
-        pdfCreator.setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
-        pdfCreator.setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
+        pdfCreator.setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
+        pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
 
-        assertEquals(treasurySection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()).getValueAsString());
+        assertEquals(treasurySection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()  + sectionId).getValueAsString());
         assertEquals(treasurySection.getDocumentCode(),
-                pdfCreator.getField(DOCUMENT_CODE.getName()).getValueAsString());
+                pdfCreator.getField(DOCUMENT_CODE.getName()  + sectionId).getValueAsString());
 
     }
 
@@ -237,16 +237,17 @@ class StandardPDFCreatorTest {
     void shouldFillTreasurySectionCodes() throws ResourceException {
         pdfCreator.setIndex(0);
         TreasurySection treasurySection = this.form.getTreasurySection();
+        String sectionId = "1";
 
         assertNotNull(treasurySection);
 
-        pdfCreator.setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
-        pdfCreator.setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
+        pdfCreator.setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
+        pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
 
         assertEquals(treasurySection.getOfficeCode(),
-                pdfCreator.getField(OFFICE_CODE.getName()).getValueAsString());
+                pdfCreator.getField(OFFICE_CODE.getName()  + sectionId).getValueAsString());
         assertEquals(treasurySection.getDocumentCode(),
-                pdfCreator.getField(DOCUMENT_CODE.getName()).getValueAsString());
+                pdfCreator.getField(DOCUMENT_CODE.getName()  + sectionId).getValueAsString());
     }
 
     @Test
