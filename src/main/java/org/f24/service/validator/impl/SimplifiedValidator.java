@@ -15,11 +15,9 @@ import org.f24.dto.component.PaymentReasonRecord;
 public class SimplifiedValidator extends FormValidator {
 
     private F24Simplified form;
-    private String schemaPath;
 
     public SimplifiedValidator(String schemaPath, F24Simplified form) {
         super(schemaPath, form);
-        this.schemaPath = schemaPath;
         this.form = form;
     }
 
