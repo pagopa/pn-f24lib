@@ -24,7 +24,7 @@ public class F24Generator {
         Validator simplifiedValidator = ValidatorFactory.createValidator(f24Simplified);
         simplifiedValidator.validate();
 
-        Files.write(Path.of("src/test/resources/output/f24simplified.pdf"), PDFCreatorFactory.createPDFCreator(f24Simplified).createPDF());
+        Files.write(Path.of("src/test/resources/output/simplified.pdf"), PDFCreatorFactory.createPDFCreator(f24Simplified).createPDF());
         //Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24simplified.pdf"), PDFCreatorFactory.createPDFCreator(f24Simplified).createPDF());
 
         String standardJson = "src/test/resources/input/f24standard.json";
@@ -35,7 +35,7 @@ public class F24Generator {
         Validator standardValidator = ValidatorFactory.createValidator(f24Standard);
         standardValidator.validate();
 
-        Files.write(Path.of("src/test/resources/output/f24standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
+        Files.write(Path.of("src/test/resources/output/standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
         //Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
 
         String exciseJson = "src/test/resources/input/f24excise.json";
@@ -46,7 +46,7 @@ public class F24Generator {
         Validator exciseValidator = ValidatorFactory.createValidator(f24Excise);
         exciseValidator.validate();
 
-        Files.write(Path.of("src/test/resources/output/f24excise.pdf"), PDFCreatorFactory.createPDFCreator(f24Excise).createPDF());
+        Files.write(Path.of("src/test/resources/output/excise.pdf"), PDFCreatorFactory.createPDFCreator(f24Excise).createPDF());
         //Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24excise.pdf"), PDFCreatorFactory.createPDFCreator(f24Excise).createPDF());
 
         String elidJson = "src/test/resources/input/f24elide.json";
@@ -57,7 +57,7 @@ public class F24Generator {
         Validator elidValidator = ValidatorFactory.createValidator(f24Elid);
         elidValidator.validate();
 
-        Files.write(Path.of("src/test/resources/output/f24elid.pdf"), PDFCreatorFactory.createPDFCreator(f24Elid).createPDF());
+        Files.write(Path.of("src/test/resources/output/elid.pdf"), PDFCreatorFactory.createPDFCreator(f24Elid).createPDF());
         //Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24elid.pdf"), PDFCreatorFactory.createPDFCreator(f24Elid).createPDF());
     }
 
