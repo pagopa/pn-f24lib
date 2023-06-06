@@ -11,11 +11,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--
-        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-output/</sonar.coverage.jacoco.xmlReportPaths> -->
-
-        <!-- <sonar.organization>f24pdf</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url> -->
+    
         <sonar.token>squ_ed3165bf5320f4146a39d691e7f8ead8e71f9cd6</sonar.token>
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
         <sonar.coverage.jacoco.xmlReportPaths>
@@ -222,33 +218,6 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>3.0.0-M7</version>
             </plugin>
-            <!-- <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
-                <configuration>
-                    <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <formats>
-                                <format>XML</format>
-                            </formats>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin> -->
         </plugins>
     </build>
 </project>

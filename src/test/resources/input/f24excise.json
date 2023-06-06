@@ -10,11 +10,11 @@
     "personData": {
       "personalData": {
         "surname": "ROSSI",
-        "name": "MARIO",
-        "birthDate": "12-11-1991",
+        "name": "MARIO ALBERTO",
+        "birthDate": "01-01-1980",
         "sex": "M",
-        "birthPlace": "SALERNO",
-        "birthProvince": "SA"
+        "birthPlace": "MILANO",
+        "birthProvince": "MI"
       },
       "taxAddress": {
         "municipality": "ROMA",
