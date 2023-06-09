@@ -242,7 +242,7 @@ public class FormPDFCreator extends PDFFormManager {
             if (sectionTotalBalance < 0) {
                 setField(BALANCE_SIGN.getName() + sectionId, "-");
                 parsedTotal = getMoney(sectionTotalBalance*-1);
-            }
+            } else setField(BALANCE_SIGN.getName() + sectionId, "+");
             setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
         }
 
