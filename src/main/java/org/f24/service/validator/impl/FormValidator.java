@@ -31,6 +31,8 @@ public class FormValidator implements Validator {
 
     private F24Form form;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     public FormValidator(String schemaPath, F24Form form) {
         this.schemaPath = schemaPath;
         this.form = form;
@@ -39,7 +41,6 @@ public class FormValidator implements Validator {
     @Override
     public void validate() throws ProcessingException, IOException, ResourceException {
         JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().freeze();
-        ObjectMapper objectMapper = new ObjectMapper();
 
         JsonNode jsonForm = objectMapper.valueToTree(this.form);
         JsonNode jsonScemaNode = objectMapper.readTree(getClass().getClassLoader().getResourceAsStream(this.schemaPath));

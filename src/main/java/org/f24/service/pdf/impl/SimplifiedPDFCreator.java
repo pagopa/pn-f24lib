@@ -8,7 +8,9 @@ import org.f24.service.pdf.PDFCreator;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -18,7 +20,7 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int REASON_RECORDS_NUMBER = 10;
 
     private F24Simplified form;
-    private Logger logger = Logger.getLogger(SimplifiedPDFCreator.class.getName());
+    private Logger logger = LoggerFactory.getLogger(SimplifiedPDFCreator.class.getName());
 
     /**
      * Constructs Simplified PDF Creator.
@@ -87,7 +89,6 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
             //
         }
     }
-
 
 
     /**
