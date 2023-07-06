@@ -3,12 +3,14 @@ package org.f24.service.pdf.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 
@@ -18,7 +20,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24IMU2013.pdf";
 
-    private Logger logger = Logger.getLogger(StandardPDFCreator.class.getName());
+    private Logger logger = LoggerFactory.getLogger(StandardPDFCreator.class.getName());
     private F24Standard form;
 
     /**

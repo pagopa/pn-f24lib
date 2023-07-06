@@ -10,7 +10,9 @@ import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -20,7 +22,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
     private static final int TREASURY_RECORDS_NUMBER = 28;
 
     private F24Elid form;
-    private Logger logger = Logger.getLogger(ElidPDFCreator.class.getName());
+    private Logger logger = LoggerFactory.getLogger(ElidPDFCreator.class.getName());
 
     /**
      * Constructs ELID PDF Creator.
@@ -60,7 +62,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
                 setField(TAX_TYPE_CODE.getName() + index, treasuryRecord.getTaxTypeCode());
                 setField(YEAR.getName() + index, treasuryRecord.getYear());
 
-                setSectionRecordAmount("",index,treasuryRecord);
+                setSectionRecordAmount("", index, treasuryRecord);
             }
 
             setField(OFFICE_CODE.getName(), treasuryAndOtherSection.getOfficeCode());

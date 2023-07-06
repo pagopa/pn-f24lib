@@ -95,8 +95,8 @@ public class FormPDFCreator extends PDFFormManager {
                     setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
                     setSectionRecordAmount(sectionId, index, taxRecord);
                 }
-                setField(OFFICE_CODE.getName()+ sectionId, treasurySection.getOfficeCode());
-                setField(DOCUMENT_CODE.getName()+ sectionId, treasurySection.getDocumentCode());
+                setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
+                setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
                 totalBalance += setSectionTotal(sectionId, taxList);
             }
         }
@@ -236,12 +236,14 @@ public class FormPDFCreator extends PDFFormManager {
         }
 
         sectionTotalBalance = debitTotal - creditTotal;
-        
+
         if (sectionTotalBalance != 0) {
             String parsedTotal = getMoney(sectionTotalBalance);
             if (sectionTotalBalance < 0) {
                 setField(BALANCE_SIGN.getName() + sectionId, "-");
-                parsedTotal = getMoney(sectionTotalBalance*-1);
+                parsedTotal = getMoney(sectionTotalBalance * -1);
+            } else {
+                setField(BALANCE_SIGN.getName() + sectionId, "+");
             }
             setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
         }

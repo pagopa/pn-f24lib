@@ -10,7 +10,9 @@ import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -20,7 +22,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
     private F24Excise form;
 
-    private Logger logger = Logger.getLogger(ExcisePDFCreator.class.getName());
+    private Logger logger = LoggerFactory.getLogger(ExcisePDFCreator.class.getName());
 
     /**
      * Constructs Excise PDF Creator.
