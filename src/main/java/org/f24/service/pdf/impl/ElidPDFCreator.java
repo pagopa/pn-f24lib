@@ -103,11 +103,11 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
                 setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
             }
-
             mergeCopies();
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             getDoc().save(byteArrayOutputStream);
+            finalizeDoc();
 
             logger.info("elid pdf is created");
             return byteArrayOutputStream.toByteArray();

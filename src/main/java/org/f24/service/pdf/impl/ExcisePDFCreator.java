@@ -1,5 +1,6 @@
 package org.f24.service.pdf.impl;
 
+import org.apache.pdfbox.io.IOUtils;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Excise;
 import org.f24.exception.ResourceException;
@@ -99,11 +100,11 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
                 setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
             }
-
             mergeCopies();
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             getDoc().save(byteArrayOutputStream);
+            finalizeDoc();
 
             logger.info("excise pdf is created");
             return byteArrayOutputStream.toByteArray();

@@ -1,5 +1,6 @@
 package org.f24.service.pdf.util;
 
+import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
@@ -103,7 +104,8 @@ public class PDFFormManager {
             merger.appendDocument(doc, this.copies.get(copyIndex));
         }
     }
-    protected int getTotalPages(int recordAmount, int maxAmount, int totalPages ){
+
+    protected int getTotalPages(int recordAmount, int maxAmount, int totalPages) {
         if (recordAmount > maxAmount) {
             int pagesCount = ((recordAmount + maxAmount - 1) / maxAmount) - 1;
             totalPages = Math.max(totalPages, pagesCount);
@@ -124,8 +126,8 @@ public class PDFFormManager {
         input = Math.round(input * 100.0) / 100.0;
         int integerPart = (int) input;
         double decimalPart = input - integerPart;
-        return new String[] { Integer.toString(integerPart),
-                String.format(Locale.ROOT, "%.2f", decimalPart).split("\\.")[1] };
+        return new String[]{Integer.toString(integerPart),
+                String.format(Locale.ROOT, "%.2f", decimalPart).split("\\.")[1]};
     }
 
     protected Integer getTotalAmount(List<? extends Record> totalRecord) throws ResourceException {
@@ -175,13 +177,20 @@ public class PDFFormManager {
     }
 
     protected <T> List<T> paginateList(int copyIndex, int maxRecordsNumber,
-            List<T> targetList) {
+                                       List<T> targetList) {
         int startIndex = copyIndex * maxRecordsNumber;
         int endIndex = Math.min(startIndex + maxRecordsNumber, targetList.size());
         if (startIndex > endIndex) {
             return Collections.emptyList();
         }
         return targetList.subList(startIndex, endIndex);
+    }
+
+    protected void finalizeDoc() throws IOException {
+        if (this.doc != null) {
+            this.doc.close();
+            IOUtils.closeQuietly(getCurrentCopy());
+        }
     }
 
 }
