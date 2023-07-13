@@ -5,8 +5,8 @@
     "personalData": {
       "$ref": "resource:/schemas/component/personal-data.json"
     },
-    "taxResidence": {
-      "$ref": "resource:/schemas/component/tax-residence.json"
+    "taxAddress": {
+      "$ref": "resource:/schemas/component/tax-address.json"
     }
   },
   "description": "Person Data (Dati Anagrafici PF) object"

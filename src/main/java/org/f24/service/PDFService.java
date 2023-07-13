@@ -1,6 +1,7 @@
 package org.f24.service;
 
 import org.f24.dto.form.F24Form;
+import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
 import org.f24.service.pdf.PDFCreatorFactory;
 
@@ -11,8 +12,9 @@ public class PDFService {
      *
      * @param form F24Form component (DTO for F24 Forms).
      * @return generated PDF Document.
+     * @throws ResourceException
      */
-    public byte[] generatePDF(F24Form form) {
+    public byte[] generatePDF(F24Form form) throws ResourceException {
         PDFCreator pdfCreator = PDFCreatorFactory.createPDFCreator(form);
         return pdfCreator.createPDF();
     }

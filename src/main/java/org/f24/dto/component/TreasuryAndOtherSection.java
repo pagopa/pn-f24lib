@@ -6,20 +6,22 @@ public class TreasuryAndOtherSection {
 
     private String officeCode;
 
-    private String actCode;
+    private String documentCode;
 
     private List<TreasuryRecord> treasuryRecords;
+
+    public TreasuryAndOtherSection() {}
 
     /**
      * Constructs treasury and other section
      *
      * @param officeCode      office code (codice ufficio)
-     * @param actCode         act code (codice atto)
+     * @param documentCode    document code (codice atto)
      * @param treasuryRecords list of TreasuryRecord components
      */
-    public TreasuryAndOtherSection(String officeCode, String actCode, List<TreasuryRecord> treasuryRecords) {
+    public TreasuryAndOtherSection(String officeCode, String documentCode, List<TreasuryRecord> treasuryRecords) {
         this.officeCode = officeCode;
-        this.actCode = actCode;
+        this.documentCode = documentCode;
         this.treasuryRecords = treasuryRecords;
     }
 
@@ -31,12 +33,12 @@ public class TreasuryAndOtherSection {
         this.officeCode = officeCode;
     }
 
-    public String getActCode() {
-        return actCode;
+    public String getDocumentCode() {
+        return documentCode;
     }
 
-    public void setActCode(String actCode) {
-        this.actCode = actCode;
+    public void setDocumentCode(String documentCode) {
+        this.documentCode = documentCode;
     }
 
     public List<TreasuryRecord> getTreasuryRecords() {

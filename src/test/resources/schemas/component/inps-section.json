@@ -3,8 +3,6 @@
   "type": "object",
   "properties": {
     "inpsRecordList": {
-      "maxItems": 4,
-      "minItems": 0,
       "type": "array",
       "items": {
         "$ref": "resource:/schemas/component/inps-record.json"

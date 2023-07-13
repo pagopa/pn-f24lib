@@ -1,0 +1,169 @@
+{
+  "header": {
+    "delegationTo": "delegation",
+    "agency": "agency",
+    "province": "MI"
+  },
+  "taxPayer": {
+    "taxCode": "RSSMLB80A01A200D",
+    "personData": {
+      "personalData": {
+        "surname": "ROSSI",
+        "name": "MARIO ALBERTO",
+        "birthDate": "01-01-1980",
+        "sex": "M",
+        "birthPlace": "MILANO",
+        "birthProvince": "MI"
+      }
+    },
+    "officeCode": "FRH",
+    "documentCode": "29542848644",
+    "relativePersonTaxCode": "TDITLC46H54C619Q",
+    "idCode": "9W"
+  },
+  "paymentReasonSection": {
+    "operationId": "123456789012345678",
+    "reasonRecordList": [
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": true,
+        "fullPayment": false,
+        "numberOfProperties": "124",
+        "month": "0101",
+        "deduction": "604",
+        "year": "2000",
+        "debitAmount": "604"
+      },
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": true,
+        "advancePayment": true,
+        "fullPayment": true,
+        "numberOfProperties": "268",
+        "month": "0202",
+        "deduction": "604",
+        "year": "2001",
+        "debitAmount": "604"
+      },
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": false,
+        "fullPayment": false,
+        "numberOfProperties": "121",
+        "month": "0303",
+        "deduction": "604",
+        "year": "2002",
+        "debitAmount": "604"
+      },
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": true,
+        "fullPayment": false,
+        "numberOfProperties": "191",
+        "month": "0404",
+        "deduction": "604",
+        "year": "2003",
+        "debitAmount": "604"
+      },
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": true,
+        "fullPayment": false,
+        "numberOfProperties": "191",
+        "month": "0505",
+        "deduction": "604",
+        "year": "2004",
+        "debitAmount": "604"
+      },
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": true,
+        "fullPayment": false,
+        "numberOfProperties": "222",
+        "month": "0808",
+        "deduction": "604",
+        "year": "2005",
+        "debitAmount": "604"
+      },
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": true,
+        "fullPayment": false,
+        "numberOfProperties": "222",
+        "month": "0808",
+        "deduction": "604",
+        "year": "2006",
+        "debitAmount": "604"
+      },
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": true,
+        "fullPayment": false,
+        "numberOfProperties": "191",
+        "month": "0101",
+        "deduction": "604",
+        "year": "2007",
+        "debitAmount": "604"
+      },
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": true,
+        "fullPayment": false,
+        "numberOfProperties": "191",
+        "month": "0909",
+        "deduction": "604",
+        "year": "2008",
+        "debitAmount": "604"
+      },
+      {
+        "section": "ER",
+        "taxTypeCode": "TSC1",
+        "municipalityCode": "1211",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": true,
+        "fullPayment": true,
+        "numberOfProperties": "281",
+        "month": "1010",
+        "deduction": "604",
+        "year": "2009",
+        "debitAmount": "604"
+      }
+    ]
+  }
+}

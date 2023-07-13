@@ -5,23 +5,23 @@
     "header": {
       "$ref": "resource:/schemas/component/header.json"
     },
-    "contributor": {
-      "$ref": "resource:/schemas/component/contributor.json"
+    "taxPayer": {
+      "$ref": "resource:/schemas/component/tax-payer.json"
     },
     "paymentDetails": {
       "$ref": "resource:/schemas/component/payment-details.json"
     },
-    "treasurySection": {
-      "$ref": "resource:/schemas/component/treasury-section.json"
+    "treasuryAndOtherSection": {
+      "$ref": "resource:/schemas/component/treasury-and-other-section.json"
     },
     "bankAccountNumber": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "abiCode": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "bankId": {
-      "type": "string"
+      "type": ["string", "null"]
     }
   }
 }

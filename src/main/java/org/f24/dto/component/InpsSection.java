@@ -2,7 +2,7 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-public class InpsSection {
+public class InpsSection extends Section {
 
     private List<InpsRecord> inpsRecordList;
 
