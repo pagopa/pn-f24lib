@@ -1,12 +1,14 @@
 package org.f24.service.pdf.impl;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
+import org.apache.pdfbox.io.IOUtils;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -112,11 +114,11 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
                 setTaxPayer();
                 setPaymentReasonSection(copyIndex);
             }
-
             mergeCopies();
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             getDoc().save(byteArrayOutputStream);
+            finalizeDoc();
 
             logger.info("simplified pdf is created");
             return byteArrayOutputStream.toByteArray();

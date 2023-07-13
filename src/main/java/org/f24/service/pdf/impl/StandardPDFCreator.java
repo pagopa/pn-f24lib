@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.pdfbox.io.IOUtils;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
@@ -129,6 +130,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             getDoc().save(byteArrayOutputStream);
+            finalizeDoc();
             
             logger.info("standard pdf is created");
             return byteArrayOutputStream.toByteArray();
