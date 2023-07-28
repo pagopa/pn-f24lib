@@ -105,7 +105,7 @@ public class PDFFormManager {
         }
     }
 
-    protected int getTotalPages(int recordAmount, int maxAmount, int totalPages) {
+    public int getTotalPages(int recordAmount, int maxAmount, int totalPages) {
         if (recordAmount > maxAmount) {
             int pagesCount = ((recordAmount + maxAmount - 1) / maxAmount) - 1;
             totalPages = Math.max(totalPages, pagesCount);
