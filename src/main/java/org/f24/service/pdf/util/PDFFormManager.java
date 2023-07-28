@@ -80,6 +80,7 @@ public class PDFFormManager {
     }
 
     protected void copy(int numberOfCopies) throws IOException {
+        if(copies.size() == 1)
         while (numberOfCopies > 0) {
             copies.add(PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName)));
             numberOfCopies--;

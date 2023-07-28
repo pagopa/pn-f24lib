@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.pdfbox.io.IOUtils;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
@@ -83,6 +82,29 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         }
     }
 
+    @Override
+    public int getPagesAmount() throws IOException {
+        loadDoc(MODEL_NAME);
+        int totalPages = 0;
+
+        int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
+        int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
+        int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
+        int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
+        int inailRecordsCount = this.form.getSocialSecuritySection().getInailRecords().size();
+        int socSecurityRecordsCount = this.form.getSocialSecuritySection().getSocialSecurityRecordList().size();
+
+        totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        totalPages = getTotalPages(inailRecordsCount, INAIL_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        totalPages = getTotalPages(socSecurityRecordsCount, SOC_RECORDS_NUMBER.getRecordsNum(), totalPages);
+
+        copy(totalPages);
+        return getCopies().size();
+    }
+
     /**
      * Method which creates PDF Document for F24 Standard Form.
      *
@@ -91,26 +113,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
     @Override
     public byte[] createPDF() {
         try {
-            loadDoc(MODEL_NAME);
-            int totalPages = 0;
-
-            int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
-            int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
-            int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
-            int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
-            int inailRecordsCount = this.form.getSocialSecuritySection().getInailRecords().size();
-            int socSecurityRecordsCount = this.form.getSocialSecuritySection().getSocialSecurityRecordList().size();
-
-            totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(inailRecordsCount, INAIL_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(socSecurityRecordsCount, SOC_RECORDS_NUMBER.getRecordsNum(), totalPages);
-
-            copy(totalPages);
-
-            int copiesCount = getCopies().size();
+            int copiesCount = getPagesAmount();
 
             for (int copyIndex = 0; copyIndex < copiesCount; copyIndex++) {
                 setIndex(copyIndex);

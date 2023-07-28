@@ -1,5 +1,7 @@
 package org.f24.service.pdf;
 
+import java.io.IOException;
+
 public interface PDFCreator {
 
     String MODEL_FOLDER_NAME = "templates";
@@ -10,5 +12,7 @@ public interface PDFCreator {
      * @return PDFDocument object which represents generated PDF
      */
     byte[] createPDF();
+
+    int getPagesAmount() throws IOException;
 
 }

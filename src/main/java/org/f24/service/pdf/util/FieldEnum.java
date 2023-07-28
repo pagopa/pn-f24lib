@@ -67,7 +67,9 @@ public enum FieldEnum {
     UNIV_RECORDS_NUMBER(4),
     INAIL_RECORDS_NUMBER(3),
     SOC_RECORDS_NUMBER(2),
-    EXCISE_TAX_RECORDS_NUMBER(7);
+    EXCISE_TAX_RECORDS_NUMBER(7),
+    TREASURY_RECORDS_NUMBER(28),
+    REASON_RECORDS_NUMBER(10);
 
     private String name;
     private int recordsNum;

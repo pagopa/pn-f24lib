@@ -19,7 +19,6 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24ELID.pdf";
-    private static final int TREASURY_RECORDS_NUMBER = 28;
 
     private F24Elid form;
     private Logger logger = LoggerFactory.getLogger(ElidPDFCreator.class.getName());
@@ -53,7 +52,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
         List<TreasuryRecord> treasuryTaxList = treasuryAndOtherSection.getTreasuryRecords();
 
         if (treasuryTaxList != null) {
-            treasuryTaxList = paginateList(copyIndex, TREASURY_RECORDS_NUMBER, treasuryTaxList);
+            treasuryTaxList = paginateList(copyIndex, TREASURY_RECORDS_NUMBER.getRecordsNum(), treasuryTaxList);
 
             for (int index = 1; index <= treasuryTaxList.size(); index++) {
                 TreasuryRecord treasuryRecord = treasuryTaxList.get(index - 1);
@@ -72,6 +71,17 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
         }
     }
 
+    @Override
+    public int getPagesAmount() throws IOException {
+        loadDoc(MODEL_NAME);
+        int totalPages = 0;
+
+        int treasuryRecordsCount = this.form.getTreasuryAndOtherSection().getTreasuryRecords().size();
+        totalPages = getTotalPages(treasuryRecordsCount, TREASURY_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        copy(totalPages);
+
+        return getCopies().size();
+    }
 
     /**
      * Method which creates PDF Document for F24 ELID Form.
@@ -81,19 +91,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
     @Override
     public byte[] createPDF() {
         try {
-            loadDoc(MODEL_NAME);
-            int totalPages = 0;
-
-            int treasutyRecordsCount = this.form.getTreasuryAndOtherSection().getTreasuryRecords().size();
-
-            if (treasutyRecordsCount > TREASURY_RECORDS_NUMBER) {
-                int pagesCount = ((treasutyRecordsCount + TREASURY_RECORDS_NUMBER - 1) / TREASURY_RECORDS_NUMBER) - 1;
-                totalPages = Math.max(totalPages, pagesCount);
-            }
-
-            copy(totalPages);
-
-            int copiesCount = getCopies().size();
+            int copiesCount = getPagesAmount();
 
             for (int copyIndex = 0; copyIndex < copiesCount; copyIndex++) {
                 setIndex(copyIndex);

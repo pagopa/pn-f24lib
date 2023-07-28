@@ -59,6 +59,11 @@ public class F24Generator {
 
         Files.write(Path.of("src/test/resources/output/elid.pdf"), PDFCreatorFactory.createPDFCreator(f24Elid).createPDF());
         //Files.write(Path.of("F24-PDF\\src\\test\\resources\\output\\f24elid.pdf"), PDFCreatorFactory.createPDFCreator(f24Elid).createPDF());
+
+        System.out.println("pages elid: "+ PDFCreatorFactory.createPDFCreator(f24Elid).getPagesAmount());
+        System.out.println("pages excise: "+ PDFCreatorFactory.createPDFCreator(f24Excise).getPagesAmount());
+        System.out.println("pages simplified: "+ PDFCreatorFactory.createPDFCreator(f24Simplified).getPagesAmount());
+        System.out.println("pages standard: "+ PDFCreatorFactory.createPDFCreator(f24Standard).getPagesAmount());
     }
 
 }
