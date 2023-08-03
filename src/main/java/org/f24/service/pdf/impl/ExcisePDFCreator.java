@@ -18,7 +18,7 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 
 public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
-    private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24Accise2013.pdf";
+    private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24Accise.pdf";
 
     private F24Excise form;
 

@@ -18,7 +18,7 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 
 public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
-    private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24IMU2013.pdf";
+    private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24IMU.pdf";
 
     private Logger logger = LoggerFactory.getLogger(StandardPDFCreator.class.getName());
     private F24Standard form;
