@@ -47,7 +47,7 @@ class FormPDFCreatorTest {
         new InailRecord("", "", "", "", "", "500", "1000")));
 
     f24FormCreator = new FormPDFCreator(form);
-    f24FormCreator.loadDoc("templates" + "/ModF24IMU2013.pdf");
+    f24FormCreator.loadDoc("templates" + "/ModF24IMU.pdf");
   }
 
   @Test

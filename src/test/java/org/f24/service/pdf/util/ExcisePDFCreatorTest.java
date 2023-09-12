@@ -29,7 +29,7 @@ class ExcisePDFCreatorTest {
         form = new ObjectMapper().readValue(jsonString, F24Excise.class);
 
         pdfCreator = new ExcisePDFCreator(form);
-        pdfCreator.loadDoc("templates" + "/ModF24Accise2013.pdf");
+        pdfCreator.loadDoc("templates" + "/ModF24Accise.pdf");
         pdfCreator.setIndex(0);
     }
 

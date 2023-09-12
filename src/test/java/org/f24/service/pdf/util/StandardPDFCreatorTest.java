@@ -56,7 +56,7 @@ class StandardPDFCreatorTest {
                 new Record("500", "0", "500")));
 
         pdfCreator = new StandardPDFCreator(form);
-        pdfCreator.loadDoc("templates" + "/ModF24IMU2013.pdf");
+        pdfCreator.loadDoc("templates" + "/ModF24IMU.pdf");
     }
 
     @Test
