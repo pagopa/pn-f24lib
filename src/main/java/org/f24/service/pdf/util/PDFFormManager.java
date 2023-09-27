@@ -4,6 +4,7 @@ import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
+import org.apache.pdfbox.pdmodel.PDPageTree;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
@@ -28,11 +29,14 @@ public class PDFFormManager {
 
     private PDDocument doc;
     private List<PDDocument> copies;
+    private Integer totalAcroFromPages;
     private Logger logger = Logger.getLogger(PDFFormManager.class.getName());
 
     protected void loadDoc(String modelName) throws IOException {
         this.modelName = modelName;
         this.doc = PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName));
+        this.totalAcroFromPages = doc.getNumberOfPages();
+
         this.copies = new ArrayList<>();
         this.copies.add(doc);
     }
@@ -100,10 +104,27 @@ public class PDFFormManager {
         PDFMergerUtility merger = new PDFMergerUtility();
         int numberOfCopies = this.copies.size();
         flat(0);
+        
         for (int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) {
             flat(copyIndex);
-            merger.appendDocument(doc, this.copies.get(copyIndex));
+            merger.appendDocument(doc, this.copies.get(copyIndex)); 
+        }     
+
+        if(totalAcroFromPages > 1) { 
+            doc = sortDoc(doc, this.totalAcroFromPages);
         }
+    }
+
+    protected PDDocument sortDoc(PDDocument originDoc, int totalDocPages) {
+        PDDocument sortedDoc = new PDDocument();
+        PDPageTree pageTree =  originDoc.getPages();
+
+        for (int pageIndex = 0; pageIndex <= totalDocPages - 1; pageIndex++) {
+            sortedDoc.addPage(pageTree.get(pageIndex));
+            sortedDoc.addPage(pageTree.get(this.totalAcroFromPages + pageIndex));
+        }
+
+        return sortedDoc;
     }
 
     public int getTotalPages(int recordAmount, int maxAmount, int totalPages) {
