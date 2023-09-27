@@ -162,6 +162,126 @@
         "year": "2023",
         "debitAmount": "9183722",
         "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "92HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "62HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "30HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "61HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "66HY",
+        "installment": "91KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "75HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "35HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "73HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "64HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "16HY",
+        "installment": "91KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "94HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "86HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "71HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "55HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "45HY",
+        "installment": "91KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
       }
     ]
   },

@@ -28,6 +28,7 @@ public class PDFFormManager {
     private Integer currentIndex;
 
     private PDDocument doc;
+    private PDDocument sortedDoc;
     private List<PDDocument> copies;
     private Integer totalAcroFromPages;
     private Logger logger = Logger.getLogger(PDFFormManager.class.getName());
@@ -35,6 +36,7 @@ public class PDFFormManager {
     protected void loadDoc(String modelName) throws IOException {
         this.modelName = modelName;
         this.doc = PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName));
+        this.sortedDoc = new PDDocument();
         this.totalAcroFromPages = doc.getNumberOfPages();
 
         this.copies = new ArrayList<>();
@@ -111,20 +113,16 @@ public class PDFFormManager {
         }     
 
         if(totalAcroFromPages > 1) { 
-            doc = sortDoc(doc, this.totalAcroFromPages);
+            sortDoc(numberOfCopies);
+            doc = sortedDoc; 
         }
     }
 
-    protected PDDocument sortDoc(PDDocument originDoc, int totalDocPages) {
-        PDDocument sortedDoc = new PDDocument();
-        PDPageTree pageTree =  originDoc.getPages();
-
-        for (int pageIndex = 0; pageIndex <= totalDocPages - 1; pageIndex++) {
-            sortedDoc.addPage(pageTree.get(pageIndex));
-            sortedDoc.addPage(pageTree.get(this.totalAcroFromPages + pageIndex));
+    protected void sortDoc(int numberOfCopies) {
+        for (int pageIndex = 0; pageIndex < totalAcroFromPages; pageIndex++) {
+            sortedDoc.addPage(doc.getPages().get(pageIndex));
+            for (int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) sortedDoc.addPage(doc.getPages().get(this.totalAcroFromPages * copyIndex + pageIndex));
         }
-
-        return sortedDoc;
     }
 
     public int getTotalPages(int recordAmount, int maxAmount, int totalPages) {
@@ -212,6 +210,10 @@ public class PDFFormManager {
         if (this.doc != null) {
             this.doc.close();
             IOUtils.closeQuietly(getCurrentCopy());
+        }
+
+        if (this.sortedDoc != null) {
+            this.sortedDoc.close();
         }
     }
 
