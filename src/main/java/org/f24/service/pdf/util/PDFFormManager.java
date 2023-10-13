@@ -209,6 +209,10 @@ public class PDFFormManager {
     protected void finalizeDoc() throws IOException {
         if (this.doc != null) {
             this.doc.close();
+            
+            for (PDDocument copies : this.copies) {
+                copies.close();
+            }
             IOUtils.closeQuietly(getCurrentCopy());
         }
 
