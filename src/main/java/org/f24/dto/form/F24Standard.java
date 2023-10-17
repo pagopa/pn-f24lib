@@ -4,76 +4,38 @@ import org.f24.dto.component.*;
 
 public class F24Standard extends F24Form {
 
-    private TreasurySection treasurySection;
-
-    private InpsSection inpsSection;
-
-    private RegionSection regionSection;
-    private ImuSection imuSection;
-    private SocialSecuritySection securitySection;
+    private SocialSecuritySection socialSecuritySection;
     private String ibanCode;
+
+    public F24Standard() {
+        super();
+    }
 
     /**
      * Constructs F24 Standard dto.
      *
-     * @param header          Header component
-     * @param contributor     Contributor component
-     * @param paymentDetails  PaymentDetails component
-     * @param treasurySection TreasurySection component
-     * @param inpsSection     InpsSection component
-     * @param regionSection   RegionSection component
-     * @param imuSection      ImuSection component
-     * @param securitySection SocialSecuritySection component
-     * @param ibanCode        IBAN code (autorizzo addebito su conto corrente codice IBAN)
+     * @param header                Header component
+     * @param taxPayer              TaxPayer component
+     * @param paymentDetails        PaymentDetails component
+     * @param treasurySection       TreasurySection component
+     * @param inpsSection           InpsSection component
+     * @param regionSection         RegionSection component
+     * @param localTaxSection       LocalTaxSection component
+     * @param socialSecuritySection SocialSecuritySection component
+     * @param ibanCode              IBAN code (autorizzo addebito su conto corrente codice IBAN)
      */
-    public F24Standard(Header header, Contributor contributor, PaymentDetails paymentDetails, TreasurySection treasurySection, InpsSection inpsSection, RegionSection regionSection, ImuSection imuSection, SocialSecuritySection securitySection, String ibanCode) {
-        super(header, contributor, paymentDetails);
-        this.treasurySection = treasurySection;
-        this.inpsSection = inpsSection;
-        this.regionSection = regionSection;
-        this.imuSection = imuSection;
-        this.securitySection = securitySection;
+    public F24Standard(Header header, TaxPayer taxPayer, PaymentDetails paymentDetails, TreasurySection treasurySection, InpsSection inpsSection, RegionSection regionSection, LocalTaxSection localTaxSection, SocialSecuritySection socialSecuritySection, String ibanCode) {
+        super(header, taxPayer, paymentDetails, treasurySection, inpsSection, regionSection, localTaxSection);
+        this.socialSecuritySection = socialSecuritySection;
         this.ibanCode = ibanCode;
     }
 
-    public TreasurySection getTreasurySection() {
-        return treasurySection;
+    public SocialSecuritySection getSocialSecuritySection() {
+        return socialSecuritySection;
     }
 
-    public void setTreasurySection(TreasurySection treasurySection) {
-        this.treasurySection = treasurySection;
-    }
-
-    public InpsSection getInpsSection() {
-        return inpsSection;
-    }
-
-    public void setInpsSection(InpsSection inpsSection) {
-        this.inpsSection = inpsSection;
-    }
-
-    public RegionSection getRegionSection() {
-        return regionSection;
-    }
-
-    public void setRegionSection(RegionSection regionSection) {
-        this.regionSection = regionSection;
-    }
-
-    public ImuSection getImuSection() {
-        return imuSection;
-    }
-
-    public void setImuSection(ImuSection imuSection) {
-        this.imuSection = imuSection;
-    }
-
-    public SocialSecuritySection getSecuritySection() {
-        return securitySection;
-    }
-
-    public void setSecuritySection(SocialSecuritySection securitySection) {
-        this.securitySection = securitySection;
+    public void setSocialSecuritySection(SocialSecuritySection socialSecuritySection) {
+        this.socialSecuritySection = socialSecuritySection;
     }
 
     public String getIbanCode() {

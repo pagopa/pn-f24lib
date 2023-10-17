@@ -1,32 +1,33 @@
 package org.f24.dto.component;
 
-public class TreasuryRecord {
+public class TreasuryRecord extends Record {
 
     private String type;
 
     private String idElements;
 
-    private String tributeCode;
+    private String taxTypeCode;
 
-    private String reportingYear;
-
-    private String debitAmount;
+    private String year;
 
     /**
      * Constructs Treasury record for Treasury and other section (Sezione erario ed altro)
      *
-     * @param type          type (tipo)
-     * @param idElements    identification elements (elementi identificativi)
-     * @param tributeCode   tribute code (codice)
-     * @param reportingYear reporting year (anno di riferimento)
-     * @param debitAmount   debit amounts paid (debit amounts paid)
+     * @param type        type (tipo)
+     * @param idElements  identification elements (elementi identificativi)
+     * @param taxTypeCode tax type code (codice)
+     * @param year        reporting year (anno di riferimento)
+     * @param debitAmount debit amounts paid (debit amounts paid)
      */
-    public TreasuryRecord(String type, String idElements, String tributeCode, String reportingYear, String debitAmount) {
+    public TreasuryRecord(String type, String idElements, String taxTypeCode, String year, String debitAmount) {
+        super(debitAmount, "", "");
         this.type = type;
         this.idElements = idElements;
-        this.tributeCode = tributeCode;
-        this.reportingYear = reportingYear;
-        this.debitAmount = debitAmount;
+        this.taxTypeCode = taxTypeCode;
+        this.year = year;
+    }
+
+    public TreasuryRecord() {
     }
 
     public String getType() {
@@ -45,28 +46,20 @@ public class TreasuryRecord {
         this.idElements = idElements;
     }
 
-    public String getTributeCode() {
-        return tributeCode;
+    public String getTaxTypeCode() {
+        return taxTypeCode;
     }
 
-    public void setTributeCode(String tributeCode) {
-        this.tributeCode = tributeCode;
+    public void setTaxTypeCode(String taxTypeCode) {
+        this.taxTypeCode = taxTypeCode;
     }
 
-    public String getReportingYear() {
-        return reportingYear;
+    public String getYear() {
+        return year;
     }
 
-    public void setReportingYear(String reportingYear) {
-        this.reportingYear = reportingYear;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
+    public void setYear(String year) {
+        this.year = year;
     }
 
 }

@@ -1,52 +1,53 @@
 package org.f24.dto.component;
 
-public class ExciseTax {
+public class ExciseTax extends Record {
 
-    private String institution;
+    private String municipality;
 
     private String province;
 
     private String idCode;
 
-    private String tributeCode;
+    private String taxTypeCode;
 
     private String installment;
 
     private String month;
 
-    private String reportingYear;
-
-    private String debitAmount;
+    private String year;
 
     /**
      * Constructs excise tax for excise section (sezione Accise)
      *
-     * @param institution   institution (ente)
-     * @param province      province (prov.)
-     * @param idCode        ID Code (codice identificativo )
-     * @param tributeCode   tribute code (codice tributo)
-     * @param installment   installment (rateazione)
-     * @param month         month (mese rif.)
-     * @param reportingYear reporting year (anno di riferimento)
-     * @param debitAmount   debit amounts paid (debit amounts paid)
+     * @param municipality municipality (ente)
+     * @param province     province (prov.)
+     * @param idCode       ID Code (codice identificativo )
+     * @param taxTypeCode  tax type code (codice tributo)
+     * @param installment  installment (rateazione)
+     * @param month        month (mese rif.)
+     * @param year         reporting year (anno di riferimento)
+     * @param debitAmount  debit amounts paid (debit amounts paid)
      */
-    public ExciseTax(String institution, String province, String idCode, String tributeCode, String installment, String month, String reportingYear, String debitAmount) {
-        this.institution = institution;
+    public ExciseTax(String municipality, String province, String idCode, String taxTypeCode, String installment, String month, String year, String debitAmount) {
+        super(debitAmount, "", "");
+        this.municipality = municipality;
         this.province = province;
         this.idCode = idCode;
-        this.tributeCode = tributeCode;
+        this.taxTypeCode = taxTypeCode;
         this.installment = installment;
         this.month = month;
-        this.reportingYear = reportingYear;
-        this.debitAmount = debitAmount;
+        this.year = year;
     }
 
-    public String getInstitution() {
-        return institution;
+    public ExciseTax() {
     }
 
-    public void setInstitution(String institution) {
-        this.institution = institution;
+    public String getMunicipality() {
+        return municipality;
+    }
+
+    public void setMunicipality(String municipality) {
+        this.municipality = municipality;
     }
 
     public String getProvince() {
@@ -65,12 +66,12 @@ public class ExciseTax {
         this.idCode = idCode;
     }
 
-    public String getTributeCode() {
-        return tributeCode;
+    public String getTaxTypeCode() {
+        return taxTypeCode;
     }
 
-    public void setTributeCode(String tributeCode) {
-        this.tributeCode = tributeCode;
+    public void setTaxTypeCode(String taxTypeCode) {
+        this.taxTypeCode = taxTypeCode;
     }
 
     public String getInstallment() {
@@ -89,20 +90,12 @@ public class ExciseTax {
         this.month = month;
     }
 
-    public String getReportingYear() {
-        return reportingYear;
+    public String getYear() {
+        return year;
     }
 
-    public void setReportingYear(String reportingYear) {
-        this.reportingYear = reportingYear;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
+    public void setYear(String year) {
+        this.year = year;
     }
 
 }

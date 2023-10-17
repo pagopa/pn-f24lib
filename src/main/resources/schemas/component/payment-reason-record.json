@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "section": {
+      "pattern": "^(ER|RG|EL)$",
+      "type": "string"
+    },
+    "taxTypeCode": {
+      "pattern": "^[0-9A-Z]{4}$",
+      "type": "string"
+    },
+    "municipalityCode": {
+      "pattern": "^[0-9]{4}$",
+      "type": "string"
+    },
+    "reconsideration": {
+      "type": ["boolean", "null"]
+    },
+    "propertiesChanges": {
+      "type": ["boolean", "null"]
+    },
+    "advancePayment": {
+      "type": ["boolean", "null"]
+    },
+    "fullPayment": {
+      "type": ["boolean", "null"]
+    },
+    "numberOfProperties": {
+      "pattern": "^[0-9]{3}$",
+      "type": ["string", "null"]
+    },
+    "month": {
+      "pattern": "^[0-9]{4}$",
+      "type": ["string", "null"]
+    },
+    "deduction": {
+      "pattern": "^[0-9]{0,7}$",
+      "type": ["string", "null"]
+    },
+    "year": {
+      "pattern": "^[1-2][0-9]{3}$",
+      "type": ["string", "null"]
+    },
+    "debitAmount": {
+      "pattern": "^[0-9]{0,15}$",
+      "type": ["string", "null"]
+    },
+    "creditAmount": {
+      "pattern": "^[0-9]{0,15}$",
+      "type": ["string", "null"]
+    }
+  },
+  "description": "Payment Motive Record object"
+}

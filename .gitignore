@@ -38,3 +38,6 @@ buildNumber.properties
 *.iws
 *.iml
 *.ipr
+*.DS_Store
+sonar-project.properties
+.vscode/settings.json

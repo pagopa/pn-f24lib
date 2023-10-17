@@ -1,0 +1,433 @@
+{
+  "header": {
+    "delegationTo": "delegation",
+    "agency": "agency",
+    "province": "SA"
+  },
+  "taxPayer": {
+    "taxCode": "RSSMLB80A01A200D",
+    "isNotTaxYear": true,
+    "personData": {
+      "personalData": {
+        "surname": "ROSSI",
+        "name": "MARIO ALBERTO",
+        "birthDate": "01-01-1980",
+        "sex": "M",
+        "birthPlace": "MILANO",
+        "birthProvince": "MI"
+      },
+      "taxAddress": {
+        "municipality": "ROMA",
+        "province": "RM",
+        "address": "VIA GIORGIONE N. 110"
+      }
+    },
+    "relativePersonTaxCode": "RSSMLB80A01A200D",
+    "idCode": "Q7"
+  },
+  "treasurySection": {
+    "taxList": [
+      {
+        "taxTypeCode": "QDFU",
+        "installment": "E8Q",
+        "year": "2023",
+        "debitAmount": "617",
+        "creditAmount": "0"
+      },
+      {
+        "taxTypeCode": "SFGE",
+        "installment": "1N7",
+        "year": "2023",
+        "debitAmount": "1291",
+        "creditAmount": "0"
+      },
+      {
+        "taxTypeCode": "SFGE",
+        "installment": "1N7",
+        "year": "2023",
+        "debitAmount": "1283277",
+        "creditAmount": "0"
+      },
+      {
+        "taxTypeCode": "QDFU",
+        "installment": "E8Q",
+        "year": "2023",
+        "debitAmount": "0",
+        "creditAmount": "6130"
+      },
+      {
+        "taxTypeCode": "SFGE",
+        "installment": "1N7",
+        "year": "2023",
+        "debitAmount": "1283277",
+        "creditAmount": "0"
+      },
+      {
+        "taxTypeCode": "SFGE",
+        "installment": "1N7",
+        "year": "2023",
+        "debitAmount": "1283277",
+        "creditAmount": "0"
+      }
+    ],
+    "officeCode": "NKA",
+    "documentCode": "99662216965"
+  },
+  "inpsSection": {
+    "inpsRecordList": [
+      {
+        "officeCode": "155",
+        "contributionReason": "TAG",
+        "inpsCode": "gm",
+        "period": {
+          "startDate": "012023",
+          "endDate": "022023"
+        },
+        "debitAmount": "124823",
+        "creditAmount": "0"
+      },
+      {
+        "officeCode": "155",
+        "contributionReason": "TAG",
+        "inpsCode": "gmgm",
+        "period": {
+          "startDate": "022023",
+          "endDate": "032023"
+        },
+        "debitAmount": "2362",
+        "creditAmount": "0"
+      },
+      {
+        "officeCode": "155",
+        "contributionReason": "HYF",
+        "inpsCode": "lapyt",
+        "period": {
+          "startDate": "032023",
+          "endDate": "042023"
+        },
+        "debitAmount": "0",
+        "creditAmount": "30172"
+      },
+      {
+        "officeCode": "155",
+        "contributionReason": "TAG",
+        "inpsCode": "mamal",
+        "period": {
+          "startDate": "042023",
+          "endDate": "052023"
+        },
+        "debitAmount": "8521",
+        "creditAmount": "0"
+      }
+    ]
+  },
+  "regionSection": {
+    "regionRecordList": [
+      {
+        "regionCode": "80",
+        "taxTypeCode": "595S",
+        "installment": "8Y4",
+        "year": "2019",
+        "debitAmount": "1927",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "90",
+        "taxTypeCode": "615S",
+        "installment": "7R4",
+        "year": "2020",
+        "debitAmount": "827",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "12",
+        "taxTypeCode": "325S",
+        "installment": "9KL",
+        "year": "2021",
+        "debitAmount": "0",
+        "creditAmount": "1297"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "16HY",
+        "installment": "9KL",
+        "year": "2022",
+        "debitAmount": "13202",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "18HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "92HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "62HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "30HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "61HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "66HY",
+        "installment": "91KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "75HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "35HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "73HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "64HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "16HY",
+        "installment": "91KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "94HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "86HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "71HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "55HY",
+        "installment": "9KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      },
+      {
+        "regionCode": "01",
+        "taxTypeCode": "45HY",
+        "installment": "91KL",
+        "year": "2023",
+        "debitAmount": "9183722",
+        "creditAmount": "0"
+      }
+    ]
+  },
+  "localTaxSection": {
+    "operationId": "DQ3SOV5WK3KYRSOWO5",
+    "localTaxRecordList": [
+      {
+        "municipalityCode": "RAMZ",
+        "reconsideration": true,
+        "propertiesChanges": true,
+        "advancePayment": true,
+        "fullPayment": true,
+        "numberOfProperties": "670",
+        "taxTypeCode": "8383",
+        "installment": "C1",
+        "year": "2020",
+        "debitAmount": "2923",
+        "creditAmount": "0"
+      },
+      {
+        "municipalityCode": "RAMZ",
+        "reconsideration": true,
+        "propertiesChanges": true,
+        "advancePayment": true,
+        "fullPayment": true,
+        "numberOfProperties": "593",
+        "taxTypeCode": "8383",
+        "installment": "C2",
+        "year": "2021",
+        "debitAmount": "123",
+        "creditAmount": "0"
+      },
+      {
+        "municipalityCode": "RAMZ",
+        "reconsideration": true,
+        "propertiesChanges": false,
+        "advancePayment": true,
+        "fullPayment": false,
+        "numberOfProperties": "129",
+        "taxTypeCode": "8383",
+        "installment": "C3",
+        "year": "2022",
+        "debitAmount": "0",
+        "creditAmount": "2901"
+      },
+      {
+        "municipalityCode": "RAMZ",
+        "reconsideration": true,
+        "propertiesChanges": true,
+        "advancePayment": false,
+        "fullPayment": true,
+        "numberOfProperties": "218",
+        "taxTypeCode": "8383",
+        "installment": "C4",
+        "year": "2023",
+        "debitAmount": "0",
+        "creditAmount": "102283"
+      }
+    ],
+    "deduction": "12934"
+  },
+  "exciseSection": {
+    "exciseTaxList": [
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "10",
+        "year": "2016",
+        "debitAmount": "12"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "11",
+        "year": "2017",
+        "debitAmount": "2001"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "09",
+        "year": "2018",
+        "debitAmount": "2781"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "04",
+        "year": "2019",
+        "debitAmount": "4012"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "01",
+        "year": "2020",
+        "debitAmount": "9127"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "03",
+        "year": "2021",
+        "debitAmount": "201"
+      },
+      {
+        "municipality": "NA",
+        "province": "KT",
+        "idCode": "6FQN195TSPW87DY2V",
+        "taxTypeCode": "4YEA",
+        "installment": "KEA",
+        "month": "05",
+        "year": "2022",
+        "debitAmount": "3021"
+      }
+
+    ],
+    "officeCode": "TZQ",
+    "documentCode": "84635602429"
+  },
+  "paymentDetails": {
+    "paymentDate": "12-12-2022",
+    "company": "company",
+    "cabCode": "56789",
+    "checkNumber": "01",
+    "abiCode": "01234",
+    "ibanCode": "01A0123456789012345678901",
+    "bank": true
+  },
+  "ibanCode": "01A0123456789012345678901"
+}

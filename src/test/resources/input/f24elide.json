@@ -1,0 +1,247 @@
+{
+  "header": {
+    "delegationTo": "delegation",
+    "agency": "agency",
+    "province": "SA"
+  },
+  "taxPayer": {
+    "taxCode": "RSSMLB80A01A200D",
+    "isNotTaxYear": true,
+    "personData": {
+      "personalData": {
+        "surname": "ROSSI",
+        "name": "MARIO ALBERTO",
+        "birthDate": "01-01-1980",
+        "sex": "M",
+        "birthPlace": "MILANO",
+        "birthProvince": "MI"
+      },
+      "taxAddress": {
+        "municipality": "ROMA",
+        "province": "RM",
+        "address": "VIA GIORGIONE N. 110"
+      }
+    },
+    "relativePersonTaxCode": "RSSMLB80A01A200D",
+    "idCode": "Q7"
+  },
+  "treasuryAndOtherSection": {
+    "officeCode": "7UV",
+    "documentCode": "92151311914",
+    "treasuryRecords": [
+      {
+        "type": "A",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1990",
+        "debitAmount": "6291"
+      },
+      {
+        "type": "B",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1991",
+        "debitAmount": "72"
+      },
+      {
+        "type": "C",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1992",
+        "debitAmount": "281"
+      },
+      {
+        "type": "D",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1993",
+        "debitAmount": "129"
+      },
+      {
+        "type": "E",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1994",
+        "debitAmount": "10323"
+      },
+      {
+        "type": "F",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1995",
+        "debitAmount": "90"
+      },
+      {
+        "type": "G",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1996",
+        "debitAmount": "5023"
+      },
+      {
+        "type": "H",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1997",
+        "debitAmount": "234"
+      },
+      {
+        "type": "I",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1998",
+        "debitAmount": "21"
+      },
+      {
+        "type": "J",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "1999",
+        "debitAmount": "342"
+      },
+      {
+        "type": "K",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2000",
+        "debitAmount": "123"
+      },
+      {
+        "type": "L",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2001",
+        "debitAmount": "321"
+      },
+      {
+        "type": "M",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2002",
+        "debitAmount": "38"
+      },
+      {
+        "type": "N",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2003",
+        "debitAmount": "4"
+      },
+      {
+        "type": "O",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2004",
+        "debitAmount": "19"
+      },
+      {
+        "type": "P",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2005",
+        "debitAmount": "91"
+      },
+      {
+        "type": "Q",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2006",
+        "debitAmount": "62"
+      },
+      {
+        "type": "R",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2007",
+        "debitAmount": "412"
+      },
+      {
+        "type": "S",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2008",
+        "debitAmount": "111"
+      },
+      {
+        "type": "T",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2009",
+        "debitAmount": "12"
+      },
+      {
+        "type": "U",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2010",
+        "debitAmount": "80"
+      },
+      {
+        "type": "V",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2011",
+        "debitAmount": "53"
+      },
+      {
+        "type": "W",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2012",
+        "debitAmount": "823"
+      },
+      {
+        "type": "X",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2013",
+        "debitAmount": "47"
+      },
+      {
+        "type": "Y",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2014",
+        "debitAmount": "11"
+      },
+      {
+        "type": "Z",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2015",
+        "debitAmount": "0"
+      },
+      {
+        "type": "M",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2016",
+        "debitAmount": "127"
+      },
+      {
+        "type": "N",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2017",
+        "debitAmount": "75"
+      },
+      {
+        "type": "O",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2018",
+        "debitAmount": "2581"
+      },
+      {
+        "type": "W",
+        "idElements": "BEK6WGR2OB4WD2IYT",
+        "taxTypeCode": "3WWK",
+        "year": "2019",
+        "debitAmount": "900"
+      }
+    ]
+  },
+  "bankAccountNumber": "1234581",
+  "abiCode": "01234",
+  "bankId": "012"
+}

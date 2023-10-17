@@ -7,11 +7,13 @@ import com.github.fge.jsonschema.core.report.ProcessingMessage;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import org.f24.dto.component.Record;
+import org.f24.dto.component.TaxPayer;
 import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
-import org.f24.service.validator.ErrorEnum;
-import org.f24.service.validator.TaxCodeCalculator;
+import org.f24.exception.ErrorEnum;
+import org.f24.service.validator.util.TaxCodeCalculator;
 import org.f24.service.validator.Validator;
 import org.f24.exception.ResourceException;
 
@@ -20,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class FormValidator implements Validator {
@@ -27,6 +30,8 @@ public class FormValidator implements Validator {
     private String schemaPath;
 
     private F24Form form;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public FormValidator(String schemaPath, F24Form form) {
         this.schemaPath = schemaPath;
@@ -36,13 +41,13 @@ public class FormValidator implements Validator {
     @Override
     public void validate() throws ProcessingException, IOException, ResourceException {
         JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().freeze();
-        ObjectMapper objectMapper = new ObjectMapper();
 
         JsonNode jsonForm = objectMapper.valueToTree(this.form);
         JsonNode jsonScemaNode = objectMapper.readTree(getClass().getClassLoader().getResourceAsStream(this.schemaPath));
         JsonSchema jsonSchema = jsonSchemaFactory.getJsonSchema(jsonScemaNode);
 
         ProcessingReport processingReport = jsonSchema.validate(jsonForm);
+
         if (!processingReport.isSuccess()) {
             for (ProcessingMessage message : processingReport) {
                 manageError(message);
@@ -50,22 +55,51 @@ public class FormValidator implements Validator {
         }
 
         validateTaxCode();
+        validateIdCode();
     }
 
     private void validateTaxCode() throws ResourceException {
-        PersonData personData = this.form.getContributor().getPersonData();
+        PersonData personData = this.form.getTaxPayer().getPersonData();
         if(personData != null) {
             PersonalData personalData = personData.getPersonalData();
-            Date dateOfBirth = null;
-            try {
-                dateOfBirth = new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getDateOfBirth());
-            } catch (ParseException e) {
-                dateOfBirth = new Date();
+            if(personalData != null) {
+                Date birthdate = null;
+                try {
+                    birthdate = new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getBirthDate());
+                } catch (ParseException e) {
+                    birthdate = new Date();
+                }
+
+                if(this.form.getTaxPayer().getTaxCode() != null) {
+                    String municipality = this.form.getTaxPayer().getTaxCode().substring(11, 15);
+                    String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), birthdate, municipality);
+                    if(!this.form.getTaxPayer().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
+                        throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
+                    }
+                }
             }
-            // TODO get municipality code from official list
-            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), dateOfBirth, "");
-            if(!this.form.getContributor().getTaxCode().equals(calculatedTaxCode)) {
-                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
+        }
+    }
+
+    private void validateIdCode() throws ResourceException {
+        TaxPayer taxPayer = this.form.getTaxPayer();
+
+        if (taxPayer != null) {
+            String taxCode = taxPayer.getRelativePersonTaxCode();
+            String idCode = taxPayer.getIdCode();
+
+            if (taxCode != null && idCode == null)
+                throw new ResourceException(ErrorEnum.ID_CODE.getMessage());
+        }
+    }
+
+    void validateDebitandCredit(List<? extends Record> targetRecordList) throws ResourceException {
+        if (targetRecordList != null) {
+            for (Record recordItem : targetRecordList) {
+                if ((recordItem.getDebitAmount() != null && recordItem.getCreditAmount() != null)
+                        && (!recordItem.getDebitAmount().equals("0") && !recordItem.getCreditAmount().equals("0"))) {
+                    throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage());
+                }
             }
         }
     }

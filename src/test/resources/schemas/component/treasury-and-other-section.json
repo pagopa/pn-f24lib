@@ -1,18 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
+  "type": ["object", "null"],
   "properties": {
     "officeCode": {
       "pattern": "^[A-Z0-9]{3}$",
       "type": "string"
     },
-    "actCode": {
+    "documentCode": {
       "pattern": "^\\d{11}$",
       "type": "string"
     },
+
     "treasuryRecords": {
-      "maxItems": 28,
-      "minItems": 0,
       "type": "array",
       "items": {
         "$ref": "resource:/schemas/component/treasury-record.json"

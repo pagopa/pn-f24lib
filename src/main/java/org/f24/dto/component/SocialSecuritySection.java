@@ -2,11 +2,14 @@ package org.f24.dto.component;
 
 import java.util.List;
 
-public class SocialSecuritySection {
+public class SocialSecuritySection extends Section {
 
     private List<InailRecord> inailRecords;
 
     private List<SocialSecurityRecord> socialSecurityRecordList;
+
+    public SocialSecuritySection() {
+    }
 
     /**
      * Constructs Other social security and insurance institutions section (sezione altri enri previdenziali e assicuretivi)
@@ -34,4 +37,5 @@ public class SocialSecuritySection {
     public void setSocialSecurityRecordList(List<SocialSecurityRecord> socialSecurityRecordList) {
         this.socialSecurityRecordList = socialSecurityRecordList;
     }
+
 }

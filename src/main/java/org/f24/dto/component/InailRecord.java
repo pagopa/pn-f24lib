@@ -1,48 +1,46 @@
 package org.f24.dto.component;
 
-public class InailRecord {
+public class InailRecord extends Record {
 
-    private String locationCode;
+    private String officeCode;
 
     private String companyCode;
 
-    private String bankAccount;
+    private String controlCode;
 
     private String referenceNumber;
 
     private String reason;
 
-    private String debitAmount;
-
-    private String creditAmount;
+    public InailRecord() {
+    }
 
     /**
      * Constructs INAIL Record for Other social security and insurance institutions (sezione altri enri previdenziali e assicuretivi)
      *
-     * @param locationCode    location code (codice sede)
+     * @param officeCode      location code (codice sede)
      * @param companyCode     company code (codice ditta)
-     * @param bankAccount     bank account
+     * @param controlCode     bank account
      * @param referenceNumber reference number (numero di riferimento)
      * @param reason          reason (causale)
      * @param debitAmount     debit amounts paid (importi a debito versati)
      * @param creditAmount    credit amounts offset (importi a credito compensati)
      */
-    public InailRecord(String locationCode, String companyCode, String bankAccount, String referenceNumber, String reason, String debitAmount, String creditAmount) {
-        this.locationCode = locationCode;
+    public InailRecord(String officeCode, String companyCode, String controlCode, String referenceNumber, String reason, String debitAmount, String creditAmount) {
+        super(debitAmount, creditAmount, "");
+        this.officeCode = officeCode;
         this.companyCode = companyCode;
-        this.bankAccount = bankAccount;
+        this.controlCode = controlCode;
         this.referenceNumber = referenceNumber;
         this.reason = reason;
-        this.debitAmount = debitAmount;
-        this.creditAmount = creditAmount;
     }
 
-    public String getLocationCode() {
-        return locationCode;
+    public String getOfficeCode() {
+        return officeCode;
     }
 
-    public void setLocationCode(String locationCode) {
-        this.locationCode = locationCode;
+    public void setOfficeCode(String officeCode) {
+        this.officeCode = officeCode;
     }
 
     public String getCompanyCode() {
@@ -53,12 +51,12 @@ public class InailRecord {
         this.companyCode = companyCode;
     }
 
-    public String getBankAccount() {
-        return bankAccount;
+    public String getControlCode() {
+        return controlCode;
     }
 
-    public void setBankAccount(String bankAccount) {
-        this.bankAccount = bankAccount;
+    public void setControlCode(String controlCode) {
+        this.controlCode = controlCode;
     }
 
     public String getReferenceNumber() {
@@ -75,22 +73,6 @@ public class InailRecord {
 
     public void setReason(String reason) {
         this.reason = reason;
-    }
-
-    public String getDebitAmount() {
-        return debitAmount;
-    }
-
-    public void setDebitAmount(String debitAmount) {
-        this.debitAmount = debitAmount;
-    }
-
-    public String getCreditAmount() {
-        return creditAmount;
-    }
-
-    public void setCreditAmount(String creditAmount) {
-        this.creditAmount = creditAmount;
     }
 
 }

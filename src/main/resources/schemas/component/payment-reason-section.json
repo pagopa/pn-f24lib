@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": ["object", "null"],
+  "properties": {
+    "operationId": {
+      "pattern": "^[A-Z0-9]{18}$",
+      "type": ["string", "null"]
+    },
+    "reasonRecordList": {
+      "type": "array",
+      "items": {
+        "$ref": "resource:/schemas/component/payment-reason-record.json"
+      }
+    }
+  },
+  "description": "Payment Motive Section (Motivo del Pagamento) object"
+}

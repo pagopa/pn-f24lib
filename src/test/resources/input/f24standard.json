@@ -1,0 +1,273 @@
+{
+  "header": {
+    "delegationTo": "delegation",
+    "agency": "agency",
+    "province": "MI"
+  },
+  "taxPayer": {
+    "taxCode": "RSSMLB80A01A200D",
+    "isNotTaxYear": true,
+    "personData": {
+      "personalData": {
+        "surname": "ROSSI",
+        "name": "MARIO ALBERTO",
+        "birthDate": "01-01-1980",
+        "sex": "M",
+        "birthPlace": "MILANO",
+        "birthProvince": "MI"
+      },
+      "taxAddress": {
+        "municipality": "MILANO",
+        "province": "MI",
+        "address": "VIA LARGA 21"
+      }
+    },
+    "relativePersonTaxCode": "TDITLC46H54C619Q",
+    "idCode": "9W"
+  },
+  "paymentDetails": {
+    "paymentDate": "12-12-2022",
+    "company": "company",
+    "cabCode": "56789",
+    "checkNumber": "01",
+    "abiCode": "01234",
+    "ibanCode": "01A0123456789012345678901",
+    "bank": true
+  },
+  "treasurySection": {
+    "taxList": [
+      {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+      {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+      {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "88MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      },
+       {
+        "taxTypeCode": "B9AD",
+        "installment": "18MP",
+        "year": "2617",
+        "debitAmount": "7309",
+        "creditAmount": "0"
+      }
+    ],
+    "officeCode": "FRH",
+    "documentCode": "29542848644"
+  },
+  "inpsSection": {
+    "inpsRecordList": [
+      {
+        "officeCode": "5670",
+        "contributionReason": "HHW",
+        "inpsCode": "32W95Mf",
+        "period": {
+          "startDate": "403120",
+          "endDate": "084198"
+        },
+        "debitAmount": "84",
+        "creditAmount": "0"
+      },
+       {
+        "officeCode": "5670",
+        "contributionReason": "HHW",
+        "inpsCode": "32W95Mf",
+        "period": {
+          "startDate": "403120",
+          "endDate": "084198"
+        },
+        "debitAmount": "84",
+        "creditAmount": "0"
+      },
+       {
+        "officeCode": "5670",
+        "contributionReason": "HHW",
+        "inpsCode": "32W95Mf",
+        "period": {
+          "startDate": "403120",
+          "endDate": "084198"
+        },
+        "debitAmount": "84",
+        "creditAmount": "0"
+      },
+       {
+        "officeCode": "5670",
+        "contributionReason": "HHW",
+        "inpsCode": "32W95Mf",
+        "period": {
+          "startDate": "403120",
+          "endDate": "084198"
+        },
+        "debitAmount": "84",
+        "creditAmount": "0"
+      },
+       {
+        "officeCode": "5670",
+        "contributionReason": "HHW",
+        "inpsCode": "32W95Mf",
+        "period": {
+          "startDate": "403120",
+          "endDate": "084198"
+        },
+        "debitAmount": "84",
+        "creditAmount": "0"
+      }
+    ]
+  },
+  "regionSection": {
+    "regionRecordList": [
+      {
+        "regionCode": "60",
+        "taxTypeCode": "ZEMO",
+        "installment": "A",
+        "year": "2306",
+        "debitAmount": "901492",
+        "creditAmount": "0"
+      }
+    ]
+  },
+  "localTaxSection": {
+    "operationId": "A0VU5WBKUUJPCBE8AK",
+    "localTaxRecordList": [
+      {
+        "municipalityCode": "99YZ",
+        "reconsideration": true,
+        "propertiesChanges": true,
+        "advancePayment": true,
+        "fullPayment": true,
+        "numberOfProperties": "433",
+        "taxTypeCode": "0943",
+        "installment": "43CV",
+        "year": "2432",
+        "debitAmount": "6002916",
+        "creditAmount": "0"
+      }
+    ],
+    "deduction": "97091877"
+  },
+  "socialSecuritySection": {
+    "inailRecords": [
+      {
+        "officeCode": "69605",
+        "companyCode": "47858729",
+        "controlCode": "54",
+        "referenceNumber": "792244",
+        "reason": "B",
+        "debitAmount": "60",
+        "creditAmount": "0"
+      }
+    ],
+    "socialSecurityRecordList": [
+      {
+        "municipalityCode": "8739",
+        "officeCode": "B6COP",
+        "contributionReason": "G1D",
+        "positionCode": "693850961",
+        "period": {
+          "startDate": "150401",
+          "endDate": "671726"
+        },
+        "debitAmount": "36",
+        "creditAmount": "0"
+      }
+    ]
+  },
+  "ibanCode": "01A0123456789012345678901"
+}

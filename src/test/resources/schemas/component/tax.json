@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "tributeCode": {
+    "taxTypeCode": {
       "pattern": "^[A-Z0-9]{4}$",
       "type": "string"
     },
@@ -10,17 +10,19 @@
       "pattern": "^[A-Z0-9]{0,4}$",
       "type": "string"
     },
-    "reportingYear": {
+    "year": {
       "pattern": "^[1-2][0-9]{3}$",
       "type": "string"
     },
     "debitAmount": {
-      "pattern": "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$",
-      "type": "string"
+      "pattern": "^[0-9]{0,15}$",
+      "default": "0",
+      "type": ["string", "null"]
     },
     "creditAmount": {
-      "pattern": "^(0|[1-9][0-9]{0,14})(\\.\\d{2})$",
-      "type": "string"
+      "pattern": "^[0-9]{0,15}$",
+      "default": "0",
+      "type": ["string", "null"]
     }
   },
   "description": "Tax object"

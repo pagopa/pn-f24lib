@@ -4,19 +4,29 @@ public class PersonData {
 
     private PersonalData personalData;
 
-    private TaxResidence taxResidence;
+    private TaxAddress taxAddress;
 
-    public PersonData() {}
+    public PersonData() {
+    }
 
     /**
      * Constructs personal data section of contributor (dati anagrafici PF)
      *
      * @param personalData PersonalData component (dati anagrafici)
-     * @param taxResidence TaxResidence component (domicilio fiscale)
+     * @param taxAddress   TaxAddress component (domicilio fiscale)
      */
-    public PersonData(PersonalData personalData, TaxResidence taxResidence) {
+    public PersonData(PersonalData personalData, TaxAddress taxAddress) {
         this.personalData = personalData;
-        this.taxResidence = taxResidence;
+        this.taxAddress = taxAddress;
+    }
+
+    /**
+     * Constructs personal data section of contributor (dati anagrafici PF) without tax residence
+     *
+     * @param personalData PersonalData component (dati anagrafici)
+     */
+    public PersonData(PersonalData personalData) {
+        this.personalData = personalData;
     }
 
     public PersonalData getPersonalData() {
@@ -27,12 +37,12 @@ public class PersonData {
         this.personalData = personalData;
     }
 
-    public TaxResidence getTaxResidence() {
-        return taxResidence;
+    public TaxAddress getTaxAddress() {
+        return taxAddress;
     }
 
-    public void setTaxResidence(TaxResidence taxResidence) {
-        this.taxResidence = taxResidence;
+    public void setTaxAddress(TaxAddress taxAddress) {
+        this.taxAddress = taxAddress;
     }
 
 }
