@@ -27,12 +27,17 @@ public class PDFFormManager {
     private Integer currentIndex;
 
     private PDDocument doc;
+    private PDDocument sortedDoc;
     private List<PDDocument> copies;
+    private Integer totalAcroFromPages;
     private Logger logger = Logger.getLogger(PDFFormManager.class.getName());
 
     protected void loadDoc(String modelName) throws IOException {
         this.modelName = modelName;
         this.doc = PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName));
+        this.sortedDoc = new PDDocument();
+        this.totalAcroFromPages = doc.getNumberOfPages();
+
         this.copies = new ArrayList<>();
         this.copies.add(doc);
     }
@@ -80,10 +85,11 @@ public class PDFFormManager {
     }
 
     protected void copy(int numberOfCopies) throws IOException {
-        while (numberOfCopies > 0) {
-            copies.add(PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName)));
-            numberOfCopies--;
-        }
+        if(copies.size() == 1)
+            while (numberOfCopies > 0) {
+                copies.add(PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName)));
+                numberOfCopies--;
+            }
     }
 
     protected List<PDDocument> getCopies() {
@@ -99,9 +105,22 @@ public class PDFFormManager {
         PDFMergerUtility merger = new PDFMergerUtility();
         int numberOfCopies = this.copies.size();
         flat(0);
+        
         for (int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) {
             flat(copyIndex);
-            merger.appendDocument(doc, this.copies.get(copyIndex));
+            merger.appendDocument(doc, this.copies.get(copyIndex)); 
+        }     
+
+        if(totalAcroFromPages > 1) { 
+            sortDoc(numberOfCopies);
+            doc = sortedDoc; 
+        }
+    }
+
+    protected void sortDoc(int numberOfCopies) {
+        for (int pageIndex = 0; pageIndex < totalAcroFromPages; pageIndex++) {
+            sortedDoc.addPage(doc.getPages().get(pageIndex));
+            for (int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) sortedDoc.addPage(doc.getPages().get(this.totalAcroFromPages * copyIndex + pageIndex));
         }
     }
 
@@ -189,7 +208,15 @@ public class PDFFormManager {
     protected void finalizeDoc() throws IOException {
         if (this.doc != null) {
             this.doc.close();
+            
+            for (PDDocument c : this.copies) {
+                c.close();
+            }
             IOUtils.closeQuietly(getCurrentCopy());
+        }
+
+        if (this.sortedDoc != null) {
+            this.sortedDoc.close();
         }
     }
 

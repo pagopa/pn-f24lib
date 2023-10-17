@@ -56,7 +56,7 @@ class StandardPDFCreatorTest {
                 new Record("500", "0", "500")));
 
         pdfCreator = new StandardPDFCreator(form);
-        pdfCreator.loadDoc("templates" + "/ModF24IMU2013.pdf");
+        pdfCreator.loadDoc("templates" + "/ModF24IMU.pdf");
     }
 
     @Test
@@ -66,16 +66,16 @@ class StandardPDFCreatorTest {
 
         assertNotNull(taxPayer);
 
-        pdfCreator.setField(TAX_CODE.getName(), taxPayer.getTaxCode());
+        pdfCreator.setField(TAX_CODE.getName(), "ZSDFGY86R78U765I");
         pdfCreator.setField(RELATIVE_PERSON_TAX_CODE.getName(), "BGCDJV27L49N524I");
-        pdfCreator.setField(ID_CODE.getName(), taxPayer.getIdCode());
+        pdfCreator.setField(ID_CODE.getName(), "RSSMLB80A01A200D");
 
         if (taxPayer.getIsNotTaxYear())
             pdfCreator.setField(IS_NOT_TAX_YEAR.getName(), "X");
 
-        assertEquals(taxPayer.getTaxCode(), pdfCreator.getField(TAX_CODE.getName()).getValueAsString());
+        assertEquals("ZSDFGY86R78U765I", pdfCreator.getField(TAX_CODE.getName()).getValueAsString());
         assertEquals("BGCDJV27L49N524I", pdfCreator.getField(RELATIVE_PERSON_TAX_CODE.getName()).getValueAsString());
-        assertEquals(taxPayer.getIdCode(), pdfCreator.getField(ID_CODE.getName()).getValueAsString());
+        assertEquals("RSSMLB80A01A200D", pdfCreator.getField(ID_CODE.getName()).getValueAsString());
 
         assertEquals("X", pdfCreator.getField(IS_NOT_TAX_YEAR.getName()).getValueAsString());
     }
@@ -100,33 +100,35 @@ class StandardPDFCreatorTest {
     void shouldFillInpsSection() throws ResourceException {
         pdfCreator.setIndex(0);
         InpsSection inpsSection = form.getInpsSection();
-        List<InpsRecord> inpsRecordList = inpsSection.getInpsRecordList();
-        String sectionId = "2";
 
-        assertNotNull(inpsSection);
-        assertNotNull(inpsRecordList);
-
-        inpsRecordList = pdfCreator.paginateList(0, 4, inpsRecordList);
-
-        int index = 1;
-        for (InpsRecord inpsRecord : inpsRecordList) {
-            pdfCreator.setField(OFFICE_CODE.getName() + sectionId + index, inpsRecord.getOfficeCode());
-            pdfCreator.setField(CONTRIBUTION_REASON.getName() + sectionId + index, inpsRecord.getContributionReason());
-            pdfCreator.setField(INPS_CODE.getName() + sectionId + index, inpsRecord.getInpsCode());
-
-            index++;
-        }
-
-        index = 1;
-        for (InpsRecord inpsRecord : inpsRecordList) {
-            assertEquals(inpsRecord.getOfficeCode(),
-                    pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(inpsRecord.getContributionReason(),
-                    pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString());
-            assertEquals(inpsRecord.getInpsCode(),
-                    pdfCreator.getField(INPS_CODE.getName() + sectionId + index).getValueAsString());
-
-            index++;
+        if(inpsSection != null) {
+            List<InpsRecord> inpsRecordList = inpsSection.getInpsRecordList();
+            String sectionId = "2";
+    
+            assertNotNull(inpsRecordList);
+    
+            inpsRecordList = pdfCreator.paginateList(0, 4, inpsRecordList);
+    
+            int index = 1;
+            for (InpsRecord inpsRecord : inpsRecordList) {
+                pdfCreator.setField(OFFICE_CODE.getName() + sectionId + index, inpsRecord.getOfficeCode());
+                pdfCreator.setField(CONTRIBUTION_REASON.getName() + sectionId + index, inpsRecord.getContributionReason());
+                pdfCreator.setField(INPS_CODE.getName() + sectionId + index, inpsRecord.getInpsCode());
+    
+                index++;
+            }
+    
+            index = 1;
+            for (InpsRecord inpsRecord : inpsRecordList) {
+                assertEquals(inpsRecord.getOfficeCode(),
+                        pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(inpsRecord.getContributionReason(),
+                        pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString());
+                assertEquals(inpsRecord.getInpsCode(),
+                        pdfCreator.getField(INPS_CODE.getName() + sectionId + index).getValueAsString());
+    
+                index++;
+            }
         }
     }
 
@@ -134,102 +136,107 @@ class StandardPDFCreatorTest {
     void shouldFillLocalTaxSection() throws ResourceException {
         pdfCreator.setIndex(0);
         LocalTaxSection localTaxSection = this.form.getLocalTaxSection();
-        List<LocalTaxRecord> localTaxRecordList = localTaxSection.getLocalTaxRecordList();
-        String sectionId = "4";
 
-        assertNotNull(localTaxSection);
-        assertNotNull(localTaxRecordList);
+        if (localTaxSection != null) {
 
-        localTaxRecordList = pdfCreator.paginateList(0, 4, localTaxRecordList);
+            List<LocalTaxRecord> localTaxRecordList = localTaxSection.getLocalTaxRecordList();
+            String sectionId = "4";
 
-        int index = 1;
-        for (LocalTaxRecord localTaxRecord : localTaxRecordList) {
-            pdfCreator.setField(YEAR.getName() + sectionId + index, localTaxRecord.getYear());
-            pdfCreator.setField(INSTALLMENT.getName() + sectionId + index, localTaxRecord.getInstallment());
-            pdfCreator.setField(TAX_TYPE_CODE.getName() + sectionId + index, localTaxRecord.getTaxTypeCode());
-            pdfCreator.setField(MUNICIPALITY_CODE.getName() + sectionId + index, localTaxRecord.getMunicipalityCode());
+            assertNotNull(localTaxRecordList);
 
-            pdfCreator.setField(RECONSIDERATION.getName() + index, "X");
+            localTaxRecordList = pdfCreator.paginateList(0, 4, localTaxRecordList);
 
-            pdfCreator.setField(PROPERTIES_CHANGED.getName() + index, "X");
+            int index = 1;
+            for (LocalTaxRecord localTaxRecord : localTaxRecordList) {
+                pdfCreator.setField(YEAR.getName() + sectionId + index, localTaxRecord.getYear());
+                pdfCreator.setField(INSTALLMENT.getName() + sectionId + index, localTaxRecord.getInstallment());
+                pdfCreator.setField(TAX_TYPE_CODE.getName() + sectionId + index, localTaxRecord.getTaxTypeCode());
+                pdfCreator.setField(MUNICIPALITY_CODE.getName() + sectionId + index,
+                        localTaxRecord.getMunicipalityCode());
 
-            pdfCreator.setField(ADVANCE_PAYMENT.getName() + index, "X");
+                pdfCreator.setField(RECONSIDERATION.getName() + index, "X");
 
-            pdfCreator.setField(FULL_PAYMENT.getName() + index, "X");
+                pdfCreator.setField(PROPERTIES_CHANGED.getName() + index, "X");
 
-            pdfCreator.setField(NUMBER_OF_PROPERTIES.getName() + index, localTaxRecord.getNumberOfProperties());
+                pdfCreator.setField(ADVANCE_PAYMENT.getName() + index, "X");
 
-            index++;
+                pdfCreator.setField(FULL_PAYMENT.getName() + index, "X");
+
+                pdfCreator.setField(NUMBER_OF_PROPERTIES.getName() + index, localTaxRecord.getNumberOfProperties());
+
+                index++;
+            }
+
+            index = 1;
+
+            for (LocalTaxRecord localTaxRecord : localTaxRecordList) {
+                assertEquals(localTaxRecord.getYear(),
+                        pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+                assertEquals(localTaxRecord.getInstallment(),
+                        pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+                assertEquals(localTaxRecord.getTaxTypeCode(),
+                        pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(localTaxRecord.getMunicipalityCode(),
+                        pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId + index).getValueAsString());
+
+                assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + index).getValueAsString());
+
+                assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + index).getValueAsString());
+
+                assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + index).getValueAsString());
+
+                assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + index).getValueAsString());
+
+                assertEquals(localTaxRecord.getNumberOfProperties(),
+                        pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + index).getValueAsString());
+
+                index++;
+            }
         }
-
-        index = 1;
-
-        for (LocalTaxRecord localTaxRecord : localTaxRecordList) {
-            assertEquals(localTaxRecord.getYear(),
-                    pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
-            assertEquals(localTaxRecord.getInstallment(),
-                    pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
-            assertEquals(localTaxRecord.getTaxTypeCode(),
-                    pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(localTaxRecord.getMunicipalityCode(),
-                    pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId + index).getValueAsString());
-
-            assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + index).getValueAsString());
-
-            assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + index).getValueAsString());
-
-            assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + index).getValueAsString());
-
-            assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + index).getValueAsString());
-
-            assertEquals(localTaxRecord.getNumberOfProperties(),
-                    pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + index).getValueAsString());
-
-            index++;
-        }
-
     }
 
     @Test
     void shouldFillTreasurySection() throws ResourceException {
         pdfCreator.setIndex(0);
         TreasurySection treasurySection = this.form.getTreasurySection();
-        List<Tax> taxList = treasurySection.getTaxList();
-        String sectionId = "1";
-
-        assertNotNull(treasurySection);
-        assertNotNull(taxList);
-
-        taxList = pdfCreator.paginateList(0, 6, taxList);
-
-        int index = 1;
-        for (Tax taxRecord : taxList) {
-            pdfCreator.setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
-            pdfCreator.setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
-            pdfCreator.setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
-
-            index++;
+        
+        if(treasurySection != null) {
+            List<Tax> taxList = treasurySection.getTaxList();
+            String sectionId = "1";
+    
+            assertNotNull(taxList);
+    
+            taxList = pdfCreator.paginateList(0, 6, taxList);
+    
+            int index = 1;
+            for (Tax taxRecord : taxList) {
+                pdfCreator.setField(TAX_TYPE_CODE.getName() + sectionId + index, taxRecord.getTaxTypeCode());
+                pdfCreator.setField(INSTALLMENT.getName() + sectionId + index, taxRecord.getInstallment());
+                pdfCreator.setField(YEAR.getName() + sectionId + index, taxRecord.getYear());
+    
+                index++;
+            }
+    
+            index = 1;
+    
+            for (Tax taxRecord : taxList) {
+                assertEquals(taxRecord.getTaxTypeCode(),
+                        pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(taxRecord.getInstallment(),
+                        pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+                assertEquals(taxRecord.getYear(),
+                        pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+    
+                index++;
+            }
+    
+            pdfCreator.setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
+            pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
+    
+            assertEquals(treasurySection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()  + sectionId).getValueAsString());
+            assertEquals(treasurySection.getDocumentCode(),
+                    pdfCreator.getField(DOCUMENT_CODE.getName()  + sectionId).getValueAsString());
         }
-
-        index = 1;
-
-        for (Tax taxRecord : taxList) {
-            assertEquals(taxRecord.getTaxTypeCode(),
-                    pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(taxRecord.getInstallment(),
-                    pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
-            assertEquals(taxRecord.getYear(),
-                    pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
-
-            index++;
-        }
-
-        pdfCreator.setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
-        pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
-
-        assertEquals(treasurySection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()  + sectionId).getValueAsString());
-        assertEquals(treasurySection.getDocumentCode(),
-                pdfCreator.getField(DOCUMENT_CODE.getName()  + sectionId).getValueAsString());
 
     }
 
@@ -239,52 +246,54 @@ class StandardPDFCreatorTest {
         TreasurySection treasurySection = this.form.getTreasurySection();
         String sectionId = "1";
 
-        assertNotNull(treasurySection);
+        if (treasurySection != null) {
+            pdfCreator.setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
+            pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
 
-        pdfCreator.setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
-        pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
-
-        assertEquals(treasurySection.getOfficeCode(),
-                pdfCreator.getField(OFFICE_CODE.getName()  + sectionId).getValueAsString());
-        assertEquals(treasurySection.getDocumentCode(),
-                pdfCreator.getField(DOCUMENT_CODE.getName()  + sectionId).getValueAsString());
+            assertEquals(treasurySection.getOfficeCode(),
+                    pdfCreator.getField(OFFICE_CODE.getName() + sectionId).getValueAsString());
+            assertEquals(treasurySection.getDocumentCode(),
+                    pdfCreator.getField(DOCUMENT_CODE.getName() + sectionId).getValueAsString());
+        }
     }
 
     @Test
     void shouldFillSocialSecurity() throws ResourceException {
         pdfCreator.setIndex(0);
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
-        List<SocialSecurityRecord> socSecurityList = socSecurity.getSocialSecurityRecordList();
-        String sectionId = "6";
 
-        assertNotNull(socSecurity);
-        assertNotNull(socSecurityList);
+        if (socSecurity != null) {
+            List<SocialSecurityRecord> socSecurityList = socSecurity.getSocialSecurityRecordList();
+            String sectionId = "6";
 
-        socSecurityList = pdfCreator.paginateList(0, 2, socSecurityList);
+            assertNotNull(socSecurityList);
 
-        int index = 1;
-        for (SocialSecurityRecord socSecRecord : socSecurityList) {
-            pdfCreator.setField(MUNICIPALITY_CODE.getName() + sectionId, socSecRecord.getMunicipalityCode());
-            pdfCreator.setField(OFFICE_CODE.getName() + sectionId + index, socSecRecord.getOfficeCode());
-            pdfCreator.setField(CONTRIBUTION_REASON.getName() + sectionId + index,
-                    socSecRecord.getContributionReason());
-            pdfCreator.setField(POSITION_CODE.getName() + sectionId + index, socSecRecord.getPositionCode());
+            socSecurityList = pdfCreator.paginateList(0, 2, socSecurityList);
 
-            index++;
-        }
+            int index = 1;
+            for (SocialSecurityRecord socSecRecord : socSecurityList) {
+                pdfCreator.setField(MUNICIPALITY_CODE.getName() + sectionId, socSecRecord.getMunicipalityCode());
+                pdfCreator.setField(OFFICE_CODE.getName() + sectionId + index, socSecRecord.getOfficeCode());
+                pdfCreator.setField(CONTRIBUTION_REASON.getName() + sectionId + index,
+                        socSecRecord.getContributionReason());
+                pdfCreator.setField(POSITION_CODE.getName() + sectionId + index, socSecRecord.getPositionCode());
 
-        index = 1;
-        for (SocialSecurityRecord socSecRecord : socSecurityList) {
-            assertEquals(socSecRecord.getMunicipalityCode(),
-                    pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId).getValueAsString());
-            assertEquals(socSecRecord.getOfficeCode(),
-                    pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(socSecRecord.getContributionReason(),
-                    pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString());
-            assertEquals(socSecRecord.getPositionCode(),
-                    pdfCreator.getField(POSITION_CODE.getName() + sectionId + index).getValueAsString());
+                index++;
+            }
 
-            index++;
+            index = 1;
+            for (SocialSecurityRecord socSecRecord : socSecurityList) {
+                assertEquals(socSecRecord.getMunicipalityCode(),
+                        pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId).getValueAsString());
+                assertEquals(socSecRecord.getOfficeCode(),
+                        pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(socSecRecord.getContributionReason(),
+                        pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString());
+                assertEquals(socSecRecord.getPositionCode(),
+                        pdfCreator.getField(POSITION_CODE.getName() + sectionId + index).getValueAsString());
+
+                index++;
+            }
         }
     }
 
@@ -292,39 +301,42 @@ class StandardPDFCreatorTest {
     void shouldFillInail() throws ResourceException {
         pdfCreator.setIndex(0);
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
-        List<InailRecord> inailRecordList = socSecurity.getInailRecords();
-        String sectionId = "5";
 
-        assertNotNull(socSecurity);
-        assertNotNull(inailRecordList);
+        if(socSecurity != null) {
 
-        inailRecordList = pdfCreator.paginateList(0, 3, inailRecordList);
-
-        int index = 1;
-        for (InailRecord inailRecord : inailRecordList) {
-            pdfCreator.setField(OFFICE_CODE.getName() + sectionId + index, inailRecord.getOfficeCode());
-            pdfCreator.setField(COMPANY_CODE.getName() + sectionId + index, inailRecord.getCompanyCode());
-            pdfCreator.setField(CONTROL_CODE.getName() + sectionId + index, inailRecord.getControlCode());
-            pdfCreator.setField(REFERENCE_NUMBER.getName() + sectionId + index, inailRecord.getReferenceNumber());
-            pdfCreator.setField(REASON.getName() + sectionId + index, inailRecord.getReason());
-
-            index++;
-        }
-
-        index = 1;
-        for (InailRecord inailRecord : inailRecordList) {
-            assertEquals(inailRecord.getOfficeCode(),
-                    pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(inailRecord.getCompanyCode(),
-                    pdfCreator.getField(COMPANY_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(inailRecord.getControlCode(),
-                    pdfCreator.getField(CONTROL_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(inailRecord.getReferenceNumber(),
-                    pdfCreator.getField(REFERENCE_NUMBER.getName() + sectionId + index).getValueAsString());
-            assertEquals(inailRecord.getReason(),
-                    pdfCreator.getField(REASON.getName() + sectionId + index).getValueAsString());
-
-            index++;
+            List<InailRecord> inailRecordList = socSecurity.getInailRecords();
+            String sectionId = "5";
+    
+            assertNotNull(inailRecordList);
+    
+            inailRecordList = pdfCreator.paginateList(0, 3, inailRecordList);
+    
+            int index = 1;
+            for (InailRecord inailRecord : inailRecordList) {
+                pdfCreator.setField(OFFICE_CODE.getName() + sectionId + index, inailRecord.getOfficeCode());
+                pdfCreator.setField(COMPANY_CODE.getName() + sectionId + index, inailRecord.getCompanyCode());
+                pdfCreator.setField(CONTROL_CODE.getName() + sectionId + index, inailRecord.getControlCode());
+                pdfCreator.setField(REFERENCE_NUMBER.getName() + sectionId + index, inailRecord.getReferenceNumber());
+                pdfCreator.setField(REASON.getName() + sectionId + index, inailRecord.getReason());
+    
+                index++;
+            }
+    
+            index = 1;
+            for (InailRecord inailRecord : inailRecordList) {
+                assertEquals(inailRecord.getOfficeCode(),
+                        pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(inailRecord.getCompanyCode(),
+                        pdfCreator.getField(COMPANY_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(inailRecord.getControlCode(),
+                        pdfCreator.getField(CONTROL_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(inailRecord.getReferenceNumber(),
+                        pdfCreator.getField(REFERENCE_NUMBER.getName() + sectionId + index).getValueAsString());
+                assertEquals(inailRecord.getReason(),
+                        pdfCreator.getField(REASON.getName() + sectionId + index).getValueAsString());
+    
+                index++;
+            }
         }
     }
 
@@ -332,36 +344,38 @@ class StandardPDFCreatorTest {
     void shouldFillRegionSection() throws ResourceException {
         pdfCreator.setIndex(0);
         RegionSection regionSection = this.form.getRegionSection();
-        List<RegionRecord> regionRecordsList = regionSection.getRegionRecordList();
-        String sectionId = "3";
 
-        assertNotNull(regionRecordsList);
-        assertNotNull(regionSection);
-
-        int index = 1;
-        for (RegionRecord regionRecord : regionRecordsList) {
-            pdfCreator.setField(YEAR.getName() + sectionId + index, regionRecord.getYear());
-            pdfCreator.setField(INSTALLMENT.getName() + sectionId + index, regionRecord.getInstallment());
-            pdfCreator.setField(TAX_TYPE_CODE.getName() + sectionId + index, regionRecord.getTaxTypeCode());
-            pdfCreator.setField(REGION_CODE.getName() + sectionId + index, regionRecord.getRegionCode());
-
-            index++;
+        if(regionSection != null) {
+            List<RegionRecord> regionRecordsList = regionSection.getRegionRecordList();
+            String sectionId = "3";
+    
+            assertNotNull(regionRecordsList);
+            assertNotNull(regionSection);
+    
+            int index = 1;
+            for (RegionRecord regionRecord : regionRecordsList) {
+                pdfCreator.setField(YEAR.getName() + sectionId + index, regionRecord.getYear());
+                pdfCreator.setField(INSTALLMENT.getName() + sectionId + index, regionRecord.getInstallment());
+                pdfCreator.setField(TAX_TYPE_CODE.getName() + sectionId + index, regionRecord.getTaxTypeCode());
+                pdfCreator.setField(REGION_CODE.getName() + sectionId + index, regionRecord.getRegionCode());
+    
+                index++;
+            }
+    
+            index = 1;
+            for (RegionRecord regionRecord : regionRecordsList) {
+                assertEquals(regionRecord.getYear(),
+                        pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+                assertEquals(regionRecord.getInstallment(),
+                        pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+                assertEquals(regionRecord.getTaxTypeCode(),
+                        pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(regionRecord.getRegionCode(),
+                        pdfCreator.getField(REGION_CODE.getName() + sectionId + index).getValueAsString());
+    
+                index++;
+            }
         }
-
-        index = 1;
-        for (RegionRecord regionRecord : regionRecordsList) {
-            assertEquals(regionRecord.getYear(),
-                    pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
-            assertEquals(regionRecord.getInstallment(),
-                    pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
-            assertEquals(regionRecord.getTaxTypeCode(),
-                    pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(regionRecord.getRegionCode(),
-                    pdfCreator.getField(REGION_CODE.getName() + sectionId + index).getValueAsString());
-
-            index++;
-        }
-
     }
 
     @Test

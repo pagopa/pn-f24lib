@@ -27,7 +27,7 @@
       "$ref": "resource:/schemas/component/excise-section.json"
     },
     "ibanCode": {
-      "type": "string"
+      "type": ["string", "null"]
     }
   },
   "description": "F24 Excise (Accise) object"

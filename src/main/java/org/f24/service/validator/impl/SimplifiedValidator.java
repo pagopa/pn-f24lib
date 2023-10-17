@@ -22,11 +22,13 @@ public class SimplifiedValidator extends FormValidator {
     }
 
     private void validateDebitAndCreditFields() throws ResourceException {
-        List<PaymentReasonRecord> paymentItemsList = this.form.getPaymentReasonSection().getReasonRecordList();
-
-        for (PaymentReasonRecord paymentItem : paymentItemsList) {
-            if (paymentItem.getDebitAmount() != null && !Objects.equals(paymentItem.getDebitAmount(), "0") && paymentItem.getCreditAmount() != null && !Objects.equals(paymentItem.getCreditAmount(), "0")) {
-                throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage());
+        if(this.form.getPaymentReasonSection() != null ) {
+            List<PaymentReasonRecord> paymentItemsList = this.form.getPaymentReasonSection().getReasonRecordList();
+    
+            for (PaymentReasonRecord paymentItem : paymentItemsList) {
+                if (paymentItem.getDebitAmount() != null && !Objects.equals(paymentItem.getDebitAmount(), "0") && paymentItem.getCreditAmount() != null && !Objects.equals(paymentItem.getCreditAmount(), "0")) {
+                    throw new ResourceException(ErrorEnum.MOTIVE_RECORD.getMessage());
+                }
             }
         }
     }

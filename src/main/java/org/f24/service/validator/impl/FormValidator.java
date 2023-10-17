@@ -47,6 +47,7 @@ public class FormValidator implements Validator {
         JsonSchema jsonSchema = jsonSchemaFactory.getJsonSchema(jsonScemaNode);
 
         ProcessingReport processingReport = jsonSchema.validate(jsonForm);
+
         if (!processingReport.isSuccess()) {
             for (ProcessingMessage message : processingReport) {
                 manageError(message);
@@ -61,16 +62,21 @@ public class FormValidator implements Validator {
         PersonData personData = this.form.getTaxPayer().getPersonData();
         if(personData != null) {
             PersonalData personalData = personData.getPersonalData();
-            Date birthdate = null;
-            try {
-                birthdate = new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getBirthDate());
-            } catch (ParseException e) {
-                birthdate = new Date();
-            }
-            String municipality = this.form.getTaxPayer().getTaxCode().substring(11, 15);
-            String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), birthdate, municipality);
-            if(!this.form.getTaxPayer().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
-                throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
+            if(personalData != null) {
+                Date birthdate = null;
+                try {
+                    birthdate = new SimpleDateFormat("dd-MM-yyyy").parse(personalData.getBirthDate());
+                } catch (ParseException e) {
+                    birthdate = new Date();
+                }
+
+                if(this.form.getTaxPayer().getTaxCode() != null) {
+                    String municipality = this.form.getTaxPayer().getTaxCode().substring(11, 15);
+                    String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), birthdate, municipality);
+                    if(!this.form.getTaxPayer().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
+                        throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
+                    }
+                }
             }
         }
     }

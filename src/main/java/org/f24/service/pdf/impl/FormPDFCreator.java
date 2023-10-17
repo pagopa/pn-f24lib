@@ -72,19 +72,21 @@ public class FormPDFCreator extends PDFFormManager {
     }
 
     protected void setTaxResidenceData() throws ResourceException {
-        TaxAddress taxResidenceData = this.form.getTaxPayer().getPersonData().getTaxAddress();
-
-        if (taxResidenceData != null) {
-            setField(ADDRESS.getName(), taxResidenceData.getAddress());
-            setField(MUNICIPALITY.getName(), taxResidenceData.getMunicipality());
-            setField(TAX_PROVINCE.getName(), taxResidenceData.getProvince());
+        if(this.form.getTaxPayer().getPersonData() != null) {
+            TaxAddress taxResidenceData = this.form.getTaxPayer().getPersonData().getTaxAddress();
+    
+            if (taxResidenceData != null) {
+                setField(ADDRESS.getName(), taxResidenceData.getAddress());
+                setField(MUNICIPALITY.getName(), taxResidenceData.getMunicipality());
+                setField(TAX_PROVINCE.getName(), taxResidenceData.getProvince());
+            }
         }
     }
 
     protected void setTreasurySection(String sectionId, int copyIndex) throws ResourceException {
         TreasurySection treasurySection = this.form.getTreasurySection();
 
-        if (!treasurySection.getTaxList().isEmpty()) {
+        if (treasurySection != null && !treasurySection.getTaxList().isEmpty()) {
             List<Tax> taxList = paginateList(copyIndex, TAX_RECORDS_NUMBER.getRecordsNum(), treasurySection.getTaxList());
 
             if (!taxList.isEmpty()) {
@@ -106,7 +108,7 @@ public class FormPDFCreator extends PDFFormManager {
     protected void setInpsSection(String sectionId, int copyIndex) throws ResourceException {
         InpsSection inpsSection = this.form.getInpsSection();
 
-        if (!inpsSection.getInpsRecordList().isEmpty()) {
+        if (inpsSection != null && !inpsSection.getInpsRecordList().isEmpty()) {
             List<InpsRecord> inpsRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER.getRecordsNum(),
                     inpsSection.getInpsRecordList());
 
@@ -130,7 +132,7 @@ public class FormPDFCreator extends PDFFormManager {
     protected void setRegionSection(String sectionId, int copyIndex) throws ResourceException {
         RegionSection regionSection = this.form.getRegionSection();
 
-        if (!regionSection.getRegionRecordList().isEmpty()) {
+        if (regionSection != null && !regionSection.getRegionRecordList().isEmpty()) {
             List<RegionRecord> regionRecordsList = paginateList(copyIndex, UNIV_RECORDS_NUMBER.getRecordsNum(),
                     regionSection.getRegionRecordList());
 
@@ -152,7 +154,7 @@ public class FormPDFCreator extends PDFFormManager {
     protected void setLocalTaxSection(String sectionId, int copyIndex) throws ResourceException {
         LocalTaxSection localTaxSection = this.form.getLocalTaxSection();
 
-        if (!localTaxSection.getLocalTaxRecordList().isEmpty()) {
+        if (localTaxSection != null && !localTaxSection.getLocalTaxRecordList().isEmpty()) {
             List<LocalTaxRecord> localTaxRecordList = paginateList(copyIndex, UNIV_RECORDS_NUMBER.getRecordsNum(),
                     localTaxSection.getLocalTaxRecordList());
 

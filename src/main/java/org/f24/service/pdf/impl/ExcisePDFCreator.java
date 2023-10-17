@@ -1,6 +1,5 @@
 package org.f24.service.pdf.impl;
 
-import org.apache.pdfbox.io.IOUtils;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Excise;
 import org.f24.exception.ResourceException;
@@ -19,7 +18,7 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 
 public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
-    private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24Accise2013.pdf";
+    private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24Accise.pdf";
 
     private F24Excise form;
 
@@ -37,7 +36,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
     private void setExciseSection(String sectionId, int copyIndex) throws ResourceException {
         ExciseSection exciseSection = this.form.getExciseSection();
-        if (!exciseSection.getExciseTaxList().isEmpty()) {
+        if (exciseSection != null && !exciseSection.getExciseTaxList().isEmpty()) {
             List<ExciseTax> exciseTaxList = paginateList(copyIndex, EXCISE_TAX_RECORDS_NUMBER.getRecordsNum(),
                     exciseSection.getExciseTaxList());
 
@@ -62,6 +61,36 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         }
     }
 
+    @Override
+    public int getPagesAmount() throws IOException {
+        loadDoc(MODEL_NAME);
+        int totalPages = 0;
+
+        if (this.form.getTreasurySection() != null) {
+            int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
+            totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getInpsSection() != null) {
+            int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
+            totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getRegionSection() != null) {
+            int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
+            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getLocalTaxSection() != null) {
+            int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
+            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+            totalPages = getTotalPages(localTaxRecordCount, EXCISE_TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        copy(totalPages);
+        return getCopies().size();
+    }
+
     /**
      * Method which creates PDF Document for F24 Excise Form.
      *
@@ -70,23 +99,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
     @Override
     public byte[] createPDF() {
         try {
-            loadDoc(MODEL_NAME);
-            int totalPages = 0;
-
-            int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
-            int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
-            int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
-            int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
-
-            totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(localTaxRecordCount, EXCISE_TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
-
-            copy(totalPages);
-
-            int copiesCount = getCopies().size();
+            int copiesCount = getPagesAmount();
 
             for (int copyIndex = 0; copyIndex < copiesCount; copyIndex++) {
                 setIndex(copyIndex);

@@ -1,7 +1,6 @@
 package org.f24.service.pdf.impl;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
-import org.apache.pdfbox.io.IOUtils;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
@@ -19,7 +18,6 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24Semplificato.pdf";
-    private static final int REASON_RECORDS_NUMBER = 10;
 
     private F24Simplified form;
     private Logger logger = LoggerFactory.getLogger(SimplifiedPDFCreator.class.getName());
@@ -73,9 +71,9 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
         try {
             setField(OPERATION_ID.getName(), this.form.getPaymentReasonSection().getOperationId());
             List<PaymentReasonRecord> paymentReasonRecordList = this.form.getPaymentReasonSection().getReasonRecordList();
-            int limit = copyIndex * REASON_RECORDS_NUMBER + REASON_RECORDS_NUMBER;
+            int limit = copyIndex * REASON_RECORDS_NUMBER.getRecordsNum() + REASON_RECORDS_NUMBER.getRecordsNum();
             limit = Math.min(limit, paymentReasonRecordList.size());
-            paymentReasonRecordList = paymentReasonRecordList.subList(copyIndex * REASON_RECORDS_NUMBER, limit);
+            paymentReasonRecordList = paymentReasonRecordList.subList(copyIndex * REASON_RECORDS_NUMBER.getRecordsNum(), limit);
             for (int index = 1; index <= paymentReasonRecordList.size(); index++) {
                 PaymentReasonRecord paymentReasonRecord = paymentReasonRecordList.get(index - 1);
                 setField(SECTION.getName() + index, paymentReasonRecord.getSection());
@@ -92,6 +90,19 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
         }
     }
 
+    @Override
+    public int getPagesAmount() throws IOException {
+        int totalPages = 0;
+        loadDoc(MODEL_NAME);
+
+        if(this.form.getPaymentReasonSection() != null) {
+            int motiveRecordsCount = this.form.getPaymentReasonSection().getReasonRecordList().size();
+            totalPages = getTotalPages(motiveRecordsCount, REASON_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+        copy(totalPages);
+
+        return getCopies().size();
+    }
 
     /**
      * Method which creates PDF Document for F24 Simplified Form.
@@ -101,14 +112,9 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
     @Override
     public byte[] createPDF() {
         try {
-            loadDoc(MODEL_NAME);
+            int copiesCount = getPagesAmount();
 
-            int motiveRecordsCount = this.form.getPaymentReasonSection().getReasonRecordList().size();
-            if (this.form.getPaymentReasonSection().getReasonRecordList().size() > REASON_RECORDS_NUMBER) {
-                copy(((motiveRecordsCount + REASON_RECORDS_NUMBER - 1) / REASON_RECORDS_NUMBER) - 1);
-            }
-
-            for (int copyIndex = 0; copyIndex < getCopies().size(); copyIndex++) {
+            for (int copyIndex = 0; copyIndex < copiesCount; copyIndex++) {
                 setIndex(copyIndex);
                 setHeader();
                 setTaxPayer();

@@ -40,3 +40,4 @@ buildNumber.properties
 *.ipr
 *.DS_Store
 sonar-project.properties
+.vscode/settings.json

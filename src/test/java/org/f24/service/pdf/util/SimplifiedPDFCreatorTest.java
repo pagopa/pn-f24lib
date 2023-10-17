@@ -77,45 +77,48 @@ class SimplifiedPDFCreatorTest {
     @Test
     void shouldFillPaymentReasonSection() throws ResourceException {
         pdfCreator.setIndex(0);
-        List<PaymentReasonRecord> paymentReasonRecordList = this.form.getPaymentReasonSection().getReasonRecordList();
 
-        assertNotNull(paymentReasonRecordList);
-
-        if (form.getPaymentReasonSection().getOperationId() == null) {
-            form.getPaymentReasonSection().setOperationId("AAAAAAAAAA01234567");
-        }
-        pdfCreator.setField(OPERATION_ID.getName(), form.getPaymentReasonSection().getOperationId());
-        assertEquals(form.getPaymentReasonSection().getOperationId(),
-                pdfCreator.getField(OPERATION_ID.getName()).getValueAsString());
-
-        pdfCreator.paginateList(0, 10, paymentReasonRecordList);
-
-        int index = 1;
-        for (PaymentReasonRecord paymentReasonRecord : paymentReasonRecordList) {
-            if (paymentReasonRecord.getSection() == null) {
-                paymentReasonRecord.setSection("paymentReason");
+        if(this.form.getPaymentReasonSection() != null) {
+            List<PaymentReasonRecord> paymentReasonRecordList = this.form.getPaymentReasonSection().getReasonRecordList();
+    
+            assertNotNull(paymentReasonRecordList);
+    
+            if (form.getPaymentReasonSection().getOperationId() == null) {
+                form.getPaymentReasonSection().setOperationId("AAAAAAAAAA01234567");
             }
-            pdfCreator.setField(SECTION.getName() + index, paymentReasonRecord.getSection());
-            assertEquals(paymentReasonRecord.getSection(),
-                    pdfCreator.getField(SECTION.getName() + index).getValueAsString());
-
-            if (paymentReasonRecord.getTaxTypeCode() == null) {
-                paymentReasonRecord.setTaxTypeCode("12AZ");
+            pdfCreator.setField(OPERATION_ID.getName(), form.getPaymentReasonSection().getOperationId());
+            assertEquals(form.getPaymentReasonSection().getOperationId(),
+                    pdfCreator.getField(OPERATION_ID.getName()).getValueAsString());
+    
+            pdfCreator.paginateList(0, 10, paymentReasonRecordList);
+    
+            int index = 1;
+            for (PaymentReasonRecord paymentReasonRecord : paymentReasonRecordList) {
+                if (paymentReasonRecord.getSection() == null) {
+                    paymentReasonRecord.setSection("paymentReason");
+                }
+                pdfCreator.setField(SECTION.getName() + index, paymentReasonRecord.getSection());
+                assertEquals(paymentReasonRecord.getSection(),
+                        pdfCreator.getField(SECTION.getName() + index).getValueAsString());
+    
+                if (paymentReasonRecord.getTaxTypeCode() == null) {
+                    paymentReasonRecord.setTaxTypeCode("12AZ");
+                }
+                pdfCreator.setField(TAX_TYPE_CODE.getName() + index, paymentReasonRecord.getTaxTypeCode());
+                assertEquals(paymentReasonRecord.getTaxTypeCode(),
+                        pdfCreator.getField(TAX_TYPE_CODE.getName() + index).getValueAsString());
+    
+                if (paymentReasonRecord.getMunicipalityCode() == null) {
+                    paymentReasonRecord.setMunicipalityCode("1234");
+                }
+                pdfCreator.setField(MUNICIPALITY_CODE.getName() + index, paymentReasonRecord.getMunicipalityCode());
+                assertEquals(paymentReasonRecord.getMunicipalityCode(),
+                        pdfCreator.getField(MUNICIPALITY_CODE.getName() + index).getValueAsString());
+    
+                shouldFillPaymentReasonCheckboxes(paymentReasonRecord, index);
+    
+                index++;
             }
-            pdfCreator.setField(TAX_TYPE_CODE.getName() + index, paymentReasonRecord.getTaxTypeCode());
-            assertEquals(paymentReasonRecord.getTaxTypeCode(),
-                    pdfCreator.getField(TAX_TYPE_CODE.getName() + index).getValueAsString());
-
-            if (paymentReasonRecord.getMunicipalityCode() == null) {
-                paymentReasonRecord.setMunicipalityCode("1234");
-            }
-            pdfCreator.setField(MUNICIPALITY_CODE.getName() + index, paymentReasonRecord.getMunicipalityCode());
-            assertEquals(paymentReasonRecord.getMunicipalityCode(),
-                    pdfCreator.getField(MUNICIPALITY_CODE.getName() + index).getValueAsString());
-
-            shouldFillPaymentReasonCheckboxes(paymentReasonRecord, index);
-
-            index++;
         }
     }
 

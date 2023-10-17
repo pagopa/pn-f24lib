@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.pdfbox.io.IOUtils;
 import org.f24.dto.component.*;
 import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
@@ -19,7 +18,7 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 
 public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
-    private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24IMU2013.pdf";
+    private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24IMU.pdf";
 
     private Logger logger = LoggerFactory.getLogger(StandardPDFCreator.class.getName());
     private F24Standard form;
@@ -37,7 +36,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
     private void setInail(String sectionId, int copyIndex) throws ResourceException {
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
 
-        if (!socSecurity.getInailRecords().isEmpty()) {
+        if (socSecurity != null && !socSecurity.getInailRecords().isEmpty()) {
             List<InailRecord> inailRecordList = paginateList(copyIndex, INAIL_RECORDS_NUMBER.getRecordsNum(),
                     socSecurity.getInailRecords());
 
@@ -61,7 +60,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
     private void setSocialSecurity(String sectionId, int copyIndex) throws ResourceException {
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
 
-        if (!socSecurity.getSocialSecurityRecordList().isEmpty()) {
+        if (socSecurity != null && !socSecurity.getSocialSecurityRecordList().isEmpty()) {
             List<SocialSecurityRecord> socSecurityList = paginateList(copyIndex, SOC_RECORDS_NUMBER.getRecordsNum(),
                     socSecurity.getSocialSecurityRecordList());
 
@@ -83,6 +82,45 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         }
     }
 
+    @Override
+    public int getPagesAmount() throws IOException {
+        loadDoc(MODEL_NAME);
+        int totalPages = 0;
+
+        if (this.form.getInpsSection() != null) {
+            int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
+            totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getLocalTaxSection() != null) {
+            int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
+            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getRegionSection() != null) {
+            int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
+            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getTreasurySection() != null) {
+            int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
+            totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getSocialSecuritySection() != null) {
+            int inailRecordsCount = this.form.getSocialSecuritySection().getInailRecords().size();
+            totalPages = getTotalPages(inailRecordsCount, INAIL_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getSocialSecuritySection() != null) {
+            int socSecurityRecordsCount = this.form.getSocialSecuritySection().getSocialSecurityRecordList().size();
+            totalPages = getTotalPages(socSecurityRecordsCount, SOC_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        copy(totalPages);
+        return getCopies().size();
+    }
+
     /**
      * Method which creates PDF Document for F24 Standard Form.
      *
@@ -91,26 +129,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
     @Override
     public byte[] createPDF() {
         try {
-            loadDoc(MODEL_NAME);
-            int totalPages = 0;
-
-            int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
-            int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
-            int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
-            int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
-            int inailRecordsCount = this.form.getSocialSecuritySection().getInailRecords().size();
-            int socSecurityRecordsCount = this.form.getSocialSecuritySection().getSocialSecurityRecordList().size();
-
-            totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(inailRecordsCount, INAIL_RECORDS_NUMBER.getRecordsNum(), totalPages);
-            totalPages = getTotalPages(socSecurityRecordsCount, SOC_RECORDS_NUMBER.getRecordsNum(), totalPages);
-
-            copy(totalPages);
-
-            int copiesCount = getCopies().size();
+            int copiesCount = getPagesAmount();
 
             for (int copyIndex = 0; copyIndex < copiesCount; copyIndex++) {
                 setIndex(copyIndex);

@@ -19,7 +19,6 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24ELID.pdf";
-    private static final int TREASURY_RECORDS_NUMBER = 28;
 
     private F24Elid form;
     private Logger logger = LoggerFactory.getLogger(ElidPDFCreator.class.getName());
@@ -50,28 +49,44 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private void setTreasurySection(int copyIndex) throws ResourceException {
         TreasuryAndOtherSection treasuryAndOtherSection = this.form.getTreasuryAndOtherSection();
-        List<TreasuryRecord> treasuryTaxList = treasuryAndOtherSection.getTreasuryRecords();
 
-        if (treasuryTaxList != null) {
-            treasuryTaxList = paginateList(copyIndex, TREASURY_RECORDS_NUMBER, treasuryTaxList);
+        if (treasuryAndOtherSection != null) {
+            List<TreasuryRecord> treasuryTaxList = treasuryAndOtherSection.getTreasuryRecords();
 
-            for (int index = 1; index <= treasuryTaxList.size(); index++) {
-                TreasuryRecord treasuryRecord = treasuryTaxList.get(index - 1);
-                setField(TYPE.getName() + index, treasuryRecord.getType());
-                setField(ID_ELEMENT.getName() + index, treasuryRecord.getIdElements());
-                setField(TAX_TYPE_CODE.getName() + index, treasuryRecord.getTaxTypeCode());
-                setField(YEAR.getName() + index, treasuryRecord.getYear());
+            if (treasuryTaxList != null) {
+                treasuryTaxList = paginateList(copyIndex, TREASURY_RECORDS_NUMBER.getRecordsNum(), treasuryTaxList);
 
-                setSectionRecordAmount("", index, treasuryRecord);
+                for (int index = 1; index <= treasuryTaxList.size(); index++) {
+                    TreasuryRecord treasuryRecord = treasuryTaxList.get(index - 1);
+                    setField(TYPE.getName() + index, treasuryRecord.getType());
+                    setField(ID_ELEMENT.getName() + index, treasuryRecord.getIdElements());
+                    setField(TAX_TYPE_CODE.getName() + index, treasuryRecord.getTaxTypeCode());
+                    setField(YEAR.getName() + index, treasuryRecord.getYear());
+
+                    setSectionRecordAmount("", index, treasuryRecord);
+                }
+
+                setField(OFFICE_CODE.getName(), treasuryAndOtherSection.getOfficeCode());
+                setField(DOCUMENT_CODE.getName(), treasuryAndOtherSection.getDocumentCode());
+
+                totalBalance += getTotalAmount(treasuryTaxList);
             }
-
-            setField(OFFICE_CODE.getName(), treasuryAndOtherSection.getOfficeCode());
-            setField(DOCUMENT_CODE.getName(), treasuryAndOtherSection.getDocumentCode());
-
-            totalBalance += getTotalAmount(treasuryTaxList);
         }
     }
 
+    @Override
+    public int getPagesAmount() throws IOException {
+        loadDoc(MODEL_NAME);
+        int totalPages = 0;
+
+        if(this.form.getTreasuryAndOtherSection() != null) {
+            int treasuryRecordsCount = this.form.getTreasuryAndOtherSection().getTreasuryRecords().size();
+            totalPages = getTotalPages(treasuryRecordsCount, TREASURY_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+        copy(totalPages);
+
+        return getCopies().size();
+    }
 
     /**
      * Method which creates PDF Document for F24 ELID Form.
@@ -81,19 +96,7 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
     @Override
     public byte[] createPDF() {
         try {
-            loadDoc(MODEL_NAME);
-            int totalPages = 0;
-
-            int treasutyRecordsCount = this.form.getTreasuryAndOtherSection().getTreasuryRecords().size();
-
-            if (treasutyRecordsCount > TREASURY_RECORDS_NUMBER) {
-                int pagesCount = ((treasutyRecordsCount + TREASURY_RECORDS_NUMBER - 1) / TREASURY_RECORDS_NUMBER) - 1;
-                totalPages = Math.max(totalPages, pagesCount);
-            }
-
-            copy(totalPages);
-
-            int copiesCount = getCopies().size();
+            int copiesCount = getPagesAmount();
 
             for (int copyIndex = 0; copyIndex < copiesCount; copyIndex++) {
                 setIndex(copyIndex);
