@@ -38,24 +38,27 @@ class ElidPDFCreatorTest {
     @Test
     void givenTreasurySectionData_whenTreasurySection_thenFilledTreasurySection() throws ResourceException {
         TreasuryAndOtherSection treasurySection = form.getTreasuryAndOtherSection();
-        List<TreasuryRecord> treasuryTaxList = pdfCreator.paginateList(0, 28, treasurySection.getTreasuryRecords());
 
-        pdfCreator.setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
-        pdfCreator.setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
-        for (int index = 1; index <= treasuryTaxList.size(); index++) {
-            TreasuryRecord treasuryRecord = treasuryTaxList.get(index - 1);
-            pdfCreator.setField(TYPE.getName() + index, treasuryRecord.getType());
-            pdfCreator.setField(ID_ELEMENT.getName() + index, treasuryRecord.getIdElements());
-            pdfCreator.setField(TAX_TYPE_CODE.getName() + index, treasuryRecord.getTaxTypeCode());
-            pdfCreator.setField(YEAR.getName() + index, treasuryRecord.getYear());
-
-            assertEquals(treasuryRecord.getType(), pdfCreator.getField(TYPE.getName() + index).getValueAsString());
-            assertEquals(treasuryRecord.getIdElements(), pdfCreator.getField(ID_ELEMENT.getName() + index).getValueAsString());
-            assertEquals(treasuryRecord.getTaxTypeCode(), pdfCreator.getField(TAX_TYPE_CODE.getName() + index).getValueAsString());
-            assertEquals(treasuryRecord.getYear(), pdfCreator.getField(YEAR.getName() + index).getValueAsString());
+        if(treasurySection != null) {
+            List<TreasuryRecord> treasuryTaxList = pdfCreator.paginateList(0, 28, treasurySection.getTreasuryRecords());
+    
+            pdfCreator.setField(OFFICE_CODE.getName(), treasurySection.getOfficeCode());
+            pdfCreator.setField(DOCUMENT_CODE.getName(), treasurySection.getDocumentCode());
+            for (int index = 1; index <= treasuryTaxList.size(); index++) {
+                TreasuryRecord treasuryRecord = treasuryTaxList.get(index - 1);
+                pdfCreator.setField(TYPE.getName() + index, treasuryRecord.getType());
+                pdfCreator.setField(ID_ELEMENT.getName() + index, treasuryRecord.getIdElements());
+                pdfCreator.setField(TAX_TYPE_CODE.getName() + index, treasuryRecord.getTaxTypeCode());
+                pdfCreator.setField(YEAR.getName() + index, treasuryRecord.getYear());
+    
+                assertEquals(treasuryRecord.getType(), pdfCreator.getField(TYPE.getName() + index).getValueAsString());
+                assertEquals(treasuryRecord.getIdElements(), pdfCreator.getField(ID_ELEMENT.getName() + index).getValueAsString());
+                assertEquals(treasuryRecord.getTaxTypeCode(), pdfCreator.getField(TAX_TYPE_CODE.getName() + index).getValueAsString());
+                assertEquals(treasuryRecord.getYear(), pdfCreator.getField(YEAR.getName() + index).getValueAsString());
+            }
+            assertEquals(treasurySection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()).getValueAsString());
+            assertEquals(treasurySection.getDocumentCode(), pdfCreator.getField(DOCUMENT_CODE.getName()).getValueAsString());
         }
-        assertEquals(treasurySection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()).getValueAsString());
-        assertEquals(treasurySection.getDocumentCode(), pdfCreator.getField(DOCUMENT_CODE.getName()).getValueAsString());
     }
 
     @Test

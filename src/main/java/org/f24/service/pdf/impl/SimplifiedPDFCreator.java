@@ -95,8 +95,10 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
         int totalPages = 0;
         loadDoc(MODEL_NAME);
 
-        int motiveRecordsCount = this.form.getPaymentReasonSection().getReasonRecordList().size();
-        totalPages = getTotalPages(motiveRecordsCount, REASON_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        if(this.form.getPaymentReasonSection() != null) {
+            int motiveRecordsCount = this.form.getPaymentReasonSection().getReasonRecordList().size();
+            totalPages = getTotalPages(motiveRecordsCount, REASON_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
         copy(totalPages);
 
         return getCopies().size();

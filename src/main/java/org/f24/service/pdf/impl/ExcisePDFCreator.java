@@ -36,7 +36,7 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
     private void setExciseSection(String sectionId, int copyIndex) throws ResourceException {
         ExciseSection exciseSection = this.form.getExciseSection();
-        if (!exciseSection.getExciseTaxList().isEmpty()) {
+        if (exciseSection != null && !exciseSection.getExciseTaxList().isEmpty()) {
             List<ExciseTax> exciseTaxList = paginateList(copyIndex, EXCISE_TAX_RECORDS_NUMBER.getRecordsNum(),
                     exciseSection.getExciseTaxList());
 
@@ -66,16 +66,26 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
         loadDoc(MODEL_NAME);
         int totalPages = 0;
 
-        int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
-        int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
-        int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
-        int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
+        if (this.form.getTreasurySection() != null) {
+            int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
+            totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
 
-        totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
-        totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-        totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-        totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-        totalPages = getTotalPages(localTaxRecordCount, EXCISE_TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        if (this.form.getInpsSection() != null) {
+            int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
+            totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getRegionSection() != null) {
+            int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
+            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getLocalTaxSection() != null) {
+            int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
+            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+            totalPages = getTotalPages(localTaxRecordCount, EXCISE_TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
 
         copy(totalPages);
         return getCopies().size();

@@ -11,8 +11,6 @@ import org.f24.dto.component.CompanyData;
 import org.f24.dto.component.PaymentDetails;
 import org.f24.dto.component.Header;
 import org.f24.dto.component.InailRecord;
-import org.f24.dto.component.InpsSection;
-import org.f24.dto.component.Record;
 import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;

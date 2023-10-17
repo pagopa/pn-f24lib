@@ -36,7 +36,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
     private void setInail(String sectionId, int copyIndex) throws ResourceException {
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
 
-        if (!socSecurity.getInailRecords().isEmpty()) {
+        if (socSecurity != null && !socSecurity.getInailRecords().isEmpty()) {
             List<InailRecord> inailRecordList = paginateList(copyIndex, INAIL_RECORDS_NUMBER.getRecordsNum(),
                     socSecurity.getInailRecords());
 
@@ -60,7 +60,7 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
     private void setSocialSecurity(String sectionId, int copyIndex) throws ResourceException {
         SocialSecuritySection socSecurity = this.form.getSocialSecuritySection();
 
-        if (!socSecurity.getSocialSecurityRecordList().isEmpty()) {
+        if (socSecurity != null && !socSecurity.getSocialSecurityRecordList().isEmpty()) {
             List<SocialSecurityRecord> socSecurityList = paginateList(copyIndex, SOC_RECORDS_NUMBER.getRecordsNum(),
                     socSecurity.getSocialSecurityRecordList());
 
@@ -87,19 +87,35 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
         loadDoc(MODEL_NAME);
         int totalPages = 0;
 
-        int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
-        int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
-        int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
-        int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
-        int inailRecordsCount = this.form.getSocialSecuritySection().getInailRecords().size();
-        int socSecurityRecordsCount = this.form.getSocialSecuritySection().getSocialSecurityRecordList().size();
+        if (this.form.getInpsSection() != null) {
+            int inpsRecordsCount = this.form.getInpsSection().getInpsRecordList().size();
+            totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
 
-        totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
-        totalPages = getTotalPages(inpsRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-        totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-        totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
-        totalPages = getTotalPages(inailRecordsCount, INAIL_RECORDS_NUMBER.getRecordsNum(), totalPages);
-        totalPages = getTotalPages(socSecurityRecordsCount, SOC_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        if (this.form.getLocalTaxSection() != null) {
+            int localTaxRecordCount = this.form.getLocalTaxSection().getLocalTaxRecordList().size();
+            totalPages = getTotalPages(localTaxRecordCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getRegionSection() != null) {
+            int regionRecordsCount = this.form.getRegionSection().getRegionRecordList().size();
+            totalPages = getTotalPages(regionRecordsCount, UNIV_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getTreasurySection() != null) {
+            int treasutyRecordsCount = this.form.getTreasurySection().getTaxList().size();
+            totalPages = getTotalPages(treasutyRecordsCount, TAX_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getSocialSecuritySection() != null) {
+            int inailRecordsCount = this.form.getSocialSecuritySection().getInailRecords().size();
+            totalPages = getTotalPages(inailRecordsCount, INAIL_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
+
+        if (this.form.getSocialSecuritySection() != null) {
+            int socSecurityRecordsCount = this.form.getSocialSecuritySection().getSocialSecurityRecordList().size();
+            totalPages = getTotalPages(socSecurityRecordsCount, SOC_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
 
         copy(totalPages);
         return getCopies().size();

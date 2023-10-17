@@ -3,8 +3,6 @@ package org.f24.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.f24.dto.form.F24Elid;
 import org.f24.exception.ResourceException;
-import org.f24.service.pdf.PDFCreatorFactory;
-import org.f24.service.pdf.impl.ElidPDFCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

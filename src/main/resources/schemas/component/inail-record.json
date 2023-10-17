@@ -29,11 +29,13 @@
     },
     "debitAmount": {
       "pattern": "^[0-9]{0,15}$",
-      "type": "string"
+      "default": "0",
+      "type": ["string", "null"]
     },
     "creditAmount": {
       "pattern": "^[0-9]{0,15}$",
-      "type": "string"
+      "default": "0",
+      "type": ["string", "null"]
     }
   },
   "description": "INAIL Record object"

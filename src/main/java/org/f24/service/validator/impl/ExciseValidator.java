@@ -16,10 +16,14 @@ public class ExciseValidator extends FormValidator {
     }
 
     private void validateSections() throws ResourceException {
-        validateDebitandCredit(this.form.getTreasurySection().getTaxList());
-        validateDebitandCredit(this.form.getInpsSection().getInpsRecordList());
-        validateDebitandCredit(this.form.getRegionSection().getRegionRecordList());
-        validateDebitandCredit(this.form.getLocalTaxSection().getLocalTaxRecordList());
+        if(this.form.getTreasurySection() != null) 
+            validateDebitandCredit(this.form.getTreasurySection().getTaxList());
+        if(this.form.getInpsSection() != null) 
+            validateDebitandCredit(this.form.getInpsSection().getInpsRecordList());
+        if(this.form.getRegionSection() != null) 
+            validateDebitandCredit(this.form.getRegionSection().getRegionRecordList());
+        if(this.form.getLocalTaxSection() != null) 
+            validateDebitandCredit(this.form.getLocalTaxSection().getLocalTaxRecordList());
     }
 
     @Override

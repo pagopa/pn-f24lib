@@ -49,25 +49,28 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private void setTreasurySection(int copyIndex) throws ResourceException {
         TreasuryAndOtherSection treasuryAndOtherSection = this.form.getTreasuryAndOtherSection();
-        List<TreasuryRecord> treasuryTaxList = treasuryAndOtherSection.getTreasuryRecords();
 
-        if (treasuryTaxList != null) {
-            treasuryTaxList = paginateList(copyIndex, TREASURY_RECORDS_NUMBER.getRecordsNum(), treasuryTaxList);
+        if (treasuryAndOtherSection != null) {
+            List<TreasuryRecord> treasuryTaxList = treasuryAndOtherSection.getTreasuryRecords();
 
-            for (int index = 1; index <= treasuryTaxList.size(); index++) {
-                TreasuryRecord treasuryRecord = treasuryTaxList.get(index - 1);
-                setField(TYPE.getName() + index, treasuryRecord.getType());
-                setField(ID_ELEMENT.getName() + index, treasuryRecord.getIdElements());
-                setField(TAX_TYPE_CODE.getName() + index, treasuryRecord.getTaxTypeCode());
-                setField(YEAR.getName() + index, treasuryRecord.getYear());
+            if (treasuryTaxList != null) {
+                treasuryTaxList = paginateList(copyIndex, TREASURY_RECORDS_NUMBER.getRecordsNum(), treasuryTaxList);
 
-                setSectionRecordAmount("", index, treasuryRecord);
+                for (int index = 1; index <= treasuryTaxList.size(); index++) {
+                    TreasuryRecord treasuryRecord = treasuryTaxList.get(index - 1);
+                    setField(TYPE.getName() + index, treasuryRecord.getType());
+                    setField(ID_ELEMENT.getName() + index, treasuryRecord.getIdElements());
+                    setField(TAX_TYPE_CODE.getName() + index, treasuryRecord.getTaxTypeCode());
+                    setField(YEAR.getName() + index, treasuryRecord.getYear());
+
+                    setSectionRecordAmount("", index, treasuryRecord);
+                }
+
+                setField(OFFICE_CODE.getName(), treasuryAndOtherSection.getOfficeCode());
+                setField(DOCUMENT_CODE.getName(), treasuryAndOtherSection.getDocumentCode());
+
+                totalBalance += getTotalAmount(treasuryTaxList);
             }
-
-            setField(OFFICE_CODE.getName(), treasuryAndOtherSection.getOfficeCode());
-            setField(DOCUMENT_CODE.getName(), treasuryAndOtherSection.getDocumentCode());
-
-            totalBalance += getTotalAmount(treasuryTaxList);
         }
     }
 
@@ -76,8 +79,10 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
         loadDoc(MODEL_NAME);
         int totalPages = 0;
 
-        int treasuryRecordsCount = this.form.getTreasuryAndOtherSection().getTreasuryRecords().size();
-        totalPages = getTotalPages(treasuryRecordsCount, TREASURY_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        if(this.form.getTreasuryAndOtherSection() != null) {
+            int treasuryRecordsCount = this.form.getTreasuryAndOtherSection().getTreasuryRecords().size();
+            totalPages = getTotalPages(treasuryRecordsCount, TREASURY_RECORDS_NUMBER.getRecordsNum(), totalPages);
+        }
         copy(totalPages);
 
         return getCopies().size();

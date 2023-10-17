@@ -4,7 +4,6 @@ import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
-import org.apache.pdfbox.pdmodel.PDPageTree;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
@@ -87,10 +86,10 @@ public class PDFFormManager {
 
     protected void copy(int numberOfCopies) throws IOException {
         if(copies.size() == 1)
-        while (numberOfCopies > 0) {
-            copies.add(PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName)));
-            numberOfCopies--;
-        }
+            while (numberOfCopies > 0) {
+                copies.add(PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName)));
+                numberOfCopies--;
+            }
     }
 
     protected List<PDDocument> getCopies() {
@@ -210,8 +209,8 @@ public class PDFFormManager {
         if (this.doc != null) {
             this.doc.close();
             
-            for (PDDocument copies : this.copies) {
-                copies.close();
+            for (PDDocument c : this.copies) {
+                c.close();
             }
             IOUtils.closeQuietly(getCurrentCopy());
         }

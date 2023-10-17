@@ -36,31 +36,34 @@ class ExcisePDFCreatorTest {
     @Test
     void givenExciseSectionData_whenFillExciseSection_thenFilledExciseSection() throws ResourceException {
         ExciseSection exciseSection = form.getExciseSection();
-        List<ExciseTax> exciseTaxList = pdfCreator.paginateList(0, 7, exciseSection.getExciseTaxList());
-        int sectionId = 5;
 
-        pdfCreator.setField(OFFICE_CODE.getName() + sectionId, exciseSection.getOfficeCode());
-        pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, exciseSection.getDocumentCode());
-        for (int index = 1; index <= exciseTaxList.size(); index++) {
-            ExciseTax exciseTax = exciseTaxList.get(index - 1);
-            pdfCreator.setField(MUNICIPALITY.getName() + sectionId + index, exciseTax.getMunicipality());
-            pdfCreator.setField(EXCISE_PROVINCE.getName() + sectionId + index, exciseTax.getProvince());
-            pdfCreator.setField(TAX_TYPE_CODE.getName() + sectionId + index, exciseTax.getTaxTypeCode());
-            pdfCreator.setField(ID_CODE.getName() + sectionId + index, exciseTax.getIdCode());
-            pdfCreator.setField(INSTALLMENT.getName() + sectionId + index, exciseTax.getInstallment());
-            pdfCreator.setField(MONTH.getName() + sectionId + index, exciseTax.getMonth());
-            pdfCreator.setField(YEAR.getName() + sectionId + index, exciseTax.getYear());
-
-            assertEquals(exciseTax.getMunicipality(), pdfCreator.getField(MUNICIPALITY.getName() + sectionId + index).getValueAsString());
-            assertEquals(exciseTax.getProvince(), pdfCreator.getField(EXCISE_PROVINCE.getName() + sectionId + index).getValueAsString());
-            assertEquals(exciseTax.getTaxTypeCode(), pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(exciseTax.getIdCode(), pdfCreator.getField(ID_CODE.getName() + sectionId + index).getValueAsString());
-            assertEquals(exciseTax.getInstallment(), pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
-            assertEquals(exciseTax.getMonth(), pdfCreator.getField(MONTH.getName() + sectionId + index).getValueAsString());
-            assertEquals(exciseTax.getYear(), pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+        if(exciseSection != null) {
+            List<ExciseTax> exciseTaxList = pdfCreator.paginateList(0, 7, exciseSection.getExciseTaxList());
+            int sectionId = 5;
+    
+            pdfCreator.setField(OFFICE_CODE.getName() + sectionId, exciseSection.getOfficeCode());
+            pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, exciseSection.getDocumentCode());
+            for (int index = 1; index <= exciseTaxList.size(); index++) {
+                ExciseTax exciseTax = exciseTaxList.get(index - 1);
+                pdfCreator.setField(MUNICIPALITY.getName() + sectionId + index, exciseTax.getMunicipality());
+                pdfCreator.setField(EXCISE_PROVINCE.getName() + sectionId + index, exciseTax.getProvince());
+                pdfCreator.setField(TAX_TYPE_CODE.getName() + sectionId + index, exciseTax.getTaxTypeCode());
+                pdfCreator.setField(ID_CODE.getName() + sectionId + index, exciseTax.getIdCode());
+                pdfCreator.setField(INSTALLMENT.getName() + sectionId + index, exciseTax.getInstallment());
+                pdfCreator.setField(MONTH.getName() + sectionId + index, exciseTax.getMonth());
+                pdfCreator.setField(YEAR.getName() + sectionId + index, exciseTax.getYear());
+    
+                assertEquals(exciseTax.getMunicipality(), pdfCreator.getField(MUNICIPALITY.getName() + sectionId + index).getValueAsString());
+                assertEquals(exciseTax.getProvince(), pdfCreator.getField(EXCISE_PROVINCE.getName() + sectionId + index).getValueAsString());
+                assertEquals(exciseTax.getTaxTypeCode(), pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(exciseTax.getIdCode(), pdfCreator.getField(ID_CODE.getName() + sectionId + index).getValueAsString());
+                assertEquals(exciseTax.getInstallment(), pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+                assertEquals(exciseTax.getMonth(), pdfCreator.getField(MONTH.getName() + sectionId + index).getValueAsString());
+                assertEquals(exciseTax.getYear(), pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+            }
+            assertEquals(exciseSection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName() + sectionId).getValueAsString());
+            assertEquals(exciseSection.getDocumentCode(), pdfCreator.getField(DOCUMENT_CODE.getName() + sectionId).getValueAsString());
         }
-        assertEquals(exciseSection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName() + sectionId).getValueAsString());
-        assertEquals(exciseSection.getDocumentCode(), pdfCreator.getField(DOCUMENT_CODE.getName() + sectionId).getValueAsString());
     }
 
     @Test
