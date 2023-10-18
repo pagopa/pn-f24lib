@@ -3,7 +3,7 @@
   "type": ["object", "null"],
   "properties": {
     "name": {
-      "pattern": "^[A-Z\\s]{1,60}$",
+      "pattern": "^[ -~]{1,60}$",
       "type": "string"
     },
     "taxAddress": {

@@ -9,7 +9,7 @@
   "properties": {
     "municipalityCode": {
       "pattern": "^[0-9]{4}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "officeCode": {
       "pattern": "^[0-9A-Z]{5}$",
