@@ -52,11 +52,11 @@ class FormValidatorTest {
 
     @Test
     void givenInvalidSurname_whenValidatePersonalData_thenThrowException() {
-        form.getTaxPayer().getPersonData().getPersonalData().setSurname("ROssi-");
-        assertThrows(IllegalArgumentException.class, () -> validator.validate());
+        form.getTaxPayer().getPersonData().getPersonalData().setSurname("ROssi-èè");
+        assertThrows(ResourceException.class, () -> validator.validate());
 
-        form.getTaxPayer().getPersonData().getPersonalData().setSurname("ROSSI5");
-        assertThrows(IllegalArgumentException.class, () -> validator.validate());
+        form.getTaxPayer().getPersonData().getPersonalData().setSurname("ROSSI5èè");
+        assertThrows(ResourceException.class, () -> validator.validate());
 
         form.getTaxPayer().getPersonData().getPersonalData().setSurname(null);
         assertThrows(ResourceException.class, () -> validator.validate());
