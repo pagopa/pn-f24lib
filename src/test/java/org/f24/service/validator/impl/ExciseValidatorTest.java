@@ -104,7 +104,7 @@ class ExciseValidatorTest {
     @Test
     void givenInvalidInpsCode_whenValidateInpsSection_thenThrowException() {
         if(form.getInpsSection() != null) { 
-            form.getInpsSection().getInpsRecordList().get(0).setInpsCode("21jd/");
+            form.getInpsSection().getInpsRecordList().get(0).setInpsCode("21jd/sdfghjklkhgfdsfghjkljhgfdsfgdgdfgdfg");
             assertThrows(ResourceException.class, () -> validator.validate());
         }
     }

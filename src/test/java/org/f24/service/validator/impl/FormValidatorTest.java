@@ -40,10 +40,10 @@ class FormValidatorTest {
 
     @Test
     void givenInvalidName_whenValidatePersonalData_thenThrowException() {
-        form.getTaxPayer().getPersonData().getPersonalData().setName("MARIO ,");
+        form.getTaxPayer().getPersonData().getPersonalData().setName("MARIO ,èèèè");
         assertThrows(ResourceException.class, () -> validator.validate());
 
-        form.getTaxPayer().getPersonData().getPersonalData().setName("marIo");
+        form.getTaxPayer().getPersonData().getPersonalData().setName("marIo èèè");
         assertThrows(ResourceException.class, () -> validator.validate());
 
         form.getTaxPayer().getPersonData().getPersonalData().setName(null);
