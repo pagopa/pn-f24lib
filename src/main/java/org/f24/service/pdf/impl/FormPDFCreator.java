@@ -169,13 +169,15 @@ public class FormPDFCreator extends PDFFormManager {
                     setLocalTaxSectionChecks(taxRecord, index);
                     setSectionRecordAmount(sectionId, index, taxRecord);
                 }
-                if (!localTaxSection.getOperationId().isEmpty()) {
+                if (localTaxSection.getOperationId() != null && !localTaxSection.getOperationId().isEmpty()) {
                     setField(OPERATION_ID.getName(), localTaxSection.getOperationId());
                 }
                 totalBalance += setSectionTotal(sectionId, localTaxRecordList);
 
-                Double parsedDeduction = Double.parseDouble(localTaxSection.getDeduction());
-                setMultiField(DEDUCTION.getName(), parsedDeduction);
+                if (localTaxSection.getDeduction() != null  && !localTaxSection.getDeduction().isEmpty()) {
+                    Double parsedDeduction = Double.parseDouble(localTaxSection.getDeduction());
+                    setMultiField(DEDUCTION.getName(), parsedDeduction);
+                }
             }
         }
     }
@@ -212,7 +214,7 @@ public class FormPDFCreator extends PDFFormManager {
             setField(DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
         }
 
-        if (sourceRecord.getDeduction() != null) {
+        if (sourceRecord.getDeduction() != null && !sourceRecord.getDeduction().isEmpty()) {
             String parseDeduction = getMoney(Integer.parseInt(sourceRecord.getDeduction()));
             setField(DEDUCTION.getName() + sectionId + index, parseDeduction);
         }
