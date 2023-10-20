@@ -209,7 +209,7 @@ public class TaxCodeCalculator {
     private static final int ROW_REGEX = 0;
     private static final int ROW_SUB = 1;
 
-    private static final Pattern CHAR_ALLOWED = Pattern.compile("[A-ZÀÈÉÌÒÙ' ]+");
+    private static final Pattern CHAR_ALLOWED = Pattern.compile("[ -~]+");
 
     private static final Pattern MUNICIPALITY_COD_ALLOWED = Pattern
             .compile("[A-Z]\\d{3}");

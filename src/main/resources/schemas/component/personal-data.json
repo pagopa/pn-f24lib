@@ -4,11 +4,11 @@
   "required": ["name","surname","birthDate","sex","birthPlace","birthProvince"],
   "properties": {
     "surname": {
-      "pattern": "[A-Z\\s]{1,24}",
+      "pattern": "^[ -~]{1,24}$",
       "type": "string"
     },
     "name": {
-      "pattern": "^[A-Z\\s]{1,20}$",
+      "pattern": "^[ -~]{1,20}$",
       "type": "string"
     },
     "birthDate": {
@@ -20,7 +20,7 @@
       "type": "string"
     },
     "birthPlace": {
-      "pattern": "^[A-Z\\s]{1,40}$",
+      "pattern": "^[ -~]{1,40}$",
       "type": "string"
     },
     "birthProvince": {

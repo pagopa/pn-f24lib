@@ -3,7 +3,7 @@
   "type": ["object", "null"],
   "properties": {
     "municipality": {
-      "pattern": "^[A-Z]{1,40}$",
+      "pattern": "^[ -~]{1,40}$",
       "type": "string"
     },
     "province": {
@@ -11,7 +11,7 @@
       "type": "string"
     },
     "address": {
-      "pattern": "^[A-Z0-9\\s.]{1,35}$",
+      "pattern": "^[ -~]{1,35}$",
       "type": "string"
     }
   },
