@@ -11,8 +11,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    
-        <sonar.token>squ_ed3165bf5320f4146a39d691e7f8ead8e71f9cd6</sonar.token>
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report/jacoco.xml,${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report/jacoco.xml
