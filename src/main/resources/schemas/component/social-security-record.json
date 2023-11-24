@@ -8,7 +8,7 @@
   "type": "object",
   "properties": {
     "municipalityCode": {
-      "pattern": "^[0-9]{4}$",
+      "pattern": "^[0-9A-Z]{4}",
       "type": ["string", "null"]
     },
     "officeCode": {
