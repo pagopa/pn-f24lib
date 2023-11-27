@@ -11,7 +11,7 @@
       "type": "string"
     },
     "municipalityCode": {
-      "pattern": "^[0-9A-Z]{4}",
+      "pattern": "^[0-9A-Z]{4}$",
       "type": "string"
     },
     "reconsideration": {
