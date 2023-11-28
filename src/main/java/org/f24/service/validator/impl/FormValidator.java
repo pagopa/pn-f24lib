@@ -55,7 +55,6 @@ public class FormValidator implements Validator {
         }
 
         validateTaxCode();
-        validateIdCode();
     }
 
     private void validateTaxCode() throws ResourceException {
@@ -78,18 +77,6 @@ public class FormValidator implements Validator {
                     }
                 }
             }
-        }
-    }
-
-    private void validateIdCode() throws ResourceException {
-        TaxPayer taxPayer = this.form.getTaxPayer();
-
-        if (taxPayer != null) {
-            String taxCode = taxPayer.getRelativePersonTaxCode();
-            String idCode = taxPayer.getIdCode();
-
-            if (taxCode != null && idCode == null)
-                throw new ResourceException(ErrorEnum.ID_CODE.getMessage());
         }
     }
 

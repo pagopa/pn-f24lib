@@ -14,7 +14,6 @@ public enum ErrorEnum {
     VALIDATOR_OBSOLETE("emptyGen", "Impossible to get validator class, use valid validator:"),
     RECORD_EMPTY("recordEmpty", "Record can`t be empty"),
     ACROFORM_EMPTY("emtyAcro", "Impossible to get acroform, because it is empty"),
-    ID_CODE("taxCode", "ID code can`t be empty if the tax code is present"),
     DEFAULT("default", "Error occurred during validation.");
 
     private String code;
