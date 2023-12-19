@@ -27,17 +27,12 @@ public class PDFFormManager {
     private Integer currentIndex;
 
     private PDDocument doc;
-    private PDDocument sortedDoc;
     private List<PDDocument> copies;
-    private Integer totalAcroFromPages;
-    private Logger logger = Logger.getLogger(PDFFormManager.class.getName());
+    private final Logger logger = Logger.getLogger(PDFFormManager.class.getName());
 
     protected void loadDoc(String modelName) throws IOException {
         this.modelName = modelName;
         this.doc = PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName));
-        this.sortedDoc = new PDDocument();
-        this.totalAcroFromPages = doc.getNumberOfPages();
-
         this.copies = new ArrayList<>();
         this.copies.add(doc);
     }
@@ -96,9 +91,9 @@ public class PDFFormManager {
         return this.copies;
     }
 
-    private void flat(int copyIndex) throws IOException, ResourceException {
+    private void flat(int copyIndex) throws ResourceException {
         setIndex(copyIndex);
-        getForm().flatten();
+        getForm().getFieldTree().forEach(pdField -> pdField.setReadOnly(true));
     }
 
     protected void mergeCopies() throws IOException, ResourceException {
@@ -109,18 +104,6 @@ public class PDFFormManager {
         for (int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) {
             flat(copyIndex);
             merger.appendDocument(doc, this.copies.get(copyIndex)); 
-        }     
-
-        if(totalAcroFromPages > 1) { 
-            sortDoc(numberOfCopies);
-            doc = sortedDoc; 
-        }
-    }
-
-    protected void sortDoc(int numberOfCopies) {
-        for (int pageIndex = 0; pageIndex < totalAcroFromPages; pageIndex++) {
-            sortedDoc.addPage(doc.getPages().get(pageIndex));
-            for (int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) sortedDoc.addPage(doc.getPages().get(this.totalAcroFromPages * copyIndex + pageIndex));
         }
     }
 
@@ -154,7 +137,7 @@ public class PDFFormManager {
         if (totalRecord == null)
             throw new ResourceException(ErrorEnum.RECORD_EMPTY.getMessage());
 
-        Integer totalAmount = totalRecord
+        int totalAmount = totalRecord
                 .stream()
                 .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0")
                         - Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
@@ -170,7 +153,7 @@ public class PDFFormManager {
         if (debitRecord == null)
             throw new ResourceException(ErrorEnum.RECORD_EMPTY.getMessage());
 
-        Integer totalAmount = debitRecord
+        int totalAmount = debitRecord
                 .stream()
                 .mapToInt(mr -> Integer.parseInt(mr.getDebitAmount() != null ? mr.getDebitAmount() : "0"))
                 .sum();
@@ -185,7 +168,7 @@ public class PDFFormManager {
         if (creditRecord == null)
             throw new ResourceException(ErrorEnum.RECORD_EMPTY.getMessage());
 
-        Integer totalAmount = creditRecord
+        int totalAmount = creditRecord
                 .stream()
                 .mapToInt(mr -> Integer.parseInt(mr.getCreditAmount() != null ? mr.getCreditAmount() : "0"))
                 .sum();
@@ -213,10 +196,6 @@ public class PDFFormManager {
                 c.close();
             }
             IOUtils.closeQuietly(getCurrentCopy());
-        }
-
-        if (this.sortedDoc != null) {
-            this.sortedDoc.close();
         }
     }
 
