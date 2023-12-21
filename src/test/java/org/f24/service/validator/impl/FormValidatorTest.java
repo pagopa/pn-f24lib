@@ -1,6 +1,7 @@
 package org.f24.service.validator.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.f24.dto.component.CompanyData;
 import org.f24.dto.form.F24Form;
 import org.f24.exception.ResourceException;
 import org.f24.service.validator.ValidatorFactory;
@@ -113,4 +114,9 @@ class FormValidatorTest {
         assertThrows(ResourceException.class, () -> validator.validate());
     }
 
+    @Test
+    void givenMultipleTaxPayer_whenValidateForm_thenThrowException() {
+        form.getTaxPayer().setCompanyData(new CompanyData());
+        assertThrows(ResourceException.class, () -> validator.validate());
+    }
 }
