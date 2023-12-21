@@ -72,14 +72,17 @@ public class FormPDFCreator extends PDFFormManager {
     }
 
     protected void setTaxResidenceData() throws ResourceException {
-        if(this.form.getTaxPayer().getPersonData() != null) {
-            TaxAddress taxResidenceData = this.form.getTaxPayer().getPersonData().getTaxAddress();
-    
-            if (taxResidenceData != null) {
-                setField(ADDRESS.getName(), taxResidenceData.getAddress());
-                setField(MUNICIPALITY.getName(), taxResidenceData.getMunicipality());
-                setField(TAX_PROVINCE.getName(), taxResidenceData.getProvince());
-            }
+        TaxAddress taxResidenceData = null;
+        if (this.form.getTaxPayer().getPersonData() != null) {
+            taxResidenceData = this.form.getTaxPayer().getPersonData().getTaxAddress();
+        } else if (this.form.getTaxPayer().getCompanyData() != null) {
+            taxResidenceData = this.form.getTaxPayer().getCompanyData().getTaxAddress();
+        }
+
+        if (taxResidenceData != null) {
+            setField(ADDRESS.getName(), taxResidenceData.getAddress());
+            setField(MUNICIPALITY.getName(), taxResidenceData.getMunicipality());
+            setField(TAX_PROVINCE.getName(), taxResidenceData.getProvince());
         }
     }
 
