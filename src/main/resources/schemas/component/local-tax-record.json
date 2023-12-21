@@ -23,7 +23,7 @@
       "type": "string"
     },
     "taxTypeCode": {
-      "pattern": "^[0-9]{4}$",
+      "pattern": "^[A-Z0-9]{4}$",
       "type": "string"
     },
     "installment": {

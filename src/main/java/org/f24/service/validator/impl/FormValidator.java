@@ -8,7 +8,6 @@ import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import org.f24.dto.component.Record;
-import org.f24.dto.component.TaxPayer;
 import org.f24.dto.component.PersonData;
 import org.f24.dto.component.PersonalData;
 import org.f24.dto.form.F24Form;
@@ -55,6 +54,7 @@ public class FormValidator implements Validator {
         }
 
         validateTaxCode();
+        validateTaxPayer();
     }
 
     private void validateTaxCode() throws ResourceException {
@@ -77,6 +77,12 @@ public class FormValidator implements Validator {
                     }
                 }
             }
+        }
+    }
+
+    private void validateTaxPayer() throws ResourceException {
+        if (this.form.getTaxPayer().getPersonData() != null && this.form.getTaxPayer().getCompanyData() != null) {
+            throw new ResourceException(ErrorEnum.MULTI_TAX_PAYER.getMessage());
         }
     }
 
