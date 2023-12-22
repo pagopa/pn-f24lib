@@ -27,12 +27,17 @@ public class PDFFormManager {
     private Integer currentIndex;
 
     private PDDocument doc;
+    private PDDocument sortedDoc;
     private List<PDDocument> copies;
+    private Integer totalAcroFromPages;
     private final Logger logger = Logger.getLogger(PDFFormManager.class.getName());
 
     protected void loadDoc(String modelName) throws IOException {
         this.modelName = modelName;
         this.doc = PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName));
+        this.sortedDoc = new PDDocument();
+        this.totalAcroFromPages = doc.getNumberOfPages();
+
         this.copies = new ArrayList<>();
         this.copies.add(doc);
     }
@@ -105,6 +110,19 @@ public class PDFFormManager {
             flat(copyIndex);
             merger.appendDocument(doc, this.copies.get(copyIndex)); 
         }
+
+        if(totalAcroFromPages > 1) {
+            sortDoc(numberOfCopies);
+            doc = sortedDoc;
+        }
+    }
+
+    protected void sortDoc(int numberOfCopies) {
+        for (int pageIndex = 0; pageIndex < totalAcroFromPages; pageIndex++) {
+            sortedDoc.addPage(doc.getPages().get(pageIndex));
+            for (int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) sortedDoc.addPage(doc.getPages().get(this.totalAcroFromPages * copyIndex + pageIndex));
+        }
+        sortedDoc.getDocumentCatalog().setAcroForm(doc.getDocumentCatalog().getAcroForm());
     }
 
     public int getTotalPages(int recordAmount, int maxAmount, int totalPages) {
