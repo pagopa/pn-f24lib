@@ -4,15 +4,15 @@
   "properties": {
     "municipality": {
       "pattern": "^[ -~]{1,40}$",
-      "type": "string"
+      "type":["string", "null"]
     },
     "province": {
       "pattern": "^[A-Z]{2}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "address": {
       "pattern": "^[ -~]{1,35}$",
-      "type": "string"
+      "type": ["string", "null"]
     }
   },
   "description": "Tax Residence (Domicilio Fiscale) object"
