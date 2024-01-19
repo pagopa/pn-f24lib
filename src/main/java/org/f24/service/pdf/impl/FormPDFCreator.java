@@ -259,14 +259,21 @@ public class FormPDFCreator extends PDFFormManager {
     }
 
     protected void setMultiField(String fieldName, Double sourceRecord) throws ResourceException {
-        String[] splittedAmount = splitField(sourceRecord);
-        setField(fieldName + "Int", splittedAmount[0]);
-        setField(fieldName + "Dec", splittedAmount[1]);
+        if(sourceRecord != null) {
+            String[] splittedAmount = splitField(sourceRecord);
+            setField(fieldName + "Int", splittedAmount[0]);
+            setField(fieldName + "Dec", splittedAmount[1]);
+        }
     }
 
     protected void setMultiDate(String fieldName, String sectionId, int index, String date) throws ResourceException {
-        String monthPart = date.substring(0, 2);
-        String yearPart = date.substring(2);
+        String monthPart = "";
+        String yearPart = "";
+
+        if(date != null && !date.equalsIgnoreCase("")) {
+            monthPart = date.substring(0, 2);
+            yearPart = date.substring(2);
+        }
 
         setField(fieldName + "Month" + sectionId + index, monthPart);
         setField(fieldName + "Year" + sectionId + index, yearPart);

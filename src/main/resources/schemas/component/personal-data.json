@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": ["object", "null"],
-  "required": ["name","surname","birthDate","sex","birthPlace","birthProvince"],
+  "required": ["name","surname","birthDate","sex"],
   "properties": {
     "surname": {
       "pattern": "^[ -~]{1,24}$",
@@ -21,11 +21,11 @@
     },
     "birthPlace": {
       "pattern": "^[ -~]{1,40}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "birthProvince": {
       "pattern": "^[A-Z]{2}$",
-      "type": "string"
+      "type": ["string", "null"]
     }
   },
   "description": "Personal Data (Dati Anagrafici) object"

@@ -4,31 +4,31 @@
   "properties": {
     "municipality": {
       "pattern": "^[A-Z]{2}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "province": {
       "pattern": "^[A-Z]{2}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "idCode": {
       "pattern": "^[A-Z0-9]{17}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "taxTypeCode": {
       "pattern": "^[0-9A-Z]{4}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "installment": {
       "pattern": "^[A-Z0-9]{0,4}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "month": {
       "pattern": "^[0-1][0-9]$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "year": {
       "pattern": "^[1-2][0-9]{3}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "debitAmount": {
       "pattern": "^[0-9]{0,15}$",
