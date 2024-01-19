@@ -1,10 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "required": [
-    "contributionReason",
-    "officeCode",
-    "positionCode"
-  ],
   "type": "object",
   "properties": {
     "municipalityCode": {
@@ -13,15 +8,15 @@
     },
     "officeCode": {
       "pattern": "^[0-9A-Z]{5}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "contributionReason": {
       "pattern": "^[0-9A-Z]{3,4}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "positionCode": {
       "pattern": "^[0-9]{9}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "period": {
       "$ref": "resource:/schemas/component/period.json"

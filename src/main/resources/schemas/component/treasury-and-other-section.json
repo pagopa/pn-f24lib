@@ -4,13 +4,12 @@
   "properties": {
     "officeCode": {
       "pattern": "^[A-Z0-9]{3}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "documentCode": {
       "pattern": "^\\d{11}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
-
     "treasuryRecords": {
       "type": "array",
       "items": {

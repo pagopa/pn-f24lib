@@ -1,22 +1,18 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "required": [
-    "contributionReason",
-    "officeCode"
-  ],
   "type": "object",
   "properties": {
     "officeCode": {
       "pattern": "^[0-9]{3,4}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "contributionReason": {
       "pattern": "^[A-Z-]{3,4}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "inpsCode": {
       "pattern": "^[ -~]{1,17}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "period": {
       "$ref": "resource:/schemas/component/period.json"

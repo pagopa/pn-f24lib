@@ -4,15 +4,15 @@
   "properties": {
     "taxTypeCode": {
       "pattern": "^[A-Z0-9]{4}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "installment": {
       "pattern": "^[A-Z0-9]{0,4}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "year": {
       "pattern": "^[1-2][0-9]{3}$",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "debitAmount": {
       "pattern": "^[0-9]{0,15}$",
