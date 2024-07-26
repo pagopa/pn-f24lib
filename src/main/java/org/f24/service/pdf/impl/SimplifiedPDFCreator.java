@@ -1,17 +1,16 @@
 package org.f24.service.pdf.impl;
 
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
-import org.f24.dto.component.*;
+import org.f24.dto.component.PaymentReasonRecord;
+import org.f24.dto.component.TaxPayer;
 import org.f24.dto.form.F24Simplified;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.List;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -19,8 +18,8 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24Semplificato.pdf";
 
-    private F24Simplified form;
-    private Logger logger = LoggerFactory.getLogger(SimplifiedPDFCreator.class.getName());
+    private final F24Simplified form;
+    private final Logger logger = LoggerFactory.getLogger(SimplifiedPDFCreator.class.getName());
 
     /**
      * Constructs Simplified PDF Creator.
@@ -119,15 +118,17 @@ public class SimplifiedPDFCreator extends FormPDFCreator implements PDFCreator {
                 setHeader();
                 setTaxPayer();
                 setPaymentReasonSection(copyIndex);
+                flat();
+                updateCopy();
             }
-            mergeCopies();
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            getDoc().save(byteArrayOutputStream);
+            byte[] mergeCopies = mergeCopies();
+
             finalizeDoc();
 
-            logger.info("simplified pdf is created");
-            return byteArrayOutputStream.toByteArray();
+            logger.info("simplified PDF is created");
+
+            return mergeCopies;
         } catch (Exception e) {
             return ByteArrayBuilder.NO_BYTES;
         }

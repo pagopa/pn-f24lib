@@ -46,32 +46,32 @@ class SimplifiedPDFCreatorTest {
             taxPayer.setTaxCode("AXDDXA12A23Z234F");
         }
         pdfCreator.setField(TAX_CODE.getName(), taxPayer.getTaxCode());
-        assertEquals(taxPayer.getTaxCode(), pdfCreator.getField(TAX_CODE.getName()).getValueAsString());
+        assertEquals(taxPayer.getTaxCode(), pdfCreator.getField(TAX_CODE.getName()));
 
         if (taxPayer.getOfficeCode() == null) {
             taxPayer.setOfficeCode("AZ3");
         }
         pdfCreator.setField(OFFICE_CODE.getName(), taxPayer.getOfficeCode());
-        assertEquals(taxPayer.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()).getValueAsString());
+        assertEquals(taxPayer.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()));
 
         if (taxPayer.getDocumentCode() == null) {
             taxPayer.setDocumentCode("stringchars");
         }
         pdfCreator.setField(DOCUMENT_CODE.getName(), taxPayer.getDocumentCode());
-        assertEquals(taxPayer.getDocumentCode(), pdfCreator.getField(DOCUMENT_CODE.getName()).getValueAsString());
+        assertEquals(taxPayer.getDocumentCode(), pdfCreator.getField(DOCUMENT_CODE.getName()));
 
         if (taxPayer.getRelativePersonTaxCode() == null) {
             taxPayer.setRelativePersonTaxCode("AXDDXA12A23Z234F");
         }
         pdfCreator.setField(RELATIVE_PERSON_TAX_CODE.getName(), taxPayer.getRelativePersonTaxCode());
         assertEquals(taxPayer.getRelativePersonTaxCode(),
-                pdfCreator.getField(RELATIVE_PERSON_TAX_CODE.getName()).getValueAsString());
+                pdfCreator.getField(RELATIVE_PERSON_TAX_CODE.getName()));
 
         if (taxPayer.getIdCode() == null) {
             taxPayer.setIdCode("AZ9");
         }
         pdfCreator.setField(ID_CODE.getName(), taxPayer.getIdCode());
-        assertEquals(taxPayer.getIdCode(), pdfCreator.getField(ID_CODE.getName()).getValueAsString());
+        assertEquals(taxPayer.getIdCode(), pdfCreator.getField(ID_CODE.getName()));
     }
 
     @Test
@@ -88,7 +88,7 @@ class SimplifiedPDFCreatorTest {
             }
             pdfCreator.setField(OPERATION_ID.getName(), form.getPaymentReasonSection().getOperationId());
             assertEquals(form.getPaymentReasonSection().getOperationId(),
-                    pdfCreator.getField(OPERATION_ID.getName()).getValueAsString());
+                    pdfCreator.getField(OPERATION_ID.getName()));
     
             pdfCreator.paginateList(0, 10, paymentReasonRecordList);
     
@@ -99,21 +99,21 @@ class SimplifiedPDFCreatorTest {
                 }
                 pdfCreator.setField(SECTION.getName() + index, paymentReasonRecord.getSection());
                 assertEquals(paymentReasonRecord.getSection(),
-                        pdfCreator.getField(SECTION.getName() + index).getValueAsString());
+                        pdfCreator.getField(SECTION.getName() + index));
     
                 if (paymentReasonRecord.getTaxTypeCode() == null) {
                     paymentReasonRecord.setTaxTypeCode("12AZ");
                 }
                 pdfCreator.setField(TAX_TYPE_CODE.getName() + index, paymentReasonRecord.getTaxTypeCode());
                 assertEquals(paymentReasonRecord.getTaxTypeCode(),
-                        pdfCreator.getField(TAX_TYPE_CODE.getName() + index).getValueAsString());
+                        pdfCreator.getField(TAX_TYPE_CODE.getName() + index));
     
                 if (paymentReasonRecord.getMunicipalityCode() == null) {
                     paymentReasonRecord.setMunicipalityCode("1234");
                 }
                 pdfCreator.setField(MUNICIPALITY_CODE.getName() + index, paymentReasonRecord.getMunicipalityCode());
                 assertEquals(paymentReasonRecord.getMunicipalityCode(),
-                        pdfCreator.getField(MUNICIPALITY_CODE.getName() + index).getValueAsString());
+                        pdfCreator.getField(MUNICIPALITY_CODE.getName() + index));
     
                 shouldFillPaymentReasonCheckboxes(paymentReasonRecord, index);
     
@@ -130,11 +130,11 @@ class SimplifiedPDFCreatorTest {
         pdfCreator.setField(FULL_PAYMENT.getName() + index, "X");
         pdfCreator.setField(NUMBER_OF_PROPERTIES.getName() + index, "12");
 
-        assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + index).getValueAsString());
-        assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + index).getValueAsString());
-        assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + index).getValueAsString());
-        assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + index).getValueAsString());
-        assertEquals("12", pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + index).getValueAsString());
+        assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + index));
+        assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + index));
+        assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + index));
+        assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + index));
+        assertEquals("12", pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + index));
     }
 
     @Test

@@ -53,16 +53,16 @@ class ExcisePDFCreatorTest {
                 pdfCreator.setField(MONTH.getName() + sectionId + index, exciseTax.getMonth());
                 pdfCreator.setField(YEAR.getName() + sectionId + index, exciseTax.getYear());
     
-                assertEquals(exciseTax.getMunicipality(), pdfCreator.getField(MUNICIPALITY.getName() + sectionId + index).getValueAsString());
-                assertEquals(exciseTax.getProvince(), pdfCreator.getField(EXCISE_PROVINCE.getName() + sectionId + index).getValueAsString());
-                assertEquals(exciseTax.getTaxTypeCode(), pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
-                assertEquals(exciseTax.getIdCode(), pdfCreator.getField(ID_CODE.getName() + sectionId + index).getValueAsString());
-                assertEquals(exciseTax.getInstallment(), pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
-                assertEquals(exciseTax.getMonth(), pdfCreator.getField(MONTH.getName() + sectionId + index).getValueAsString());
-                assertEquals(exciseTax.getYear(), pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+                assertEquals(exciseTax.getMunicipality(), pdfCreator.getField(MUNICIPALITY.getName() + sectionId + index));
+                assertEquals(exciseTax.getProvince(), pdfCreator.getField(EXCISE_PROVINCE.getName() + sectionId + index));
+                assertEquals(exciseTax.getTaxTypeCode(), pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index));
+                assertEquals(exciseTax.getIdCode(), pdfCreator.getField(ID_CODE.getName() + sectionId + index));
+                assertEquals(exciseTax.getInstallment(), pdfCreator.getField(INSTALLMENT.getName() + sectionId + index));
+                assertEquals(exciseTax.getMonth(), pdfCreator.getField(MONTH.getName() + sectionId + index));
+                assertEquals(exciseTax.getYear(), pdfCreator.getField(YEAR.getName() + sectionId + index));
             }
-            assertEquals(exciseSection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName() + sectionId).getValueAsString());
-            assertEquals(exciseSection.getDocumentCode(), pdfCreator.getField(DOCUMENT_CODE.getName() + sectionId).getValueAsString());
+            assertEquals(exciseSection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName() + sectionId));
+            assertEquals(exciseSection.getDocumentCode(), pdfCreator.getField(DOCUMENT_CODE.getName() + sectionId));
         }
     }
 

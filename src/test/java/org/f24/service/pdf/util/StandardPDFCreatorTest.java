@@ -73,11 +73,11 @@ class StandardPDFCreatorTest {
         if (taxPayer.getIsNotTaxYear())
             pdfCreator.setField(IS_NOT_TAX_YEAR.getName(), "X");
 
-        assertEquals("ZSDFGY86R78U765I", pdfCreator.getField(TAX_CODE.getName()).getValueAsString());
-        assertEquals("BGCDJV27L49N524I", pdfCreator.getField(RELATIVE_PERSON_TAX_CODE.getName()).getValueAsString());
-        assertEquals("RSSMLB80A01A200D", pdfCreator.getField(ID_CODE.getName()).getValueAsString());
+        assertEquals("ZSDFGY86R78U765I", pdfCreator.getField(TAX_CODE.getName()));
+        assertEquals("BGCDJV27L49N524I", pdfCreator.getField(RELATIVE_PERSON_TAX_CODE.getName()));
+        assertEquals("RSSMLB80A01A200D", pdfCreator.getField(ID_CODE.getName()));
 
-        assertEquals("X", pdfCreator.getField(IS_NOT_TAX_YEAR.getName()).getValueAsString());
+        assertEquals("X", pdfCreator.getField(IS_NOT_TAX_YEAR.getName()));
     }
 
     @Test
@@ -89,11 +89,11 @@ class StandardPDFCreatorTest {
         pdfCreator.setField(FULL_PAYMENT.getName() + 1, "X");
         pdfCreator.setField(NUMBER_OF_PROPERTIES.getName() + 1, "X");
 
-        assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + 1).getValueAsString());
-        assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + 1).getValueAsString());
-        assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + 1).getValueAsString());
-        assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + 1).getValueAsString());
-        assertEquals("X", pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + 1).getValueAsString());
+        assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + 1));
+        assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + 1));
+        assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + 1));
+        assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + 1));
+        assertEquals("X", pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + 1));
     }
 
     @Test
@@ -121,11 +121,11 @@ class StandardPDFCreatorTest {
             index = 1;
             for (InpsRecord inpsRecord : inpsRecordList) {
                 assertEquals(inpsRecord.getOfficeCode(),
-                        pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index));
                 assertEquals(inpsRecord.getContributionReason(),
-                        pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index));
                 assertEquals(inpsRecord.getInpsCode(),
-                        pdfCreator.getField(INPS_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(INPS_CODE.getName() + sectionId + index));
     
                 index++;
             }
@@ -171,24 +171,24 @@ class StandardPDFCreatorTest {
 
             for (LocalTaxRecord localTaxRecord : localTaxRecordList) {
                 assertEquals(localTaxRecord.getYear(),
-                        pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(YEAR.getName() + sectionId + index));
                 assertEquals(localTaxRecord.getInstallment(),
-                        pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(INSTALLMENT.getName() + sectionId + index));
                 assertEquals(localTaxRecord.getTaxTypeCode(),
-                        pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index));
                 assertEquals(localTaxRecord.getMunicipalityCode(),
-                        pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId + index));
 
-                assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + index).getValueAsString());
+                assertEquals("X", pdfCreator.getField(RECONSIDERATION.getName() + index));
 
-                assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + index).getValueAsString());
+                assertEquals("X", pdfCreator.getField(PROPERTIES_CHANGED.getName() + index));
 
-                assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + index).getValueAsString());
+                assertEquals("X", pdfCreator.getField(ADVANCE_PAYMENT.getName() + index));
 
-                assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + index).getValueAsString());
+                assertEquals("X", pdfCreator.getField(FULL_PAYMENT.getName() + index));
 
                 assertEquals(localTaxRecord.getNumberOfProperties(),
-                        pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + index).getValueAsString());
+                        pdfCreator.getField(NUMBER_OF_PROPERTIES.getName() + index));
 
                 index++;
             }
@@ -221,11 +221,11 @@ class StandardPDFCreatorTest {
     
             for (Tax taxRecord : taxList) {
                 assertEquals(taxRecord.getTaxTypeCode(),
-                        pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index));
                 assertEquals(taxRecord.getInstallment(),
-                        pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(INSTALLMENT.getName() + sectionId + index));
                 assertEquals(taxRecord.getYear(),
-                        pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(YEAR.getName() + sectionId + index));
     
                 index++;
             }
@@ -233,9 +233,9 @@ class StandardPDFCreatorTest {
             pdfCreator.setField(OFFICE_CODE.getName() + sectionId, treasurySection.getOfficeCode());
             pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
     
-            assertEquals(treasurySection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()  + sectionId).getValueAsString());
+            assertEquals(treasurySection.getOfficeCode(), pdfCreator.getField(OFFICE_CODE.getName()  + sectionId));
             assertEquals(treasurySection.getDocumentCode(),
-                    pdfCreator.getField(DOCUMENT_CODE.getName()  + sectionId).getValueAsString());
+                    pdfCreator.getField(DOCUMENT_CODE.getName()  + sectionId));
         }
 
     }
@@ -251,9 +251,9 @@ class StandardPDFCreatorTest {
             pdfCreator.setField(DOCUMENT_CODE.getName() + sectionId, treasurySection.getDocumentCode());
 
             assertEquals(treasurySection.getOfficeCode(),
-                    pdfCreator.getField(OFFICE_CODE.getName() + sectionId).getValueAsString());
+                    pdfCreator.getField(OFFICE_CODE.getName() + sectionId));
             assertEquals(treasurySection.getDocumentCode(),
-                    pdfCreator.getField(DOCUMENT_CODE.getName() + sectionId).getValueAsString());
+                    pdfCreator.getField(DOCUMENT_CODE.getName() + sectionId));
         }
     }
 
@@ -284,13 +284,13 @@ class StandardPDFCreatorTest {
             index = 1;
             for (SocialSecurityRecord socSecRecord : socSecurityList) {
                 assertEquals(socSecRecord.getMunicipalityCode(),
-                        pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId).getValueAsString());
+                        pdfCreator.getField(MUNICIPALITY_CODE.getName() + sectionId));
                 assertEquals(socSecRecord.getOfficeCode(),
-                        pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index));
                 assertEquals(socSecRecord.getContributionReason(),
-                        pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(CONTRIBUTION_REASON.getName() + sectionId + index));
                 assertEquals(socSecRecord.getPositionCode(),
-                        pdfCreator.getField(POSITION_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(POSITION_CODE.getName() + sectionId + index));
 
                 index++;
             }
@@ -325,15 +325,15 @@ class StandardPDFCreatorTest {
             index = 1;
             for (InailRecord inailRecord : inailRecordList) {
                 assertEquals(inailRecord.getOfficeCode(),
-                        pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(OFFICE_CODE.getName() + sectionId + index));
                 assertEquals(inailRecord.getCompanyCode(),
-                        pdfCreator.getField(COMPANY_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(COMPANY_CODE.getName() + sectionId + index));
                 assertEquals(inailRecord.getControlCode(),
-                        pdfCreator.getField(CONTROL_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(CONTROL_CODE.getName() + sectionId + index));
                 assertEquals(inailRecord.getReferenceNumber(),
-                        pdfCreator.getField(REFERENCE_NUMBER.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(REFERENCE_NUMBER.getName() + sectionId + index));
                 assertEquals(inailRecord.getReason(),
-                        pdfCreator.getField(REASON.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(REASON.getName() + sectionId + index));
     
                 index++;
             }
@@ -365,13 +365,13 @@ class StandardPDFCreatorTest {
             index = 1;
             for (RegionRecord regionRecord : regionRecordsList) {
                 assertEquals(regionRecord.getYear(),
-                        pdfCreator.getField(YEAR.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(YEAR.getName() + sectionId + index));
                 assertEquals(regionRecord.getInstallment(),
-                        pdfCreator.getField(INSTALLMENT.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(INSTALLMENT.getName() + sectionId + index));
                 assertEquals(regionRecord.getTaxTypeCode(),
-                        pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(TAX_TYPE_CODE.getName() + sectionId + index));
                 assertEquals(regionRecord.getRegionCode(),
-                        pdfCreator.getField(REGION_CODE.getName() + sectionId + index).getValueAsString());
+                        pdfCreator.getField(REGION_CODE.getName() + sectionId + index));
     
                 index++;
             }
@@ -389,7 +389,7 @@ class StandardPDFCreatorTest {
         String parsedTotal = pdfCreator.getMoney(total);
         pdfCreator.setField(TOTAL_AMOUNT.getName() + sectionId, parsedTotal);
 
-        assertEquals(parsedTotal, pdfCreator.getField(TOTAL_AMOUNT.getName() + sectionId).getValueAsString());
+        assertEquals(parsedTotal, pdfCreator.getField(TOTAL_AMOUNT.getName() + sectionId));
     }
 
     @Test
@@ -403,7 +403,7 @@ class StandardPDFCreatorTest {
         String parsedTotal = pdfCreator.getMoney(debitTotal);
         pdfCreator.setField(TOTAL_DEBIT.getName() + sectionId, parsedTotal);
 
-        assertEquals(parsedTotal, pdfCreator.getField(TOTAL_DEBIT.getName() + sectionId).getValueAsString());
+        assertEquals(parsedTotal, pdfCreator.getField(TOTAL_DEBIT.getName() + sectionId));
     }
 
     @Test
@@ -417,7 +417,7 @@ class StandardPDFCreatorTest {
         String parsedTotal = pdfCreator.getMoney(creditTotal);
         pdfCreator.setField(TOTAL_CREDIT.getName() + sectionId, parsedTotal);
 
-        assertEquals(parsedTotal, pdfCreator.getField(TOTAL_CREDIT.getName() + sectionId).getValueAsString());
+        assertEquals(parsedTotal, pdfCreator.getField(TOTAL_CREDIT.getName() + sectionId));
     }
 
     @Test
@@ -434,7 +434,7 @@ class StandardPDFCreatorTest {
             pdfCreator.setField(CREDIT_AMOUNT.getName() + sectionId + index, parsedCredit);
 
             assertEquals(parsedCredit,
-                    pdfCreator.getField(CREDIT_AMOUNT.getName() + sectionId + index).getValueAsString());
+                    pdfCreator.getField(CREDIT_AMOUNT.getName() + sectionId + index));
 
             index++;
         }
@@ -455,7 +455,7 @@ class StandardPDFCreatorTest {
             pdfCreator.setField(DEBIT_AMOUNT.getName() + sectionId + index, parsedDebit);
 
             assertEquals(parsedDebit,
-                    pdfCreator.getField(DEBIT_AMOUNT.getName() + sectionId + index).getValueAsString());
+                    pdfCreator.getField(DEBIT_AMOUNT.getName() + sectionId + index));
 
             index++;
         }
@@ -470,8 +470,8 @@ class StandardPDFCreatorTest {
         pdfCreator.setField(DEDUCTION.getName() + "Int", splittedCreditAmount[0]);
         pdfCreator.setField(DEDUCTION.getName() + "Dec", splittedCreditAmount[1]);
 
-        assertEquals(splittedCreditAmount[0], pdfCreator.getField(DEDUCTION.getName() + "Int").getValueAsString());
-        assertEquals(splittedCreditAmount[1], pdfCreator.getField(DEDUCTION.getName() + "Dec").getValueAsString());
+        assertEquals(splittedCreditAmount[0], pdfCreator.getField(DEDUCTION.getName() + "Int"));
+        assertEquals(splittedCreditAmount[1], pdfCreator.getField(DEDUCTION.getName() + "Dec"));
     }
 
     @Test
@@ -485,8 +485,8 @@ class StandardPDFCreatorTest {
         pdfCreator.setField(START_DATE.getName() + "Month" + 6 + 1, monthPart);
         pdfCreator.setField(START_DATE.getName() + "Year" + 6 + 1, yearPart);
 
-        assertEquals(monthPart, pdfCreator.getField(START_DATE.getName() + "Month" + 6 + 1).getValueAsString());
-        assertEquals(yearPart, pdfCreator.getField(START_DATE.getName() + "Year" + 6 + 1).getValueAsString());
+        assertEquals(monthPart, pdfCreator.getField(START_DATE.getName() + "Month" + 6 + 1));
+        assertEquals(yearPart, pdfCreator.getField(START_DATE.getName() + "Year" + 6 + 1));
     }
 
     @Test

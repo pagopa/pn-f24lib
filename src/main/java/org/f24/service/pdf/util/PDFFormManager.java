@@ -1,21 +1,15 @@
 package org.f24.service.pdf.util;
 
-import org.apache.pdfbox.io.IOUtils;
-import org.apache.pdfbox.multipdf.PDFMergerUtility;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
-import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
-import org.apache.pdfbox.pdmodel.interactive.form.PDField;
-import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.*;
 import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
 import org.f24.dto.component.Record;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
@@ -23,106 +17,126 @@ import static org.f24.service.pdf.util.FieldEnum.*;
 public class PDFFormManager {
 
     private String modelName;
-
     private Integer currentIndex;
-
-    private PDDocument doc;
-    private PDDocument sortedDoc;
-    private List<PDDocument> copies;
-    private Integer totalAcroFromPages;
+    private PdfStamper pdfStamper;
+    private List<PdfReader> copies;
+    private ByteArrayOutputStream copyByteArrayOutputStream;
     private final Logger logger = Logger.getLogger(PDFFormManager.class.getName());
 
     protected void loadDoc(String modelName) throws IOException {
         this.modelName = modelName;
-        this.doc = PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName));
-        this.sortedDoc = new PDDocument();
-        this.totalAcroFromPages = doc.getNumberOfPages();
-
+        PdfReader firstCopy = new PdfReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(modelName)));
         this.copies = new ArrayList<>();
-        this.copies.add(doc);
+        this.copies.add(firstCopy);
+        this.copyByteArrayOutputStream = new ByteArrayOutputStream();
     }
 
     protected void setIndex(Integer currentIndex) {
         this.currentIndex = currentIndex;
     }
 
-    protected PDDocument getDoc() {
-        return this.doc;
-    }
-
-    protected PDDocument getCurrentCopy() {
+    protected PdfReader getCurrentCopy() {
         return this.copies.get(this.currentIndex);
     }
 
-    protected PDAcroForm getForm() throws ResourceException {
-        PDDocumentCatalog documentCatalog = getCurrentCopy().getDocumentCatalog();
-        PDAcroForm form = documentCatalog.getAcroForm();
-        if (form == null)
-            throw new ResourceException(ErrorEnum.ACROFORM_EMPTY.getMessage());
-        return form;
+
+    protected AcroFields getForm() throws ResourceException {
+        try {
+            if (pdfStamper == null) {
+                pdfStamper = new PdfStamper(getCurrentCopy(), copyByteArrayOutputStream);
+                pdfStamper.setFormFlattening(true);
+            }
+            AcroFields form = pdfStamper.getAcroFields();
+            if (form == null) {
+                throw new ResourceException(ErrorEnum.ACROFORM_EMPTY.getMessage());
+            }
+            return form;
+        } catch (IOException e) {
+            throw new ResourceException("Error accessing AcroForm");
+        }
     }
 
-    protected PDField getField(String name) throws ResourceException {
-        PDField field = getForm().getField(name);
-        if (field == null)
+    public void closeStamper() throws IOException {
+        if (pdfStamper != null) {
+            pdfStamper.close();
+            pdfStamper = null;
+        }
+    }
+
+    public void updateCopy() throws IOException {
+        closeStamper();
+        copies.set(currentIndex, new PdfReader(copyByteArrayOutputStream.toByteArray()));
+        copyByteArrayOutputStream.reset();
+    }
+
+    protected String getField(String name) throws ResourceException {
+        AcroFields form = getForm();
+        if (!form.getAllFields().containsKey(name)) {
             throw new ResourceException(ErrorEnum.FIELD_OBSOLETE.getMessage() + name);
-        field.setReadOnly(true);
-        return field;
+        }
+        return form.getField(name);
     }
 
     protected void setField(String fieldName, String fieldValue) throws ResourceException {
         if (fieldValue != null) {
-            PDField field = getField(fieldName);
-            if (field instanceof PDTextField pdfTextfield) {
-                (pdfTextfield).setActions(null);
-            }
             try {
-                field.setValue(fieldValue);
-            } catch (IOException e) {
+                AcroFields form = getForm();
+                if (!form.getAllFields().containsKey(fieldName)) {
+                    throw new ResourceException(ErrorEnum.FIELD_OBSOLETE.getMessage() + fieldName);
+                }
+                AcroFields.Item item = form.getFieldItem(fieldName);
+                PdfDictionary mergedDict = item.getMerged(0);
+                mergedDict.put(PdfName.MAXLEN, new PdfNumber(fieldValue.length()));
+
+                form.setField(fieldName, fieldValue);
+            } catch (IOException | DocumentException e) {
                 logger.info(e.getMessage());
+                throw new ResourceException("Error setting field: " + fieldName);
             }
         }
     }
 
     protected void copy(int numberOfCopies) throws IOException {
-        if(copies.size() == 1)
+        if (copies.size() == 1)
             while (numberOfCopies > 0) {
-                copies.add(PDDocument.load(getClass().getClassLoader().getResourceAsStream(modelName)));
+                copies.add(new PdfReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(modelName))));
                 numberOfCopies--;
             }
     }
 
-    protected List<PDDocument> getCopies() {
+    protected List<PdfReader> getCopies() {
         return this.copies;
     }
 
-    private void flat(int copyIndex) throws ResourceException {
-        setIndex(copyIndex);
-        getForm().getFieldTree().forEach(pdField -> pdField.setReadOnly(true));
-    }
-
-    protected void mergeCopies() throws IOException, ResourceException {
-        PDFMergerUtility merger = new PDFMergerUtility();
-        int numberOfCopies = this.copies.size();
-        flat(0);
-        
-        for (int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) {
-            flat(copyIndex);
-            merger.appendDocument(doc, this.copies.get(copyIndex)); 
-        }
-
-        if(totalAcroFromPages > 1) {
-            sortDoc(numberOfCopies);
-            doc = sortedDoc;
+    public void flat() throws ResourceException {
+        try {
+            AcroFields form = getForm();
+            for (String fieldName : form.getAllFields().keySet()) {
+                form.setFieldProperty(fieldName, "setfflags", PdfFormField.FF_READ_ONLY, null);
+            }
+        } catch (DocumentException e) {
+            throw new ResourceException("Error setting fields to read-only");
         }
     }
 
-    protected void sortDoc(int numberOfCopies) {
-        for (int pageIndex = 0; pageIndex < totalAcroFromPages; pageIndex++) {
-            sortedDoc.addPage(doc.getPages().get(pageIndex));
-            for (int copyIndex = 1; copyIndex < numberOfCopies; copyIndex++) sortedDoc.addPage(doc.getPages().get(this.totalAcroFromPages * copyIndex + pageIndex));
+
+    protected byte[] mergeCopies() throws IOException, ResourceException {
+        ByteArrayOutputStream mergedOutputStream = new ByteArrayOutputStream();
+        Document document = new Document();
+
+        try (document; PdfCopy pdfCopy = new PdfCopy(document, mergedOutputStream)) {
+            document.open();
+            for (int i = 1; i <= copies.get(0).getNumberOfPages(); i++) {
+                for (PdfReader reader : copies) {
+                    pdfCopy.addPage(pdfCopy.getImportedPage(reader, i));
+                    reader.close();
+                }
+            }
+        } catch (Exception e) {
+            throw new ResourceException("Error merging copies");
         }
-        sortedDoc.getDocumentCatalog().setAcroForm(doc.getDocumentCatalog().getAcroForm());
+
+        return mergedOutputStream.toByteArray();
     }
 
     public int getTotalPages(int recordAmount, int maxAmount, int totalPages) {
@@ -207,14 +221,12 @@ public class PDFFormManager {
     }
 
     protected void finalizeDoc() throws IOException {
-        if (this.doc != null) {
-            this.doc.close();
-            
-            for (PDDocument c : this.copies) {
-                c.close();
-            }
-            IOUtils.closeQuietly(getCurrentCopy());
+        if (this.pdfStamper != null) {
+            this.pdfStamper.close();
+        }
+
+        for (PdfReader reader : this.copies) {
+            reader.close();
         }
     }
-
 }

@@ -1,18 +1,16 @@
 package org.f24.service.pdf.impl;
 
-import org.f24.dto.component.*;
+import com.fasterxml.jackson.core.util.ByteArrayBuilder;
+import org.f24.dto.component.ExciseSection;
+import org.f24.dto.component.ExciseTax;
 import org.f24.dto.form.F24Excise;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
-
-import com.fasterxml.jackson.core.util.ByteArrayBuilder;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.List;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -20,9 +18,9 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24Accise.pdf";
 
-    private F24Excise form;
+    private final F24Excise form;
 
-    private Logger logger = LoggerFactory.getLogger(ExcisePDFCreator.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(ExcisePDFCreator.class.getName());
 
     /**
      * Constructs Excise PDF Creator.
@@ -112,15 +110,17 @@ public class ExcisePDFCreator extends FormPDFCreator implements PDFCreator {
                 setExciseSection("5", copyIndex);
                 setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
+                flat();
+                updateCopy();
             }
-            mergeCopies();
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            getDoc().save(byteArrayOutputStream);
+            byte[] mergeCopies = mergeCopies();
+
             finalizeDoc();
 
-            logger.info("excise pdf is created");
-            return byteArrayOutputStream.toByteArray();
+            logger.info("excise PDF is created");
+
+            return mergeCopies;
         } catch (ResourceException | IOException e) {
             return ByteArrayBuilder.NO_BYTES;
         }

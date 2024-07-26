@@ -1,18 +1,17 @@
 package org.f24.service.pdf.impl;
 
-import org.f24.dto.component.*;
+import com.fasterxml.jackson.core.util.ByteArrayBuilder;
+import org.f24.dto.component.TaxPayer;
+import org.f24.dto.component.TreasuryAndOtherSection;
+import org.f24.dto.component.TreasuryRecord;
 import org.f24.dto.form.F24Elid;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreator;
-
-import com.fasterxml.jackson.core.util.ByteArrayBuilder;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.List;
 
 import static org.f24.service.pdf.util.FieldEnum.*;
 
@@ -20,8 +19,8 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24ELID.pdf";
 
-    private F24Elid form;
-    private Logger logger = LoggerFactory.getLogger(ElidPDFCreator.class.getName());
+    private final F24Elid form;
+    private final Logger logger = LoggerFactory.getLogger(ElidPDFCreator.class.getName());
 
     /**
      * Constructs ELID PDF Creator.
@@ -105,15 +104,17 @@ public class ElidPDFCreator extends FormPDFCreator implements PDFCreator {
                 setTreasurySection(copyIndex);
                 setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
+                flat();
+                updateCopy();
             }
-            mergeCopies();
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            getDoc().save(byteArrayOutputStream);
+            byte[] mergeCopies = mergeCopies();
+
             finalizeDoc();
 
-            logger.info("elid pdf is created");
-            return byteArrayOutputStream.toByteArray();
+            logger.info("elid PDF is created");
+
+            return mergeCopies;
         } catch (ResourceException | IOException e) {
             return ByteArrayBuilder.NO_BYTES;
         }
