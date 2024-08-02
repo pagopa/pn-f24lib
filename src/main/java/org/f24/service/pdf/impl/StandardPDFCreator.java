@@ -1,6 +1,5 @@
 package org.f24.service.pdf.impl;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,8 +19,8 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
 
     private static final String MODEL_NAME = MODEL_FOLDER_NAME + "/ModF24IMU.pdf";
 
-    private Logger logger = LoggerFactory.getLogger(StandardPDFCreator.class.getName());
-    private F24Standard form;
+    private final Logger logger = LoggerFactory.getLogger(StandardPDFCreator.class.getName());
+    private final F24Standard form;
 
     /**
      * Constructs Standard PDF Creator.
@@ -143,20 +142,20 @@ public class StandardPDFCreator extends FormPDFCreator implements PDFCreator {
                 setSocialSecurity("6", copyIndex);
                 setField(TOTAL_AMOUNT.getName(), getMoney(totalBalance));
                 totalBalance = 0;
+                flat();
+                updateCopy();
             }
 
-            mergeCopies();
+            byte[] mergeCopies = mergeCopies();
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            getDoc().save(byteArrayOutputStream);
             finalizeDoc();
-            
-            logger.info("standard pdf is created");
-            return byteArrayOutputStream.toByteArray();
-        } catch (ResourceException | IOException e) {
-            logger.info(e.getMessage());
+
+            logger.info("Standard PDF is created");
+
+            return mergeCopies;
+        } catch (ResourceException | IOException  e) {
+            logger.error(e.getMessage(), e);
             return ByteArrayBuilder.NO_BYTES;
         }
     }
-
 }

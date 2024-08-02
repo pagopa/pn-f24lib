@@ -1,69 +1,88 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.fge.jsonschema.core.exceptions.ProcessingException;
-import org.f24.dto.form.*;
+import org.f24.dto.form.F24Elid;
+import org.f24.dto.form.F24Excise;
+import org.f24.dto.form.F24Simplified;
+import org.f24.dto.form.F24Standard;
 import org.f24.exception.ResourceException;
 import org.f24.service.pdf.PDFCreatorFactory;
-import org.f24.service.validator.Validator;
-import org.f24.service.validator.ValidatorFactory;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
+import java.util.Date;
 
 
 public class F24Generator {
 
-    public static void main(String[] args) throws IOException, ResourceException, ProcessingException {
-        //String simplifiedJson = "src/test/resources/input/f24simplified.json";
+    @Test
+    public void generateSimplified() throws IOException, ResourceException {
+        Date start = new Date();
         String simplifiedJson = "src\\test\\resources\\input\\f24simplified.json";
         String simplifiedString = new String(Files.readAllBytes(Paths.get(simplifiedJson)));
 
         F24Simplified f24Simplified = new ObjectMapper().readValue(simplifiedString, F24Simplified.class);
-        Validator simplifiedValidator = ValidatorFactory.createValidator(f24Simplified);
-        simplifiedValidator.validate();
 
-        //Files.write(Path.of("src/test/resources/output/simplified.pdf"), PDFCreatorFactory.createPDFCreator(f24Simplified).createPDF());
-        Files.write(Path.of("src\\test\\resources\\output\\f24simplified.pdf"), PDFCreatorFactory.createPDFCreator(f24Simplified).createPDF());
 
-        //String standardJson = "src/test/resources/input/f24standard.json";
+        byte[] bytes = Assertions.assertDoesNotThrow(() -> PDFCreatorFactory.createPDFCreator(f24Simplified).createPDF());
+        Files.write(Path.of("src\\test\\resources\\output\\f24simplified_test.pdf"), bytes);
+
+        System.out.println("pages simplified: " + PDFCreatorFactory.createPDFCreator(f24Simplified).getPagesAmount());
+        System.out.println("Ending simplified in " + (new Date().getTime() - start.getTime()) + " ms");
+        Assertions.assertNotNull(bytes);
+        Assertions.assertNotEquals(0, bytes.length);
+    }
+
+    @Test
+    public void generateStandard() throws IOException, ResourceException {
+        Date start = new Date();
         String standardJson = "src\\test\\resources\\input\\f24standard.json";
         String standardString = new String(Files.readAllBytes(Paths.get(standardJson)));
 
         F24Standard f24Standard = new ObjectMapper().readValue(standardString, F24Standard.class);
-        Validator standardValidator = ValidatorFactory.createValidator(f24Standard);
-        standardValidator.validate();
 
-        //Files.write(Path.of("src/test/resources/output/standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
-        Files.write(Path.of("src\\test\\resources\\output\\f24standard.pdf"), PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
+        byte[] bytes = Assertions.assertDoesNotThrow(() -> PDFCreatorFactory.createPDFCreator(f24Standard).createPDF());
+        Files.write(Path.of("src\\test\\resources\\output\\f24standard_test.pdf"), bytes);
 
-        //String exciseJson = "src/test/resources/input/f24excise.json";
+        System.out.println("pages standard: " + PDFCreatorFactory.createPDFCreator(f24Standard).getPagesAmount());
+        System.out.println("Ending standard in " + (new Date().getTime() - start.getTime()) + " ms");
+        Assertions.assertNotNull(bytes);
+        Assertions.assertNotEquals(0, bytes.length);
+    }
+
+    @Test
+    public void generateExcise() throws IOException, ResourceException {
+        Date start = new Date();
         String exciseJson = "src\\test\\resources\\input\\f24excise.json";
         String exciseString = new String(Files.readAllBytes(Paths.get(exciseJson)));
 
         F24Excise f24Excise = new ObjectMapper().readValue(exciseString, F24Excise.class);
-        Validator exciseValidator = ValidatorFactory.createValidator(f24Excise);
-        exciseValidator.validate();
 
-        //Files.write(Path.of("src/test/resources/output/excise.pdf"), PDFCreatorFactory.createPDFCreator(f24Excise).createPDF());
-        Files.write(Path.of("src\\test\\resources\\output\\f24excise.pdf"), PDFCreatorFactory.createPDFCreator(f24Excise).createPDF());
+        byte[] bytes = Assertions.assertDoesNotThrow(() -> PDFCreatorFactory.createPDFCreator(f24Excise).createPDF());
+        Files.write(Path.of("src\\test\\resources\\output\\f24excise_test.pdf"), bytes);
 
-        //String elidJson = "src/test/resources/input/f24elide.json";
+        System.out.println("pages excise: " + PDFCreatorFactory.createPDFCreator(f24Excise).getPagesAmount());
+        System.out.println("Ending excise in " + (new Date().getTime() - start.getTime()) + " ms");
+        Assertions.assertNotNull(bytes);
+        Assertions.assertNotEquals(0, bytes.length);
+    }
+
+    @Test
+    public void generateElid() throws IOException, ResourceException {
+        Date start = new Date();
         String elidJson = "src\\test\\resources\\input\\f24elide.json";
         String elidString = new String(Files.readAllBytes(Paths.get(elidJson)));
 
         F24Elid f24Elid = new ObjectMapper().readValue(elidString, F24Elid.class);
-        Validator elidValidator = ValidatorFactory.createValidator(f24Elid);
-        elidValidator.validate();
 
-        //Files.write(Path.of("src/test/resources/output/elid.pdf"), PDFCreatorFactory.createPDFCreator(f24Elid).createPDF());
-        Files.write(Path.of("src\\test\\resources\\output\\f24elid.pdf"), PDFCreatorFactory.createPDFCreator(f24Elid).createPDF());
+        byte[] bytes = Assertions.assertDoesNotThrow(() -> PDFCreatorFactory.createPDFCreator(f24Elid).createPDF());
+        Files.write(Path.of("src\\test\\resources\\output\\f24elid_test.pdf"), bytes);
 
-        System.out.println("pages elid: "+ PDFCreatorFactory.createPDFCreator(f24Elid).getPagesAmount());
-        System.out.println("pages excise: "+ PDFCreatorFactory.createPDFCreator(f24Excise).getPagesAmount());
-        System.out.println("pages simplified: "+ PDFCreatorFactory.createPDFCreator(f24Simplified).getPagesAmount());
-        System.out.println("pages standard: "+ PDFCreatorFactory.createPDFCreator(f24Standard).getPagesAmount());
+        System.out.println("pages elid: " + PDFCreatorFactory.createPDFCreator(f24Elid).getPagesAmount());
+        System.out.println("Ending elid in " + (new Date().getTime() - start.getTime()) + " ms");
+        Assertions.assertNotNull(bytes);
+        Assertions.assertNotEquals(0, bytes.length);
     }
-
 }

@@ -1,7 +1,12 @@
 package org.f24.service.pdf.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.f24.dto.component.Record;
+import org.f24.dto.form.F24Form;
+import org.f24.exception.ResourceException;
+import org.f24.service.pdf.impl.FormPDFCreator;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,17 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
-import org.apache.pdfbox.pdmodel.interactive.form.PDField;
-import org.f24.dto.component.Record;
-import org.f24.dto.form.F24Form;
-import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
-import org.f24.exception.ResourceException;
-import org.f24.service.pdf.impl.FormPDFCreator;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class PDFFormManagerTest {
 
@@ -49,31 +45,28 @@ class PDFFormManagerTest {
   }
 
   @Test
-  void givenPDFDocument_whentGetPDFAcroForm_thenReturnPDFForm() throws ResourceException {
+  void givenPdfRreader_whentGetAcroFields_thenReturnAcroFields() throws ResourceException {
     f24FormCreator.setIndex(0);
-    PDDocumentCatalog documentCatalog = f24FormCreator.getCurrentCopy().getDocumentCatalog();
-    PDAcroForm form = documentCatalog.getAcroForm();
-
-    assertNotNull(form);
+    assertNotNull(f24FormCreator.getForm());
   }
 
   @Test
-  void givenStringFieldName_whenGetPDFField_thenReturnPDFField() throws ResourceException {
+  void givenStringFieldName_whenGetField_thenReturnField() throws ResourceException {
     f24FormCreator.setIndex(0);
-    PDField field = f24FormCreator.getField("taxCode");
+    String field = f24FormCreator.getField("taxCode");
 
     assertNotNull(field);
   }
 
   @Test
-  void givenStringFieldNameStringFieldValue_shouldUpdatePdfField() throws ResourceException {
+  void givenStringFieldNameStringFieldValue_shouldUpdateField() throws ResourceException {
     f24FormCreator.setIndex(0);
     f24FormCreator.setField("name", "test");
 
-    PDField field = f24FormCreator.getField("name");
+    String field = f24FormCreator.getField("name");
 
     assertNotNull(field);
-    assertEquals("test", field.getValueAsString());
+    assertEquals("test", field);
   }
 
   @Test
@@ -86,14 +79,6 @@ class PDFFormManagerTest {
     assertEquals(documentCopies + 1, f24FormCreator.getCopies().size());
   }
 
-  @Test
-  void shouldMergeDocumentCopies() throws IOException, ResourceException {
-    f24FormCreator.setIndex(0);
-    f24FormCreator.copy(1);
-    f24FormCreator.mergeCopies();
-
-    assertNotNull(f24FormCreator.getDoc());
-  }
 
   @Test
   void givenIntValue_whenConvertToFloatString_thenReturnString() {
