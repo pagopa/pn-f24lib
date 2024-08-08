@@ -121,10 +121,11 @@ public class PDFFormManager {
     protected byte[] mergeCopies() throws IOException, ResourceException {
         ByteArrayOutputStream mergedOutputStream = new ByteArrayOutputStream();
         Document document = new Document();
-        PdfCopy pdfCopy = new PdfCopy(document, mergedOutputStream);
-        document.open();
+     //   PdfCopy pdfCopy = new PdfCopy(document, mergedOutputStream);
+      //  document.open();
 
-        try {
+        try (document; PdfCopy pdfCopy = new PdfCopy(document, mergedOutputStream)) {
+            document.open();
             int totalPages = copies.get(0).getNumberOfPages();
             for (int i = 1; i <= totalPages; i++) {
                 for (int j = 0; j < copies.size(); j++) {
@@ -137,8 +138,6 @@ public class PDFFormManager {
             }
         } catch (Exception e) {
             throw new ResourceException("Error merging copies");
-        } finally {
-            document.close();
         }
 
         return mergedOutputStream.toByteArray();
