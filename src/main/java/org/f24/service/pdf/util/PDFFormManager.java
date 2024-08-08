@@ -3,16 +3,16 @@ package org.f24.service.pdf.util;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.*;
+import org.f24.dto.component.Record;
 import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
-import org.f24.dto.component.Record;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
 
-import static org.f24.service.pdf.util.FieldEnum.*;
+import static org.f24.service.pdf.util.FieldEnum.TOTAL_AMOUNT;
 
 public class PDFFormManager {
 
@@ -39,12 +39,11 @@ public class PDFFormManager {
         return this.copies.get(this.currentIndex);
     }
 
-
     protected AcroFields getForm() throws ResourceException {
         try {
             if (pdfStamper == null) {
                 pdfStamper = new PdfStamper(getCurrentCopy(), copyByteArrayOutputStream);
-                pdfStamper.setFormFlattening(true);
+                pdfStamper.setFormFlattening(false);
             }
             AcroFields form = pdfStamper.getAcroFields();
             if (form == null) {
@@ -119,21 +118,27 @@ public class PDFFormManager {
         }
     }
 
-
     protected byte[] mergeCopies() throws IOException, ResourceException {
         ByteArrayOutputStream mergedOutputStream = new ByteArrayOutputStream();
         Document document = new Document();
+        PdfCopy pdfCopy = new PdfCopy(document, mergedOutputStream);
+        document.open();
 
-        try (document; PdfCopy pdfCopy = new PdfCopy(document, mergedOutputStream)) {
-            document.open();
-            for (int i = 1; i <= copies.get(0).getNumberOfPages(); i++) {
-                for (PdfReader reader : copies) {
+        try {
+            int totalPages = copies.get(0).getNumberOfPages();
+            for (int i = 1; i <= totalPages; i++) {
+                for (int j = 0; j < copies.size(); j++) {
+                    PdfReader reader = copies.get(j);
+                    if (i == 1 && j == 0) {
+                        pdfCopy.copyAcroForm(reader);
+                    }
                     pdfCopy.addPage(pdfCopy.getImportedPage(reader, i));
-                    reader.close();
                 }
             }
         } catch (Exception e) {
             throw new ResourceException("Error merging copies");
+        } finally {
+            document.close();
         }
 
         return mergedOutputStream.toByteArray();
