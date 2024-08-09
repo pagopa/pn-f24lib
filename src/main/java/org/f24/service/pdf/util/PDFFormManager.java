@@ -3,16 +3,16 @@ package org.f24.service.pdf.util;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.*;
+import org.f24.dto.component.Record;
 import org.f24.exception.ErrorEnum;
 import org.f24.exception.ResourceException;
-import org.f24.dto.component.Record;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
 
-import static org.f24.service.pdf.util.FieldEnum.*;
+import static org.f24.service.pdf.util.FieldEnum.TOTAL_AMOUNT;
 
 public class PDFFormManager {
 
@@ -39,12 +39,11 @@ public class PDFFormManager {
         return this.copies.get(this.currentIndex);
     }
 
-
     protected AcroFields getForm() throws ResourceException {
         try {
             if (pdfStamper == null) {
                 pdfStamper = new PdfStamper(getCurrentCopy(), copyByteArrayOutputStream);
-                pdfStamper.setFormFlattening(true);
+                pdfStamper.setFormFlattening(false);
             }
             AcroFields form = pdfStamper.getAcroFields();
             if (form == null) {
@@ -119,17 +118,21 @@ public class PDFFormManager {
         }
     }
 
-
     protected byte[] mergeCopies() throws IOException, ResourceException {
         ByteArrayOutputStream mergedOutputStream = new ByteArrayOutputStream();
         Document document = new Document();
 
         try (document; PdfCopy pdfCopy = new PdfCopy(document, mergedOutputStream)) {
             document.open();
-            for (int i = 1; i <= copies.get(0).getNumberOfPages(); i++) {
+
+            PdfReader firstCopy = copies.get(0);
+            pdfCopy.copyAcroForm(firstCopy);
+
+            // Retrieve the pages for each copy and iterate over them to maintain the pagination sequence
+            int totalPages = firstCopy.getNumberOfPages();
+            for (int i = 1; i <= totalPages; i++) {
                 for (PdfReader reader : copies) {
                     pdfCopy.addPage(pdfCopy.getImportedPage(reader, i));
-                    reader.close();
                 }
             }
         } catch (Exception e) {
