@@ -57,6 +57,25 @@ public class FormValidator implements Validator {
         validateTaxPayer();
     }
 
+    @Override
+    public void validateWithoutTaxCode() throws ProcessingException, IOException, ResourceException {
+        JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder().freeze();
+
+        JsonNode jsonForm = objectMapper.valueToTree(this.form);
+        JsonNode jsonSchemaNode = objectMapper.readTree(getClass().getClassLoader().getResourceAsStream(this.schemaPath));
+        JsonSchema jsonSchema = jsonSchemaFactory.getJsonSchema(jsonSchemaNode);
+
+        ProcessingReport processingReport = jsonSchema.validate(jsonForm);
+
+        if (!processingReport.isSuccess()) {
+            for (ProcessingMessage message : processingReport) {
+                manageError(message);
+            }
+        }
+
+        validateTaxPayer();
+    }
+
     private void validateTaxCode() throws ResourceException {
         PersonData personData = this.form.getTaxPayer().getPersonData();
         if(personData != null) {

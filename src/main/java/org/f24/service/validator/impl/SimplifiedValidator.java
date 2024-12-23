@@ -39,4 +39,9 @@ public class SimplifiedValidator extends FormValidator {
         validateDebitAndCreditFields();
     }
 
+    @Override
+    public void validateWithoutTaxCode() throws ProcessingException, IOException, ResourceException {
+        super.validateWithoutTaxCode();
+        validateDebitAndCreditFields();
+    }
 }

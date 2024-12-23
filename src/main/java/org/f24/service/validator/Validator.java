@@ -8,5 +8,6 @@ import java.io.IOException;
 public interface Validator {
 
     void validate() throws ProcessingException, IOException, ResourceException;
+    void validateWithoutTaxCode() throws ProcessingException, IOException, ResourceException;
 
 }
