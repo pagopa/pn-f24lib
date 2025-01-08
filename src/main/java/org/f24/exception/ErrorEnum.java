@@ -15,7 +15,8 @@ public enum ErrorEnum {
     RECORD_EMPTY("recordEmpty", "Record can`t be empty"),
     ACROFORM_EMPTY("emtyAcro", "Impossible to get acroform, because it is empty"),
     DEFAULT("default", "Error occurred during validation."),
-    MULTI_TAX_PAYER("multiTaxPayer", "Only one type of tax payer is allowed.");
+    MULTI_TAX_PAYER("multiTaxPayer", "Only one type of tax payer is allowed."),
+    TAX_CODE_PF("taxCodePF", "Invalid tax code for personal data.");
 
     private String code;
     private String message;

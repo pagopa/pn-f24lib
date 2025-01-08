@@ -69,12 +69,15 @@ public class FormValidator implements Validator {
                     birthdate = new Date();
                 }
 
-                if(this.form.getTaxPayer().getTaxCode() != null) {
-                    String municipality = this.form.getTaxPayer().getTaxCode().substring(11, 15);
+                String taxCode = this.form.getTaxPayer().getTaxCode();
+                if(taxCode != null && taxCode.length() > 11) {
+                    String municipality = taxCode.substring(11, 15);
                     String calculatedTaxCode = TaxCodeCalculator.calculateTaxCode(personalData.getSurname(), personalData.getName(), personalData.getSex(), birthdate, municipality);
-                    if(!this.form.getTaxPayer().getTaxCode().substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
+                    if(!taxCode.substring(0, 11).equals(calculatedTaxCode.substring(0, 11))) {
                         throw new ResourceException(ErrorEnum.TAX_CODE.getMessage());
                     }
+                } else {
+                    throw new ResourceException(ErrorEnum.TAX_CODE_PF.getMessage());
                 }
             }
         }
