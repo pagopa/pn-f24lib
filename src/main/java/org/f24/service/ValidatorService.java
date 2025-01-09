@@ -15,4 +15,9 @@ public class ValidatorService {
         validator.validate();
     }
 
+    public void validatePdfWithoutTaxCode(F24Form form) throws IOException, ProcessingException, ResourceException {
+        Validator validator = ValidatorFactory.createValidator(form);
+        validator.validateWithoutTaxCode();
+    }
+
 }

@@ -38,4 +38,9 @@ public class StandardValidator extends FormValidator {
         validateSections();
     }
 
+    @Override
+    public void validateWithoutTaxCode() throws ProcessingException, IOException, ResourceException {
+        super.validateWithoutTaxCode();
+        validateSections();
+    }
 }

@@ -32,4 +32,9 @@ public class ExciseValidator extends FormValidator {
         validateSections();
     }
 
+    @Override
+    public void validateWithoutTaxCode() throws ProcessingException, IOException, ResourceException {
+        super.validateWithoutTaxCode();
+        validateSections();
+    }
 }
