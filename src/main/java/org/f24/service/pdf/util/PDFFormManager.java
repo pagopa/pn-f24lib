@@ -57,6 +57,7 @@ public class PDFFormManager {
 
     public void closeStamper() throws IOException {
         if (pdfStamper != null) {
+            pdfStamper.setFormFlattening(true);
             pdfStamper.close();
             pdfStamper = null;
         }
@@ -225,6 +226,7 @@ public class PDFFormManager {
 
     protected void finalizeDoc() throws IOException {
         if (this.pdfStamper != null) {
+            pdfStamper.setFormFlattening(true);
             this.pdfStamper.close();
         }
 
